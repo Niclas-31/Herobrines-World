@@ -1,0 +1,33 @@
+{
+  "name": "herobrines_world:throne_of_the_underworld/rooms",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 3,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "herobrines_world:throne_of_the_underworld/rooms/entity_303_boss_arena_2",
+        "projection": "rigid",
+        "processors": []
+      }
+    },
+    {
+      "weight": 3,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "herobrines_world:throne_of_the_underworld/rooms/entity_303_boss_arena_3",
+        "projection": "rigid",
+        "processors": []
+      }
+    },
+    {
+      "weight": 3,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "herobrines_world:throne_of_the_underworld/rooms/entity_303_boss_arena_4",
+        "projection": "rigid",
+        "processors": []
+      }
+    }
+  ]
+}

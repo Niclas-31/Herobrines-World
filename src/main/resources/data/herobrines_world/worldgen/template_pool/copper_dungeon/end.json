@@ -1,0 +1,15 @@
+{
+  "name": "herobrines_world:copper_dungeon/end",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "herobrines_world:copper_dungeon/ends/end_1",
+        "projection": "rigid",
+        "processors": []
+      }
+    }
+  ]
+}

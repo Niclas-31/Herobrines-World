@@ -1,0 +1,14 @@
+{
+  "structures": [
+    {
+      "structure": "herobrines_world:throne_of_the_underworld",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "spacing": 48,
+    "separation": 32,
+    "salt": 1679957994
+  }
+}
