@@ -1,0 +1,26 @@
+{
+  "description": {
+    "translate": "enchantment.herobrines_world.herobrine"
+  },
+  "supported_items": [
+    "herobrines_world:nature_sword",
+    "herobrines_world:fire_sword",
+    "herobrines_world:herobrine_sword",
+    "herobrines_world:toxenium_sword"
+  ],
+  "weight": 5,
+  "max_level": 4,
+  "min_cost": {
+    "base": 1,
+    "per_level_above_first": 10
+  },
+  "max_cost": {
+    "base": 6,
+    "per_level_above_first": 10
+  },
+  "anvil_cost": 20,
+  "slots": [
+    "mainhand"
+  ],
+  "exclusive_set": []
+}
