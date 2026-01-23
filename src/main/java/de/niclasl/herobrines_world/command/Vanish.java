@@ -1,0 +1,43 @@
+package de.niclasl.herobrines_world.command;
+
+import net.neoforged.neoforge.event.RegisterCommandsEvent;
+import net.neoforged.neoforge.common.util.FakePlayerFactory;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.bus.api.SubscribeEvent;
+
+import net.minecraft.world.level.Level;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.commands.arguments.EntityArgument;
+import net.minecraft.commands.Commands;
+
+import de.niclasl.herobrines_world.procedures.TargetPlayer;
+import de.niclasl.herobrines_world.procedures.IsTheSamePlayer;
+
+@EventBusSubscriber
+public class Vanish {
+	@SubscribeEvent
+	public static void registerCommand(RegisterCommandsEvent event) {
+		if (event.getCommandSelection() == Commands.CommandSelection.DEDICATED)
+			event.getDispatcher().register(Commands.literal("vanish").requires(s -> s.hasPermission(4)).then(Commands.argument("targets", EntityArgument.players()).executes(arguments -> {
+				Level world = arguments.getSource().getUnsidedLevel();
+				Entity entity = arguments.getSource().getEntity();
+				if (entity == null && world instanceof ServerLevel _servLevel)
+					entity = FakePlayerFactory.getMinecraft(_servLevel);
+				if (entity != null) entity.getDirection();
+
+				TargetPlayer.execute(arguments, entity);
+				return 0;
+			})).executes(arguments -> {
+				Level world = arguments.getSource().getUnsidedLevel();
+				Entity entity = arguments.getSource().getEntity();
+				if (entity == null && world instanceof ServerLevel _servLevel)
+					entity = FakePlayerFactory.getMinecraft(_servLevel);
+				if (entity != null) entity.getDirection();
+
+				IsTheSamePlayer.execute(entity);
+				return 0;
+			}));
+	}
+
+}
