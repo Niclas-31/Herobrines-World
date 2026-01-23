@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "aaa",
+    " b ",
+    " b "
+  ],
+  "key": {
+    "a": "herobrines_world:green_gem",
+    "b": "minecraft:stick"
+  },
+  "result": {
+    "id": "herobrines_world:nature_pickaxe",
+    "count": 1
+  }
+}
