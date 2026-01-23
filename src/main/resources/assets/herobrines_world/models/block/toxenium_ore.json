@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "down": "herobrines_world:block/toxenium_ore_top",
+    "up": "herobrines_world:block/toxenium_ore_top",
+    "north": "herobrines_world:block/toxenium_ore_side",
+    "east": "herobrines_world:block/toxenium_ore_side",
+    "south": "herobrines_world:block/toxenium_ore_side",
+    "west": "herobrines_world:block/toxenium_ore_side",
+    "particle": "herobrines_world:block/toxenium_ore_top"
+  }
+}
