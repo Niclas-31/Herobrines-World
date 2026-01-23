@@ -1,0 +1,17 @@
+package de.niclasl.herobrines_world.block.custom;
+
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.Block;
+import org.jetbrains.annotations.NotNull;
+
+public class FrozenHeartOre extends Block {
+	public FrozenHeartOre(BlockBehaviour.Properties properties) {
+		super(properties.strength(3.5f, 13f).requiresCorrectToolForDrops());
+	}
+
+	@Override
+	public int getLightBlock(@NotNull BlockState state) {
+		return 15;
+	}
+}
