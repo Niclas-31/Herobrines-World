@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "herobrines_world:herobrine_ore",
+    "herobrines_world:ash_ore",
+    "herobrines_world:herobrine_block",
+    "herobrines_world:deepslate_herobrine_ore",
+    "herobrines_world:deepslate_ash_ore"
+  ]
+}

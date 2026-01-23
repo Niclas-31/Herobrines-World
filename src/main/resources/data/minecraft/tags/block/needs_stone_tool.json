@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "herobrines_world:deepslate_green_ore",
+    "herobrines_world:frozen_heart_ore",
+    "herobrines_world:deepslate_frozen_heart_ore",
+    "herobrines_world:green_ore"
+  ]
+}

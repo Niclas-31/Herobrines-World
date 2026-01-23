@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "herobrines_world:fire_hoe",
+    "herobrines_world:herobrine_hoe",
+    "herobrines_world:nature_hoe",
+    "herobrines_world:toxenium_hoe"
+  ]
+}

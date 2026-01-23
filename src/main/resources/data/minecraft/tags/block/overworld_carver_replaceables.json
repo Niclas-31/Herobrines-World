@@ -1,0 +1,14 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:grass_block",
+    "herobrines_world:abyssal_block",
+    "minecraft:dirt",
+    "minecraft:netherrack",
+    "minecraft:blackstone",
+    "minecraft:stone",
+    "herobrines_world:ash_block",
+    "minecraft:black_concrete",
+    "herobrines_world:blue_sandstone"
+  ]
+}

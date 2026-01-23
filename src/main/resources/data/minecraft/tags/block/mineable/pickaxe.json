@@ -1,0 +1,27 @@
+{
+  "replace": false,
+  "values": [
+    "herobrines_world:blue_smooth_sandstone_stairs",
+    "herobrines_world:blue_smooth_sandstone_slab",
+    "herobrines_world:blue_chiseled_sandstone",
+    "herobrines_world:ash_ore",
+    "herobrines_world:deepslate_green_ore",
+    "herobrines_world:abyssal_block",
+    "herobrines_world:blue_cut_sandstone_slab",
+    "herobrines_world:herobrine_block",
+    "herobrines_world:blue_sandstone_wall",
+    "herobrines_world:blue_cut_sandstone",
+    "herobrines_world:deepslate_ash_ore",
+    "herobrines_world:blue_sandstone_stairs",
+    "herobrines_world:deepslate_frozen_heart_ore",
+    "herobrines_world:cursed_stone",
+    "herobrines_world:blue_sandstone",
+    "herobrines_world:herobrine_ore",
+    "herobrines_world:frozen_heart_ore",
+    "herobrines_world:blue_sandstone_slab",
+    "herobrines_world:deepslate_herobrine_ore",
+    "herobrines_world:blue_smooth_sandstone",
+    "herobrines_world:toxenium_ore",
+    "herobrines_world:green_ore"
+  ]
+}

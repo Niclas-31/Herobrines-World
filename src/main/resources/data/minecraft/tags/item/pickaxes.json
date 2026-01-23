@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "herobrines_world:toxenium_pickaxe",
+    "herobrines_world:nature_pickaxe",
+    "herobrines_world:ore_detector",
+    "herobrines_world:herobrine_pickaxe",
+    "herobrines_world:fire_pickaxe",
+    "herobrines_world:ash_pickaxe"
+  ]
+}
