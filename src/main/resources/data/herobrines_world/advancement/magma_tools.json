@@ -1,0 +1,36 @@
+{
+  "display": {
+    "icon": {
+      "id": "herobrines_world:fire_pickaxe"
+    },
+    "title": {
+      "translate": "advancements.magma_tools.title"
+    },
+    "description": {
+      "translate": "advancements.magma_tools.descr"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "magma_tools_0": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "herobrines_world:fire_pickaxe"
+            ],
+            "count": {
+              "min": 1,
+              "max": 1
+            }
+          }
+        ]
+      }
+    }
+  },
+  "parent": "herobrines_world:lava_time"
+}
