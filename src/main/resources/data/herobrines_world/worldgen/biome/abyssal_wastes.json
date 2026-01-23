@@ -1,0 +1,76 @@
+{
+  "has_precipitation": false,
+  "temperature": 2,
+  "downfall": 0,
+  "effects": {
+    "foliage_color": -6750208,
+    "grass_color": -6750208,
+    "sky_color": -6750208,
+    "fog_color": -6750208,
+    "water_color": -6750208,
+    "water_fog_color": -6750208
+  },
+  "spawners": {
+    "monster": [
+      {
+        "type": "ghast",
+        "weight": 50,
+        "minCount": 4,
+        "maxCount": 4
+      },
+      {
+        "type": "zombified_piglin",
+        "weight": 100,
+        "minCount": 4,
+        "maxCount": 4
+      },
+      {
+        "type": "magma_cube",
+        "weight": 2,
+        "minCount": 4,
+        "maxCount": 4
+      },
+      {
+        "type": "enderman",
+        "weight": 1,
+        "minCount": 4,
+        "maxCount": 4
+      },
+      {
+        "type": "piglin",
+        "weight": 15,
+        "minCount": 4,
+        "maxCount": 4
+      }
+    ],
+    "creature": [
+      {
+        "type": "strider",
+        "weight": 60,
+        "minCount": 1,
+        "maxCount": 2
+      }
+    ],
+    "ambient": [],
+    "axolotls": [],
+    "underground_water_creature": [],
+    "water_creature": [],
+    "water_ambient": [],
+    "misc": []
+  },
+  "spawn_costs": {},
+  "carvers": [],
+  "features": [
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    []
+  ]
+}
