@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "a",
+    "a",
+    "b"
+  ],
+  "key": {
+    "a": "herobrines_world:green_gemstone",
+    "b": "minecraft:stick"
+  },
+  "result": {
+    "id": "herobrines_world:nature_sword",
+    "count": 1
+  }
+}

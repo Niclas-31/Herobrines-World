@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    " a ",
+    " a ",
+    "bbb"
+  ],
+  "key": {
+    "a": "minecraft:stick",
+    "b": "minecraft:stone_slab"
+  },
+  "result": {
+    "id": "herobrines_world:ore_detector",
+    "count": 1
+  }
+}

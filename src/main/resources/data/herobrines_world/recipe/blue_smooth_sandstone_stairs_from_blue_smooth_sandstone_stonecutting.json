@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "herobrines_world:blue_smooth_sandstone",
+  "result": {
+    "id": "herobrines_world:blue_smooth_sandstone_stairs",
+    "count": 1
+  }
+}

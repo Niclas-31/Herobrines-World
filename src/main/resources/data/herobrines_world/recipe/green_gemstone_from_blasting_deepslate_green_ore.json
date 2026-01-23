@@ -1,0 +1,11 @@
+{
+    "type": "minecraft:blasting",
+    "group": "green_gemstone",
+    "category": "misc",
+    "experience": 1,
+    "cookingtime": 100,
+    "ingredient": "herobrines_world:deepslate_green_ore",
+    "result": {
+        "id": "herobrines_world:green_gemstone"
+    }
+}
