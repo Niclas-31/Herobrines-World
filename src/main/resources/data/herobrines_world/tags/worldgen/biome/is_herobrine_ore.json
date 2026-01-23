@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "herobrines_world:cursed_forest",
+    {
+      "id": "#minecraft:is_overworld",
+      "required": false
+    }
+  ]
+}

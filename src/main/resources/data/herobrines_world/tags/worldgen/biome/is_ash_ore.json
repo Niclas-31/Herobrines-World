@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "herobrines_world:ash_desert",
+    {
+      "id": "#minecraft:is_overworld",
+      "required": false
+    }
+  ]
+}
