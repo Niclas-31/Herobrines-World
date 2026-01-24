@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "powered=false": {
+      "model": "herobrines_world:wireless_receiver_block"
+    },
+    "powered=true": {
+      "model": "herobrines_world:wireless_receiver_block_on"
+    }
+  }
+}
