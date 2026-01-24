@@ -1,10 +1,34 @@
 {
   "variants": {
-    "powered=false": {
+    "powered=false,facing=north": {
+      "model": "herobrines_world:wireless_sender_block",
+      "y": 180
+    },
+    "powered=true,facing=north": {
+      "model": "herobrines_world:wireless_sender_block_on",
+      "y": 180
+    },
+    "powered=false,facing=south": {
       "model": "herobrines_world:wireless_sender_block"
     },
-    "powered=true": {
+    "powered=true,facing=south": {
       "model": "herobrines_world:wireless_sender_block_on"
+    },
+    "powered=false,facing=east": {
+      "model": "herobrines_world:wireless_sender_block",
+      "y": 270
+    },
+    "powered=true,facing=east": {
+      "model": "herobrines_world:wireless_sender_block_on",
+      "y": 270
+    },
+    "powered=false,facing=west": {
+      "model": "herobrines_world:wireless_sender_block",
+      "y": 90
+    },
+    "powered=true,facing=west": {
+      "model": "herobrines_world:wireless_sender_block_on",
+      "y": 90
     }
   }
 }
