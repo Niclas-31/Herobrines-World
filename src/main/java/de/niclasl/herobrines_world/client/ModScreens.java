@@ -1,6 +1,3 @@
-/*
- *	MCreator note: This file will be REGENERATED on each build.
- */
 package de.niclasl.herobrines_world.client;
 
 import de.niclasl.herobrines_world.client.gui.*;
@@ -24,6 +21,8 @@ public class ModScreens {
 		event.register(ModMenus.LOG_OUT.get(), LogOutGui::new);
 		event.register(ModMenus.SIGNAL_COLOR_CHANGER.get(), SignalColorChangerGui::new);
 		event.register(ModMenus.DELAYER.get(), DelayerScreen::new);
+		event.register(ModMenus.WIRELESS_SENDER.get(), WirelessSenderScreen::new);
+		event.register(ModMenus.WIRELESS_RECEIVER.get(), WirelessReceiverScreen::new);
 	}
 
 	public interface ScreenAccessor {
