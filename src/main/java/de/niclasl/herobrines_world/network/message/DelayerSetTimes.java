@@ -48,9 +48,7 @@ public record DelayerSetTimes(BlockPos pos, int ticks, int seconds, int minutes,
 
     public static void handle(DelayerSetTimes message, IPayloadContext context) {
         if (context.flow() == PacketFlow.SERVERBOUND) {
-            context.enqueueWork(() -> {
-                handleAction(context.player(), message.pos, message.ticks, message.seconds, message.minutes, message.hours);
-            }).exceptionally(e -> {
+            context.enqueueWork(() -> handleAction(context.player(), message.pos, message.ticks, message.seconds, message.minutes, message.hours)).exceptionally(e -> {
                 context.connection().disconnect(Component.literal(e.getMessage()));
                 return null;
             });
