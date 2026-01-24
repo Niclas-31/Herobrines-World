@@ -4,6 +4,8 @@ import de.niclasl.herobrines_world.HerobrinesWorld;
 import de.niclasl.herobrines_world.block.ModBlocks;
 import de.niclasl.herobrines_world.block.entity.custom.DelayerEntity;
 import de.niclasl.herobrines_world.block.entity.custom.RedEnchantmentTableBlockEntity;
+import de.niclasl.herobrines_world.block.entity.custom.WirelessReceiverBlockEntity;
+import de.niclasl.herobrines_world.block.entity.custom.WirelessSenderBlockEntity;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.bus.api.IEventBus;
@@ -22,6 +24,15 @@ public class ModBlockEntities {
     public static final Supplier<BlockEntityType<DelayerEntity>> DELAYER =
             BLOCK_ENTITIES.register("delayer", () -> new BlockEntityType<>(
                     DelayerEntity::new, ModBlocks.DELAYER.get()));
+
+    public static final Supplier<BlockEntityType<WirelessSenderBlockEntity>> WIRELESS_SENDER =
+            BLOCK_ENTITIES.register("wireless_sender_block", () -> new BlockEntityType<>(
+                    WirelessSenderBlockEntity::new, ModBlocks.WIRELESS_SENDER_BLOCK.get()));
+
+    public static final Supplier<BlockEntityType<WirelessReceiverBlockEntity>> WIRELESS_RECEIVER =
+            BLOCK_ENTITIES.register("wireless_receiver_block", () -> new BlockEntityType<>(
+                    WirelessReceiverBlockEntity::new, ModBlocks.WIRELESS_RECEIVER_BLOCK.get()
+            ));
 
     public static void register(IEventBus eventBus) {
         BLOCK_ENTITIES.register(eventBus);
