@@ -96,6 +96,8 @@ public class ModTabs {
 							tabData.accept(Signal.setModeOnStack(new ItemStack(ModBlocks.SIGNAL), color));
 						}
 						tabData.accept(ModBlocks.DELAYER);
+						tabData.accept(ModBlocks.WIRELESS_SENDER_BLOCK);
+						tabData.accept(ModBlocks.WIRELESS_RECEIVER_BLOCK);
 			}).build());
 
 	public static final Supplier<CreativeModeTab> HEROBRINE_COMBAT = CREATIVE_MODE_TAB.register("herobrines_combat",
