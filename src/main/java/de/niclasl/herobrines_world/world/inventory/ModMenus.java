@@ -19,6 +19,7 @@ import net.minecraft.client.Minecraft;
 import de.niclasl.herobrines_world.network.message.MenuStateUpdate;
 import de.niclasl.herobrines_world.HerobrinesWorld;
 
+import java.awt.*;
 import java.util.Map;
 
 public class ModMenus {
@@ -34,6 +35,8 @@ public class ModMenus {
 	public static final DeferredHolder<MenuType<?>, MenuType<LogOut>> LOG_OUT = MENUS.register("log_out", () -> IMenuTypeExtension.create(LogOut::new));
 	public static final DeferredHolder<MenuType<?>, MenuType<SignalColorChanger>> SIGNAL_COLOR_CHANGER = MENUS.register("signal_color_changer", () -> IMenuTypeExtension.create(SignalColorChanger::new));
 	public static final DeferredHolder<MenuType<?>, MenuType<DelayerMenu>> DELAYER = MENUS.register("delayer", () -> IMenuTypeExtension.create(DelayerMenu::new));
+	public static final DeferredHolder<MenuType<?>, MenuType<WirelessSenderMenu>> WIRELESS_SENDER = MENUS.register("wireless_sender", () -> IMenuTypeExtension.create(WirelessSenderMenu::new));
+	public static final DeferredHolder<MenuType<?>, MenuType<WirelessReceiverMenu>> WIRELESS_RECEIVER = MENUS.register("wireless_receiver", () -> IMenuTypeExtension.create(WirelessReceiverMenu::new));
 
 	public static void register(IEventBus eventBus) {
 		MENUS.register(eventBus);
@@ -55,9 +58,10 @@ public class ModMenus {
 			}
 		}
 
+		@SuppressWarnings("unchecked")
 		default <T> T getMenuState(int elementType, String name, T defaultValue) {
 			try {
-                return (T) getMenuState().getOrDefault(elementType + ":" + name, defaultValue);
+				return (T) getMenuState().getOrDefault(elementType + ":" + name, defaultValue);
 			} catch (ClassCastException e) {
 				return defaultValue;
 			}
