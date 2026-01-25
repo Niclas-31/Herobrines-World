@@ -3,6 +3,7 @@ package de.niclasl.herobrines_world.block.entity.custom;
 import de.niclasl.herobrines_world.block.custom.WirelessReceiverBlock;
 import de.niclasl.herobrines_world.block.entity.ModBlockEntities;
 import de.niclasl.herobrines_world.network.data.VisibleNetwork;
+import de.niclasl.herobrines_world.network.data.WirelessSenderData;
 import de.niclasl.herobrines_world.network.manager.WirelessNetworkManager;
 import de.niclasl.herobrines_world.world.inventory.custom.WirelessReceiverMenu;
 import net.minecraft.core.BlockPos;
@@ -28,6 +29,7 @@ public class WirelessReceiverBlockEntity extends BlockEntity
     private List<VisibleNetwork> visibleNetworks = List.of();
     private boolean connected = false;
     private boolean powered = false;
+    private BlockPos connectedSenderPos;
 
     public WirelessReceiverBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.WIRELESS_RECEIVER.get(), pos, state);
@@ -38,6 +40,7 @@ public class WirelessReceiverBlockEntity extends BlockEntity
         super.loadAdditional(input);
         this.connected = input.getBooleanOr("connected", false);
         this.powered = input.getBooleanOr("powered", false);
+        input.getLong("sender").ifPresent(value -> connectedSenderPos = BlockPos.of(value));
     }
 
     @Override
@@ -45,12 +48,16 @@ public class WirelessReceiverBlockEntity extends BlockEntity
         super.saveAdditional(output);
         output.putBoolean("connected", this.connected);
         output.putBoolean("powered", this.powered);
+        if (connectedSenderPos != null) {
+            output.putLong("sender", connectedSenderPos.asLong());
+        }
     }
 
     public void updateVisibleNetworks() {
         visibleNetworks = WirelessNetworkManager
-                .getNetworksInRange(worldPosition, 32)
+                .getAllSenders()
                 .stream()
+                .filter(sender -> sender.pos().distManhattan(this.worldPosition) <= sender.getRange())
                 .map(s -> new VisibleNetwork(
                         s.pos(),
                         s.name(),
@@ -82,10 +89,15 @@ public class WirelessReceiverBlockEntity extends BlockEntity
     }
 
     public boolean isConnected() {
-        return connected;
+        return getConnectedSender() != null && connected;
     }
 
-    public void setConnected(boolean connected) {
+    public void setConnected(boolean connected, WirelessSenderData sender, String password) {
+        if (sender.hasPassword() && !sender.password().equals(password)) {
+            return;
+        }
+
+        this.connectedSenderPos = sender.pos();
         this.connected = connected;
         updateBlockState();
     }
@@ -110,6 +122,11 @@ public class WirelessReceiverBlockEntity extends BlockEntity
             );
         }
         setChanged();
+    }
+
+    public WirelessSenderData getConnectedSender() {
+        if (connectedSenderPos == null) return null;
+        return WirelessNetworkManager.getSender(connectedSenderPos);
     }
 
     @Override
@@ -144,4 +161,3 @@ public class WirelessReceiverBlockEntity extends BlockEntity
         setChanged();
     }
 }
-
