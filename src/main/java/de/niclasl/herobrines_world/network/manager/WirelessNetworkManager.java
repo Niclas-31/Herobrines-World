@@ -32,4 +32,18 @@ public final class WirelessNetworkManager {
     public static Collection<WirelessSenderData> getAllSenders() {
         return SENDERS.values();
     }
+
+    public static void connectReceiver(BlockPos senderPos, BlockPos receiverPos) {
+        WirelessSenderData sender = SENDERS.get(senderPos);
+        if (sender == null) return;
+
+        sender.addReceiver(receiverPos);
+    }
+
+    public static void disconnectReceiver(BlockPos senderPos, BlockPos receiverPos) {
+        WirelessSenderData sender = SENDERS.get(senderPos);
+        if (sender == null) return;
+
+        sender.removeReceiver(receiverPos);
+    }
 }
