@@ -15,4 +15,12 @@ public record WirelessSenderData(
     public boolean passwordMatches(String input) {
         return password.equals(input);
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getRange() {
+        return range;
+    }
 }
