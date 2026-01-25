@@ -35,8 +35,6 @@ public class DelayerRenderer implements BlockEntityRenderer<DelayerEntity, Delay
                                    @NotNull Vec3 cameraPosition, @Nullable ModelFeatureRenderer.CrumblingOverlay breakProgress) {
         BlockEntityRenderer.super.extractRenderState(entity, state, partialTick, cameraPosition, breakProgress);
 
-        state.lightPosition = entity.getBlockPos();
-        state.blockEntityLevel = entity.getLevel();
         state.facing = entity.getBlockState().getValue(Delayer.FACING);
         state.rotation = switch (state.facing) {
             case NORTH -> 0f;
@@ -50,9 +48,6 @@ public class DelayerRenderer implements BlockEntityRenderer<DelayerEntity, Delay
     @Override
     public void submit(@NotNull DelayerRenderState state, @NotNull PoseStack poseStack,
                        @NotNull SubmitNodeCollector collector, @NotNull CameraRenderState cameraState) {
-
-        if (state.blockEntityLevel == null) return;
-
         poseStack.pushPose();
 
         poseStack.translate(0.5, 0.125, 0.5);
