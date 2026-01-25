@@ -35,24 +35,6 @@ public class WirelessSenderBlockEntity extends BlockEntity implements MenuProvid
     }
 
     @Override
-    public void onLoad() {
-        super.onLoad();
-
-        assert level != null;
-        if (!level.isClientSide() && powered) {
-            WirelessNetworkManager.registerSender(
-                    worldPosition,
-                    new WirelessSenderData(
-                            worldPosition,
-                            networkName,
-                            password,
-                            range
-                    )
-            );
-        }
-    }
-
-    @Override
     public @NotNull CompoundTag getUpdateTag(HolderLookup.@NotNull Provider registries) {
         CompoundTag tag = super.getUpdateTag(registries);
         tag.putString("networkName", networkName);
@@ -81,13 +63,6 @@ public class WirelessSenderBlockEntity extends BlockEntity implements MenuProvid
         this.networkName = input.getStringOr("networkName", "Wireless");
         this.password = input.getStringOr("password", "");
         this.range = input.getIntOr("range", 16);
-
-        if (level != null && !level.isClientSide() && powered) {
-            WirelessNetworkManager.registerSender(
-                    worldPosition,
-                    new WirelessSenderData(worldPosition, networkName, password, range)
-            );
-        }
     }
 
     @Override
@@ -134,24 +109,16 @@ public class WirelessSenderBlockEntity extends BlockEntity implements MenuProvid
             powered = nowPowered;
 
             if (powered) {
-                // Sender registrieren
                 WirelessNetworkManager.registerSender(
                         worldPosition,
                         new WirelessSenderData(worldPosition, networkName, password, range)
                 );
             } else {
-                // Sender entfernen
                 WirelessNetworkManager.removeSender(worldPosition);
             }
 
             setChanged();
         }
-    }
-
-    @Override
-    public void setRemoved() {
-        WirelessNetworkManager.removeSender(worldPosition);
-        super.setRemoved();
     }
 
     @Override
@@ -162,28 +129,5 @@ public class WirelessSenderBlockEntity extends BlockEntity implements MenuProvid
     @Override
     public @Nullable AbstractContainerMenu createMenu(int id, @NotNull Inventory inventory, @NotNull Player player) {
         return new WirelessSenderMenu(id, this);
-    }
-
-    public static <T extends BlockEntity> void tick(Level level,
-                                                    BlockPos pos,
-                                                    BlockState state,
-                                                    T t) {
-        if (t instanceof WirelessSenderBlockEntity sender) {
-            if (level.isClientSide()) return;
-
-            boolean powered = level.getBestNeighborSignal(pos) > 0;
-            if (powered != sender.isPowered()) {
-                sender.setPowered(powered);
-
-                if (powered) {
-                    WirelessNetworkManager.registerSender(
-                            pos,
-                            new WirelessSenderData(pos, sender.getNetworkName(), sender.getPassword(), sender.getRange())
-                    );
-                } else {
-                    WirelessNetworkManager.removeSender(pos);
-                }
-            }
-        }
     }
 }
