@@ -1,26 +1,20 @@
 package de.niclasl.herobrines_world.client.gui;
 
+import de.niclasl.herobrines_world.client.ModScreens;
 import de.niclasl.herobrines_world.client.screens.PasswordPromptScreen;
 import de.niclasl.herobrines_world.network.data.ConnectNetworkPayload;
 import de.niclasl.herobrines_world.network.data.VisibleNetwork;
-import de.niclasl.herobrines_world.network.data.WirelessSenderData;
-import de.niclasl.herobrines_world.network.manager.WirelessNetworkManager;
 import de.niclasl.herobrines_world.world.inventory.custom.WirelessReceiverMenu;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.item.DyeColor;
 import net.neoforged.neoforge.client.network.ClientPacketDistributor;
 import org.jetbrains.annotations.NotNull;
 
 public class WirelessReceiverScreen
-        extends AbstractContainerScreen<WirelessReceiverMenu> {
-
-    private final Font font = Minecraft.getInstance().font;
+        extends AbstractContainerScreen<WirelessReceiverMenu> implements ModScreens.ScreenAccessor {
 
     public WirelessReceiverScreen(WirelessReceiverMenu menu,
                                   Inventory inv, Component title) {
@@ -41,8 +35,6 @@ public class WirelessReceiverScreen
             );
             y += 24;
         }
-
-        System.out.println(x);
     }
 
 
@@ -52,16 +44,6 @@ public class WirelessReceiverScreen
 
     @Override
     protected void renderLabels(@NotNull GuiGraphics guiGraphics, int mouseX, int mouseY) {
-        WirelessSenderData sender = WirelessNetworkManager.getSender(menu.getBlockPos());
-        String senderName = sender != null ? sender.getName() : "None";
-
-        guiGraphics.drawString(
-                this.font,
-                Component.translatable("gui.herobrines_world.connect_with", senderName),
-                135,
-                50,
-                DyeColor.WHITE.getFireworkColor()
-        );
     }
 
     @Override
@@ -92,5 +74,9 @@ public class WirelessReceiverScreen
                         password
                 )
         );
+    }
+
+    @Override
+    public void updateMenuState(int elementType, String name, Object elementState) {
     }
 }
