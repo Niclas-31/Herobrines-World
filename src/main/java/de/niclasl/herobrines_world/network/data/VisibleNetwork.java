@@ -12,10 +12,6 @@ public record VisibleNetwork(
         return senderData.name();
     }
 
-    public boolean hasPassword() {
-        return senderData.hasPassword();
-    }
-
     public BlockPos getPos() {
         return senderData.pos();
     }
