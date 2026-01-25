@@ -57,6 +57,15 @@ public class WirelessSenderBlockEntity extends BlockEntity implements MenuProvid
     }
 
     @Override
+    public void onLoad() {
+        super.onLoad();
+
+        if (powered) {
+            WirelessNetworkManager.registerSender(worldPosition, new WirelessSenderData(worldPosition, networkName, password, range));
+        }
+    }
+
+    @Override
     protected void loadAdditional(@NotNull ValueInput input) {
         super.loadAdditional(input);
         this.powered = input.getBooleanOr("powered", false);
