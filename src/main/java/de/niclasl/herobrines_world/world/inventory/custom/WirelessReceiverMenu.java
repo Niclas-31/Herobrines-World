@@ -29,11 +29,7 @@ public class WirelessReceiverMenu extends AbstractContainerMenu {
     }
 
     public List<VisibleNetwork> getNetworks() {
-        if (be != null) {
-            be.updateVisibleNetworks();
-            return be.getVisibleNetworks();
-        }
-        return List.of();
+        return be.getVisibleNetworks();
     }
 
     public BlockPos getBlockPos() {
