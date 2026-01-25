@@ -106,6 +106,8 @@ public class HerobrinesWorld {
 		@SubscribeEvent
 		public static void registerBER(EntityRenderersEvent.RegisterRenderers event) {
 			event.registerBlockEntityRenderer(ModBlockEntities.DELAYER.get(), DelayerRenderer::new);
+			event.registerBlockEntityRenderer(ModBlockEntities.WIRELESS_RECEIVER.get(), WirelessReceiverRenderer::new);
 		}
 	}
 }
+
