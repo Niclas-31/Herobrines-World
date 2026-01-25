@@ -26,11 +26,11 @@ public class ConnectNetworkHandler {
             if (sender == null) return;
 
             if (sender.hasPassword() && !sender.passwordMatches(msg.password())) {
-                receiver.setConnected(false);
+                receiver.setConnected(false, sender, msg.password());
                 return;
             }
 
-            receiver.setConnected(true);
+            receiver.setConnected(true, sender, msg.password());
         });
     }
 
