@@ -2,9 +2,11 @@ package de.niclasl.herobrines_world.block.custom;
 
 import com.mojang.serialization.MapCodec;
 import de.niclasl.herobrines_world.block.entity.custom.WirelessSenderBlockEntity;
+import de.niclasl.herobrines_world.network.manager.WirelessNetworkManager;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.entity.player.Player;
@@ -146,6 +148,13 @@ public class WirelessSenderBlock extends BaseEntityBlock {
             }
         }
         return InteractionResult.SUCCESS;
+    }
+
+    @Override
+    protected void affectNeighborsAfterRemoval(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, boolean movedByPiston) {
+        super.affectNeighborsAfterRemoval(state, level, pos, movedByPiston);
+
+        WirelessNetworkManager.removeSender(pos);
     }
 
     @Override
