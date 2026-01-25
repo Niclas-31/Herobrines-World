@@ -3,8 +3,8 @@ package de.niclasl.herobrines_world.network.manager;
 import de.niclasl.herobrines_world.network.data.WirelessSenderData;
 import net.minecraft.core.BlockPos;
 
+import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public final class WirelessNetworkManager {
@@ -25,16 +25,11 @@ public final class WirelessNetworkManager {
 
     /* ================= QUERY ================= */
 
-    public static List<WirelessSenderData> getNetworksInRange(
-            BlockPos origin,
-            int maxDistance
-    ) {
-        return SENDERS.values().stream()
-                .filter(s -> s.pos().closerThan(origin, maxDistance))
-                .toList();
-    }
-
     public static WirelessSenderData getSender(BlockPos sender) {
         return SENDERS.get(sender);
+    }
+
+    public static Collection<WirelessSenderData> getAllSenders() {
+        return SENDERS.values();
     }
 }
