@@ -40,6 +40,10 @@ public class WirelessReceiverMenu extends AbstractContainerMenu {
         return be.getBlockPos();
     }
 
+    public WirelessReceiverBlockEntity getReceiver() {
+        return be;
+    }
+
     @Override
     public boolean stillValid(@NotNull Player player) {
         return true;
@@ -50,3 +54,4 @@ public class WirelessReceiverMenu extends AbstractContainerMenu {
         return ItemStack.EMPTY;
     }
 }
+
