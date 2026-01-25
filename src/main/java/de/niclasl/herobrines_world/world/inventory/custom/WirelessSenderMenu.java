@@ -1,6 +1,5 @@
 package de.niclasl.herobrines_world.world.inventory.custom;
 
-
 import de.niclasl.herobrines_world.block.entity.custom.WirelessSenderBlockEntity;
 import de.niclasl.herobrines_world.world.inventory.ModMenus;
 import net.minecraft.network.FriendlyByteBuf;
