@@ -29,7 +29,7 @@ public class WirelessReceiverScreen
         int y = topPos + 20;
 
         for (VisibleNetwork net : menu.getNetworks()) {
-            this.addRenderableWidget(Button.builder(Component.literal(net.name() + (net.locked() ? " 🔒" : "")),
+            this.addRenderableWidget(Button.builder(Component.literal(net.getName() + (net.isLocked() ? " 🔒" : "")),
                             btn -> onNetworkClicked(net)
                     ).bounds(x, y, 150, 20).build()
             );
@@ -53,7 +53,7 @@ public class WirelessReceiverScreen
     }
 
     private void onNetworkClicked(VisibleNetwork net) {
-        if (net.locked()) {
+        if (net.isLocked()) {
             assert minecraft != null;
             minecraft.setScreen(
                     new PasswordPromptScreen(net, pwd -> {
@@ -70,7 +70,7 @@ public class WirelessReceiverScreen
         ClientPacketDistributor.sendToServer(
                 new ConnectNetworkPayload(
                         menu.getBlockPos(),
-                        net.pos(),
+                        net.getPos(),
                         password
                 )
         );
