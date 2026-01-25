@@ -19,8 +19,4 @@ public record WirelessSenderData(
     public String getName() {
         return name;
     }
-
-    public int getRange() {
-        return range;
-    }
 }
