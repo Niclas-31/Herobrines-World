@@ -19,8 +19,4 @@ public record VisibleNetwork(
     public boolean isLocked() {
         return senderData.hasPassword();
     }
-
-    public WirelessSenderData getSenderData() {
-        return senderData;
-    }
 }
