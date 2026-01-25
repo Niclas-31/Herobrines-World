@@ -4,9 +4,23 @@ import de.niclasl.herobrines_world.block.entity.custom.WirelessReceiverBlockEnti
 import net.minecraft.core.BlockPos;
 
 public record VisibleNetwork(
-        BlockPos pos,
-        String name,
-        boolean locked,
+        WirelessSenderData senderData,
         int strength,
         WirelessReceiverBlockEntity receiver
-) { }
+) {
+    public String getName() {
+        return senderData.name();
+    }
+
+    public boolean hasPassword() {
+        return senderData.hasPassword();
+    }
+
+    public BlockPos getPos() {
+        return senderData.pos();
+    }
+
+    public WirelessSenderData getSenderData() {
+        return senderData;
+    }
+}
