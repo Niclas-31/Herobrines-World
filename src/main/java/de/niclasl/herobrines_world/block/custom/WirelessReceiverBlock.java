@@ -193,4 +193,3 @@ public class WirelessReceiverBlock extends BaseEntityBlock {
         return null;
     }
 }
-
