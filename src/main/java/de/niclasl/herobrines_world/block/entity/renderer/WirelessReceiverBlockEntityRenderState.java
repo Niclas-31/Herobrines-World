@@ -9,4 +9,5 @@ public class WirelessReceiverBlockEntityRenderState extends BlockEntityRenderSta
     public float rotation;
     public WirelessSenderData sender;
     public String saved;
+    public boolean connected;
 }
