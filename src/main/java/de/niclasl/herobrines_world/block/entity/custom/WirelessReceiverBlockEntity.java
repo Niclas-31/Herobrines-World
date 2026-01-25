@@ -144,3 +144,4 @@ public class WirelessReceiverBlockEntity extends BlockEntity
         setChanged();
     }
 }
+
