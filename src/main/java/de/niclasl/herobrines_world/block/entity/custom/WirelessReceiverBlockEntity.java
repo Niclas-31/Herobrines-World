@@ -57,12 +57,10 @@ public class WirelessReceiverBlockEntity extends BlockEntity
         visibleNetworks = WirelessNetworkManager
                 .getAllSenders()
                 .stream()
-                .filter(sender -> sender.pos().distManhattan(this.worldPosition) <= sender.getRange())
+                .filter(sender -> sender.pos().distManhattan(this.worldPosition) <= sender.range())
                 .map(s -> new VisibleNetwork(
-                        s.pos(),
-                        s.name(),
-                        s.hasPassword(),
-                        Math.max(1, 15 - s.pos().distManhattan(worldPosition)),
+                        s,
+                        s.range(),
                         this
                 ))
                 .toList();
@@ -92,14 +90,31 @@ public class WirelessReceiverBlockEntity extends BlockEntity
         return getConnectedSender() != null && connected;
     }
 
-    public void setConnected(boolean connected, WirelessSenderData sender, String password) {
-        if (sender.hasPassword() && !sender.password().equals(password)) {
+    public void connectToSender(WirelessSenderData sender, String password) {
+        if (level == null || level.isClientSide()) return;
+
+        if (sender.hasPassword() && !sender.passwordMatches(password)) {
             return;
         }
 
-        this.connectedSenderPos = sender.pos();
-        this.connected = connected;
+        if (connectedSenderPos != null) {
+            WirelessNetworkManager.disconnectReceiver(
+                    connectedSenderPos,
+                    worldPosition
+            );
+        }
+
+        connectedSenderPos = sender.pos();
+        connected = true;
+
+        WirelessNetworkManager.connectReceiver(
+                sender.pos(),
+                worldPosition
+        );
+
         updateBlockState();
+
+        setChanged();
     }
 
     public void setPowered(boolean powered) {
@@ -124,6 +139,28 @@ public class WirelessReceiverBlockEntity extends BlockEntity
         setChanged();
     }
 
+    public void disconnect() {
+        if (connectedSenderPos != null) {
+            WirelessSenderData sender = WirelessNetworkManager.getSender(connectedSenderPos);
+            if (sender != null) {
+                sender.removeReceiver(worldPosition);
+            }
+        }
+
+        connectedSenderPos = null;
+        connected = false;
+
+        updateBlockState();
+    }
+
+    public void validateConnection() {
+        if (!connected || connectedSenderPos == null) return;
+
+        if (WirelessNetworkManager.getSender(connectedSenderPos) == null) {
+            disconnect();
+        }
+    }
+
     public WirelessSenderData getConnectedSender() {
         if (connectedSenderPos == null) return null;
         return WirelessNetworkManager.getSender(connectedSenderPos);
@@ -146,6 +183,7 @@ public class WirelessReceiverBlockEntity extends BlockEntity
         if (t instanceof WirelessReceiverBlockEntity receiver) {
             if (level.isClientSide()) return;
             if (level.getGameTime() % 20 != 0) return;
+            receiver.validateConnection();
             receiver.updateVisibleNetworks();
         }
     }
