@@ -98,12 +98,6 @@ public class ModBlocks {
 	public static final DeferredBlock<Block> DELAYER = registerBlock("delayer",
 			Delayer::new);
 
-	public static final DeferredBlock<Block> WIRELESS_SENDER_BLOCK = registerBlock("wireless_sender_block",
-			WirelessSenderBlock::new);
-
-	public static final DeferredBlock<Block> WIRELESS_RECEIVER_BLOCK = registerBlock("wireless_receiver_block",
-			WirelessReceiverBlock::new);
-
 	private static <T extends Block> DeferredBlock<T> registerBlock(String name, Function<BlockBehaviour.Properties, T> function) {
 		DeferredBlock<T> toReturn = BLOCKS.registerBlock(name, function);
 		registerBlockItem(name, toReturn);
@@ -124,4 +118,5 @@ public class ModBlocks {
     }
 
 }
+
 
