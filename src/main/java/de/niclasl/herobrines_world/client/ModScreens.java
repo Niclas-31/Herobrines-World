@@ -21,11 +21,10 @@ public class ModScreens {
 		event.register(ModMenus.LOG_OUT.get(), LogOutGui::new);
 		event.register(ModMenus.SIGNAL_COLOR_CHANGER.get(), SignalColorChangerGui::new);
 		event.register(ModMenus.DELAYER.get(), DelayerScreen::new);
-		event.register(ModMenus.WIRELESS_SENDER.get(), WirelessSenderScreen::new);
-		event.register(ModMenus.WIRELESS_RECEIVER.get(), WirelessReceiverScreen::new);
 	}
 
 	public interface ScreenAccessor {
 		void updateMenuState(int elementType, String name, Object elementState);
 	}
 }
+
