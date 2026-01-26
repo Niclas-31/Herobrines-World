@@ -25,16 +25,8 @@ public class ModBlockEntities {
             BLOCK_ENTITIES.register("delayer", () -> new BlockEntityType<>(
                     DelayerEntity::new, ModBlocks.DELAYER.get()));
 
-    public static final Supplier<BlockEntityType<WirelessSenderBlockEntity>> WIRELESS_SENDER =
-            BLOCK_ENTITIES.register("wireless_sender_block", () -> new BlockEntityType<>(
-                    WirelessSenderBlockEntity::new, ModBlocks.WIRELESS_SENDER_BLOCK.get()));
-
-    public static final Supplier<BlockEntityType<WirelessReceiverBlockEntity>> WIRELESS_RECEIVER =
-            BLOCK_ENTITIES.register("wireless_receiver_block", () -> new BlockEntityType<>(
-                    WirelessReceiverBlockEntity::new, ModBlocks.WIRELESS_RECEIVER_BLOCK.get()
-            ));
-
     public static void register(IEventBus eventBus) {
         BLOCK_ENTITIES.register(eventBus);
     }
 }
+
