@@ -21,6 +21,7 @@ import org.jetbrains.annotations.Nullable;
 public class DelayerRenderer implements BlockEntityRenderer<DelayerEntity, DelayerRenderState> {
 
     private final Font font;
+    
     public DelayerRenderer(BlockEntityRendererProvider.Context context) {
         this.font = context.font();
     }
@@ -67,3 +68,4 @@ public class DelayerRenderer implements BlockEntityRenderer<DelayerEntity, Delay
         poseStack.popPose();
     }
 }
+
