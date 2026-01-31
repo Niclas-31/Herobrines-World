@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " T ",
+    "RSR",
+    "   "
+  ],
+  "key": {
+    "T": "minecraft:redstone_torch",
+    "R": "minecraft:redstone",
+    "S": "minecraft:smooth_stone"
+  },
+  "result": {
+    "id": "herobrines_world:delayer_block",
+    "count": 1
+  }
+}
