@@ -106,8 +106,10 @@ public class HerobrinesWorld {
 		@SubscribeEvent
 		public static void registerBER(EntityRenderersEvent.RegisterRenderers event) {
 			event.registerBlockEntityRenderer(ModBlockEntities.DELAYER.get(), DelayerRenderer::new);
+			event.registerBlockEntityRenderer(ModBlockEntities.LOGIC_GATE_BLOCK.get(), LogicGateBlockEntityRenderer::new);
 		}
 	}
 }
+
 
 
