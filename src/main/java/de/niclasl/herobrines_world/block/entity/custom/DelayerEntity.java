@@ -112,7 +112,7 @@ public class DelayerEntity extends BlockEntity implements MenuProvider {
             return;
         }
 
-        if (remainingTicks > 0) {
+        if (active && remainingTicks > 0) {
             remainingTicks--;
             if (!state.getValue(Delayer.POWERED)) {
                 level.setBlock(pos, state.setValue(Delayer.POWERED, true), 2);
@@ -186,4 +186,5 @@ public class DelayerEntity extends BlockEntity implements MenuProvider {
 
         return sb.toString().trim();
     }
+
 }
