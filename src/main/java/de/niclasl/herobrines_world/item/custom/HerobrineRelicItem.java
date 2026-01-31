@@ -127,5 +127,4 @@ public class HerobrineRelicItem extends Item {
             }
         }
     }
-
 }
