@@ -1,6 +1,3 @@
-/*
- *    MCreator note: This file will be REGENERATED on each build.
- */
 package de.niclasl.herobrines_world.entity;
 
 import de.niclasl.herobrines_world.entity.custom.*;
@@ -45,8 +42,6 @@ public class ModEntities {
 	public static final DeferredHolder<EntityType<?>, EntityType<ChristmasNiclasl>> CHRISTMAS_NICLASL = register("christmas_niclasl",
 			EntityType.Builder.of(ChristmasNiclasl::new, MobCategory.MONSTER).setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(3).fireImmune().ridingOffset(-0.6f).sized(0.6f, 1.8f));
 
-	// Start of user code block custom entities
-	// End of user code block custom entities
 	private static <T extends Entity> DeferredHolder<EntityType<?>, EntityType<T>> register(String registryName, EntityType.Builder<T> entityTypeBuilder) {
 		return REGISTRY.register(registryName, () -> entityTypeBuilder.build(ResourceKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(HerobrinesWorld.MODID, registryName))));
 	}
