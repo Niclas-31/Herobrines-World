@@ -2,7 +2,6 @@ package de.niclasl.herobrines_world.world.inventory.custom;
 
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -12,50 +11,39 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.core.BlockPos;
 
 import de.niclasl.herobrines_world.world.inventory.ModMenus;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import org.jetbrains.annotations.NotNull;
 
-public class RedEnchantmentTableGui extends AbstractContainerMenu {
+public class RedEnchantmentTableMenu extends AbstractContainerMenu {
 
+	private final Container container;
 	public final int x, y, z;
 	public final Player entity;
-	private final Container container;
 
-	// ===== Konstruktoren =====
-
-	public RedEnchantmentTableGui(int id, Inventory inv, FriendlyByteBuf buf) {
-		this(id, inv, getContainer(inv, buf), buf);
+	public RedEnchantmentTableMenu(int id, Inventory inv, FriendlyByteBuf buf) {
+		this(id, inv, getContainer(inv, buf), buf.readBlockPos());
 	}
 
-	public RedEnchantmentTableGui(int id, Inventory inv, Container container) {
-		this(id, inv, container, null);
-	}
-
-	private RedEnchantmentTableGui(int id, Inventory inv, Container container, FriendlyByteBuf buf) {
+	public RedEnchantmentTableMenu(int id, Inventory inv, Container container, BlockPos pos) {
 		super(ModMenus.RED_ENCHANTMENT_TABLE_GUI.get(), id);
+
 		this.entity = inv.player;
+		this.x = pos.getX();
+		this.y = pos.getY();
+		this.z = pos.getZ();
 		this.container = container;
 
-		if (buf != null) {
-			BlockPos pos = buf.readBlockPos();
-			this.x = pos.getX();
-			this.y = pos.getY();
-			this.z = pos.getZ();
-		} else {
-			this.x = this.y = this.z = 0;
-		}
-
-		// ===== Slots =====
-		// Enchantment Slot
 		this.addSlot(new Slot(container, 0, 7, 44));
 
-		// Player Inventory
-		for (int row = 0; row < 3; ++row)
-			for (int col = 0; col < 9; ++col)
+		for (int row = 0; row < 3; ++row) {
+			for (int col = 0; col < 9; ++col) {
 				this.addSlot(new Slot(inv, col + row * 9 + 9, 8 + col * 18, 84 + row * 18));
+			}
+		}
 
-		// Hotbar
-		for (int col = 0; col < 9; ++col)
+		for (int col = 0; col < 9; ++col) {
 			this.addSlot(new Slot(inv, col, 8 + col * 18, 142));
+		}
 	}
 
 	private static Container getContainer(Inventory inv, FriendlyByteBuf buf) {
@@ -70,13 +58,11 @@ public class RedEnchantmentTableGui extends AbstractContainerMenu {
 		return new SimpleContainer(1);
 	}
 
-	// ===== Valid =====
 	@Override
 	public boolean stillValid(@NotNull Player player) {
 		return true;
 	}
 
-	// ===== Shift-Click =====
 	@Override
 	public @NotNull ItemStack quickMoveStack(@NotNull Player player, int index) {
 		ItemStack empty = ItemStack.EMPTY;
@@ -99,7 +85,6 @@ public class RedEnchantmentTableGui extends AbstractContainerMenu {
 		return copy;
 	}
 
-	// ===== Drop beim Schließen =====
 	@Override
 	public void removed(@NotNull Player player) {
 		super.removed(player);
