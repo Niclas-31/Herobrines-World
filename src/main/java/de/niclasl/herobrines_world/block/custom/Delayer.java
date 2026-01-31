@@ -29,7 +29,7 @@ public class Delayer extends DiodeBlock implements EntityBlock {
     public static final MapCodec<Delayer> CODEC = simpleCodec(Delayer::new);
 
     public Delayer(Properties properties) {
-        super(properties);
+        super(properties.instabreak());
         this.registerDefaultState(this.stateDefinition.any()
                 .setValue(FACING, Direction.NORTH)
                 .setValue(POWERED, false));
