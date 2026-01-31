@@ -40,7 +40,6 @@ public class HerobrineRelicItem extends Item {
         ModVariables.PlayerVariables vars =
                 player.getData(ModVariables.PLAYER_VARIABLES);
 
-        // Owner prüfen
         UUID owner = vars.getRelicOwner();
         if (owner == null) {
             player.sendSystemMessage(Component.translatable("relic.is_defect"));
@@ -128,4 +127,5 @@ public class HerobrineRelicItem extends Item {
             }
         }
     }
+
 }
