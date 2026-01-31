@@ -50,8 +50,6 @@ public class SignalColorChanger extends AbstractContainerMenu implements ModMenu
 		}
 	}
 
-
-
 	@Override
 	public boolean stillValid(Player player) {
 		return player.distanceToSqr(
