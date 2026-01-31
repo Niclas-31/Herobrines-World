@@ -98,6 +98,9 @@ public class ModBlocks {
 	public static final DeferredBlock<Block> DELAYER = registerBlock("delayer",
 			Delayer::new);
 
+	public static final DeferredBlock<Block> LOGIC_GATE_BLOCK = registerBlock("logic_gate_block",
+			LogicGateBlock::new);
+	
 	private static <T extends Block> DeferredBlock<T> registerBlock(String name, Function<BlockBehaviour.Properties, T> function) {
 		DeferredBlock<T> toReturn = BLOCKS.registerBlock(name, function);
 		registerBlockItem(name, toReturn);
@@ -118,5 +121,6 @@ public class ModBlocks {
     }
 
 }
+
 
 
