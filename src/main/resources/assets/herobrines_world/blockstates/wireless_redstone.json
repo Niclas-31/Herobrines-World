@@ -1,0 +1,64 @@
+{
+    "variants": {
+        "powered=false,facing=north,mode=sender": {
+            "model": "herobrines_world:block/wireless_redstone_sender",
+            "y": 180
+        },
+        "powered=false,facing=south,mode=sender": {
+            "model": "herobrines_world:block/wireless_redstone_sender"
+        },
+        "powered=false,facing=east,mode=sender": {
+            "model": "herobrines_world:block/wireless_redstone_sender",
+            "y": 270
+        },
+        "powered=false,facing=west,mode=sender": {
+            "model": "herobrines_world:block/wireless_redstone_sender",
+            "y": 90
+        },
+        "powered=true,facing=north,mode=sender": {
+            "model": "herobrines_world:block/wireless_redstone_sender_on",
+            "y": 180
+        },
+        "powered=true,facing=south,mode=sender": {
+            "model": "herobrines_world:block/wireless_redstone_sender_on"
+        },
+        "powered=true,facing=east,mode=sender": {
+            "model": "herobrines_world:block/wireless_redstone_sender_on",
+            "y": 270
+        },
+        "powered=true,facing=west,mode=sender": {
+            "model": "herobrines_world:block/wireless_redstone_sender_on",
+            "y": 90
+        },
+        "powered=false,facing=north,mode=receiver": {
+            "model": "herobrines_world:block/wireless_redstone_receiver",
+            "y": 180
+        },
+        "powered=false,facing=south,mode=receiver": {
+            "model": "herobrines_world:block/wireless_redstone_receiver"
+        },
+        "powered=false,facing=east,mode=receiver": {
+            "model": "herobrines_world:block/wireless_redstone_receiver",
+            "y": 270
+        },
+        "powered=false,facing=west,mode=receiver": {
+            "model": "herobrines_world:block/wireless_redstone_receiver",
+            "y": 90
+        },
+        "powered=true,facing=north,mode=receiver": {
+            "model": "herobrines_world:block/wireless_redstone_receiver_on",
+            "y": 180
+        },
+        "powered=true,facing=south,mode=receiver": {
+            "model": "herobrines_world:block/wireless_redstone_receiver_on"
+        },
+        "powered=true,facing=east,mode=receiver": {
+            "model": "herobrines_world:block/wireless_redstone_receiver_on",
+            "y": 270
+        },
+        "powered=true,facing=west,mode=receiver": {
+            "model": "herobrines_world:block/wireless_redstone_sender_on",
+            "y": 90
+        }
+    }
+}
