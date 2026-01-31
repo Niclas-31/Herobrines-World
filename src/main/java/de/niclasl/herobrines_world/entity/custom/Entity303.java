@@ -29,8 +29,6 @@ import java.util.Objects;
 
 public class Entity303 extends Monster {
 
-	/* ---------------- BOSS DATA ---------------- */
-
 	private final ServerBossEvent bossInfo =
 			new ServerBossEvent(this.getDisplayName(),
 					ServerBossEvent.BossBarColor.RED,
@@ -42,16 +40,12 @@ public class Entity303 extends Monster {
 
 	private final List<Mob> minions = new ArrayList<>();
 
-	/* ---------------- CONSTRUCTOR ---------------- */
-
 	public Entity303(EntityType<Entity303> type, Level level) {
 		super(type, level);
 		xpReward = 500;
 		setPersistenceRequired();
 		this.moveControl = new FlyingMoveControl(this, 10, true);
 	}
-
-	/* ---------------- MOVEMENT ---------------- */
 
 	@Override
 	protected @NotNull PathNavigation createNavigation(@NotNull Level level) {
@@ -68,8 +62,6 @@ public class Entity303 extends Monster {
 		super.aiStep();
 		this.setNoGravity(true);
 	}
-
-	/* ---------------- PHASE SYSTEM ---------------- */
 
 	@Override
 	protected void customServerAiStep(@NotNull ServerLevel level) {
@@ -111,8 +103,6 @@ public class Entity303 extends Monster {
 		bossInfo.setProgress(this.getHealth() / this.getMaxHealth());
 	}
 
-	/* ---------------- ABILITIES ---------------- */
-
 	private void handleAbilities(ServerLevel level) {
 		LivingEntity target = this.getTarget();
 		if (target == null) return;
@@ -152,7 +142,6 @@ public class Entity303 extends Monster {
 		return (this.random.nextDouble() - 0.5) * 4.0;
 	}
 
-	/* ---------------- MINIONS ---------------- */
 	private void spawnVanillaMinions(int count) {
 		if (!(level() instanceof ServerLevel level)) return;
 
@@ -175,8 +164,6 @@ public class Entity303 extends Monster {
 		}
 	}
 
-	/* ---------------- GOALS ---------------- */
-
 	@Override
 	protected void registerGoals() {
 		this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 1.2, true));
@@ -187,8 +174,6 @@ public class Entity303 extends Monster {
 		this.targetSelector.addGoal(5,
 				new HurtByTargetGoal(this));
 	}
-
-	/* ---------------- DAMAGE ---------------- */
 
 	@Override
 	public boolean hurtServer(@NotNull ServerLevel level, DamageSource source, float amount) {
@@ -209,8 +194,6 @@ public class Entity303 extends Monster {
 		return false;
 	}
 
-	/* ---------------- BOSS BAR ---------------- */
-
 	@Override
 	public void startSeenByPlayer(@NotNull ServerPlayer player) {
 		bossInfo.addPlayer(player);
@@ -220,8 +203,6 @@ public class Entity303 extends Monster {
 	public void stopSeenByPlayer(@NotNull ServerPlayer player) {
 		bossInfo.removePlayer(player);
 	}
-
-	/* ---------------- ATTRIBUTES ---------------- */
 
 	public static AttributeSupplier.Builder createAttributes() {
 		return Mob.createMobAttributes()
