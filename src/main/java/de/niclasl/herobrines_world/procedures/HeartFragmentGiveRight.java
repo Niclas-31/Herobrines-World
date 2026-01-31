@@ -21,7 +21,6 @@ public class HeartFragmentGiveRight {
 		ItemStack stack = new ItemStack(ModItems.FROZEN_FRAGMENT_RIGHT.get());
 		stack.setCount((int) amount);
 
-		// Aktuelle, nicht veraltete Methode:
 		player.getInventory().placeItemBackInInventory(stack);
 	}
 }
