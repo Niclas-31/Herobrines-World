@@ -134,7 +134,6 @@ public class HerobrineBoss extends Monster {
 			Mob mob = (Mob) type.create(level, EntitySpawnReason.MOB_SUMMONED);
 			if (mob == null) continue;
 
-			// Position setzen
 			mob.setPos(
 					getX() + random.nextInt(6) - 3,
 					getY(),
@@ -306,7 +305,6 @@ public class HerobrineBoss extends Monster {
 	protected void readAdditionalSaveData(@NotNull ValueInput input) {
 		super.readAdditionalSaveData(input);
 
-		// Owner auslesen
 		String ownerStr = input.getStringOr("Owner", "");
 		if (!ownerStr.isEmpty()) {
 			try {
@@ -316,7 +314,6 @@ public class HerobrineBoss extends Monster {
 			}
 		}
 
-		// MinionMode auslesen
 		minionMode = input.getBooleanOr("MinionMode", true);
 		hideBossBar = input.getBooleanOr("hideBossBar", false);
 		ownedBoss = input.getBooleanOr("OwnedBoss", false);
