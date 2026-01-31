@@ -186,5 +186,4 @@ public class DelayerEntity extends BlockEntity implements MenuProvider {
 
         return sb.toString().trim();
     }
-
 }
