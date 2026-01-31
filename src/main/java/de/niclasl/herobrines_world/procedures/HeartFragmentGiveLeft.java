@@ -23,5 +23,4 @@ public class HeartFragmentGiveLeft {
 
 		player.getInventory().placeItemBackInInventory(stack);
 	}
-
 }
