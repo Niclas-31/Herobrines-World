@@ -14,14 +14,12 @@ import org.jetbrains.annotations.NotNull;
 
 public class RedEnchantmentTableGui3 extends AbstractContainerMenu {
 
-	// ===== Öffentlich für Screen / Network =====
 	public final int x;
 	public final int y;
 	public final int z;
 	public final Player entity;
 	public final Level level;
-
-	// ===== Client-Constructor (Packet) =====
+	
 	public RedEnchantmentTableGui3(int id, Inventory inv, FriendlyByteBuf buf) {
 		this(
 				id,
@@ -31,7 +29,6 @@ public class RedEnchantmentTableGui3 extends AbstractContainerMenu {
 		);
 	}
 
-	// ===== Server / interner Constructor =====
 	public RedEnchantmentTableGui3(int id, Inventory inv, Player player, BlockPos pos) {
 		super(ModMenus.RED_ENCHANTMENT_TABLE_GUI_3.get(), id);
 
@@ -42,7 +39,6 @@ public class RedEnchantmentTableGui3 extends AbstractContainerMenu {
 		this.y = pos.getY();
 		this.z = pos.getZ();
 
-		// ===== Player Inventory =====
 		for (int row = 0; row < 3; ++row)
 			for (int col = 0; col < 9; ++col)
 				this.addSlot(new Slot(
@@ -52,7 +48,6 @@ public class RedEnchantmentTableGui3 extends AbstractContainerMenu {
 						84 + row * 18
 				));
 
-		// ===== Hotbar =====
 		for (int col = 0; col < 9; ++col)
 			this.addSlot(new Slot(
 					inv,
@@ -62,15 +57,14 @@ public class RedEnchantmentTableGui3 extends AbstractContainerMenu {
 			));
 	}
 
-	// ===== Valid =====
 	@Override
 	public boolean stillValid(@NotNull Player player) {
 		return true;
 	}
 
-	// ===== Shift-Click =====
 	@Override
 	public @NotNull ItemStack quickMoveStack(@NotNull Player player, int index) {
 		return ItemStack.EMPTY;
 	}
+
 }
