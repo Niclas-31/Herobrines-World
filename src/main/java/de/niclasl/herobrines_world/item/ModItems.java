@@ -269,7 +269,6 @@ public class ModItems {
 	@SubscribeEvent
 	public static void registerCapabilities(RegisterCapabilitiesEvent event) {
 
-        // Timer Clock
 		event.registerItem(
 				Capabilities.Item.ITEM,
 				(stack, access) -> new ResourceHandler<>() {
@@ -311,7 +310,6 @@ public class ModItems {
 				ModItems.TIMER_CLOCK.get()
 		);
 
-		// Time Clock
 		event.registerItem(
 				Capabilities.Item.ITEM,
 				(stack, access) -> new ResourceHandler<>() {
@@ -345,4 +343,5 @@ public class ModItems {
 				ModItems.TIME_CLOCK.get()
 		);
 	}
+
 }
