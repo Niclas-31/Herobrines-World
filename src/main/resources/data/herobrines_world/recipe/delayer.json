@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "redstone",
   "pattern": [
     " T ",
     "RSR",
@@ -11,7 +12,7 @@
     "S": "minecraft:smooth_stone"
   },
   "result": {
-    "id": "herobrines_world:delayer_block",
+    "id": "herobrines_world:delayer",
     "count": 1
   }
 }
