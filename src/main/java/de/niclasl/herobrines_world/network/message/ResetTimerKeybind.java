@@ -39,7 +39,6 @@ public record ResetTimerKeybind(int eventType) implements CustomPacketPayload {
 
 	public static void pressAction(Player entity, int type) {
 		Level world = entity.level();
-		// security measure to prevent arbitrary chunk generation
 		if (!world.hasChunkAt(entity.blockPosition()))
 			return;
 		if (type == 0) {
