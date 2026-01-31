@@ -25,8 +25,12 @@ public class ModBlockEntities {
             BLOCK_ENTITIES.register("delayer", () -> new BlockEntityType<>(
                     DelayerEntity::new, ModBlocks.DELAYER.get()));
 
+    public static final Supplier<BlockEntityType<LogicGateBlockEntity>> LOGIC_GATE_BLOCK =
+            BLOCK_ENTITIES.register("logic_gate_block", () -> new BlockEntityType<>(
+                    LogicGateBlockEntity::new, ModBlocks.LOGIC_GATE_BLOCK.get()
+            ));
+
     public static void register(IEventBus eventBus) {
         BLOCK_ENTITIES.register(eventBus);
     }
 }
-
