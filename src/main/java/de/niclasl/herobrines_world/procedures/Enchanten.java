@@ -26,7 +26,6 @@ public class Enchanten {
 
 		ModVariables.PlayerVariables vars = entity.getData(ModVariables.PLAYER_VARIABLES);
 
-		// ===== HEROBRINE ENCHANTS =====
 		if (vars.herobrine && vars.enchantment_level > 0) {
 			if (tryEnchant(world, entity, slotStack, ModItems.HEROBRINE_SWORD.get(),
 					"herobrines_world:herobrine", 15)) return;
@@ -41,7 +40,6 @@ public class Enchanten {
 					"herobrines_world:herobrine", 15)) return;
 		}
 
-		// ===== MORE SOULS ENCHANTS =====
 		if (vars.MoreSouls && vars.enchantment_level > 0) {
 			if (tryEnchant(world, entity, slotStack, ModItems.HEROBRINE_SWORD.get(),
 					"herobrines_world:more_souls", 10)) return;
@@ -56,7 +54,6 @@ public class Enchanten {
 					"herobrines_world:more_souls", 10)) return;
 		}
 
-		// ===== NOT ENOUGH SOULS =====
 		if (vars.herobrine && vars.Soul_Level == 0 && vars.Soul_Current < 15) {
 			warnNoSouls(entity);
 		}
@@ -65,10 +62,6 @@ public class Enchanten {
 			warnNoSouls(entity);
 		}
 	}
-
-	// ======================================================
-	// =================== HELPERS ==========================
-	// ======================================================
 
 	private static boolean tryEnchant(
 			LevelAccessor world,
@@ -141,4 +134,5 @@ public class Enchanten {
 		}
 		clearState(entity.getData(ModVariables.PLAYER_VARIABLES));
 	}
+
 }
