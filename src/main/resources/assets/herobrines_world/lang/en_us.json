@@ -45,6 +45,8 @@
   "gui.herobrines_world.timer_gui.label_hours": "Hours:",
   "gui.herobrines_world.timer_gui.label_timer1": "Timer:",
   "gui.herobrines_world.delayer.button.save": "Save",
+  "gui.herobrines_world.wireless_sender_screen.button.save": "Save",
+  "gui.herobrines_world.connect_with": "Connected with %s",
 
   "gamerule.spawnLootBoxTimer.description": "Loot Box spawns after time",
   "gamerule.spawnLootBoxTimer": "Loot Box Timer",
@@ -80,6 +82,7 @@
   "block.herobrines_world.deepslate_green_ore": "Deepslate Green Ore",
   "block.herobrines_world.toxenium_ore": "Toxenium Ore",
   "block.herobrines_world.delayer": "Delayer",
+  "block.herobrines_world.logic_gate_block": "Logic Gate Block",
 
   "message.pin_delete": "§4The Account and PIN deleted!",
   "message.pin_save": "§2The Account and PIN saved!",
