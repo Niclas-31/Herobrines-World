@@ -134,5 +134,4 @@ public class Enchanten {
 		}
 		clearState(entity.getData(ModVariables.PLAYER_VARIABLES));
 	}
-
 }
