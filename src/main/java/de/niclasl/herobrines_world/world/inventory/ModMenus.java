@@ -28,8 +28,6 @@ public class ModMenus {
 	public static final DeferredHolder<MenuType<?>, MenuType<Timer>> TIMER = MENUS.register("timer", () -> IMenuTypeExtension.create(Timer::new));
 	public static final DeferredHolder<MenuType<?>, MenuType<Time>> TIME = MENUS.register("time", () -> IMenuTypeExtension.create(Time::new));
 	public static final DeferredHolder<MenuType<?>, MenuType<RedEnchantmentTableGui>> RED_ENCHANTMENT_TABLE_GUI = MENUS.register("red_enchantment_table_gui", () -> IMenuTypeExtension.create(RedEnchantmentTableGui::new));
-	public static final DeferredHolder<MenuType<?>, MenuType<RedEnchantmentTableGui2>> RED_ENCHANTMENT_TABLE_GUI_2 = MENUS.register("red_enchantment_table_gui_2", () -> IMenuTypeExtension.create(RedEnchantmentTableGui2::new));
-	public static final DeferredHolder<MenuType<?>, MenuType<RedEnchantmentTableGui3>> RED_ENCHANTMENT_TABLE_GUI_3 = MENUS.register("red_enchantment_table_gui_3", () -> IMenuTypeExtension.create(RedEnchantmentTableGui3::new));
 	public static final DeferredHolder<MenuType<?>, MenuType<PinCode>> PIN_CODE = MENUS.register("pin_code", () -> IMenuTypeExtension.create(PinCode::new));
 	public static final DeferredHolder<MenuType<?>, MenuType<Account>> ACCOUNT = MENUS.register("account", () -> IMenuTypeExtension.create(Account::new));
 	public static final DeferredHolder<MenuType<?>, MenuType<LogOut>> LOG_OUT = MENUS.register("log_out", () -> IMenuTypeExtension.create(LogOut::new));
@@ -66,4 +64,3 @@ public class ModMenus {
 		}
 	}
 }
-
