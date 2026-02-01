@@ -14,8 +14,6 @@ public class ModScreens {
 		event.register(ModMenus.TIMER.get(), TimerGui::new);
 		event.register(ModMenus.TIME.get(), ClockGui::new);
 		event.register(ModMenus.RED_ENCHANTMENT_TABLE_GUI.get(), RedEnchantmentTableGui::new);
-		event.register(ModMenus.RED_ENCHANTMENT_TABLE_GUI_2.get(), RedEnchantmentTableGui2::new);
-		event.register(ModMenus.RED_ENCHANTMENT_TABLE_GUI_3.get(), RedEnchantmentTableGui3::new);
 		event.register(ModMenus.PIN_CODE.get(), PinCodeGui::new);
 		event.register(ModMenus.ACCOUNT.get(), AccountGui::new);
 		event.register(ModMenus.LOG_OUT.get(), LogOutGui::new);
@@ -27,4 +25,3 @@ public class ModScreens {
 		void updateMenuState(int elementType, String name, Object elementState);
 	}
 }
-
