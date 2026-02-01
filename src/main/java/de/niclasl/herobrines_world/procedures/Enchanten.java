@@ -93,7 +93,7 @@ public class Enchanten {
 
 	private static ItemStack getSlot0(Entity entity) {
 		if (entity instanceof Player player
-				&& player.containerMenu instanceof ModMenus.MenuAccessor menu) {
+				&& player.containerMenu instanceof RedEnchantmentTableMenu menu) {
 			return menu.getSlots().get(0).getItem();
 		}
 		return ItemStack.EMPTY;
