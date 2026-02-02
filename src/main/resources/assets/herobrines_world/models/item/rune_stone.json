@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "herobrines_world:item/runestone"
+    "layer0": "herobrines_world:item/rune_stone"
   }
 }
