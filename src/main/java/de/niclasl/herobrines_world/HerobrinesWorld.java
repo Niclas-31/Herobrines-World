@@ -49,7 +49,6 @@ public class HerobrinesWorld {
 		NeoForge.EVENT_BUS.register(this);
 
 		modEventBus.addListener(this::registerNetworking);
-		modEventBus.addListener(this::gatherData);
 
 		ModBlocks.register(modEventBus);
 		ModItems.register(modEventBus);
@@ -62,25 +61,6 @@ public class HerobrinesWorld {
 		ModMenus.register(modEventBus);
 		ModBlockEntities.register(modEventBus);
 		ModVillagerProfessions.PROFESSIONS.register(modEventBus);
-	}
-
-		private void gatherData(GatherDataEvent event) {
-		DataGenerator gen = event.getGenerator();
-		PackOutput output = gen.getPackOutput();
-		CompletableFuture<HolderLookup.Provider> lookup = event.getLookupProvider();
-
-		gen.addProvider(event.includeDev(),
-				new DatapackBuiltinEntriesProvider(
-						output,
-						lookup,
-						RegistrySetBuilder(),
-						Set.of("herobrines_world")
-				));
-	}
-
-	private static RegistrySetBuilder RegistrySetBuilder() {
-		return new RegistrySetBuilder()
-				.add(Registries.ENCHANTMENT, ModEnchantment::bootstrap);
 	}
 
 	private static boolean networkingRegistered = false;
