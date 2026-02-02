@@ -20,26 +20,27 @@ public class NatureArmor {
 		event.registerItem(new IClientItemExtensions() {
 			@Override
 			public ResourceLocation getArmorTexture(@NotNull ItemStack stack, EquipmentClientInfo.@NotNull LayerType type, EquipmentClientInfo.@NotNull Layer layer, @NotNull ResourceLocation _default) {
-				return ResourceLocation.parse("herobrines_world:textures/models/armor/natur_layer_1.png");
+				return ResourceLocation.parse("herobrines_world:textures/models/armor/nature_layer_1.png");
 			}
 		}, ModItems.NATURE_HELMET.get());
 		event.registerItem(new IClientItemExtensions() {
 			@Override
 			public ResourceLocation getArmorTexture(@NotNull ItemStack stack, EquipmentClientInfo.@NotNull LayerType type, EquipmentClientInfo.@NotNull Layer layer, @NotNull ResourceLocation _default) {
-				return ResourceLocation.parse("herobrines_world:textures/models/armor/natur_layer_1.png");
+				return ResourceLocation.parse("herobrines_world:textures/models/armor/nature_layer_1.png");
 			}
 		}, ModItems.NATURE_CHESTPLATE.get());
 		event.registerItem(new IClientItemExtensions() {
 			@Override
 			public ResourceLocation getArmorTexture(@NotNull ItemStack stack, EquipmentClientInfo.@NotNull LayerType type, EquipmentClientInfo.@NotNull Layer layer, @NotNull ResourceLocation _default) {
-				return ResourceLocation.parse("herobrines_world:textures/models/armor/natur_layer_2.png");
+				return ResourceLocation.parse("herobrines_world:textures/models/armor/nature_layer_2.png");
 			}
 		}, ModItems.NATURE_LEGGINGS.get());
 		event.registerItem(new IClientItemExtensions() {
 			@Override
 			public ResourceLocation getArmorTexture(@NotNull ItemStack stack, EquipmentClientInfo.@NotNull LayerType type, EquipmentClientInfo.@NotNull Layer layer, @NotNull ResourceLocation _default) {
-				return ResourceLocation.parse("herobrines_world:textures/models/armor/natur_layer_1.png");
+				return ResourceLocation.parse("herobrines_world:textures/models/armor/nature_layer_1.png");
 			}
 		}, ModItems.NATURE_BOOTS.get());
 	}
+
 }
