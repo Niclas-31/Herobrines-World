@@ -3,17 +3,17 @@
     "translate": "enchantment.herobrines_world.wilderness_acumen"
   },
   "supported_items": "herobrines_world:nature_helmet",
-  "weight": 1,
+  "weight": 7,
   "max_level": 3,
   "min_cost": {
-    "base": 1,
-    "per_level_above_first": 10
+    "base": 10,
+    "per_level_above_first": 12
   },
   "max_cost": {
-    "base": 6,
-    "per_level_above_first": 10
+    "base": 30,
+    "per_level_above_first": 12
   },
-  "anvil_cost": 25,
+  "anvil_cost": 1,
   "slots": [
     "head"
   ],
