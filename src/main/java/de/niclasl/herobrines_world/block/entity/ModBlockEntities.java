@@ -17,10 +17,6 @@ public class ModBlockEntities {
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES =
             DeferredRegister.create(BuiltInRegistries.BLOCK_ENTITY_TYPE, HerobrinesWorld.MODID);
 
-    public static final Supplier<BlockEntityType<RedEnchantmentTableBlockEntity>> RED_ENCHANTMENT_TABLE =
-            BLOCK_ENTITIES.register("red_enchantment_table", () -> new BlockEntityType<>(
-                    RedEnchantmentTableBlockEntity::new, ModBlocks.RED_ENCHANTMENT_TABLE.get()));
-
     public static final Supplier<BlockEntityType<DelayerEntity>> DELAYER =
             BLOCK_ENTITIES.register("delayer", () -> new BlockEntityType<>(
                     DelayerEntity::new, ModBlocks.DELAYER.get()));
