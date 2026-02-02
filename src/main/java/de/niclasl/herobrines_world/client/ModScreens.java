@@ -13,7 +13,6 @@ public class ModScreens {
 	public static void clientLoad(RegisterMenuScreensEvent event) {
 		event.register(ModMenus.TIMER.get(), TimerGui::new);
 		event.register(ModMenus.TIME.get(), ClockGui::new);
-		event.register(ModMenus.RED_ENCHANTMENT_TABLE_GUI.get(), RedEnchantmentTableGui::new);
 		event.register(ModMenus.PIN_CODE.get(), PinCodeGui::new);
 		event.register(ModMenus.ACCOUNT.get(), AccountGui::new);
 		event.register(ModMenus.LOG_OUT.get(), LogOutGui::new);
