@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "ingredient": "herobrines_world:blue_sandstone",
-  "result": {
-    "id": "herobrines_world:blue_cut_sandstone_slab",
-    "count": 2
-  }
-}
