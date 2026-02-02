@@ -3,22 +3,29 @@
     "translate": "enchantment.herobrines_world.more_souls"
   },
   "supported_items": [
+    "minecraft:wooden_sword",
+    "minecraft:stone_sword",
+    "minecraft:copper_sword",
+    "minecraft:iron_sword",
+    "minecraft:golden_sword",
+    "minecraft:diamond_sword",
+    "minecraft:netherite_sword",
     "herobrines_world:nature_sword",
     "herobrines_world:fire_sword",
     "herobrines_world:herobrine_sword",
     "herobrines_world:toxenium_sword"
   ],
-  "weight": 5,
+  "weight": 8,
   "max_level": 2,
   "min_cost": {
-    "base": 1,
+    "base": 5,
     "per_level_above_first": 10
   },
   "max_cost": {
-    "base": 6,
+    "base": 20,
     "per_level_above_first": 10
   },
-  "anvil_cost": 10,
+  "anvil_cost": 1,
   "slots": [
     "mainhand"
   ],
