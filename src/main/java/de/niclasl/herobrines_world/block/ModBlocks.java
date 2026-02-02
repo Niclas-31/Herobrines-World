@@ -18,9 +18,6 @@ public class ModBlocks {
 	public static final DeferredRegister.Blocks BLOCKS =
 			DeferredRegister.createBlocks(HerobrinesWorld.MODID);
 
-	public static final DeferredBlock<Block> RED_ENCHANTMENT_TABLE = registerBlock("red_enchantment_table",
-			RedEnchantmentTable::new);
-
 	public static final DeferredBlock<Block> LUMBERJACK_TABLE = registerBlock("lumberjack_table",
 			LumberjackTable::new);
 
@@ -121,6 +118,3 @@ public class ModBlocks {
     }
 
 }
-
-
-
