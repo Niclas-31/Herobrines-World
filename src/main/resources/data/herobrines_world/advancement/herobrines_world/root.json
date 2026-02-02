@@ -1,0 +1,26 @@
+{
+  "display": {
+    "background": "herobrines_world:screens/herobrine_ore",
+    "icon": {
+      "id": "herobrines_world:cursed_stone"
+    },
+    "title": {
+      "translate": "advancements.herobrines_world.title"
+    },
+    "description": {
+      "translate": "advancements.herobrines_world.descr"
+    },
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "herobrines_world_0": {
+      "trigger": "minecraft:changed_dimension",
+      "conditions": {
+        "to": "herobrines_world:herobrines_realm"
+      }
+    }
+  }
+}

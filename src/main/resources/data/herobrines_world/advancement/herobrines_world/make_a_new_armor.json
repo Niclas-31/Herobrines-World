@@ -1,0 +1,60 @@
+{
+  "display": {
+    "icon": {
+      "id": "herobrines_world:fire_chestplate"
+    },
+    "title": {
+      "translate": "advancements.make_a_new_armor.title"
+    },
+    "description": {
+      "translate": "advancements.make_a_new_armor.descr"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "fire_boots": {
+      "conditions": {
+        "items": [
+          {
+            "items": "herobrines_world:fire_boots"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "fire_chestplate": {
+      "conditions": {
+        "items": [
+          {
+            "items": "herobrines_world:fire_chestplate"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "fire_helmet": {
+      "conditions": {
+        "items": [
+          {
+            "items": "herobrines_world:fire_helmet"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "fire_leggings": {
+      "conditions": {
+        "items": [
+          {
+            "items": "herobrines_world:fire_leggings"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  }, 
+  "parent": "herobrines_world:herobrines_world/lava_time"
+}
