@@ -3,6 +3,13 @@
     "translate": "enchantment.herobrines_world.herobrine"
   },
   "supported_items": [
+    "minecraft:wooden_sword",
+    "minecraft:stone_sword",
+    "minecraft:copper_sword",
+    "minecraft:iron_sword",
+    "minecraft:golden_sword",
+    "minecraft:diamond_sword",
+    "minecraft:netherite_sword",
     "herobrines_world:nature_sword",
     "herobrines_world:fire_sword",
     "herobrines_world:herobrine_sword",
@@ -11,14 +18,14 @@
   "weight": 5,
   "max_level": 4,
   "min_cost": {
-    "base": 1,
+    "base": 10,
     "per_level_above_first": 10
   },
   "max_cost": {
-    "base": 6,
+    "base": 30,
     "per_level_above_first": 10
   },
-  "anvil_cost": 20,
+  "anvil_cost": 1,
   "slots": [
     "mainhand"
   ],
