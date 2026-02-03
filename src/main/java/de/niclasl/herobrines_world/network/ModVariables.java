@@ -83,13 +83,6 @@ public class ModVariables {
 		clone.canFly = original.canFly;
 		clone.TimerActive = original.TimerActive;
 		clone.AbilityActive = original.AbilityActive;
-		clone.herobrine = original.herobrine;
-		clone.Button1 = original.Button1;
-		clone.Button2 = original.Button2;
-		clone.Button3 = original.Button3;
-		clone.Button4 = original.Button4;
-		clone.Enchanten = original.Enchanten;
-		clone.MoreSouls = original.MoreSouls;
 		clone.Hide = original.Hide;
 		clone.Hearts = original.Hearts;
 		clone.Second = original.Second;
@@ -150,7 +143,7 @@ public class ModVariables {
 	}
 
 	public static class WorldVariables extends SavedData {
-		public static final SavedDataType<WorldVariables> TYPE = new SavedDataType<>("herobrine_mod_worldvars", ctx -> new WorldVariables(), ctx -> CompoundTag.CODEC.xmap(tag -> {
+		public static final SavedDataType<WorldVariables> TYPE = new SavedDataType<>("world_variables", ctx -> new WorldVariables(), ctx -> CompoundTag.CODEC.xmap(tag -> {
 			WorldVariables instance = new WorldVariables();
 			instance.read(tag, ctx.levelOrThrow().registryAccess());
 			return instance;
@@ -181,7 +174,7 @@ public class ModVariables {
 	}
 
 	public static class MapVariables extends SavedData {
-		public static final SavedDataType<MapVariables> TYPE = new SavedDataType<>("herobrine_mod_mapvars", ctx -> new MapVariables(), ctx -> CompoundTag.CODEC.xmap(tag -> {
+		public static final SavedDataType<MapVariables> TYPE = new SavedDataType<>("map_variables", ctx -> new MapVariables(), ctx -> CompoundTag.CODEC.xmap(tag -> {
 			MapVariables instance = new MapVariables();
 			instance.read(tag, ctx.levelOrThrow().registryAccess());
 			return instance;
@@ -270,13 +263,6 @@ public class ModVariables {
 		public boolean canFly = false;
 		public boolean TimerActive = false;
 		public boolean AbilityActive = false;
-		public boolean herobrine = false;
-		public boolean Button1 = false;
-		public boolean Button2 = false;
-		public boolean Button3 = false;
-		public boolean Button4 = false;
-		public boolean Enchanten = false;
-		public boolean MoreSouls = false;
 		public boolean Hide = false;
 		public double Hearts = 3.0;
 		public double Second = 0.0;
@@ -284,7 +270,7 @@ public class ModVariables {
 		public double Hour = 0.0;
 		public double Day = 0.0;
 		public double enchantment_level = 0.0;
-		public double Soul_Current = 0.0;
+		public int Soul_Current = 0;
 		public boolean PinUnlocked = false;
 		public String MyPinCode = "";
 		public boolean HasSet = false;
@@ -292,7 +278,7 @@ public class ModVariables {
 		public double X = 0;
 		public double Y = 0;
 		public double Z = 0;
-		public double Soul_Level = 0;
+		public int Soul_Level = 0;
 		public double Ticks = 0;
 		public String herobrineRelicOwner = "";
 		public String ownedBossUUID = "";
@@ -315,13 +301,6 @@ public class ModVariables {
 			output.putBoolean("canFly", canFly);
 			output.putBoolean("TimerActive", TimerActive);
 			output.putBoolean("AbilityActive", AbilityActive);
-			output.putBoolean("herobrine", herobrine);
-			output.putBoolean("Button1", Button1);
-			output.putBoolean("Button2", Button2);
-			output.putBoolean("Button3", Button3);
-			output.putBoolean("Button4", Button4);
-			output.putBoolean("Enchanten", Enchanten);
-			output.putBoolean("MoreSouls", MoreSouls);
 			output.putBoolean("Hide", Hide);
 			output.putDouble("Hearts", Hearts);
 			output.putDouble("Second", Second);
@@ -348,13 +327,6 @@ public class ModVariables {
 			canFly = input.getBooleanOr("canFly", false);
 			TimerActive = input.getBooleanOr("TimerActive", false);
 			AbilityActive = input.getBooleanOr("AbilityActive", false);
-			herobrine = input.getBooleanOr("herobrine", false);
-			Button1 = input.getBooleanOr("Button1", false);
-			Button2 = input.getBooleanOr("Button2", false);
-			Button3 = input.getBooleanOr("Button3", false);
-			Button4 = input.getBooleanOr("Button4", false);
-			Enchanten = input.getBooleanOr("Enchanten", false);
-			MoreSouls = input.getBooleanOr("MoreSouls", false);
 			Hide = input.getBooleanOr("Hide", false);
 			Hearts = input.getDoubleOr("Hearts", 0);
 			Second = input.getDoubleOr("Second", 0);
@@ -362,7 +334,7 @@ public class ModVariables {
 			Hour = input.getDoubleOr("Hour", 0);
 			Day = input.getDoubleOr("Day", 0);
 			enchantment_level = input.getDoubleOr("enchantment_level", 0);
-			Soul_Current = input.getDoubleOr("Soul_Current", 0);
+			Soul_Current = input.getIntOr("Soul_Current", 0);
 			PinUnlocked = input.getBooleanOr("PinUnlocked", false);
 			MyPinCode = input.getStringOr("MyPinCode", "");
 			HasSet = input.getBooleanOr("HasSet", false);
@@ -370,7 +342,7 @@ public class ModVariables {
 			X = input.getDoubleOr("X", 0);
 			Y = input.getDoubleOr("Y", 0);
 			Z = input.getDoubleOr("Z", 0);
-			Soul_Level = input.getDoubleOr("Soul_Level", 0);
+			Soul_Level = input.getIntOr("Soul_Level", 0);
 			Ticks = input.getDoubleOr("Ticks", 0);
 			herobrineRelicOwner = input.getStringOr("herobrineRelicOwner", "");
 			ownedBossUUID = input.getStringOr("ownedBossUUID", "");
