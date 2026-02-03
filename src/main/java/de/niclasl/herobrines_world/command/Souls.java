@@ -1,5 +1,6 @@
 package de.niclasl.herobrines_world.command;
 
+import com.mojang.brigadier.arguments.IntegerArgumentType;
 import de.niclasl.herobrines_world.procedures.*;
 import net.neoforged.neoforge.event.RegisterCommandsEvent;
 import net.neoforged.neoforge.common.util.FakePlayerFactory;
@@ -12,14 +13,12 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.commands.arguments.EntityArgument;
 import net.minecraft.commands.Commands;
 
-import com.mojang.brigadier.arguments.DoubleArgumentType;
-
 @EventBusSubscriber
 public class Souls {
 	@SubscribeEvent
 	public static void registerCommand(RegisterCommandsEvent event) {
 		event.getDispatcher().register(Commands.literal("souls").requires(s -> s.hasPermission(4))
-				.then(Commands.literal("add").then(Commands.argument("targets", EntityArgument.players()).then(Commands.argument("souls", DoubleArgumentType.doubleArg(0)).then(Commands.literal("levels").executes(arguments -> {
+				.then(Commands.literal("add").then(Commands.argument("targets", EntityArgument.players()).then(Commands.argument("souls", IntegerArgumentType.integer(0)).then(Commands.literal("levels").executes(arguments -> {
 					Level world = arguments.getSource().getUnsidedLevel();
 					Entity entity = arguments.getSource().getEntity();
 					if (entity == null && world instanceof ServerLevel _servLevel)
@@ -37,7 +36,7 @@ public class Souls {
 
 					AddPoints.execute(arguments, entity);
 					return 0;
-				}))))).then(Commands.literal("set").then(Commands.argument("target", EntityArgument.players()).then(Commands.argument("souls", DoubleArgumentType.doubleArg(0)).then(Commands.literal("levels").executes(arguments -> {
+				}))))).then(Commands.literal("set").then(Commands.argument("target", EntityArgument.players()).then(Commands.argument("souls", IntegerArgumentType.integer(0)).then(Commands.literal("levels").executes(arguments -> {
 					Level world = arguments.getSource().getUnsidedLevel();
 					Entity entity = arguments.getSource().getEntity();
 					if (entity == null && world instanceof ServerLevel _servLevel)
@@ -75,5 +74,4 @@ public class Souls {
 					return 0;
 				})))));
 	}
-
 }
