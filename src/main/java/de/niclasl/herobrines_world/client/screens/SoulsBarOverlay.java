@@ -52,8 +52,6 @@ public class SoulsBarOverlay {
         if (SoulBarCondition10.execute(entity)) {
             event.getGuiGraphics().blit(RenderPipelines.GUI_TEXTURED, ResourceLocation.parse("herobrines_world:textures/screens/seelen_bar_91-100_soul_points.png"), w - 59, h - 28, 0, 0, 13, 6, 13, 6);
         }
-        event.getGuiGraphics().drawString(Minecraft.getInstance().font,
-
-                SoulAdvertisement.execute(entity), w - 53, h - 39, -16777063, false);
+        event.getGuiGraphics().drawString(Minecraft.getInstance().font, SoulAdvertisement.execute(entity), w - 53, h - 39, -16777063, false);
     }
 }
