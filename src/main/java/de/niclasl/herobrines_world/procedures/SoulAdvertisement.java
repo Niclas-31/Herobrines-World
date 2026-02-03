@@ -12,5 +12,4 @@ public class SoulAdvertisement {
 			return "";
 		return new DecimalFormat("##").format(entity.getData(ModVariables.PLAYER_VARIABLES).Soul_Level);
 	}
-
 }
