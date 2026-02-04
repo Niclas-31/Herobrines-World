@@ -46,6 +46,17 @@ public class OwnerTargetTracker {
         if (owner == null) return;
 
         LivingEntity target = event.getEntity();
+
+        if (target instanceof ServerPlayer targetPlayer) {
+            if (targetPlayer.getUUID().equals(owner)) {
+                return;
+            }
+        }
+
+        if (target.getType().equals(ModEntities.HEROBRINE_BOSS.get())) {
+            return;
+        }
+        
         if (!target.getType().equals(ModEntities.HEROBRINE_BOSS.get())) {
             addTarget(owner, target);
         }
