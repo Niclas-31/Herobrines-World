@@ -1,5 +1,6 @@
 package de.niclasl.herobrines_world.client.gui;
 
+import de.niclasl.herobrines_world.network.ModVariables;
 import net.minecraft.client.input.KeyEvent;
 import net.neoforged.neoforge.client.network.ClientPacketDistributor;
 
@@ -13,13 +14,12 @@ import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.GuiGraphics;
 
 import de.niclasl.herobrines_world.world.inventory.custom.Timer;
-import de.niclasl.herobrines_world.procedures.TimerText;
-import de.niclasl.herobrines_world.procedures.TicksText;
 import de.niclasl.herobrines_world.network.message.TimerGuiButton;
 import de.niclasl.herobrines_world.client.ModScreens;
 import org.jetbrains.annotations.NotNull;
 import org.lwjgl.glfw.GLFW;
 
+import java.text.DecimalFormat;
 import java.util.Objects;
 
 public class TimerGui extends AbstractContainerScreen<Timer> implements ModScreens.ScreenAccessor {
@@ -60,9 +60,12 @@ public class TimerGui extends AbstractContainerScreen<Timer> implements ModScree
 
 	@Override
 	protected void renderLabels(GuiGraphics guiGraphics, int mouseX, int mouseY) {
+		String timer = new DecimalFormat("####").format(entity.getData(ModVariables.PLAYER_VARIABLES).Day) + ":" + new DecimalFormat("##").format(entity.getData(ModVariables.PLAYER_VARIABLES).Hour) + ":"
+				+ new DecimalFormat("##").format(entity.getData(ModVariables.PLAYER_VARIABLES).Minute) + ":" + new DecimalFormat("##").format(entity.getData(ModVariables.PLAYER_VARIABLES).Second);
+		String ticks = new DecimalFormat("##").format(entity.getData(ModVariables.PLAYER_VARIABLES).Ticks);
 		guiGraphics.drawString(this.font, Component.translatable("gui.herobrines_world.timer_gui.label_timer"), 116, 17, -65536, false);
-		guiGraphics.drawString(this.font, TimerText.execute(entity), 20, 21, -65536, false);
-		guiGraphics.drawString(this.font, TicksText.execute(entity), 111, 70, -65536, false);
+		guiGraphics.drawString(this.font, timer, 20, 21, -65536, false);
+		guiGraphics.drawString(this.font, ticks, 111, 70, -65536, false);
 	}
 
 	@Override
