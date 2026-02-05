@@ -1,30 +1,52 @@
 package de.niclasl.herobrines_world.command;
 
-import de.niclasl.herobrines_world.procedures.Flying;
+import com.mojang.brigadier.Command;
+import net.minecraft.server.level.ServerPlayer;
 import net.neoforged.neoforge.event.RegisterCommandsEvent;
-import net.neoforged.neoforge.common.util.FakePlayerFactory;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.bus.api.SubscribeEvent;
 
-import net.minecraft.world.level.Level;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.commands.arguments.EntityArgument;
 import net.minecraft.commands.Commands;
 
+import java.util.Collection;
+
 @EventBusSubscriber
 public class Fly {
+
 	@SubscribeEvent
 	public static void registerCommand(RegisterCommandsEvent event) {
-		event.getDispatcher().register(Commands.literal("fly").requires(s -> s.hasPermission(4)).then(Commands.argument("targets", EntityArgument.players()).executes(arguments -> {
-			Level world = arguments.getSource().getUnsidedLevel();
-			Entity entity = arguments.getSource().getEntity();
-			if (entity == null && world instanceof ServerLevel _servLevel)
-				entity = FakePlayerFactory.getMinecraft(_servLevel);
-            if (entity != null) entity.getDirection();
 
-			Flying.execute(entity);
-			return 0;
-		})));
+		event.getDispatcher().register(
+				Commands.literal("fly")
+						.requires(source -> source.hasPermission(4))
+
+						.then(Commands.argument("targets", EntityArgument.players())
+								.executes(ctx -> {
+
+									Collection<ServerPlayer> targets =
+											EntityArgument.getPlayers(ctx, "targets");
+
+									for (ServerPlayer player : targets) {
+										toggleFly(player);
+									}
+
+									return Command.SINGLE_SUCCESS;
+								})
+						)
+		);
+	}
+
+	private static void toggleFly(ServerPlayer player) {
+
+		boolean newState = !player.getAbilities().mayfly;
+
+		player.getAbilities().mayfly = newState;
+
+		if (!newState) {
+			player.getAbilities().flying = false;
+		}
+
+		player.onUpdateAbilities();
 	}
 }
