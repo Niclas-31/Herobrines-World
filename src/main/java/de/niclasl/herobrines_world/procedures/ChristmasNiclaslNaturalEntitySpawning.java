@@ -14,5 +14,4 @@ public class ChristmasNiclaslNaturalEntitySpawning {
         return world.getBiome(BlockPos.containing(x, y, z)).is(ResourceLocation.parse("herobrines_world:fire_land")) && Calendar.getInstance().get(Calendar.MONTH) == Calendar.DECEMBER
                 && (Calendar.getInstance().get(Calendar.DAY_OF_MONTH) == 24 || Calendar.getInstance().get(Calendar.DAY_OF_MONTH) == 25 || Calendar.getInstance().get(Calendar.DAY_OF_MONTH) == 26);
     }
-
 }
