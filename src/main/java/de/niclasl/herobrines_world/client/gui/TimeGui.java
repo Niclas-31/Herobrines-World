@@ -13,19 +13,20 @@ import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.GuiGraphics;
 
 import de.niclasl.herobrines_world.world.inventory.custom.Time;
-import de.niclasl.herobrines_world.procedures.Date;
 import de.niclasl.herobrines_world.network.message.ClockGuiButton;
 import de.niclasl.herobrines_world.client.ModScreens;
 import org.jetbrains.annotations.NotNull;
 import org.lwjgl.glfw.GLFW;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Objects;
 
-public class ClockGui extends AbstractContainerScreen<Time> implements ModScreens.ScreenAccessor {
+public class TimeGui extends AbstractContainerScreen<Time> implements ModScreens.ScreenAccessor {
     private final int x, y, z;
 	private final Player entity;
 
-    public ClockGui(Time container, Inventory inventory, Component text) {
+    public TimeGui(Time container, Inventory inventory, Component text) {
 		super(container, inventory, text);
         this.x = container.x;
 		this.y = container.y;
@@ -64,16 +65,18 @@ public class ClockGui extends AbstractContainerScreen<Time> implements ModScreen
 	@Override
 	protected void renderLabels(GuiGraphics guiGraphics, int mouseX, int mouseY) {
 		guiGraphics.drawString(this.font, Component.translatable("gui.herobrines_world.clock_gui.label_clock"), 63, 9, -65536, false);
-		guiGraphics.drawString(this.font, Date.execute(), -12, 19, -65536, false);
-		guiGraphics.drawString(this.font, de.niclasl.herobrines_world.procedures.Time.execute(), -11, 55, -65536, false);
+		String date = new SimpleDateFormat("dd/MM/yyyy").format(Calendar.getInstance().getTime());
+		String time = Calendar.getInstance().get(Calendar.HOUR_OF_DAY) + ":" + Calendar.getInstance().get(Calendar.MINUTE) + ":" + Calendar.getInstance().get(Calendar.SECOND);
+		guiGraphics.drawString(this.font, date, -12, 19, -65536, false);
+		guiGraphics.drawString(this.font, time, -11, 55, -65536, false);
 	}
 
 	@Override
 	public void init() {
 		super.init();
         Button button_hide = Button.builder(Component.translatable("gui.herobrines_world.clock_gui.button_hide"), e -> {
-            int x = ClockGui.this.x;
-            int y = ClockGui.this.y;
+            int x = TimeGui.this.x;
+            int y = TimeGui.this.y;
             ClientPacketDistributor.sendToServer(new ClockGuiButton(0, x, y, z));
             ClockGuiButton.handleButtonAction(entity, 0, x, y, z);
         }).bounds(this.leftPos + 31, this.topPos + 83, 46, 20).build();
