@@ -1,43 +1,48 @@
 package de.niclasl.herobrines_world.command;
 
+import net.minecraft.server.level.ServerPlayer;
 import net.neoforged.neoforge.event.RegisterCommandsEvent;
-import net.neoforged.neoforge.common.util.FakePlayerFactory;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.bus.api.SubscribeEvent;
 
-import net.minecraft.world.level.Level;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.commands.arguments.EntityArgument;
 import net.minecraft.commands.Commands;
 
-import de.niclasl.herobrines_world.procedures.TargetPlayer;
-import de.niclasl.herobrines_world.procedures.IsTheSamePlayer;
+import java.util.Collection;
 
 @EventBusSubscriber
 public class Vanish {
 	@SubscribeEvent
 	public static void registerCommand(RegisterCommandsEvent event) {
-		if (event.getCommandSelection() == Commands.CommandSelection.DEDICATED)
-			event.getDispatcher().register(Commands.literal("vanish").requires(s -> s.hasPermission(4)).then(Commands.argument("targets", EntityArgument.players()).executes(arguments -> {
-				Level world = arguments.getSource().getUnsidedLevel();
-				Entity entity = arguments.getSource().getEntity();
-				if (entity == null && world instanceof ServerLevel _servLevel)
-					entity = FakePlayerFactory.getMinecraft(_servLevel);
-				if (entity != null) entity.getDirection();
+		if (event.getCommandSelection() != Commands.CommandSelection.DEDICATED) return;
 
-				TargetPlayer.execute(arguments, entity);
-				return 0;
-			})).executes(arguments -> {
-				Level world = arguments.getSource().getUnsidedLevel();
-				Entity entity = arguments.getSource().getEntity();
-				if (entity == null && world instanceof ServerLevel _servLevel)
-					entity = FakePlayerFactory.getMinecraft(_servLevel);
-				if (entity != null) entity.getDirection();
+		event.getDispatcher().register(
+				Commands.literal("vanish")
+						.requires(source -> source.hasPermission(4))
+						.then(Commands.argument("targets", EntityArgument.players())
+								.executes(context -> {
+									Collection<ServerPlayer> targets = EntityArgument.getPlayers(context, "targets");
+									for (ServerPlayer target : targets) {
+										toggleVanish(target);
+									}
+									return targets.size();
+								})
+						)
+						.executes(context -> {
+							Entity executor = context.getSource().getEntity();
 
-				IsTheSamePlayer.execute(entity);
-				return 0;
-			}));
+							if (executor instanceof ServerPlayer player) {
+								toggleVanish(player);
+								return 1;
+							}
+							return 0;
+						})
+		);
 	}
 
+	private static void toggleVanish(ServerPlayer player) {
+		boolean currentlyVanished = player.isInvisible();
+		player.setInvisible(!currentlyVanished);
+	}
 }
