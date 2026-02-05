@@ -145,7 +145,7 @@ public class ModVariables {
 	public static class WorldVariables extends SavedData {
 		public static final SavedDataType<WorldVariables> TYPE = new SavedDataType<>("world_variables", ctx -> new WorldVariables(), ctx -> CompoundTag.CODEC.xmap(tag -> {
 			WorldVariables instance = new WorldVariables();
-			instance.read(tag, ctx.levelOrThrow().registryAccess());
+            instance.read(tag, ctx.levelOrThrow().registryAccess());
 			return instance;
 		}, instance -> instance.save(new CompoundTag(), ctx.levelOrThrow().registryAccess())));
 		boolean _syncDirty = false;
@@ -176,7 +176,7 @@ public class ModVariables {
 	public static class MapVariables extends SavedData {
 		public static final SavedDataType<MapVariables> TYPE = new SavedDataType<>("map_variables", ctx -> new MapVariables(), ctx -> CompoundTag.CODEC.xmap(tag -> {
 			MapVariables instance = new MapVariables();
-			instance.read(tag, ctx.levelOrThrow().registryAccess());
+            instance.read(tag, ctx.levelOrThrow().registryAccess());
 			return instance;
 		}, instance -> instance.save(new CompoundTag(), ctx.levelOrThrow().registryAccess())));
 		boolean _syncDirty = false;
@@ -264,12 +264,12 @@ public class ModVariables {
 		public boolean TimerActive = false;
 		public boolean AbilityActive = false;
 		public boolean Hide = false;
-		public double Hearts = 3.0;
-		public double Second = 0.0;
-		public double Minute = 0.0;
-		public double Hour = 0.0;
-		public double Day = 0.0;
-		public double enchantment_level = 0.0;
+		public int Hearts = 3;
+		public int Second = 0;
+		public int Minute = 0;
+		public int Hour = 0;
+		public int Day = 0;
+		public int enchantment_level = 0;
 		public int Soul_Current = 0;
 		public boolean PinUnlocked = false;
 		public String MyPinCode = "";
@@ -279,7 +279,7 @@ public class ModVariables {
 		public double Y = 0;
 		public double Z = 0;
 		public int Soul_Level = 0;
-		public double Ticks = 0;
+		public int Ticks = 0;
 		public String herobrineRelicOwner = "";
 		public String ownedBossUUID = "";
 
@@ -302,13 +302,13 @@ public class ModVariables {
 			output.putBoolean("TimerActive", TimerActive);
 			output.putBoolean("AbilityActive", AbilityActive);
 			output.putBoolean("Hide", Hide);
-			output.putDouble("Hearts", Hearts);
-			output.putDouble("Second", Second);
-			output.putDouble("Minute", Minute);
-			output.putDouble("Hour", Hour);
-			output.putDouble("Day", Day);
-			output.putDouble("enchantment_level", enchantment_level);
-			output.putDouble("Soul_Current", Soul_Current);
+			output.putInt("Hearts", Hearts);
+			output.putInt("Second", Second);
+			output.putInt("Minute", Minute);
+			output.putInt("Hour", Hour);
+			output.putInt("Day", Day);
+			output.putInt("enchantment_level", enchantment_level);
+			output.putInt("Soul_Current", Soul_Current);
 			output.putBoolean("PinUnlocked", PinUnlocked);
 			output.putString("MyPinCode", MyPinCode);
 			output.putBoolean("HasSet", HasSet);
@@ -316,8 +316,8 @@ public class ModVariables {
 			output.putDouble("X", X);
 			output.putDouble("Y", Y);
 			output.putDouble("Z", Z);
-			output.putDouble("Soul_Level", Soul_Level);
-			output.putDouble("Ticks", Ticks);
+			output.putInt("Soul_Level", Soul_Level);
+			output.putInt("Ticks", Ticks);
 			output.putString("herobrineRelicOwner", herobrineRelicOwner);
 			output.putString("ownedBossUUID", ownedBossUUID);
 		}
@@ -328,12 +328,12 @@ public class ModVariables {
 			TimerActive = input.getBooleanOr("TimerActive", false);
 			AbilityActive = input.getBooleanOr("AbilityActive", false);
 			Hide = input.getBooleanOr("Hide", false);
-			Hearts = input.getDoubleOr("Hearts", 0);
-			Second = input.getDoubleOr("Second", 0);
-			Minute = input.getDoubleOr("Minute", 0);
-			Hour = input.getDoubleOr("Hour", 0);
-			Day = input.getDoubleOr("Day", 0);
-			enchantment_level = input.getDoubleOr("enchantment_level", 0);
+			Hearts = input.getIntOr("Hearts", 0);
+			Second = input.getIntOr("Second", 0);
+			Minute = input.getIntOr("Minute", 0);
+			Hour = input.getIntOr("Hour", 0);
+			Day = input.getIntOr("Day", 0);
+			enchantment_level = input.getIntOr("enchantment_level", 0);
 			Soul_Current = input.getIntOr("Soul_Current", 0);
 			PinUnlocked = input.getBooleanOr("PinUnlocked", false);
 			MyPinCode = input.getStringOr("MyPinCode", "");
@@ -343,7 +343,7 @@ public class ModVariables {
 			Y = input.getDoubleOr("Y", 0);
 			Z = input.getDoubleOr("Z", 0);
 			Soul_Level = input.getIntOr("Soul_Level", 0);
-			Ticks = input.getDoubleOr("Ticks", 0);
+			Ticks = input.getIntOr("Ticks", 0);
 			herobrineRelicOwner = input.getStringOr("herobrineRelicOwner", "");
 			ownedBossUUID = input.getStringOr("ownedBossUUID", "");
 		}
