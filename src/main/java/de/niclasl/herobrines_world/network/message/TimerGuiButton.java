@@ -48,23 +48,23 @@ public record TimerGuiButton(int buttonID, int x, int y, int z) implements Custo
 		if (!world.hasChunkAt(new BlockPos(x, y, z)))
 			return;
 		if (buttonID == 0) {
-			ModVariables.PlayerVariables _vars = entity.getData(ModVariables.PLAYER_VARIABLES);
-			_vars.TimerActive = true;
-			_vars.markSyncDirty();
+			ModVariables.PlayerVariables vars = entity.getData(ModVariables.PLAYER_VARIABLES);
+			vars.TimerActive = true;
+			vars.markSyncDirty();
 		}
 		if (buttonID == 1) {
-			ModVariables.PlayerVariables _vars = entity.getData(ModVariables.PLAYER_VARIABLES);
-			_vars.TimerActive = false;
-			_vars.markSyncDirty();
+			ModVariables.PlayerVariables vars = entity.getData(ModVariables.PLAYER_VARIABLES);
+			vars.TimerActive = false;
+			vars.markSyncDirty();
 		}
 		if (buttonID == 2) {
-			ModVariables.PlayerVariables _vars = entity.getData(ModVariables.PLAYER_VARIABLES);
-			_vars.Ticks = 0;
-			_vars.Second = 0;
-			_vars.Minute = 0;
-			_vars.Hour = 0;
-			_vars.Day = 0;
-			_vars.markSyncDirty();
+			ModVariables.PlayerVariables vars = entity.getData(ModVariables.PLAYER_VARIABLES);
+			vars.Ticks = 0;
+			vars.Second = 0;
+			vars.Minute = 0;
+			vars.Hour = 0;
+			vars.Day = 0;
+			vars.markSyncDirty();
 		}
 	}
 
@@ -73,3 +73,4 @@ public record TimerGuiButton(int buttonID, int x, int y, int z) implements Custo
 		HerobrinesWorld.addNetworkMessage(TimerGuiButton.TYPE, TimerGuiButton.STREAM_CODEC, TimerGuiButton::handleData);
 	}
 }
+
