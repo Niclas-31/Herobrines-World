@@ -13,6 +13,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.Minecraft;
 
+import java.text.DecimalFormat;
+
 @EventBusSubscriber(Dist.CLIENT)
 public class SoulsBarOverlay {
 	@SubscribeEvent(priority = EventPriority.NORMAL)
@@ -65,6 +67,9 @@ public class SoulsBarOverlay {
         if (ten) {
             event.getGuiGraphics().blit(RenderPipelines.GUI_TEXTURED, ResourceLocation.parse("herobrines_world:textures/screens/seelen_bar_91-100_soul_points.png"), w - 59, h - 28, 0, 0, 13, 6, 13, 6);
         }
-        event.getGuiGraphics().drawString(Minecraft.getInstance().font, SoulLevelText.execute(entity), w - 53, h - 39, -16777063, false);
+
+        String level = new DecimalFormat("##").format(entity.getData(ModVariables.PLAYER_VARIABLES).Soul_Level);
+
+        event.getGuiGraphics().drawString(Minecraft.getInstance().font, level, w - 53, h - 39, -16777063, false);
     }
 }
