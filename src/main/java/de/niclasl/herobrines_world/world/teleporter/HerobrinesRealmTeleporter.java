@@ -50,24 +50,24 @@ public class HerobrinesRealmTeleporter {
 		this.level = level;
 	}
 
-	public Optional<BlockPos> findClosestPortalPosition(BlockPos p_352378_, boolean p_352309_, WorldBorder p_352374_) {
+	public Optional<BlockPos> findClosestPortalPosition(BlockPos pos, boolean flag, WorldBorder border) {
 		PoiManager poimanager = this.level.getPoiManager();
-		int i = p_352309_ ? 16 : 128;
-		poimanager.ensureLoadedAndValid(this.level, p_352378_, i);
-		return poimanager.getInSquare(p_230634_ -> p_230634_.is(poi.unwrapKey().get()), p_352378_, i, PoiManager.Occupancy.ANY).map(PoiRecord::getPos).filter(p_352374_::isWithinBounds)
-				.filter(p_352047_ -> this.level.getBlockState(p_352047_).hasProperty(BlockStateProperties.HORIZONTAL_AXIS)).min(Comparator.<BlockPos>comparingDouble(p_352046_ -> p_352046_.distSqr(p_352378_)).thenComparingInt(Vec3i::getY));
+		int i = flag ? 16 : 128;
+		poimanager.ensureLoadedAndValid(this.level, pos, i);
+		return poimanager.getInSquare(p_230634_ -> p_230634_.is(poi.unwrapKey().get()), pos, i, PoiManager.Occupancy.ANY).map(PoiRecord::getPos).filter(border::isWithinBounds)
+				.filter(p_352047_ -> this.level.getBlockState(p_352047_).hasProperty(BlockStateProperties.HORIZONTAL_AXIS)).min(Comparator.<BlockPos>comparingDouble(p_352046_ -> p_352046_.distSqr(pos)).thenComparingInt(Vec3i::getY));
 	}
 
-	public Optional<BlockUtil.FoundRectangle> createPortal(BlockPos p_77667_, Direction.Axis p_77668_) {
-		Direction direction = Direction.get(Direction.AxisDirection.POSITIVE, p_77668_);
+	public Optional<BlockUtil.FoundRectangle> createPortal(BlockPos pos, Direction.Axis axis) {
+		Direction direction = Direction.get(Direction.AxisDirection.POSITIVE, axis);
 		double d0 = -1.0;
 		BlockPos blockpos = null;
 		double d1 = -1.0;
 		BlockPos blockpos1 = null;
 		WorldBorder worldborder = this.level.getWorldBorder();
 		int i = Math.min(this.level.getMaxY(), this.level.getMinY() + this.level.getLogicalHeight() - 1);
-		BlockPos.MutableBlockPos blockpos$mutableblockpos = p_77667_.mutable();
-		for (BlockPos.MutableBlockPos blockpos$autocloseable1 : BlockPos.spiralAround(p_77667_, 16, Direction.EAST, Direction.SOUTH)) {
+		BlockPos.MutableBlockPos blockpos$mutableblockpos = pos.mutable();
+		for (BlockPos.MutableBlockPos blockpos$autocloseable1 : BlockPos.spiralAround(pos, 16, Direction.EAST, Direction.SOUTH)) {
 			int k = Math.min(i, this.level.getHeight(Heightmap.Types.MOTION_BLOCKING, blockpos$autocloseable1.getX(), blockpos$autocloseable1.getZ()));
 			if (worldborder.isWithinBounds(blockpos$autocloseable1) && worldborder.isWithinBounds(blockpos$autocloseable1.move(direction, 1))) {
 				blockpos$autocloseable1.move(direction.getOpposite(), 1);
@@ -83,7 +83,7 @@ public class HerobrinesRealmTeleporter {
 							if (j1 <= 0 || j1 >= 3) {
 								blockpos$autocloseable1.setY(l);
 								if (this.canHostFrame(blockpos$autocloseable1, blockpos$mutableblockpos, direction, 0)) {
-									double d2 = p_77667_.distSqr(blockpos$autocloseable1);
+									double d2 = pos.distSqr(blockpos$autocloseable1);
 									if (this.canHostFrame(blockpos$autocloseable1, blockpos$mutableblockpos, direction, -1) && this.canHostFrame(blockpos$autocloseable1, blockpos$mutableblockpos, direction, 1) && (d0 == -1.0 || d0 > d2)) {
 										d0 = d2;
 										blockpos = blockpos$autocloseable1.immutable();
@@ -109,7 +109,7 @@ public class HerobrinesRealmTeleporter {
 			if (i2 < k1) {
 				return Optional.empty();
 			}
-			blockpos = new BlockPos(p_77667_.getX() - direction.getStepX(), Mth.clamp(p_77667_.getY(), k1, i2), p_77667_.getZ() - direction.getStepZ()).immutable();
+			blockpos = new BlockPos(pos.getX() - direction.getStepX(), Mth.clamp(pos.getY(), k1, i2), pos.getZ() - direction.getStepZ()).immutable();
 			blockpos = worldborder.clampToBounds(blockpos);
 			Direction direction1 = direction.getClockWise();
 			for (int i3 = -1; i3 < 2; i3++) {
@@ -130,7 +130,7 @@ public class HerobrinesRealmTeleporter {
 				}
 			}
 		}
-		BlockState blockstate = ModBlocks.HEROBRINES_REALM_PORTAL.get().defaultBlockState().setValue(NetherPortalBlock.AXIS, p_77668_);
+		BlockState blockstate = ModBlocks.HEROBRINES_REALM_PORTAL.get().defaultBlockState().setValue(NetherPortalBlock.AXIS, axis);
 		for (int k2 = 0; k2 < 2; k2++) {
 			for (int l2 = 0; l2 < 3; l2++) {
 				blockpos$mutableblockpos.setWithOffset(blockpos, k2 * direction.getStepX(), l2, k2 * direction.getStepZ());
@@ -141,15 +141,16 @@ public class HerobrinesRealmTeleporter {
 		return Optional.of(new BlockUtil.FoundRectangle(blockpos.immutable(), 2, 3));
 	}
 
-	private boolean canHostFrame(BlockPos p_77662_, BlockPos.MutableBlockPos p_77663_, Direction p_77664_, int p_77665_) {
-		Direction direction = p_77664_.getClockWise();
+	private boolean canHostFrame(BlockPos pos, BlockPos.MutableBlockPos mutableBlockPos, Direction direction,
+								 int offset) {
+		Direction direction1 = direction.getClockWise();
 		for (int i = -1; i < 3; i++) {
 			for (int j = -1; j < 4; j++) {
-				p_77663_.setWithOffset(p_77662_, p_77664_.getStepX() * i + direction.getStepX() * p_77665_, j, p_77664_.getStepZ() * i + direction.getStepZ() * p_77665_);
-				if (j < 0 && !this.level.getBlockState(p_77663_).isSolid()) {
+				mutableBlockPos.setWithOffset(pos, direction1.getStepX() * i + direction1.getStepX() * offset, j, direction1.getStepZ() * i + direction1.getStepZ() * offset);
+				if (j < 0 && !this.level.getBlockState(mutableBlockPos).isSolid()) {
 					return false;
 				}
-				if (j >= 0 && !this.canPortalReplaceBlock(p_77663_)) {
+				if (j >= 0 && !this.canPortalReplaceBlock(mutableBlockPos)) {
 					return false;
 				}
 			}
