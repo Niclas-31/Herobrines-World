@@ -99,7 +99,14 @@ public class Niclasl extends Monster {
 	}
 
 	public static void init(RegisterSpawnPlacementsEvent event) {
-		event.register(ModEntities.NICLASL.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, (entityType, world, reason, pos, random) -> NiclaslNaturalEntitySpawning.execute(), RegisterSpawnPlacementsEvent.Operation.REPLACE);
+		event.register(ModEntities.NICLASL.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, (entityType, world, reason, pos, random) -> {
+			if (Calendar.getInstance().get(Calendar.MONTH) <= 11) {
+				return true;
+			} else if (Calendar.getInstance().get(Calendar.MONTH) == Calendar.DECEMBER && (Calendar.getInstance().get(Calendar.DAY_OF_MONTH) == 24 || Calendar.getInstance().get(Calendar.DAY_OF_MONTH) == 25 || Calendar.getInstance().get(Calendar.DAY_OF_MONTH) == 26)) {
+				return false;
+			}
+            return false;
+        }, RegisterSpawnPlacementsEvent.Operation.REPLACE);
 	}
 
 	public static AttributeSupplier.Builder createAttributes() {
