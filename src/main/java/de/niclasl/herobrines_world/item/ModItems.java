@@ -343,5 +343,4 @@ public class ModItems {
 				ModItems.TIME_CLOCK.get()
 		);
 	}
-
 }
