@@ -1,7 +1,11 @@
 package de.niclasl.herobrines_world.network.message;
 
+import de.niclasl.herobrines_world.item.ModItems;
 import de.niclasl.herobrines_world.network.ModVariables;
-import de.niclasl.herobrines_world.procedures.HerobrineArmorAbility;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -18,6 +22,8 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 
 import de.niclasl.herobrines_world.HerobrinesWorld;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.Objects;
 
 @EventBusSubscriber
 public record AbilityControll(int eventType) implements CustomPacketPayload {
@@ -44,19 +50,39 @@ public record AbilityControll(int eventType) implements CustomPacketPayload {
             return;
         if (type == 0) {
             if (entity.getData(ModVariables.PLAYER_VARIABLES).AbilityActive) {
-                {
-                    ModVariables.PlayerVariables _vars = entity.getData(ModVariables.PLAYER_VARIABLES);
-                    _vars.AbilityActive = false;
-                    _vars.markSyncDirty();
+                ModVariables.PlayerVariables vars = entity.getData(ModVariables.PLAYER_VARIABLES);
+                vars.AbilityActive = false;
+                vars.markSyncDirty();
+                
+                if (!entity.getData(ModVariables.PLAYER_VARIABLES).AbilityActive) {
+                    if (entity.getAttributes().hasAttribute(Attributes.MAX_HEALTH))
+                        Objects.requireNonNull(entity.getAttribute(Attributes.MAX_HEALTH)).setBaseValue(20);
+                    entity.removeEffect(MobEffects.REGENERATION);
+                    entity.removeEffect(MobEffects.SATURATION);
+                    entity.removeEffect(MobEffects.NIGHT_VISION);
                 }
-                HerobrineArmorAbility.execute(entity);
             } else {
-                {
-                    ModVariables.PlayerVariables _vars = entity.getData(ModVariables.PLAYER_VARIABLES);
-                    _vars.AbilityActive = true;
-                    _vars.markSyncDirty();
+                ModVariables.PlayerVariables vars = entity.getData(ModVariables.PLAYER_VARIABLES);
+                vars.AbilityActive = true;
+                vars.markSyncDirty();
+
+                if (entity.getData(ModVariables.PLAYER_VARIABLES).AbilityActive) {
+                    if (entity.getItemBySlot(EquipmentSlot.HEAD).getItem() == ModItems.HEROBRINE_HELMET.get()) {
+                        if (entity.getItemBySlot(EquipmentSlot.CHEST).getItem() == ModItems.HEROBRINE_CHESTPLATE.get()) {
+                            if (entity.getItemBySlot(EquipmentSlot.LEGS).getItem() == ModItems.HEROBRINE_LEGGINGS.get()) {
+                                if (entity.getItemBySlot(EquipmentSlot.FEET).getItem() == ModItems.HEROBRINE_BOOTS.get()) {
+                                    if (entity.getAttributes().hasAttribute(Attributes.MAX_HEALTH))
+                                        Objects.requireNonNull(entity.getAttribute(Attributes.MAX_HEALTH)).setBaseValue(1000);
+                                    if (!entity.level().isClientSide()) {
+                                        entity.addEffect(new MobEffectInstance(MobEffects.SATURATION, -1, 255, false, false));
+                                        entity.addEffect(new MobEffectInstance(MobEffects.REGENERATION, -1, 255, false, false));
+                                        entity.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, -1, 255, false, false));
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
-                HerobrineArmorAbility.execute(entity);
             }
         }
     }
