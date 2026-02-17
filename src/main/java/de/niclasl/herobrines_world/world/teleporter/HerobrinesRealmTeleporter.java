@@ -54,8 +54,8 @@ public class HerobrinesRealmTeleporter {
 		PoiManager poimanager = this.level.getPoiManager();
 		int i = flag ? 16 : 128;
 		poimanager.ensureLoadedAndValid(this.level, pos, i);
-		return poimanager.getInSquare(p_230634_ -> p_230634_.is(poi.unwrapKey().get()), pos, i, PoiManager.Occupancy.ANY).map(PoiRecord::getPos).filter(border::isWithinBounds)
-				.filter(p_352047_ -> this.level.getBlockState(p_352047_).hasProperty(BlockStateProperties.HORIZONTAL_AXIS)).min(Comparator.<BlockPos>comparingDouble(p_352046_ -> p_352046_.distSqr(pos)).thenComparingInt(Vec3i::getY));
+		return poimanager.getInSquare(holder -> holder.is(poi.unwrapKey().get()), pos, i, PoiManager.Occupancy.ANY).map(PoiRecord::getPos).filter(border::isWithinBounds)
+				.filter(pos1 -> this.level.getBlockState(pos1).hasProperty(BlockStateProperties.HORIZONTAL_AXIS)).min(Comparator.<BlockPos>comparingDouble(pos1 -> pos1.distSqr(pos)).thenComparingInt(Vec3i::getY));
 	}
 
 	public Optional<BlockUtil.FoundRectangle> createPortal(BlockPos pos, Direction.Axis axis) {
@@ -66,31 +66,31 @@ public class HerobrinesRealmTeleporter {
 		BlockPos blockpos1 = null;
 		WorldBorder worldborder = this.level.getWorldBorder();
 		int i = Math.min(this.level.getMaxY(), this.level.getMinY() + this.level.getLogicalHeight() - 1);
-		BlockPos.MutableBlockPos blockpos$mutableblockpos = pos.mutable();
-		for (BlockPos.MutableBlockPos blockpos$autocloseable1 : BlockPos.spiralAround(pos, 16, Direction.EAST, Direction.SOUTH)) {
-			int k = Math.min(i, this.level.getHeight(Heightmap.Types.MOTION_BLOCKING, blockpos$autocloseable1.getX(), blockpos$autocloseable1.getZ()));
-			if (worldborder.isWithinBounds(blockpos$autocloseable1) && worldborder.isWithinBounds(blockpos$autocloseable1.move(direction, 1))) {
-				blockpos$autocloseable1.move(direction.getOpposite(), 1);
+		BlockPos.MutableBlockPos mutableBlockPos = pos.mutable();
+		for (BlockPos.MutableBlockPos autoCloseable : BlockPos.spiralAround(pos, 16, Direction.EAST, Direction.SOUTH)) {
+			int k = Math.min(i, this.level.getHeight(Heightmap.Types.MOTION_BLOCKING, autoCloseable.getX(), autoCloseable.getZ()));
+			if (worldborder.isWithinBounds(autoCloseable) && worldborder.isWithinBounds(autoCloseable.move(direction, 1))) {
+				autoCloseable.move(direction.getOpposite(), 1);
 				for (int l = k; l >= this.level.getMinY(); l--) {
-					blockpos$autocloseable1.setY(l);
-					if (this.canPortalReplaceBlock(blockpos$autocloseable1)) {
+					autoCloseable.setY(l);
+					if (this.canPortalReplaceBlock(autoCloseable)) {
 						int i1 = l;
-						while (l > this.level.getMinY() && this.canPortalReplaceBlock(blockpos$autocloseable1.move(Direction.DOWN))) {
+						while (l > this.level.getMinY() && this.canPortalReplaceBlock(autoCloseable.move(Direction.DOWN))) {
 							l--;
 						}
 						if (l + 4 <= i) {
 							int j1 = i1 - l;
 							if (j1 <= 0 || j1 >= 3) {
-								blockpos$autocloseable1.setY(l);
-								if (this.canHostFrame(blockpos$autocloseable1, blockpos$mutableblockpos, direction, 0)) {
-									double d2 = pos.distSqr(blockpos$autocloseable1);
-									if (this.canHostFrame(blockpos$autocloseable1, blockpos$mutableblockpos, direction, -1) && this.canHostFrame(blockpos$autocloseable1, blockpos$mutableblockpos, direction, 1) && (d0 == -1.0 || d0 > d2)) {
+								autoCloseable.setY(l);
+								if (this.canHostFrame(autoCloseable, mutableBlockPos, direction, 0)) {
+									double d2 = pos.distSqr(autoCloseable);
+									if (this.canHostFrame(autoCloseable, mutableBlockPos, direction, -1) && this.canHostFrame(autoCloseable, mutableBlockPos, direction, 1) && (d0 == -1.0 || d0 > d2)) {
 										d0 = d2;
-										blockpos = blockpos$autocloseable1.immutable();
+										blockpos = autoCloseable.immutable();
 									}
 									if (d0 == -1.0 && (d1 == -1.0 || d1 > d2)) {
 										d1 = d2;
-										blockpos1 = blockpos$autocloseable1.immutable();
+										blockpos1 = autoCloseable.immutable();
 									}
 								}
 							}
@@ -116,8 +116,8 @@ public class HerobrinesRealmTeleporter {
 				for (int j3 = 0; j3 < 2; j3++) {
 					for (int k3 = -1; k3 < 3; k3++) {
 						BlockState blockstate1 = k3 < 0 ? ModBlocks.CURSED_STONE.get().defaultBlockState() : Blocks.AIR.defaultBlockState();
-						blockpos$mutableblockpos.setWithOffset(blockpos, j3 * direction.getStepX() + i3 * direction1.getStepX(), k3, j3 * direction.getStepZ() + i3 * direction1.getStepZ());
-						this.level.setBlockAndUpdate(blockpos$mutableblockpos, blockstate1);
+						mutableBlockPos.setWithOffset(blockpos, j3 * direction.getStepX() + i3 * direction1.getStepX(), k3, j3 * direction.getStepZ() + i3 * direction1.getStepZ());
+						this.level.setBlockAndUpdate(mutableBlockPos, blockstate1);
 					}
 				}
 			}
@@ -125,17 +125,17 @@ public class HerobrinesRealmTeleporter {
 		for (int l1 = -1; l1 < 3; l1++) {
 			for (int j2 = -1; j2 < 4; j2++) {
 				if (l1 == -1 || l1 == 2 || j2 == -1 || j2 == 3) {
-					blockpos$mutableblockpos.setWithOffset(blockpos, l1 * direction.getStepX(), j2, l1 * direction.getStepZ());
-					this.level.setBlock(blockpos$mutableblockpos, ModBlocks.CURSED_STONE.get().defaultBlockState(), 3);
+					mutableBlockPos.setWithOffset(blockpos, l1 * direction.getStepX(), j2, l1 * direction.getStepZ());
+					this.level.setBlock(mutableBlockPos, ModBlocks.CURSED_STONE.get().defaultBlockState(), 3);
 				}
 			}
 		}
 		BlockState blockstate = ModBlocks.HEROBRINES_REALM_PORTAL.get().defaultBlockState().setValue(NetherPortalBlock.AXIS, axis);
 		for (int k2 = 0; k2 < 2; k2++) {
 			for (int l2 = 0; l2 < 3; l2++) {
-				blockpos$mutableblockpos.setWithOffset(blockpos, k2 * direction.getStepX(), l2, k2 * direction.getStepZ());
-				this.level.setBlock(blockpos$mutableblockpos, blockstate, 18);
-				this.level.getPoiManager().add(blockpos$mutableblockpos, poi);
+				mutableBlockPos.setWithOffset(blockpos, k2 * direction.getStepX(), l2, k2 * direction.getStepZ());
+				this.level.setBlock(mutableBlockPos, blockstate, 18);
+				this.level.getPoiManager().add(mutableBlockPos, poi);
 			}
 		}
 		return Optional.of(new BlockUtil.FoundRectangle(blockpos.immutable(), 2, 3));
