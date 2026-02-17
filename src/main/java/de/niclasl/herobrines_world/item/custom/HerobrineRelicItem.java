@@ -1,130 +1,98 @@
 package de.niclasl.herobrines_world.item.custom;
 
-import de.niclasl.herobrines_world.entity.custom.HerobrineBoss;
-import de.niclasl.herobrines_world.entity.ModEntities;
-import de.niclasl.herobrines_world.network.ModVariables;
-import net.minecraft.client.Minecraft;
-import net.minecraft.core.BlockPos;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntitySpawnReason;
+import net.minecraft.world.item.component.CustomData;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.item.component.TooltipDisplay;
-import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.InteractionHand;
+
 import org.jetbrains.annotations.NotNull;
 
-import java.util.UUID;
-import java.util.function.Consumer;
+public class RuneStone extends Item {
 
-public class HerobrineRelicItem extends Item {
+	public RuneStone(Properties properties) {
+		super(properties.rarity(Rarity.RARE).stacksTo(1));
+	}
 
-    public HerobrineRelicItem(Properties properties) {
-        super(properties.fireResistant().stacksTo(1));
-    }
+	@Override
+	public @NotNull InteractionResult use(@NotNull Level world,
+										  @NotNull Player player,
+										  @NotNull InteractionHand hand) {
 
-    @Override
-    public @NotNull InteractionResult useOn(@NotNull UseOnContext ctx) {
-        if (!(ctx.getLevel() instanceof ServerLevel level)) {
-            return InteractionResult.SUCCESS;
-        }
+		if (world.isClientSide()) {
+			return InteractionResult.SUCCESS;
+		}
 
-        if (!(ctx.getPlayer() instanceof ServerPlayer player)) {
-            return InteractionResult.SUCCESS;
-        }
+		var stack = player.getItemInHand(hand);
 
-        ModVariables.PlayerVariables vars =
-                player.getData(ModVariables.PLAYER_VARIABLES);
+		var tag = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
 
-        UUID owner = vars.getRelicOwner();
-        if (owner == null) {
-            player.sendSystemMessage(Component.translatable("relic.is_defect"));
-            return InteractionResult.FAIL;
-        }
+		boolean hasSaved = tag.getBooleanOr("hasSavedPosition", false);
+		
+		if (player.isShiftKeyDown()) {
 
-        if (!owner.equals(player.getUUID())) {
-            player.sendSystemMessage(Component.translatable("relic.is_not_yours"));
-            return InteractionResult.FAIL;
-        }
+			if (hasSaved) {
+				player.displayClientMessage(
+						Component.literal("§4A position has already been saved on this item!"),
+						true
+				);
+				return InteractionResult.SUCCESS;
+			}
 
-        if (vars.ownedBossUUID != null) {
-            Entity e = level.getEntity(vars.getOwnedBossUUID());
+			CustomData.update(DataComponents.CUSTOM_DATA, stack, data -> {
+				data.putDouble("savedX", player.getX());
+				data.putDouble("savedY", player.getY());
+				data.putDouble("savedZ", player.getZ());
+				data.putString("savedDimension",
+						player.level().dimension().location().toString());
+				data.putBoolean("hasSavedPosition", true);
+			});
 
-            if (e instanceof HerobrineBoss boss && boss.isAlive()) {
+			player.displayClientMessage(
+					Component.literal("§2Position was successfully saved in the item!"),
+					true
+			);
 
-                if (player.isShiftKeyDown()) {
-                    boolean newMode = !boss.isMinionMode();
-                    boss.setMinionMode(newMode);
+			return InteractionResult.SUCCESS;
+		}
 
-                    player.sendSystemMessage(Component.translatable(
-                            newMode
-                                    ? "boss.minion_mode.enabled"
-                                    : "boss.minion_mode.disabled"
-                    ));
-                    return InteractionResult.SUCCESS;
-                }
+		if (!hasSaved) {
+			player.displayClientMessage(
+					Component.literal("§4No position has been saved yet."),
+					true
+			);
+			return InteractionResult.SUCCESS;
+		}
 
-                boss.remove(Entity.RemovalReason.DISCARDED);
-                vars.ownedBossUUID = null;
+		String savedDimension = tag.getStringOr("savedDimension", "");
+		String currentDimension =
+				player.level().dimension().location().toString();
 
-                player.sendSystemMessage(
-                        Component.translatable("boss.removed")
-                );
-                return InteractionResult.SUCCESS;
-            }
+		if (!currentDimension.equals(savedDimension)) {
+			player.displayClientMessage(
+					Component.literal("§4You cannot teleport to another dimension!"),
+					true
+			);
+			return InteractionResult.SUCCESS;
+		}
 
-            vars.ownedBossUUID = null;
-        }
+		double x = tag.getDoubleOr("savedX", 0);
+		double y = tag.getDoubleOr("savedY", 0);
+		double z = tag.getDoubleOr("savedZ", 0);
 
-        BlockPos pos = ctx.getClickedPos().above();
+		if (player instanceof ServerPlayer serverPlayer) {
+			serverPlayer.connection.teleport(
+					x, y, z,
+					player.getYRot(),
+					player.getXRot()
+			);
+		}
 
-        HerobrineBoss boss =
-                ModEntities.HEROBRINE_BOSS.get()
-                        .create(level, EntitySpawnReason.MOB_SUMMONED);
-
-        if (boss == null) {
-            return InteractionResult.FAIL;
-        }
-
-        boss.setPos(
-                pos.getX() + 0.5,
-                pos.getY(),
-                pos.getZ() + 0.5
-        );
-
-        boss.setTamedOwner(player);
-        boss.setMinionMode(true);
-        boss.setHideBossBar(true);
-
-        level.addFreshEntity(boss);
-
-        vars.ownedBossUUID = boss.getUUID().toString();
-
-        player.sendSystemMessage(
-                Component.translatable("boss.spawned")
-        );
-
-        return InteractionResult.SUCCESS;
-    }
-
-    @SuppressWarnings("deprecation")
-    @Override
-    public void appendHoverText(@NotNull ItemStack stack, @NotNull TooltipContext context, @NotNull TooltipDisplay tooltipDisplay,
-                                @NotNull Consumer<Component> tooltipAdder, @NotNull TooltipFlag flag) {
-        super.appendHoverText(stack, context, tooltipDisplay, tooltipAdder, flag);
-
-        if (Minecraft.getInstance().player != null) {
-            ModVariables.PlayerVariables mapVars = Minecraft.getInstance().player.getData(ModVariables.PLAYER_VARIABLES);
-            UUID owner = mapVars.getRelicOwner();
-            if (owner != null) {
-                tooltipAdder.accept(Component.translatable("item.herobrines_world.herobrine_relic.bound_on", owner.toString()));
-            } else {
-                tooltipAdder.accept(Component.translatable("item.herobrines_world.herobrine_relic.unbound"));
-            }
-        }
-    }
+		return InteractionResult.SUCCESS;
+	}
 }
