@@ -1,6 +1,10 @@
 package de.niclasl.herobrines_world.entity.custom;
 
+import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.entity.projectile.AbstractArrow;
+import net.minecraft.world.entity.projectile.AbstractThrownPotion;
 import net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent;
 import net.neoforged.neoforge.common.NeoForgeMod;
 
@@ -8,8 +12,6 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.Explosion;
-import net.minecraft.world.entity.projectile.AbstractThrownPotion;
-import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
@@ -24,9 +26,10 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.server.level.ServerLevel;
 
-import de.niclasl.herobrines_world.procedures.ChristmasNiclaslNaturalEntitySpawning;
 import de.niclasl.herobrines_world.entity.ModEntities;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.Calendar;
 
 public class ChristmasNiclasl extends Monster {
 	public ChristmasNiclasl(EntityType<ChristmasNiclasl> type, Level world) {
@@ -103,7 +106,11 @@ public class ChristmasNiclasl extends Monster {
 			int x = pos.getX();
 			int y = pos.getY();
 			int z = pos.getZ();
-			return ChristmasNiclaslNaturalEntitySpawning.execute(world, x, y, z);
+			if (world.getBiome(BlockPos.containing(x, y, z)).is(ResourceLocation.parse("herobrines_world:frozen_forest"))) {
+				return true;
+			}
+			return world.getBiome(BlockPos.containing(x, y, z)).is(ResourceLocation.parse("herobrines_world:fire_land")) && Calendar.getInstance().get(Calendar.MONTH) == Calendar.DECEMBER
+					&& (Calendar.getInstance().get(Calendar.DAY_OF_MONTH) == 24 || Calendar.getInstance().get(Calendar.DAY_OF_MONTH) == 25 || Calendar.getInstance().get(Calendar.DAY_OF_MONTH) == 26);
 		}, RegisterSpawnPlacementsEvent.Operation.REPLACE);
 	}
 
