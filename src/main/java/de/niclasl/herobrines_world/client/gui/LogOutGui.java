@@ -12,13 +12,12 @@ import net.minecraft.client.gui.GuiGraphics;
 
 import de.niclasl.herobrines_world.world.inventory.custom.LogOut;
 import de.niclasl.herobrines_world.network.message.LogOutButton;
-import de.niclasl.herobrines_world.client.ModScreens;
 import org.jetbrains.annotations.NotNull;
 import org.lwjgl.glfw.GLFW;
 
 import java.util.Objects;
 
-public class LogOutGui extends AbstractContainerScreen<LogOut> implements ModScreens.ScreenAccessor {
+public class LogOutGui extends AbstractContainerScreen<LogOut> {
     private final int x, y, z;
 	private final Player entity;
 
@@ -31,10 +30,6 @@ public class LogOutGui extends AbstractContainerScreen<LogOut> implements ModScr
 		this.imageWidth = 176;
 		this.imageHeight = 166;
 	}
-
-	@Override
-	public void updateMenuState(int elementType, String name, Object elementState) {
-    }
 
 	@Override
 	public void render(@NotNull GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
