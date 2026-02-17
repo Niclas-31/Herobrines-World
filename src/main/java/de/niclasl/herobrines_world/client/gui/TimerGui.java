@@ -71,25 +71,20 @@ public class TimerGui extends AbstractContainerScreen<Timer> {
 	public void init() {
 		super.init();
         Button button_start = Button.builder(Component.translatable("gui.herobrines_world.timer_gui.button_start"), e -> {
-            int x = TimerGui.this.x;
-            int y = TimerGui.this.y;
             ClientPacketDistributor.sendToServer(new TimerGuiButton(0, x, y, z));
             TimerGuiButton.handleButtonAction(entity, 0, x, y, z);
         }).bounds(this.leftPos + 60, this.topPos + 111, 51, 20).build();
 		this.addRenderableWidget(button_start);
         Button button_stop = Button.builder(Component.translatable("gui.herobrines_world.timer_gui.button_stop"), e -> {
-            int x = TimerGui.this.x;
-            int y = TimerGui.this.y;
             ClientPacketDistributor.sendToServer(new TimerGuiButton(1, x, y, z));
             TimerGuiButton.handleButtonAction(entity, 1, x, y, z);
         }).bounds(this.leftPos + 62, this.topPos + 69, 46, 20).build();
 		this.addRenderableWidget(button_stop);
         Button button_reset = Button.builder(Component.translatable("gui.herobrines_world.timer_gui.button_reset"), e -> {
-            int x = TimerGui.this.x;
-            int y = TimerGui.this.y;
             ClientPacketDistributor.sendToServer(new TimerGuiButton(2, x, y, z));
             TimerGuiButton.handleButtonAction(entity, 2, x, y, z);
         }).bounds(this.leftPos + 60, this.topPos + 90, 51, 20).build();
 		this.addRenderableWidget(button_reset);
 	}
 }
+
