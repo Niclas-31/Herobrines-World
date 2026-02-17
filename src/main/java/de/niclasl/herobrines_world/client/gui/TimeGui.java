@@ -14,7 +14,6 @@ import net.minecraft.client.gui.GuiGraphics;
 
 import de.niclasl.herobrines_world.world.inventory.custom.Time;
 import de.niclasl.herobrines_world.network.message.ClockGuiButton;
-import de.niclasl.herobrines_world.client.ModScreens;
 import org.jetbrains.annotations.NotNull;
 import org.lwjgl.glfw.GLFW;
 
@@ -22,7 +21,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Objects;
 
-public class TimeGui extends AbstractContainerScreen<Time> implements ModScreens.ScreenAccessor {
+public class TimeGui extends AbstractContainerScreen<Time> {
     private final int x, y, z;
 	private final Player entity;
 
@@ -35,10 +34,6 @@ public class TimeGui extends AbstractContainerScreen<Time> implements ModScreens
 		this.imageWidth = 100;
 		this.imageHeight = 80;
 	}
-
-	@Override
-	public void updateMenuState(int elementType, String name, Object elementState) {
-    }
 
 	@Override
 	public void render(@NotNull GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
