@@ -59,9 +59,6 @@ public class LogOutGui extends AbstractContainerScreen<LogOut> {
 	public void init() {
 		super.init();
         Button button_logout = Button.builder(Component.translatable("gui.herobrines_world.log_out.button_logout"), e -> {
-            int x = LogOutGui.this.x;
-            int y = LogOutGui.this.y;
-			int z = LogOutGui.this.z;
             ClientPacketDistributor.sendToServer(new LogOutButton(0, x, y, z));
             LogOutButton.handleButtonAction(entity, 0, x, y, z);
         }).bounds(this.leftPos + 62, this.topPos + 69, 56, 20).build();
