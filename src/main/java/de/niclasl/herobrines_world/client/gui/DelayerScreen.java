@@ -1,7 +1,6 @@
 package de.niclasl.herobrines_world.client.gui;
 
 import de.niclasl.herobrines_world.block.entity.custom.DelayerEntity;
-import de.niclasl.herobrines_world.client.ModScreens;
 import de.niclasl.herobrines_world.network.message.DelayerSetTimes;
 import de.niclasl.herobrines_world.world.inventory.custom.DelayerMenu;
 import net.minecraft.client.gui.GuiGraphics;
@@ -164,3 +163,4 @@ public class DelayerScreen extends AbstractContainerScreen<DelayerMenu> {
 
     }
 }
+
