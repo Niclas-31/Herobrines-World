@@ -1,5 +1,6 @@
 package de.niclasl.herobrines_world.network.message;
 
+import de.niclasl.herobrines_world.network.ModVariables;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -15,9 +16,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.core.BlockPos;
 
-import de.niclasl.herobrines_world.procedures.Reset;
-import de.niclasl.herobrines_world.procedures.Inactive;
-import de.niclasl.herobrines_world.procedures.Activate;
 import de.niclasl.herobrines_world.HerobrinesWorld;
 import org.jetbrains.annotations.NotNull;
 
@@ -50,16 +48,23 @@ public record TimerGuiButton(int buttonID, int x, int y, int z) implements Custo
 		if (!world.hasChunkAt(new BlockPos(x, y, z)))
 			return;
 		if (buttonID == 0) {
-
-			Activate.execute(entity);
+			ModVariables.PlayerVariables _vars = entity.getData(ModVariables.PLAYER_VARIABLES);
+			_vars.TimerActive = true;
+			_vars.markSyncDirty();
 		}
 		if (buttonID == 1) {
-
-			Inactive.execute(entity);
+			ModVariables.PlayerVariables _vars = entity.getData(ModVariables.PLAYER_VARIABLES);
+			_vars.TimerActive = false;
+			_vars.markSyncDirty();
 		}
 		if (buttonID == 2) {
-
-			Reset.execute(entity);
+			ModVariables.PlayerVariables _vars = entity.getData(ModVariables.PLAYER_VARIABLES);
+			_vars.Ticks = 0;
+			_vars.Second = 0;
+			_vars.Minute = 0;
+			_vars.Hour = 0;
+			_vars.Day = 0;
+			_vars.markSyncDirty();
 		}
 	}
 
