@@ -40,8 +40,6 @@ public class ModMenus {
 	public interface MenuAccessor {
 		Map<String, Object> getMenuState();
 
-		Map<Integer, Slot> getSlots();
-
 		default void sendMenuStateUpdate(Player player, int elementType, String name, Object elementState, boolean needClientUpdate) {
 			getMenuState().put(elementType + ":" + name, elementState);
 			if (player instanceof ServerPlayer serverPlayer) {
@@ -63,4 +61,5 @@ public class ModMenus {
 		}
 	}
 }
+
 
