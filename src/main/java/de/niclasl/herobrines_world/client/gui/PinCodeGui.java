@@ -108,8 +108,6 @@ public class PinCodeGui extends AbstractContainerScreen<PinCode> implements ModS
 		});
 		this.addWidget(this.SetAccount);
         Button button_create = Button.builder(Component.translatable("gui.herobrines_world.pin_code.button_create"), e -> {
-            int x = PinCodeGui.this.x;
-            int y = PinCodeGui.this.y;
             ClientPacketDistributor.sendToServer(new PinCodeButton(0, x, y, z));
             PinCodeButton.handleButtonAction(entity, 0, x, y, z);
         }).bounds(this.leftPos + 59, this.topPos + 91, 56, 20).build();
