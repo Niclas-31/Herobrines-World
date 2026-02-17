@@ -70,11 +70,10 @@ public class TimeGui extends AbstractContainerScreen<Time> {
 	public void init() {
 		super.init();
         Button button_hide = Button.builder(Component.translatable("gui.herobrines_world.clock_gui.button_hide"), e -> {
-            int x = TimeGui.this.x;
-            int y = TimeGui.this.y;
             ClientPacketDistributor.sendToServer(new ClockGuiButton(0, x, y, z));
             ClockGuiButton.handleButtonAction(entity, 0, x, y, z);
         }).bounds(this.leftPos + 31, this.topPos + 83, 46, 20).build();
 		this.addRenderableWidget(button_hide);
 	}
 }
+
