@@ -15,13 +15,12 @@ import net.minecraft.client.gui.components.ImageButton;
 import net.minecraft.client.gui.GuiGraphics;
 
 import de.niclasl.herobrines_world.network.message.SignalColorChangerGuiButton;
-import de.niclasl.herobrines_world.client.ModScreens;
 import org.jetbrains.annotations.NotNull;
 import org.lwjgl.glfw.GLFW;
 
 import java.util.Objects;
 
-public class SignalColorChangerGui extends AbstractContainerScreen<SignalColorChanger> implements ModScreens.ScreenAccessor {
+public class SignalColorChangerGui extends AbstractContainerScreen<SignalColorChanger> {
     private final int x, y, z;
 	private final Player entity;
 
@@ -34,10 +33,6 @@ public class SignalColorChangerGui extends AbstractContainerScreen<SignalColorCh
 		this.imageWidth = 176;
 		this.imageHeight = 166;
 	}
-
-	@Override
-	public void updateMenuState(int elementType, String name, Object elementState) {
-    }
 
 	@Override
 	public void render(@NotNull GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
