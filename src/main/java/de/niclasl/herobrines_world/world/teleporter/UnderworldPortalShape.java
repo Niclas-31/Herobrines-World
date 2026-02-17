@@ -33,148 +33,150 @@ public class UnderworldPortalShape {
 	private final int height;
 	private final int width;
 
-	public UnderworldPortalShape(Direction.Axis p_77697_, int p_374222_, Direction p_374407_, BlockPos p_77696_, int p_374218_, int p_374477_) {
-		this.axis = p_77697_;
-		this.numPortalBlocks = p_374222_;
-		this.rightDir = p_374407_;
-		this.bottomLeft = p_77696_;
-		this.width = p_374218_;
-		this.height = p_374477_;
+	public UnderworldPortalShape(Direction.Axis axis, int numPortalBlocks, Direction rightDir, BlockPos bottomLeft, int width, int height) {
+		this.axis = axis;
+		this.numPortalBlocks = numPortalBlocks;
+		this.rightDir = rightDir;
+		this.bottomLeft = bottomLeft;
+		this.width = width;
+		this.height = height;
 	}
 
-	public static Optional<UnderworldPortalShape> findEmptyPortalShape(LevelAccessor p_77709_, BlockPos p_77710_, Direction.Axis p_77711_) {
-		return findPortalShape(p_77709_, p_77710_, p_77727_ -> p_77727_.isValid() && p_77727_.numPortalBlocks == 0, p_77711_);
+	public static Optional<UnderworldPortalShape> findEmptyPortalShape(LevelAccessor levelAccessor, BlockPos pos, Direction.Axis axis) {
+		return findPortalShape(levelAccessor, pos, shape -> shape.isValid() && shape.numPortalBlocks == 0, axis);
 	}
 
-	public static Optional<UnderworldPortalShape> findPortalShape(LevelAccessor p_77713_, BlockPos p_77714_, Predicate<UnderworldPortalShape> p_77715_, Direction.Axis p_77716_) {
-		Optional<UnderworldPortalShape> optional = Optional.of(findAnyShape(p_77713_, p_77714_, p_77716_)).filter(p_77715_);
+	public static Optional<UnderworldPortalShape> findPortalShape(LevelAccessor levelAccessor, BlockPos pos, Predicate<UnderworldPortalShape> shape, Direction.Axis axis) {
+		Optional<UnderworldPortalShape> optional = Optional.of(findAnyShape(levelAccessor, pos, axis)).filter(shape);
 		if (optional.isPresent()) {
 			return optional;
 		} else {
-			Direction.Axis direction$axis = p_77716_ == Direction.Axis.X ? Direction.Axis.Z : Direction.Axis.X;
-			return Optional.of(findAnyShape(p_77713_, p_77714_, direction$axis)).filter(p_77715_);
+			Direction.Axis axis1 = axis == Direction.Axis.X ? Direction.Axis.Z : Direction.Axis.X;
+			return Optional.of(findAnyShape(levelAccessor, pos, axis1)).filter(shape);
 		}
 	}
 
-	public static UnderworldPortalShape findAnyShape(BlockGetter p_374054_, BlockPos p_374346_, Direction.Axis p_374516_) {
-		Direction direction = p_374516_ == Direction.Axis.X ? Direction.WEST : Direction.SOUTH;
-		BlockPos blockpos = calculateBottomLeft(p_374054_, direction, p_374346_);
+	public static UnderworldPortalShape findAnyShape(BlockGetter getter, BlockPos pos, Direction.Axis axis) {
+		Direction direction = axis == Direction.Axis.X ? Direction.WEST : Direction.SOUTH;
+		BlockPos blockpos = calculateBottomLeft(getter, direction, pos);
 		if (blockpos == null) {
-			return new UnderworldPortalShape(p_374516_, 0, direction, p_374346_, 0, 0);
+			return new UnderworldPortalShape(axis, 0, direction, pos, 0, 0);
 		} else {
-			int i = calculateWidth(p_374054_, blockpos, direction);
+			int i = calculateWidth(getter, blockpos, direction);
 			if (i == 0) {
-				return new UnderworldPortalShape(p_374516_, 0, direction, blockpos, 0, 0);
+				return new UnderworldPortalShape(axis, 0, direction, blockpos, 0, 0);
 			} else {
 				MutableInt mutableint = new MutableInt();
-				int j = calculateHeight(p_374054_, blockpos, direction, i, mutableint);
-				return new UnderworldPortalShape(p_374516_, mutableint.getValue(), direction, blockpos, i, j);
+				int j = calculateHeight(getter, blockpos, direction, i, mutableint);
+				return new UnderworldPortalShape(axis, mutableint.getValue(), direction, blockpos, i, j);
 			}
 		}
 	}
 
 	@Nullable
-	private static BlockPos calculateBottomLeft(BlockGetter p_374347_, Direction p_374365_, BlockPos p_77734_) {
-		int i = Math.max(p_374347_.getMinY(), p_77734_.getY() - 21);
-		while (p_77734_.getY() > i && isEmpty(p_374347_.getBlockState(p_77734_.below()))) {
-			p_77734_ = p_77734_.below();
+	private static BlockPos calculateBottomLeft(BlockGetter getter, Direction direction, BlockPos pos) {
+		int i = Math.max(getter.getMinY(), pos.getY() - 21);
+		while (pos.getY() > i && isEmpty(getter.getBlockState(pos.below()))) {
+			pos = pos.below();
 		}
-		Direction direction = p_374365_.getOpposite();
-		int j = getDistanceUntilEdgeAboveFrame(p_374347_, p_77734_, direction) - 1;
-		return j < 0 ? null : p_77734_.relative(direction, j);
+		int j = getDistanceUntilEdgeAboveFrame(getter, pos, direction.getOpposite()) - 1;
+		return j < 0 ? null : pos.relative(direction, j);
 	}
 
-	private static int calculateWidth(BlockGetter p_374528_, BlockPos p_374039_, Direction p_374180_) {
-		int i = getDistanceUntilEdgeAboveFrame(p_374528_, p_374039_, p_374180_);
+	private static int calculateWidth(BlockGetter getter, BlockPos pos, Direction direction) {
+		int i = getDistanceUntilEdgeAboveFrame(getter, pos, direction);
 		return i >= 2 && i <= 21 ? i : 0;
 	}
 
-	private static int getDistanceUntilEdgeAboveFrame(BlockGetter p_374084_, BlockPos p_77736_, Direction p_77737_) {
-		BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos();
+	private static int getDistanceUntilEdgeAboveFrame(BlockGetter getter, BlockPos pos, Direction direction) {
+		BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
 		for (int i = 0; i <= 21; i++) {
-			blockpos$mutableblockpos.set(p_77736_).move(p_77737_, i);
-			BlockState blockstate = p_374084_.getBlockState(blockpos$mutableblockpos);
+			mutableBlockPos.set(pos).move(direction, i);
+			BlockState blockstate = getter.getBlockState(mutableBlockPos);
 			if (!isEmpty(blockstate)) {
-				if (FRAME.test(blockstate, p_374084_, blockpos$mutableblockpos)) {
+				if (FRAME.test(blockstate, getter, mutableBlockPos)) {
 					return i;
 				}
 				break;
 			}
-			BlockState blockstate1 = p_374084_.getBlockState(blockpos$mutableblockpos.move(Direction.DOWN));
-			if (!FRAME.test(blockstate1, p_374084_, blockpos$mutableblockpos)) {
+			BlockState blockstate1 = getter.getBlockState(mutableBlockPos.move(Direction.DOWN));
+			if (!FRAME.test(blockstate1, getter, mutableBlockPos)) {
 				break;
 			}
 		}
 		return 0;
 	}
 
-	private static int calculateHeight(BlockGetter p_374198_, BlockPos p_374414_, Direction p_374486_, int p_374126_, MutableInt p_374165_) {
-		BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos();
-		int i = getDistanceUntilTop(p_374198_, p_374414_, p_374486_, blockpos$mutableblockpos, p_374126_, p_374165_);
-		return i >= 3 && i <= 21 && hasTopFrame(p_374198_, p_374414_, p_374486_, blockpos$mutableblockpos, p_374126_, i) ? i : 0;
+	private static int calculateHeight(BlockGetter getter, BlockPos pos, Direction direction, int n,
+									   MutableInt mutableint) {
+		BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
+		int i = getDistanceUntilTop(getter, pos, direction, mutableBlockPos, n, mutableint);
+		return i >= 3 && i <= 21 && hasTopFrame(getter, pos, direction, mutableBlockPos, n, i) ? i : 0;
 	}
 
-	private static boolean hasTopFrame(BlockGetter p_374223_, BlockPos p_374398_, Direction p_374129_, BlockPos.MutableBlockPos p_77731_, int p_77732_, int p_374112_) {
-		for (int i = 0; i < p_77732_; i++) {
-			BlockPos.MutableBlockPos blockpos$mutableblockpos = p_77731_.set(p_374398_).move(Direction.UP, p_374112_).move(p_374129_, i);
-			if (!FRAME.test(p_374223_.getBlockState(blockpos$mutableblockpos), p_374223_, blockpos$mutableblockpos)) {
+	private static boolean hasTopFrame(BlockGetter getter, BlockPos pos, Direction direction,
+									   BlockPos.MutableBlockPos mutableBlockPos, int a, int n) {
+		for (int i = 0; i < a; i++) {
+			BlockPos.MutableBlockPos blockpos = mutableBlockPos.set(pos).move(Direction.UP, n).move(direction, i);
+			if (!FRAME.test(getter.getBlockState(blockpos), getter, blockpos)) {
 				return false;
 			}
 		}
 		return true;
 	}
 
-	private static int getDistanceUntilTop(BlockGetter p_374443_, BlockPos p_374231_, Direction p_374062_, BlockPos.MutableBlockPos p_77729_, int p_374313_, MutableInt p_374330_) {
+	private static int getDistanceUntilTop(BlockGetter getter, BlockPos pos, Direction direction,
+										   BlockPos.MutableBlockPos mutableBlockPos, int n, MutableInt mutableInt) {
 		for (int i = 0; i < 21; i++) {
-			p_77729_.set(p_374231_).move(Direction.UP, i).move(p_374062_, -1);
-			if (!FRAME.test(p_374443_.getBlockState(p_77729_), p_374443_, p_77729_)) {
+			mutableBlockPos.set(pos).move(Direction.UP, i).move(direction, -1);
+			if (!FRAME.test(getter.getBlockState(mutableBlockPos), getter, mutableBlockPos)) {
 				return i;
 			}
-			p_77729_.set(p_374231_).move(Direction.UP, i).move(p_374062_, p_374313_);
-			if (!FRAME.test(p_374443_.getBlockState(p_77729_), p_374443_, p_77729_)) {
+			mutableBlockPos.set(pos).move(Direction.UP, i).move(direction, n);
+			if (!FRAME.test(getter.getBlockState(mutableBlockPos), getter, mutableBlockPos)) {
 				return i;
 			}
-			for (int j = 0; j < p_374313_; j++) {
-				p_77729_.set(p_374231_).move(Direction.UP, i).move(p_374062_, j);
-				BlockState blockstate = p_374443_.getBlockState(p_77729_);
+			for (int j = 0; j < n; j++) {
+				mutableBlockPos.set(pos).move(Direction.UP, i).move(direction, j);
+				BlockState blockstate = getter.getBlockState(mutableBlockPos);
 				if (!isEmpty(blockstate)) {
 					return i;
 				}
 				if (blockstate.getBlock() == ModBlocks.UNDERWORLD_PORTAL.get()) {
-					p_374330_.increment();
+					mutableInt.increment();
 				}
 			}
 		}
 		return 21;
 	}
 
-	private static boolean isEmpty(BlockState p_77718_) {
-		return p_77718_.isAir() || p_77718_.getBlock() == ModBlocks.UNDERWORLD_PORTAL.get();
+	private static boolean isEmpty(BlockState state) {
+		return state.isAir() || state.getBlock() == ModBlocks.UNDERWORLD_PORTAL.get();
 	}
 
 	public boolean isValid() {
 		return this.width >= 2 && this.width <= 21 && this.height >= 3 && this.height <= 21;
 	}
 
-	public void createPortalBlocks(LevelAccessor p_374419_) {
+	public void createPortalBlocks(LevelAccessor levelAccessor) {
 		BlockState blockstate = ModBlocks.UNDERWORLD_PORTAL.get().defaultBlockState().setValue(NetherPortalBlock.AXIS, this.axis);
-		BlockPos.betweenClosed(this.bottomLeft, this.bottomLeft.relative(Direction.UP, this.height - 1).relative(this.rightDir, this.width - 1)).forEach(p_374024_ -> p_374419_.setBlock(p_374024_, blockstate, 18));
+		BlockPos.betweenClosed(this.bottomLeft, this.bottomLeft.relative(Direction.UP, this.height - 1).relative(this.rightDir, this.width - 1)).forEach(pos -> levelAccessor.setBlock(pos, blockstate, 18));
 	}
 
 	public boolean isComplete() {
 		return this.isValid() && this.numPortalBlocks == this.width * this.height;
 	}
 
-	public static Vec3 findCollisionFreePosition(Vec3 p_260315_, ServerLevel p_259704_, Entity p_259626_, EntityDimensions p_259816_) {
-		if (!(p_259816_.width() > 4.0F) && !(p_259816_.height() > 4.0F)) {
-			double d0 = p_259816_.height() / 2.0;
-			Vec3 vec3 = p_260315_.add(0.0, d0, 0.0);
-			VoxelShape voxelshape = Shapes.create(AABB.ofSize(vec3, p_259816_.width(), 0.0, p_259816_.width()).expandTowards(0.0, 1.0, 0.0).inflate(1.0E-6));
-			Optional<Vec3> optional = p_259704_.findFreePosition(p_259626_, voxelshape, vec3, p_259816_.width(), p_259816_.height(), p_259816_.width());
+	public static Vec3 findCollisionFreePosition(Vec3 pos, ServerLevel level, Entity entity, EntityDimensions entityDimensions) {
+		if (!(entityDimensions.width() > 4.0F) && !(entityDimensions.height() > 4.0F)) {
+			double d0 = entityDimensions.height() / 2.0;
+			Vec3 vec3 = pos.add(0.0, d0, 0.0);
+			VoxelShape voxelshape = Shapes.create(AABB.ofSize(vec3, entityDimensions.width(), 0.0, entityDimensions.width()).expandTowards(0.0, 1.0, 0.0).inflate(1.0E-6));
+			Optional<Vec3> optional = level.findFreePosition(entity, voxelshape, vec3, entityDimensions.width(), entityDimensions.height(), entityDimensions.width());
 			Optional<Vec3> optional1 = optional.map(p_259019_ -> p_259019_.subtract(0.0, d0, 0.0));
-			return optional1.orElse(p_260315_);
+			return optional1.orElse(pos);
 		} else {
-			return p_260315_;
+			return pos;
 		}
 	}
 }
