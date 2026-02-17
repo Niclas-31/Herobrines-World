@@ -13,7 +13,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.KeyMapping;
 
 import de.niclasl.herobrines_world.network.message.ResetTimerKeybind;
-import de.niclasl.herobrines_world.network.message.LogOutKeybind;
 import de.niclasl.herobrines_world.network.message.ControllVariableTimer;
 import de.niclasl.herobrines_world.network.message.AbilityControll;
 
@@ -61,27 +60,12 @@ public class ModKeyMappings {
 			isDownOld = isDown;
 		}
 	};
-	public static final KeyMapping LOG_OUT_KEYBIND = new KeyMapping("key.herobrines_world.log_out_keybind", GLFW.GLFW_KEY_B, KeyMapping.Category.MISC) {
-		private boolean isDownOld = false;
-
-		@Override
-		public void setDown(boolean isDown) {
-			super.setDown(isDown);
-			if (isDownOld != isDown && isDown) {
-				ClientPacketDistributor.sendToServer(new LogOutKeybind(0));
-                assert Minecraft.getInstance().player != null;
-                LogOutKeybind.pressAction(Minecraft.getInstance().player, 0);
-			}
-			isDownOld = isDown;
-		}
-	};
 
 	@SubscribeEvent
 	public static void registerKeyMappings(RegisterKeyMappingsEvent event) {
 		event.register(CONTROLL_VARIABLE_TIMER);
 		event.register(RESET_TIMER_KEYBIND);
 		event.register(ABILITY_CONTROLL);
-		event.register(LOG_OUT_KEYBIND);
 	}
 
 	@EventBusSubscriber(Dist.CLIENT)
@@ -92,7 +76,6 @@ public class ModKeyMappings {
 				CONTROLL_VARIABLE_TIMER.consumeClick();
 				RESET_TIMER_KEYBIND.consumeClick();
 				ABILITY_CONTROLL.consumeClick();
-				LOG_OUT_KEYBIND.consumeClick();
 			}
 		}
 	}
