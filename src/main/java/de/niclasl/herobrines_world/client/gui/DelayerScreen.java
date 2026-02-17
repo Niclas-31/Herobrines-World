@@ -159,7 +159,7 @@ public class DelayerScreen extends AbstractContainerScreen<DelayerMenu> {
     }
 
     @Override
-    protected void renderLabels(@NotNull GuiGraphics p_281635_, int p_282681_, int p_283686_) {
+    protected void renderLabels(@NotNull GuiGraphics guiGraphics, int mouseX, int mouseY) {
 
     }
 }
