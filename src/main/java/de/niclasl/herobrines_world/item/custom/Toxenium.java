@@ -1,5 +1,9 @@
 package de.niclasl.herobrines_world.item.custom;
 
+import de.niclasl.herobrines_world.item.ModItems;
+import de.niclasl.herobrines_world.potion.ModMobEffects;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.neoforged.neoforge.registries.DeferredHolder;
 
 import net.minecraft.world.item.equipment.EquipmentAssets;
@@ -16,7 +20,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.core.registries.Registries;
 
-import de.niclasl.herobrines_world.procedures.ToxeniumArmorTickEvent;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
@@ -52,8 +55,24 @@ public abstract class Toxenium extends Item {
 		@Override
 		public void inventoryTick(@NotNull ItemStack itemstack, @NotNull ServerLevel world, @NotNull Entity entity, @Nullable EquipmentSlot equipmentSlot) {
 			super.inventoryTick(itemstack, world, entity, equipmentSlot);
-			if (entity instanceof Player && (equipmentSlot != null && equipmentSlot.getType() == EquipmentSlot.Type.HUMANOID_ARMOR)) {
-				ToxeniumArmorTickEvent.execute(entity);
+			if (entity instanceof Player entGetArmor && (equipmentSlot != null && equipmentSlot.getType() == EquipmentSlot.Type.HUMANOID_ARMOR)) {
+				if (!(entGetArmor.getItemBySlot(EquipmentSlot.HEAD).getItem() == ModItems.TOXENIUM_HELMET.get() && entGetArmor.getItemBySlot(EquipmentSlot.CHEST).getItem() == ModItems.TOXENIUM_CHESTPLATE.get() && entGetArmor.getItemBySlot(EquipmentSlot.LEGS).getItem() == ModItems.TOXENIUM_LEGGINGS.get() && entGetArmor.getItemBySlot(EquipmentSlot.FEET).getItem() == ModItems.TOXENIUM_BOOTS.get())) {
+					if (!entGetArmor.level().isClientSide())
+						entGetArmor.addEffect(new MobEffectInstance(ModMobEffects.RADIO_ACTIVE, 40, 0));
+				} else {
+                    if (entGetArmor.getItemBySlot(EquipmentSlot.HEAD).getItem() == ModItems.TOXENIUM_HELMET.get()) {
+                        if (entGetArmor.getItemBySlot(EquipmentSlot.CHEST).getItem() == ModItems.TOXENIUM_CHESTPLATE.get()) {
+                            if (entGetArmor.getItemBySlot(EquipmentSlot.LEGS).getItem() == ModItems.TOXENIUM_LEGGINGS.get()) {
+                                if (entGetArmor.getItemBySlot(EquipmentSlot.FEET).getItem() == ModItems.TOXENIUM_BOOTS.get()) {
+                                    if (!entGetArmor.level().isClientSide())
+                                        entGetArmor.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 60, 1, false, false));
+                                    if (!entGetArmor.level().isClientSide())
+                                        entGetArmor.addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING, 60, 1, false, false));
+                                }
+                            }
+                        }
+                    }
+                }
 			}
 		}
 	}
@@ -66,8 +85,24 @@ public abstract class Toxenium extends Item {
 		@Override
 		public void inventoryTick(@NotNull ItemStack itemstack, @NotNull ServerLevel world, @NotNull Entity entity, @Nullable EquipmentSlot equipmentSlot) {
 			super.inventoryTick(itemstack, world, entity, equipmentSlot);
-			if (entity instanceof Player && (equipmentSlot != null && equipmentSlot.getType() == EquipmentSlot.Type.HUMANOID_ARMOR)) {
-				ToxeniumArmorTickEvent.execute(entity);
+			if (entity instanceof Player entGetArmor && (equipmentSlot != null && equipmentSlot.getType() == EquipmentSlot.Type.HUMANOID_ARMOR)) {
+				if (!(entGetArmor.getItemBySlot(EquipmentSlot.HEAD).getItem() == ModItems.TOXENIUM_HELMET.get() && entGetArmor.getItemBySlot(EquipmentSlot.CHEST).getItem() == ModItems.TOXENIUM_CHESTPLATE.get() && entGetArmor.getItemBySlot(EquipmentSlot.LEGS).getItem() == ModItems.TOXENIUM_LEGGINGS.get() && entGetArmor.getItemBySlot(EquipmentSlot.FEET).getItem() == ModItems.TOXENIUM_BOOTS.get())) {
+					if (!entGetArmor.level().isClientSide())
+						entGetArmor.addEffect(new MobEffectInstance(ModMobEffects.RADIO_ACTIVE, 40, 0));
+				} else {
+					if (entGetArmor.getItemBySlot(EquipmentSlot.HEAD).getItem() == ModItems.TOXENIUM_HELMET.get()) {
+						if (entGetArmor.getItemBySlot(EquipmentSlot.CHEST).getItem() == ModItems.TOXENIUM_CHESTPLATE.get()) {
+							if (entGetArmor.getItemBySlot(EquipmentSlot.LEGS).getItem() == ModItems.TOXENIUM_LEGGINGS.get()) {
+								if (entGetArmor.getItemBySlot(EquipmentSlot.FEET).getItem() == ModItems.TOXENIUM_BOOTS.get()) {
+									if (!entGetArmor.level().isClientSide())
+										entGetArmor.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 60, 1, false, false));
+									if (!entGetArmor.level().isClientSide())
+										entGetArmor.addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING, 60, 1, false, false));
+								}
+							}
+						}
+					}
+				}
 			}
 		}
 	}
@@ -80,8 +115,24 @@ public abstract class Toxenium extends Item {
 		@Override
 		public void inventoryTick(@NotNull ItemStack itemstack, @NotNull ServerLevel world, @NotNull Entity entity, @Nullable EquipmentSlot equipmentSlot) {
 			super.inventoryTick(itemstack, world, entity, equipmentSlot);
-			if (entity instanceof Player && (equipmentSlot != null && equipmentSlot.getType() == EquipmentSlot.Type.HUMANOID_ARMOR)) {
-				ToxeniumArmorTickEvent.execute(entity);
+			if (entity instanceof Player entGetArmor && (equipmentSlot != null && equipmentSlot.getType() == EquipmentSlot.Type.HUMANOID_ARMOR)) {
+				if (!(entGetArmor.getItemBySlot(EquipmentSlot.HEAD).getItem() == ModItems.TOXENIUM_HELMET.get() && entGetArmor.getItemBySlot(EquipmentSlot.CHEST).getItem() == ModItems.TOXENIUM_CHESTPLATE.get() && entGetArmor.getItemBySlot(EquipmentSlot.LEGS).getItem() == ModItems.TOXENIUM_LEGGINGS.get() && entGetArmor.getItemBySlot(EquipmentSlot.FEET).getItem() == ModItems.TOXENIUM_BOOTS.get())) {
+					if (!entGetArmor.level().isClientSide())
+						entGetArmor.addEffect(new MobEffectInstance(ModMobEffects.RADIO_ACTIVE, 40, 0));
+				} else {
+					if (entGetArmor.getItemBySlot(EquipmentSlot.HEAD).getItem() == ModItems.TOXENIUM_HELMET.get()) {
+						if (entGetArmor.getItemBySlot(EquipmentSlot.CHEST).getItem() == ModItems.TOXENIUM_CHESTPLATE.get()) {
+							if (entGetArmor.getItemBySlot(EquipmentSlot.LEGS).getItem() == ModItems.TOXENIUM_LEGGINGS.get()) {
+								if (entGetArmor.getItemBySlot(EquipmentSlot.FEET).getItem() == ModItems.TOXENIUM_BOOTS.get()) {
+									if (!entGetArmor.level().isClientSide())
+										entGetArmor.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 60, 1, false, false));
+									if (!entGetArmor.level().isClientSide())
+										entGetArmor.addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING, 60, 1, false, false));
+								}
+							}
+						}
+					}
+				}
 			}
 		}
 	}
@@ -94,8 +145,24 @@ public abstract class Toxenium extends Item {
 		@Override
 		public void inventoryTick(@NotNull ItemStack itemstack, @NotNull ServerLevel world, @NotNull Entity entity, @Nullable EquipmentSlot equipmentSlot) {
 			super.inventoryTick(itemstack, world, entity, equipmentSlot);
-			if (entity instanceof Player && (equipmentSlot != null && equipmentSlot.getType() == EquipmentSlot.Type.HUMANOID_ARMOR)) {
-				ToxeniumArmorTickEvent.execute(entity);
+			if (entity instanceof Player entGetArmor && (equipmentSlot != null && equipmentSlot.getType() == EquipmentSlot.Type.HUMANOID_ARMOR)) {
+				if (!(entGetArmor.getItemBySlot(EquipmentSlot.HEAD).getItem() == ModItems.TOXENIUM_HELMET.get() && entGetArmor.getItemBySlot(EquipmentSlot.CHEST).getItem() == ModItems.TOXENIUM_CHESTPLATE.get() && entGetArmor.getItemBySlot(EquipmentSlot.LEGS).getItem() == ModItems.TOXENIUM_LEGGINGS.get() && entGetArmor.getItemBySlot(EquipmentSlot.FEET).getItem() == ModItems.TOXENIUM_BOOTS.get())) {
+					if (!entGetArmor.level().isClientSide())
+						entGetArmor.addEffect(new MobEffectInstance(ModMobEffects.RADIO_ACTIVE, 40, 0));
+				} else {
+					if (entGetArmor.getItemBySlot(EquipmentSlot.HEAD).getItem() == ModItems.TOXENIUM_HELMET.get()) {
+						if (entGetArmor.getItemBySlot(EquipmentSlot.CHEST).getItem() == ModItems.TOXENIUM_CHESTPLATE.get()) {
+							if (entGetArmor.getItemBySlot(EquipmentSlot.LEGS).getItem() == ModItems.TOXENIUM_LEGGINGS.get()) {
+								if (entGetArmor.getItemBySlot(EquipmentSlot.FEET).getItem() == ModItems.TOXENIUM_BOOTS.get()) {
+									if (!entGetArmor.level().isClientSide())
+										entGetArmor.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 60, 1, false, false));
+									if (!entGetArmor.level().isClientSide())
+										entGetArmor.addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING, 60, 1, false, false));
+								}
+							}
+						}
+					}
+				}
 			}
 		}
 	}
