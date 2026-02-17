@@ -23,7 +23,6 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.server.level.ServerLevel;
 
-import de.niclasl.herobrines_world.procedures.WhenStatueEntity303RightClicked;
 import net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent;
 import org.jetbrains.annotations.NotNull;
 
@@ -104,7 +103,15 @@ public class StatueEntity303 extends Monster {
 		Entity entity = this;
 		Level world = this.level();
 
-		WhenStatueEntity303RightClicked.execute(world, x, y, z, entity);
+		if (!entity.level().isClientSide())
+			entity.discard();
+		if (world instanceof ServerLevel _level) {
+			Entity entityToSpawn = ModEntities.ENTITY_303.get().spawn(_level, BlockPos.containing(x, y, z), EntitySpawnReason.MOB_SUMMONED);
+			if (entityToSpawn != null) {
+				entityToSpawn.setDeltaMovement(0, 0, 0);
+			}
+		}
+
 		return retval;
 	}
 
