@@ -1,6 +1,5 @@
 package de.niclasl.herobrines_world.world.inventory.custom;
 
-import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -61,10 +60,5 @@ public class Account extends AbstractContainerMenu implements ModMenus.MenuAcces
 	@Override
 	public Map<String, Object> getMenuState() {
 		return menuState;
-	}
-
-	@Override
-	public Map<Integer, Slot> getSlots() {
-		return Map.of();
 	}
 }
