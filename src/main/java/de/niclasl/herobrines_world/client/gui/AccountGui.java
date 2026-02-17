@@ -108,15 +108,11 @@ public class AccountGui extends AbstractContainerScreen<Account> implements ModS
 		});
 		this.addWidget(this.PinCode);
         Button button_confirm = Button.builder(Component.translatable("gui.herobrines_world.account.button_confirm"), e -> {
-            int x = AccountGui.this.x;
-            int y = AccountGui.this.y;
             ClientPacketDistributor.sendToServer(new AccountButton(0, x, y, z));
             AccountButton.handleButtonAction(entity, 0, x, y, z);
         }).bounds(this.leftPos + 27, this.topPos + 96, 61, 20).build();
 		this.addRenderableWidget(button_confirm);
         Button button_delete = Button.builder(Component.translatable("gui.herobrines_world.account.button_delete"), e -> {
-            int x = AccountGui.this.x;
-            int y = AccountGui.this.y;
             ClientPacketDistributor.sendToServer(new AccountButton(1, x, y, z));
             AccountButton.handleButtonAction(entity, 1, x, y, z);
         }).bounds(this.leftPos + 91, this.topPos + 96, 56, 20).build();
