@@ -2,7 +2,6 @@ package de.niclasl.herobrines_world.world.inventory;
 
 import de.niclasl.herobrines_world.client.ModScreens;
 import de.niclasl.herobrines_world.world.inventory.custom.*;
-import net.minecraft.world.inventory.Slot;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.DeferredHolder;
@@ -61,5 +60,3 @@ public class ModMenus {
 		}
 	}
 }
-
-
