@@ -69,29 +69,31 @@ public class Signal extends Block {
 	}
 
 	@Override
-	protected void neighborChanged(@NotNull BlockState p_55666_, Level p_55667_, @NotNull BlockPos p_55668_, @NotNull Block p_55669_, @Nullable Orientation p_369944_, boolean p_55671_) {
-		if (!p_55667_.isClientSide()) {
-			boolean flag = p_55666_.getValue(LIT);
-			if (flag != p_55667_.hasNeighborSignal(p_55668_)) {
-				if (flag) {
-					p_55667_.scheduleTick(p_55668_, this, 4);
+	protected void neighborChanged(@NotNull BlockState state, Level level, @NotNull BlockPos pos,
+								   @NotNull Block block, @Nullable Orientation orientation, boolean flag) {
+		if (!level.isClientSide()) {
+			boolean flag1 = state.getValue(LIT);
+			if (flag1 != level.hasNeighborSignal(pos)) {
+				if (flag1) {
+					level.scheduleTick(pos, this, 4);
 				} else {
-					p_55667_.setBlock(p_55668_, p_55666_.cycle(LIT), 2);
+					level.setBlock(pos, state.cycle(LIT), 2);
 				}
 			}
 		}
 	}
 
 	@Override
-	protected void tick(BlockState p_221937_, @NotNull ServerLevel p_221938_, @NotNull BlockPos p_221939_, @NotNull RandomSource p_221940_) {
-		if (p_221937_.getValue(LIT) && !p_221938_.hasNeighborSignal(p_221939_)) {
-			p_221938_.setBlock(p_221939_, p_221937_.cycle(LIT), 2);
+	protected void tick(BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos,
+						@NotNull RandomSource random) {
+		if (state.getValue(LIT) && !level.hasNeighborSignal(pos)) {
+			level.setBlock(pos, state.cycle(LIT), 2);
 		}
 	}
 
 	@Override
-	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> p_55673_) {
-		p_55673_.add(LIT, COLOR);
+	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> stateBuilder) {
+		stateBuilder.add(LIT, COLOR);
 	}
 
 	@Override
