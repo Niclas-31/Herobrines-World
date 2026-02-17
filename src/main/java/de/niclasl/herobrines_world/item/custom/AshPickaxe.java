@@ -25,7 +25,15 @@ public class AshPickaxe extends Item {
 	@Override
 	public boolean mineBlock(@NotNull ItemStack itemstack, @NotNull Level world, @NotNull BlockState blockstate, @NotNull BlockPos pos, @NotNull LivingEntity entity) {
 		boolean retval = super.mineBlock(itemstack, world, blockstate, pos, entity);
-		AshPickaxeBlockDestroyedWithTool.execute(world, pos.getX(), pos.getY(), pos.getZ());
+
+		if ((world.getBlockState(BlockPos.containing(pos.getX(), pos.getY(), pos.getZ()))).getBlock() == ModBlocks.ASH_ORE.get() || (world.getBlockState(BlockPos.containing(pos.getX(), pos.getY(), pos.getZ()))).getBlock() == ModBlocks.DEEPSLATE_ASH_ORE.get()) {
+			world.setBlock(BlockPos.containing(pos.getX(), pos.getY(), pos.getZ()), Blocks.AIR.defaultBlockState(), 3);
+			if (world instanceof ServerLevel _level) {
+				ItemEntity entityToSpawn = new ItemEntity(_level, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(ModItems.ASH_INGOT.get()));
+				entityToSpawn.setPickUpDelay(10);
+				_level.addFreshEntity(entityToSpawn);
+			}
+		}
 		return retval;
 	}
 }
