@@ -13,7 +13,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.neoforged.neoforge.client.network.ClientPacketDistributor;
 import org.jetbrains.annotations.NotNull;
 
-public class DelayerScreen extends AbstractContainerScreen<DelayerMenu> implements ModScreens.ScreenAccessor {
+public class DelayerScreen extends AbstractContainerScreen<DelayerMenu> {
     private EditBox ticksBox, secondsBox, minutesBox, hoursBox;
 
     public DelayerScreen(DelayerMenu menu, Inventory playerInv, Component title) {
@@ -161,11 +161,6 @@ public class DelayerScreen extends AbstractContainerScreen<DelayerMenu> implemen
 
     @Override
     protected void renderLabels(@NotNull GuiGraphics p_281635_, int p_282681_, int p_283686_) {
-
-    }
-
-    @Override
-    public void updateMenuState(int elementType, String name, Object elementState) {
 
     }
 }
