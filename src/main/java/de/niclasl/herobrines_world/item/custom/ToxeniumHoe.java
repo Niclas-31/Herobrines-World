@@ -12,7 +12,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.core.registries.Registries;
 
-import de.niclasl.herobrines_world.procedures.ToxeniumItemInInventoryTick;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
