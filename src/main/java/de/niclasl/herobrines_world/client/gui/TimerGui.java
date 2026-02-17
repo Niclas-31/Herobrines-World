@@ -15,14 +15,13 @@ import net.minecraft.client.gui.GuiGraphics;
 
 import de.niclasl.herobrines_world.world.inventory.custom.Timer;
 import de.niclasl.herobrines_world.network.message.TimerGuiButton;
-import de.niclasl.herobrines_world.client.ModScreens;
 import org.jetbrains.annotations.NotNull;
 import org.lwjgl.glfw.GLFW;
 
 import java.text.DecimalFormat;
 import java.util.Objects;
 
-public class TimerGui extends AbstractContainerScreen<Timer> implements ModScreens.ScreenAccessor {
+public class TimerGui extends AbstractContainerScreen<Timer> {
     private final int x, y, z;
 	private final Player entity;
 
@@ -92,9 +91,5 @@ public class TimerGui extends AbstractContainerScreen<Timer> implements ModScree
             TimerGuiButton.handleButtonAction(entity, 2, x, y, z);
         }).bounds(this.leftPos + 60, this.topPos + 90, 51, 20).build();
 		this.addRenderableWidget(button_reset);
-	}
-
-	@Override
-	public void updateMenuState(int elementType, String name, Object elementState) {
 	}
 }
