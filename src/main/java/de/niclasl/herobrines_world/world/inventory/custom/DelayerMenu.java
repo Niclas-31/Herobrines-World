@@ -7,15 +7,12 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Map;
-
-public class DelayerMenu extends AbstractContainerMenu implements ModMenus.MenuAccessor {
+public class DelayerMenu extends AbstractContainerMenu {
 
     private final Level level;
     public BlockPos pos;
@@ -55,15 +52,5 @@ public class DelayerMenu extends AbstractContainerMenu implements ModMenus.MenuA
             throw new IllegalStateException("DelayerEntity not found at " + pos);
         }
         return delayer;
-    }
-
-    @Override
-    public Map<String, Object> getMenuState() {
-        return Map.of();
-    }
-
-    @Override
-    public Map<Integer, Slot> getSlots() {
-        return Map.of();
     }
 }
