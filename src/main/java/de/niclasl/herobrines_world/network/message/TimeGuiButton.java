@@ -1,5 +1,6 @@
 package de.niclasl.herobrines_world.network.message;
 
+import de.niclasl.herobrines_world.network.ModVariables;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -15,26 +16,25 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.core.BlockPos;
 
-import de.niclasl.herobrines_world.procedures.HideButton;
 import de.niclasl.herobrines_world.HerobrinesWorld;
 import org.jetbrains.annotations.NotNull;
 
 @EventBusSubscriber
-public record ClockGuiButton(int buttonID, int x, int y, int z) implements CustomPacketPayload {
+public record TimeGuiButton(int buttonID, int x, int y, int z) implements CustomPacketPayload {
 
-	public static final Type<ClockGuiButton> TYPE = new Type<>(ResourceLocation.fromNamespaceAndPath(HerobrinesWorld.MODID, "uhr_gui_buttons"));
-	public static final StreamCodec<RegistryFriendlyByteBuf, ClockGuiButton> STREAM_CODEC = StreamCodec.of((RegistryFriendlyByteBuf buffer, ClockGuiButton message) -> {
+	public static final Type<TimeGuiButton> TYPE = new Type<>(ResourceLocation.fromNamespaceAndPath(HerobrinesWorld.MODID, "uhr_gui_buttons"));
+	public static final StreamCodec<RegistryFriendlyByteBuf, TimeGuiButton> STREAM_CODEC = StreamCodec.of((RegistryFriendlyByteBuf buffer, TimeGuiButton message) -> {
 		buffer.writeInt(message.buttonID);
 		buffer.writeInt(message.x);
 		buffer.writeInt(message.y);
 		buffer.writeInt(message.z);
-	}, (RegistryFriendlyByteBuf buffer) -> new ClockGuiButton(buffer.readInt(), buffer.readInt(), buffer.readInt(), buffer.readInt()));
+	}, (RegistryFriendlyByteBuf buffer) -> new TimeGuiButton(buffer.readInt(), buffer.readInt(), buffer.readInt(), buffer.readInt()));
 	@Override
-	public @NotNull Type<ClockGuiButton> type() {
+	public @NotNull Type<TimeGuiButton> type() {
 		return TYPE;
 	}
 
-	public static void handleData(final ClockGuiButton message, final IPayloadContext context) {
+	public static void handleData(final TimeGuiButton message, final IPayloadContext context) {
 		if (context.flow() == PacketFlow.SERVERBOUND) {
 			context.enqueueWork(() -> handleButtonAction(context.player(), message.buttonID, message.x, message.y, message.z)).exceptionally(e -> {
 				context.connection().disconnect(Component.literal(e.getMessage()));
@@ -48,13 +48,24 @@ public record ClockGuiButton(int buttonID, int x, int y, int z) implements Custo
 		if (!world.hasChunkAt(new BlockPos(x, y, z)))
 			return;
 		if (buttonID == 0) {
-
-			HideButton.execute(entity);
+			if (!entity.getData(ModVariables.PLAYER_VARIABLES).Hide) {
+				{
+					ModVariables.PlayerVariables _vars = entity.getData(ModVariables.PLAYER_VARIABLES);
+					_vars.Hide = true;
+					_vars.markSyncDirty();
+				}
+			} else if (entity.getData(ModVariables.PLAYER_VARIABLES).Hide) {
+				{
+					ModVariables.PlayerVariables _vars = entity.getData(ModVariables.PLAYER_VARIABLES);
+					_vars.Hide = false;
+					_vars.markSyncDirty();
+				}
+			}
 		}
 	}
 
 	@SubscribeEvent
 	public static void registerMessage(FMLCommonSetupEvent event) {
-		HerobrinesWorld.addNetworkMessage(ClockGuiButton.TYPE, ClockGuiButton.STREAM_CODEC, ClockGuiButton::handleData);
+		HerobrinesWorld.addNetworkMessage(TimeGuiButton.TYPE, TimeGuiButton.STREAM_CODEC, TimeGuiButton::handleData);
 	}
 }
