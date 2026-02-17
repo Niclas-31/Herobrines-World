@@ -54,7 +54,30 @@ public class Account extends AbstractContainerMenu implements ModMenus.MenuAcces
 	@Override
 	public void removed(@NotNull Player playerIn) {
 		super.removed(playerIn);
-		AccountThisGuiIsClosed.execute(x, y, z, entity);
+		
+		if (!entity.getData(ModVariables.PLAYER_VARIABLES).PinUnlocked) {
+			HerobrinesWorld.queueServerWork(1, () -> {
+				if (entity instanceof ServerPlayer player) {
+					BlockPos pos = BlockPos.containing(x, y, z);
+					player.openMenu(new MenuProvider() {
+						@Override
+						public @NotNull Component getDisplayName() {
+							return Component.literal("Account");
+						}
+
+						@Override
+						public boolean shouldTriggerClientSideContainerClosingOnOpen() {
+							return false;
+						}
+
+						@Override
+						public AbstractContainerMenu createMenu(int id, @NotNull Inventory inventory, @NotNull Player player) {
+							return new Account(id, inventory, new FriendlyByteBuf(Unpooled.buffer()).writeBlockPos(pos));
+						}
+					}, pos);
+				}
+			});
+		}
 	}
 
 	@Override
