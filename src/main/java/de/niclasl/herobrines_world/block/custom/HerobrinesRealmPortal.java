@@ -59,86 +59,98 @@ public class HerobrinesRealmPortal extends NetherPortalBlock {
 	}
 
 	@Override
-	protected @NotNull BlockState updateShape(BlockState p_54928_, @NotNull LevelReader p_374413_, @NotNull ScheduledTickAccess p_374339_, @NotNull BlockPos p_54932_, Direction p_54929_, @NotNull BlockPos p_54933_, @NotNull BlockState p_54930_, @NotNull RandomSource p_374242_) {
-		Direction.Axis direction$axis = p_54929_.getAxis();
-		Direction.Axis direction$axis1 = p_54928_.getValue(AXIS);
+	protected @NotNull BlockState updateShape(BlockState state, @NotNull LevelReader reader,
+											  @NotNull ScheduledTickAccess tickAccess, @NotNull BlockPos pos,
+											  Direction direction, @NotNull BlockPos newPos,
+											  @NotNull BlockState newState, @NotNull RandomSource random) {
+		Direction.Axis direction$axis = direction.getAxis();
+		Direction.Axis direction$axis1 = state.getValue(AXIS);
 		boolean flag = direction$axis1 != direction$axis && direction$axis.isHorizontal();
-		return !flag && !p_54930_.is(this) && !HerobrinesRealmPortalShape.findAnyShape(p_374413_, p_54932_, direction$axis1).isComplete()
+		return !flag && !newState.is(this) && !HerobrinesRealmPortalShape.findAnyShape(reader, pos, direction$axis1).isComplete()
 				? Blocks.AIR.defaultBlockState()
-				: super.updateShape(p_54928_, p_374413_, p_374339_, p_54932_, p_54929_, p_54933_, p_54930_, p_374242_);
+				: super.updateShape(state, reader, tickAccess, pos, direction, newPos, newState, random);
 	}
 
 	@Override
 	@Nullable
-	public TeleportTransition getPortalDestination(ServerLevel p_350444_, @NotNull Entity p_350334_, @NotNull BlockPos p_350764_) {
-		ResourceKey<Level> resourcekey = p_350444_.dimension() == ResourceKey.create(Registries.DIMENSION, ResourceLocation.parse("herobrines_world:herobrines_realm"))
+	public TeleportTransition getPortalDestination(ServerLevel level, @NotNull Entity entity,
+												   @NotNull BlockPos pos) {
+		ResourceKey<Level> resourcekey = level.dimension() == ResourceKey.create(Registries.DIMENSION, ResourceLocation.parse("herobrines_world:herobrines_realm"))
 				? Level.OVERWORLD
 				: ResourceKey.create(Registries.DIMENSION, ResourceLocation.parse("herobrines_world:herobrines_realm"));
-		ServerLevel serverlevel = p_350444_.getServer().getLevel(resourcekey);
+		ServerLevel serverlevel = level.getServer().getLevel(resourcekey);
 		if (serverlevel == null) {
 			return null;
 		} else {
 			boolean flag = serverlevel.dimension() == ResourceKey.create(Registries.DIMENSION, ResourceLocation.parse("herobrines_world:herobrines_realm"));
 			WorldBorder worldborder = serverlevel.getWorldBorder();
-			double d0 = DimensionType.getTeleportationScale(p_350444_.dimensionType(), serverlevel.dimensionType());
-			BlockPos blockpos = worldborder.clampToBounds(p_350334_.getX() * d0, p_350334_.getY(), p_350334_.getZ() * d0);
-			return this.getExitPortal(serverlevel, p_350334_, p_350764_, blockpos, flag, worldborder);
+			double d0 = DimensionType.getTeleportationScale(level.dimensionType(), serverlevel.dimensionType());
+			BlockPos blockpos = worldborder.clampToBounds(entity.getX() * d0, entity.getY(), entity.getZ() * d0);
+			return this.getExitPortal(serverlevel, entity, pos, blockpos, flag, worldborder);
 		}
 	}
 
 	@Nullable
-	private TeleportTransition getExitPortal(ServerLevel p_350564_, Entity p_350493_, BlockPos p_350379_, BlockPos p_350747_, boolean p_350326_, WorldBorder p_350718_) {
-		Optional<BlockPos> optional = getTeleporter(p_350564_).findClosestPortalPosition(p_350747_, p_350326_, p_350718_);
-		BlockUtil.FoundRectangle blockutil$foundrectangle;
-		TeleportTransition.PostTeleportTransition teleporttransition$postteleporttransition;
+	private TeleportTransition getExitPortal(ServerLevel level, Entity entity,
+											 BlockPos pos, BlockPos newPos, boolean flag, WorldBorder border) {
+		Optional<BlockPos> optional = getTeleporter(level).findClosestPortalPosition(newPos, flag, border);
+		BlockUtil.FoundRectangle foundRectangle;
+		TeleportTransition.PostTeleportTransition teleportTransition;
 		if (optional.isPresent()) {
 			BlockPos blockpos = optional.get();
-			BlockState blockstate = p_350564_.getBlockState(blockpos);
-			blockutil$foundrectangle = BlockUtil.getLargestRectangleAround(blockpos, blockstate.getValue(BlockStateProperties.HORIZONTAL_AXIS), 21, Direction.Axis.Y, 21, p_351970_ -> p_350564_.getBlockState(p_351970_) == blockstate);
-			teleporttransition$postteleporttransition = TeleportTransition.PLAY_PORTAL_SOUND.then(p_351967_ -> p_351967_.placePortalTicket(blockpos));
+			BlockState blockstate = level.getBlockState(blockpos);
+			foundRectangle = BlockUtil.getLargestRectangleAround(blockpos, blockstate.getValue(BlockStateProperties.HORIZONTAL_AXIS), 21, Direction.Axis.Y, 21, p_351970_ -> level.getBlockState(p_351970_) == blockstate);
+			teleportTransition = TeleportTransition.PLAY_PORTAL_SOUND.then(p_351967_ -> p_351967_.placePortalTicket(blockpos));
 		} else {
-			Direction.Axis direction$axis = p_350493_.level().getBlockState(p_350379_).getOptionalValue(AXIS).orElse(Direction.Axis.X);
-			Optional<BlockUtil.FoundRectangle> optional1 = getTeleporter(p_350564_).createPortal(p_350747_, direction$axis);
+			Direction.Axis axis = entity.level().getBlockState(pos).getOptionalValue(AXIS).orElse(Direction.Axis.X);
+			Optional<BlockUtil.FoundRectangle> optional1 = getTeleporter(level).createPortal(newPos, axis);
 			if (optional1.isEmpty()) {
 				LOGGER.error("Unable to create a portal, likely target out of worldborder");
 				return null;
 			}
-			blockutil$foundrectangle = optional1.get();
-			teleporttransition$postteleporttransition = TeleportTransition.PLAY_PORTAL_SOUND.then(TeleportTransition.PLACE_PORTAL_TICKET);
+			foundRectangle = optional1.get();
+			teleportTransition = TeleportTransition.PLAY_PORTAL_SOUND.then(TeleportTransition.PLACE_PORTAL_TICKET);
 		}
-		return getDimensionTransitionFromExit(p_350493_, p_350379_, blockutil$foundrectangle, p_350564_, teleporttransition$postteleporttransition);
+		return getDimensionTransitionFromExit(entity, pos, foundRectangle, level, teleportTransition);
 	}
 
-	private static TeleportTransition getDimensionTransitionFromExit(Entity p_350906_, BlockPos p_350376_, BlockUtil.FoundRectangle p_350428_, ServerLevel p_350928_, TeleportTransition.PostTeleportTransition p_379530_) {
-		BlockState blockstate = p_350906_.level().getBlockState(p_350376_);
-		Direction.Axis direction$axis;
+	private static TeleportTransition getDimensionTransitionFromExit(Entity entity, BlockPos pos,
+																	 BlockUtil.FoundRectangle rectangle,
+																	 ServerLevel level,
+																	 TeleportTransition.PostTeleportTransition teleportTransition) {
+		BlockState blockstate = entity.level().getBlockState(pos);
+		Direction.Axis axis;
 		Vec3 vec3;
 		if (blockstate.hasProperty(BlockStateProperties.HORIZONTAL_AXIS)) {
-			direction$axis = blockstate.getValue(BlockStateProperties.HORIZONTAL_AXIS);
-			BlockUtil.FoundRectangle blockutil$foundrectangle = BlockUtil.getLargestRectangleAround(p_350376_, direction$axis, 21, Direction.Axis.Y, 21, p_351016_ -> p_350906_.level().getBlockState(p_351016_) == blockstate);
-			vec3 = p_350906_.getRelativePortalPosition(direction$axis, blockutil$foundrectangle);
+			axis = blockstate.getValue(BlockStateProperties.HORIZONTAL_AXIS);
+			BlockUtil.FoundRectangle foundRectangle = BlockUtil.getLargestRectangleAround(pos, axis, 21, Direction.Axis.Y, 21, p_351016_ -> entity.level().getBlockState(p_351016_) == blockstate);
+			vec3 = entity.getRelativePortalPosition(axis, foundRectangle);
 		} else {
-			direction$axis = Direction.Axis.X;
+			axis = Direction.Axis.X;
 			vec3 = new Vec3(0.5, 0.0, 0.0);
 		}
-		return createDimensionTransition(p_350928_, p_350428_, direction$axis, vec3, p_350906_, p_379530_);
+		return createDimensionTransition(level, rectangle, axis, vec3, entity, teleportTransition);
 	}
 
-	private static TeleportTransition createDimensionTransition(ServerLevel p_350955_, BlockUtil.FoundRectangle p_350865_, Direction.Axis p_351013_, Vec3 p_351020_, Entity p_350578_, TeleportTransition.PostTeleportTransition p_379531_) {
-		BlockPos blockpos = p_350865_.minCorner;
-		BlockState blockstate = p_350955_.getBlockState(blockpos);
-		Direction.Axis direction$axis = blockstate.getOptionalValue(BlockStateProperties.HORIZONTAL_AXIS).orElse(Direction.Axis.X);
-		double d0 = p_350865_.axis1Size;
-		double d1 = p_350865_.axis2Size;
-		EntityDimensions entitydimensions = p_350578_.getDimensions(p_350578_.getPose());
-		int i = p_351013_ == direction$axis ? 0 : 90;
-		double d2 = entitydimensions.width() / 2.0 + (d0 - entitydimensions.width()) * p_351020_.x();
-		double d3 = (d1 - entitydimensions.height()) * p_351020_.y();
-		double d4 = 0.5 + p_351020_.z();
-		boolean flag = direction$axis == Direction.Axis.X;
+	private static TeleportTransition createDimensionTransition(ServerLevel level,
+																BlockUtil.FoundRectangle foundRectangle,
+																Direction.Axis axis, Vec3 pos,
+																Entity entity,
+																TeleportTransition.PostTeleportTransition teleportTransition) {
+		BlockPos blockpos = foundRectangle.minCorner;
+		BlockState blockstate = level.getBlockState(blockpos);
+		Direction.Axis axis1 = blockstate.getOptionalValue(BlockStateProperties.HORIZONTAL_AXIS).orElse(Direction.Axis.X);
+		double d0 = foundRectangle.axis1Size;
+		double d1 = foundRectangle.axis2Size;
+		EntityDimensions entitydimensions = entity.getDimensions(entity.getPose());
+		int i = axis == axis1 ? 0 : 90;
+		double d2 = entitydimensions.width() / 2.0 + (d0 - entitydimensions.width()) * pos.x();
+		double d3 = (d1 - entitydimensions.height()) * pos.y();
+		double d4 = 0.5 + pos.z();
+		boolean flag = axis == Direction.Axis.X;
 		Vec3 vec3 = new Vec3(blockpos.getX() + (flag ? d2 : d4), blockpos.getY() + d3, blockpos.getZ() + (flag ? d4 : d2));
-		Vec3 vec31 = HerobrinesRealmPortalShape.findCollisionFreePosition(vec3, p_350955_, p_350578_, entitydimensions);
-		return new TeleportTransition(p_350955_, vec31, Vec3.ZERO, i, 0.0F, Relative.union(Relative.DELTA, Relative.ROTATION), p_379531_);
+		Vec3 vec31 = HerobrinesRealmPortalShape.findCollisionFreePosition(vec3, level, entity, entitydimensions);
+		return new TeleportTransition(level, vec31, Vec3.ZERO, i, 0.0F, Relative.union(Relative.DELTA, Relative.ROTATION), teleportTransition);
 	}
 
 	@Override
