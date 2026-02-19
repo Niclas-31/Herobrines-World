@@ -44,20 +44,20 @@ public record ControllVariableTimer(int eventType) implements CustomPacketPayloa
         if (type == 0) {
             if (entity.getData(ModVariables.PLAYER_VARIABLES).TimerActive) {
                 {
-                    ModVariables.PlayerVariables _vars = entity.getData(ModVariables.PLAYER_VARIABLES);
-                    _vars.TimerActive = false;
-                    _vars.markSyncDirty();
+                    ModVariables.PlayerVariables vars = entity.getData(ModVariables.PLAYER_VARIABLES);
+                    vars.TimerActive = false;
+                    vars.markSyncDirty();
                 }
-                if (entity instanceof Player _player && !_player.level().isClientSide())
-                    _player.displayClientMessage(Component.literal("Timer stopped"), true);
+                if (entity instanceof Player player && !player.level().isClientSide())
+                    player.displayClientMessage(Component.literal("Timer stopped"), true);
             } else {
                 {
-                    ModVariables.PlayerVariables _vars = entity.getData(ModVariables.PLAYER_VARIABLES);
-                    _vars.TimerActive = true;
-                    _vars.markSyncDirty();
+                    ModVariables.PlayerVariables vars = entity.getData(ModVariables.PLAYER_VARIABLES);
+                    vars.TimerActive = true;
+                    vars.markSyncDirty();
                 }
-                if (entity instanceof Player _player && !_player.level().isClientSide())
-                    _player.displayClientMessage(Component.literal("Timer continued"), true);
+                if (entity instanceof Player player && !player.level().isClientSide())
+                    player.displayClientMessage(Component.literal("Timer continued"), true);
             }
         }
     }
