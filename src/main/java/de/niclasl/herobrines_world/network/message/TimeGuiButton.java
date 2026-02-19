@@ -69,4 +69,3 @@ public record TimeGuiButton(int buttonID, int x, int y, int z) implements Custom
 		HerobrinesWorld.addNetworkMessage(TimeGuiButton.TYPE, TimeGuiButton.STREAM_CODEC, TimeGuiButton::handleData);
 	}
 }
-
