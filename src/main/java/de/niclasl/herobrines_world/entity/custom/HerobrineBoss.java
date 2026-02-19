@@ -1,8 +1,8 @@
 package de.niclasl.herobrines_world.entity.custom;
 
+import de.niclasl.herobrines_world.entity.ModEntities;
 import de.niclasl.herobrines_world.item.ModItems;
 import de.niclasl.herobrines_world.network.ModVariables;
-import de.niclasl.herobrines_world.procedures.OwnerTargetTracker;
 import net.minecraft.server.level.ServerBossEvent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -33,12 +33,16 @@ import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.scores.Team;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 
 public class HerobrineBoss extends Monster {
+
+	private static final Map<UUID, Set<LivingEntity>> ownerTargets = new HashMap<>();
 
 	private final ServerBossEvent bossBar =
 			new ServerBossEvent(this.getDisplayName(), ServerBossEvent.BossBarColor.RED, ServerBossEvent.BossBarOverlay.NOTCHED_12);
@@ -95,8 +99,10 @@ public class HerobrineBoss extends Monster {
 
 		this.targetSelector.addGoal(1, new HurtByTargetGoal(this){
 			@Override
-			protected boolean canAttack(@Nullable LivingEntity target, @NotNull TargetingConditions conditions) {
-				if (isMinionMode() && isOwner(target)) return false;
+			protected boolean canAttack(@Nullable LivingEntity target,
+										@NotNull TargetingConditions conditions) {
+				if (isOwner(target)) return false;
+
 				return super.canAttack(target, conditions);
 			}
 		});
@@ -105,7 +111,7 @@ public class HerobrineBoss extends Monster {
 				this,
 				Player.class,
 				true,
-                (player, level) -> !isMinionMode() || !isOwner(player)
+                (player, level) -> !isOwner(player)
         ));
 	}
 
@@ -165,7 +171,7 @@ public class HerobrineBoss extends Monster {
 		minions.removeIf(Mob::isDeadOrDying);
 
 		if (ownerUUID != null) {
-			OwnerTargetTracker.cleanTargets(ownerUUID);
+			cleanTargets(ownerUUID);
 		}
 	}
 
@@ -231,7 +237,7 @@ public class HerobrineBoss extends Monster {
 		bossBar.setProgress(hpPercent);
 
 		if (ownerUUID != null) {
-			Set<LivingEntity> targets = OwnerTargetTracker.getTargets(ownerUUID);
+			Set<LivingEntity> targets = getTargets(ownerUUID);
 			if (!targets.isEmpty()) {
 				this.setTarget(targets.iterator().next());
 			}
@@ -246,7 +252,7 @@ public class HerobrineBoss extends Monster {
 	@Override
 	protected int getBaseExperienceReward(@NotNull ServerLevel level) {
 		if (ownerUUID != null) {
-			OwnerTargetTracker.cleanTargets(ownerUUID);
+			cleanTargets(ownerUUID);
 		}
 
 		if (ownedBoss) {
@@ -339,7 +345,7 @@ public class HerobrineBoss extends Monster {
 	public static void onOwnerDeath(ServerPlayer player) {
 		UUID owner = player.getData(ModVariables.PLAYER_VARIABLES).getRelicOwner();
 		if (owner != null) {
-			OwnerTargetTracker.removeOwnerAndTargets(owner);
+			removeOwnerAndTargets(owner);
 		}
 	}
 
@@ -377,5 +383,59 @@ public class HerobrineBoss extends Monster {
 
 	public boolean isMinionMode() {
 		return this.minionMode;
+	}
+
+	public static void addTarget(UUID ownerUUID, LivingEntity target) {
+		if (ownerUUID == null || target == null) return;
+		ownerTargets.computeIfAbsent(ownerUUID, k -> new HashSet<>()).add(target);
+	}
+
+	public static Set<LivingEntity> getTargets(UUID ownerUUID) {
+		Set<LivingEntity> targets = ownerTargets.get(ownerUUID);
+		if (targets == null) return Collections.emptySet();
+		targets.removeIf(e -> e == null || !e.isAlive());
+		return targets;
+	}
+
+	public static void cleanTargets(UUID ownerUUID) {
+		Set<LivingEntity> targets = ownerTargets.get(ownerUUID);
+		if (targets != null) {
+			targets.removeIf(e -> e == null || !e.isAlive());
+			if (targets.isEmpty()) {
+				ownerTargets.remove(ownerUUID);
+			}
+		}
+	}
+
+	public static void register() {
+		NeoForge.EVENT_BUS.addListener(HerobrineBoss::onLivingHurt);
+	}
+
+	private static void onLivingHurt(LivingDamageEvent.Pre event) {
+		if (!(event.getSource().getEntity() instanceof ServerPlayer player)) return;
+
+		UUID owner = player.getData(ModVariables.PLAYER_VARIABLES).getRelicOwner();
+		if (owner == null) return;
+
+		LivingEntity target = event.getEntity();
+
+		if (target instanceof ServerPlayer targetPlayer) {
+			if (targetPlayer.getUUID().equals(owner)) {
+				return;
+			}
+		}
+
+		if (target.getType().equals(ModEntities.HEROBRINE_BOSS.get())) {
+			return;
+		}
+
+		if (!target.getType().equals(ModEntities.HEROBRINE_BOSS.get())) {
+			addTarget(owner, target);
+		}
+	}
+
+	public static void removeOwnerAndTargets(UUID owner) {
+		if (owner == null) return;
+		ownerTargets.remove(owner);
 	}
 }
