@@ -1,7 +1,6 @@
 package de.niclasl.herobrines_world.entity.custom;
 
 import de.niclasl.herobrines_world.entity.ModEntities;
-import de.niclasl.herobrines_world.procedures.HerobrineWithRedEyesOnEntityTickUpdate;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
@@ -24,6 +23,8 @@ import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractThrownPotion;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
@@ -155,7 +156,6 @@ public class BadHerobrine extends Monster {
 	@Override
 	public void baseTick() {
 		super.baseTick();
-		HerobrineWithRedEyesOnEntityTickUpdate.execute(this.level(), this.getX(), this.getY(), this.getZ(), this);
 	}
 
 	@Override
@@ -168,8 +168,36 @@ public class BadHerobrine extends Monster {
 	}
 
 	public void aiStep() {
-		super.aiStep();
 		this.setNoGravity(true);
+
+		if (this.isAlive()) {
+			boolean flag = this.isSunSensitive() && this.isSunBurnTick();
+			if (flag) {
+				ItemStack itemstack = this.getItemBySlot(EquipmentSlot.HEAD);
+				if (!itemstack.isEmpty()) {
+					if (itemstack.isDamageableItem()) {
+						Item item = itemstack.getItem();
+						itemstack.setDamageValue(itemstack.getDamageValue() + this.random.nextInt(2));
+						if (itemstack.getDamageValue() >= itemstack.getMaxDamage()) {
+							this.onEquippedItemBroken(item, EquipmentSlot.HEAD);
+							this.setItemSlot(EquipmentSlot.HEAD, ItemStack.EMPTY);
+						}
+					}
+
+					flag = false;
+				}
+
+				if (flag) {
+					this.igniteForSeconds(8.0F);
+				}
+			}
+		}
+
+		super.aiStep();
+	}
+
+	protected boolean isSunSensitive() {
+		return true;
 	}
 
 	public static void init(RegisterSpawnPlacementsEvent event) {
