@@ -292,6 +292,7 @@ public class ModVariables {
 			output.putBoolean("TimerActive", TimerActive);
 			output.putBoolean("AbilityActive", AbilityActive);
 			output.putBoolean("Hide", Hide);
+
 			output.putInt("Hearts", Hearts);
 			output.putInt("Ticks", Ticks);
 			output.putInt("Second", Second);
@@ -300,11 +301,16 @@ public class ModVariables {
 			output.putInt("Day", Day);
 			output.putInt("Soul_Current", Soul_Current);
 			output.putInt("Soul_Level", Soul_Level);
+
 			output.putDouble("X", X);
 			output.putDouble("Y", Y);
 			output.putDouble("Z", Z);
-			output.putString("herobrineRelicOwner", herobrineRelicOwner);
-			output.putString("ownedBossUUID", ownedBossUUID);
+
+			output.putString("herobrineRelicOwner",
+					herobrineRelicOwner == null ? "" : herobrineRelicOwner);
+
+			output.putString("ownedBossUUID",
+					ownedBossUUID == null ? "" : ownedBossUUID);
 		}
 
 		@Override
