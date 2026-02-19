@@ -50,15 +50,15 @@ public record TimeGuiButton(int buttonID, int x, int y, int z) implements Custom
 		if (buttonID == 0) {
 			if (!entity.getData(ModVariables.PLAYER_VARIABLES).Hide) {
 				{
-					ModVariables.PlayerVariables _vars = entity.getData(ModVariables.PLAYER_VARIABLES);
-					_vars.Hide = true;
-					_vars.markSyncDirty();
+					ModVariables.PlayerVariables vars = entity.getData(ModVariables.PLAYER_VARIABLES);
+					vars.Hide = true;
+					vars.markSyncDirty();
 				}
 			} else if (entity.getData(ModVariables.PLAYER_VARIABLES).Hide) {
 				{
-					ModVariables.PlayerVariables _vars = entity.getData(ModVariables.PLAYER_VARIABLES);
-					_vars.Hide = false;
-					_vars.markSyncDirty();
+					ModVariables.PlayerVariables vars = entity.getData(ModVariables.PLAYER_VARIABLES);
+					vars.Hide = false;
+					vars.markSyncDirty();
 				}
 			}
 		}
@@ -69,3 +69,4 @@ public record TimeGuiButton(int buttonID, int x, int y, int z) implements Custom
 		HerobrinesWorld.addNetworkMessage(TimeGuiButton.TYPE, TimeGuiButton.STREAM_CODEC, TimeGuiButton::handleData);
 	}
 }
+
