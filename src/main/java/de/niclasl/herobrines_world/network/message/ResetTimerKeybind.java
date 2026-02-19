@@ -42,16 +42,16 @@ public record ResetTimerKeybind(int eventType) implements CustomPacketPayload {
         if (!world.hasChunkAt(entity.blockPosition()))
             return;
         if (type == 0) {
-            ModVariables.PlayerVariables _vars = entity.getData(ModVariables.PLAYER_VARIABLES);
-            _vars.Ticks = 0;
-            _vars.Second = 0;
-            _vars.Minute = 0;
-            _vars.Hour = 0;
-            _vars.Day = 0;
-            _vars.markSyncDirty();
+            ModVariables.PlayerVariables vars = entity.getData(ModVariables.PLAYER_VARIABLES);
+            vars.Ticks = 0;
+            vars.Second = 0;
+            vars.Minute = 0;
+            vars.Hour = 0;
+            vars.Day = 0;
+            vars.markSyncDirty();
 
-            if (entity instanceof Player _player && !_player.level().isClientSide())
-                _player.displayClientMessage(Component.literal("Timer reset"), true);
+            if (entity instanceof Player player && !player.level().isClientSide())
+                player.displayClientMessage(Component.literal("Timer reset"), true);
         }
     }
 
