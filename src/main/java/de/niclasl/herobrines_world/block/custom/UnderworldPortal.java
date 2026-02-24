@@ -6,13 +6,10 @@ import org.slf4j.Logger;
 
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.level.portal.TeleportTransition;
-import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.level.dimension.DimensionType;
 import net.minecraft.world.level.border.WorldBorder;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.Portal;
 import net.minecraft.world.level.block.NetherPortalBlock;
 import net.minecraft.world.level.block.Blocks;
