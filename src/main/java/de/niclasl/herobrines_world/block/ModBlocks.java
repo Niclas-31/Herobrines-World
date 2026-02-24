@@ -111,6 +111,9 @@ public class ModBlocks {
 	public static final DeferredBlock<Block> LOGIC_GATE_BLOCK = registerBlock("logic_gate_block",
 			(properties) -> new LogicGateBlock(properties.instabreak()));
 
+	public static final DeferredBlock<Block> SIGNAL_AMPLIFIER = registerBlock("signal_amplifier",
+			(properties) -> new SignalAmplifierBlock(properties.instabreak()));
+
 	private static <T extends Block> DeferredBlock<T> registerBlock(String name, Function<BlockBehaviour.Properties, T> function) {
 		DeferredBlock<T> toReturn = BLOCKS.registerBlock(name, function);
 		registerBlockItem(name, toReturn);
