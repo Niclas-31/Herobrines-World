@@ -48,14 +48,6 @@ public class ModItems {
 			"frozen_heart",
 			FrozenHeart::new
 	);
-	public static final DeferredItem<Item> FROZEN_FRAGMENT_LEFT = ITEMS.registerItem(
-			"frozen_fragment_left",
-			FrozenFragmentLeft::new
-	);
-	public static final DeferredItem<Item> FROZEN_FRAGMENT_RIGHT = ITEMS.registerItem(
-			"frozen_fragment_right",
-			FrozenFragmentRight::new
-	);
 	public static final DeferredItem<Item> NICLASL_SPAWN_EGG = ITEMS.registerItem(
 			"niclasl_spawn_egg",
 			properties -> new SpawnEggItem(properties.spawnEgg(ModEntities.NICLASL.get()))
