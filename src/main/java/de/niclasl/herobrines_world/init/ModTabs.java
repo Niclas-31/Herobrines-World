@@ -42,8 +42,6 @@ public class ModTabs {
 				tabData.accept(ModItems.ASH);
 				tabData.accept(ModItems.ASH_INGOT);
 				tabData.accept(ModItems.FROZEN_HEART);
-				tabData.accept(ModItems.FROZEN_FRAGMENT_LEFT);
-				tabData.accept(ModItems.FROZEN_FRAGMENT_RIGHT);
 				tabData.accept(ModItems.TOXENIUM_UPGRADE_SMITHING_TEMPLATE);
 				tabData.accept(ModItems.TOXENIUM_INGOT);
 				tabData.accept(ModItems.GREEN_GEMSTONE);
