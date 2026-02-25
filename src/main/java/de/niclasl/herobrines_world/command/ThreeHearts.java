@@ -2,9 +2,11 @@ package de.niclasl.herobrines_world.command;
 
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import de.niclasl.herobrines_world.init.ModGameRules;
+import de.niclasl.herobrines_world.item.ModItems;
 import de.niclasl.herobrines_world.network.ModVariables;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.event.RegisterCommandsEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -14,6 +16,8 @@ import net.minecraft.commands.arguments.EntityArgument;
 import net.minecraft.commands.Commands;
 
 import com.mojang.brigadier.arguments.DoubleArgumentType;
+
+import java.util.Collection;
 
 @EventBusSubscriber
 public class ThreeHearts {
@@ -79,6 +83,26 @@ public class ThreeHearts {
 										})
 								)
 						)
+						.then(Commands.literal("give")
+								.then(Commands.argument("targets", EntityArgument.players())
+										.then(Commands.literal("heart")
+												.then(Commands.argument("amount", DoubleArgumentType.doubleArg(0)))
+												.executes(ctx -> {
+													Collection<ServerPlayer> targets =
+															EntityArgument.getPlayers(ctx, "targets");
+
+													double amount =
+															DoubleArgumentType.getDouble(ctx, "amount");
+
+													for (ServerPlayer player : targets) {
+														giveHeart(player, amount);
+													}
+
+													return 1;
+												})
+										)
+								)
+						)
 		);
 	}
 
@@ -132,5 +156,14 @@ public class ThreeHearts {
 		ServerPlayer.RespawnConfig config = new ServerPlayer.RespawnConfig(level.getLevelData().getRespawnData(), true);
 
 		player.setRespawnPosition(config, true);
+	}
+
+	private static void giveHeart(ServerPlayer player, double amount) {
+		if (amount <= 0) return;
+
+		ItemStack stack = new ItemStack(ModItems.FROZEN_HEART.get());
+		stack.setCount((int) amount);
+
+		player.getInventory().placeItemBackInInventory(stack);
 	}
 }
