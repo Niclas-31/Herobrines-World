@@ -1,0 +1,32 @@
+{
+  "anvil_cost": 1,
+  "description": {
+    "translate": "enchantment.herobrines_world.herobrine"
+  },
+  "effects": {
+    "minecraft:post_attack": [
+      {
+        "affected": "victim",
+        "effect": {
+          "type": "herobrines_world:herobrine"
+        },
+        "enchanted": "attacker"
+      }
+    ]
+  },
+  "exclusive_set": "#minecraft:exclusive_set/damage",
+  "max_cost": {
+    "base": 30,
+    "per_level_above_first": 10
+  },
+  "max_level": 4,
+  "min_cost": {
+    "base": 10,
+    "per_level_above_first": 10
+  },
+  "slots": [
+    "mainhand"
+  ],
+  "supported_items": "#minecraft:enchantable/sword",
+  "weight": 5
+}
