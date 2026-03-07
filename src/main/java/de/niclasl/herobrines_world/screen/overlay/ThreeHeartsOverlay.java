@@ -44,20 +44,20 @@ public class ThreeHeartsOverlay {
 		boolean heart3 = entity.getData(ModVariables.PLAYER_VARIABLES).Hearts == 3;
 
 		if (ModVariables.MapVariables.get(world).ThreeHearts && gamemode) {
-			event.getGuiGraphics().blit(RenderPipelines.GUI_TEXTURED, ResourceLocation.parse("herobrines_world:textures/screens/container.png"), w / 2 - 10, h - 47, 0, 0, 9, 9, 9, 9);
+			event.getGuiGraphics().blit(RenderPipelines.GUI_TEXTURED, ResourceLocation.parse("minecraft:textures/gui/sprites/hud/heart/container.png"), w / 2 - 10, h - 47, 0, 0, 9, 9, 9, 9);
 
-			event.getGuiGraphics().blit(RenderPipelines.GUI_TEXTURED, ResourceLocation.parse("herobrines_world:textures/screens/container.png"), w / 2, h - 47, 0, 0, 9, 9, 9, 9);
+			event.getGuiGraphics().blit(RenderPipelines.GUI_TEXTURED, ResourceLocation.parse("minecraft:textures/gui/sprites/hud/heart/container.png"), w / 2, h - 47, 0, 0, 9, 9, 9, 9);
 
-			event.getGuiGraphics().blit(RenderPipelines.GUI_TEXTURED, ResourceLocation.parse("herobrines_world:textures/screens/container.png"), w / 2 - 5, h - 55, 0, 0, 9, 9, 9, 9);
+			event.getGuiGraphics().blit(RenderPipelines.GUI_TEXTURED, ResourceLocation.parse("minecraft:textures/gui/sprites/hud/heart/container.png"), w / 2 - 5, h - 55, 0, 0, 9, 9, 9, 9);
 
 			if (heart3) {
-				event.getGuiGraphics().blit(RenderPipelines.GUI_TEXTURED, ResourceLocation.parse("herobrines_world:textures/screens/frozen_full.png"), w / 2 - 5, h - 55, 0, 0, 9, 9, 9, 9);
+				event.getGuiGraphics().blit(RenderPipelines.GUI_TEXTURED, ResourceLocation.parse("minecraft:textures/gui/sprites/hud/heart/frozen_full.png"), w / 2 - 5, h - 55, 0, 0, 9, 9, 9, 9);
 			}
 			if (heart1) {
-				event.getGuiGraphics().blit(RenderPipelines.GUI_TEXTURED, ResourceLocation.parse("herobrines_world:textures/screens/frozen_full.png"), w / 2, h - 47, 0, 0, 9, 9, 9, 9);
+				event.getGuiGraphics().blit(RenderPipelines.GUI_TEXTURED, ResourceLocation.parse("minecraft:textures/gui/sprites/hud/heart/frozen_full.png"), w / 2, h - 47, 0, 0, 9, 9, 9, 9);
 			}
 			if (heart2) {
-				event.getGuiGraphics().blit(RenderPipelines.GUI_TEXTURED, ResourceLocation.parse("herobrines_world:textures/screens/frozen_full.png"), w / 2 - 10, h - 47, 0, 0, 9, 9, 9, 9);
+				event.getGuiGraphics().blit(RenderPipelines.GUI_TEXTURED, ResourceLocation.parse("minecraft:textures/gui/sprites/hud/heart/frozen_full.png"), w / 2 - 10, h - 47, 0, 0, 9, 9, 9, 9);
 			}
 		}
 	}
