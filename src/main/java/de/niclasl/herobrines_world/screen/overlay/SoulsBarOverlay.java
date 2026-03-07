@@ -22,7 +22,7 @@ public class SoulsBarOverlay {
 		int h = event.getGuiGraphics().guiHeight();
 
 		Player entity = Minecraft.getInstance().player;
-        event.getGuiGraphics().blit(RenderPipelines.GUI_TEXTURED, ResourceLocation.parse("herobrines_world:textures/screens/seelen_bar.png"), w - 59, h - 28, 0, 0, 13, 6, 13, 6);
+        event.getGuiGraphics().blit(RenderPipelines.GUI_TEXTURED, ResourceLocation.parse("herobrines_world:textures/gui/sprites/hud/soul_bar/seelen_bar.png"), w - 59, h - 28, 0, 0, 13, 6, 13, 6);
 
         assert entity != null;
         boolean one = entity.getData(ModVariables.PLAYER_VARIABLES).Soul_Current >= 1 && entity.getData(ModVariables.PLAYER_VARIABLES).Soul_Current <= 10;
@@ -37,34 +37,34 @@ public class SoulsBarOverlay {
         boolean ten = entity.getData(ModVariables.PLAYER_VARIABLES).Soul_Current >= 91 && entity.getData(ModVariables.PLAYER_VARIABLES).Soul_Current <= 100;
 
         if (one) {
-            event.getGuiGraphics().blit(RenderPipelines.GUI_TEXTURED, ResourceLocation.parse("herobrines_world:textures/screens/seelen_bar_1-10_soul_points.png"), w - 59, h - 28, 0, 0, 13, 6, 13, 6);
+            event.getGuiGraphics().blit(RenderPipelines.GUI_TEXTURED, ResourceLocation.parse("herobrines_world:textures/gui/sprites/hud/soul_bar/seelen_bar_1-10_soul_points.png"), w - 59, h - 28, 0, 0, 13, 6, 13, 6);
         }
         if (two) {
-            event.getGuiGraphics().blit(RenderPipelines.GUI_TEXTURED, ResourceLocation.parse("herobrines_world:textures/screens/seelen_bar_11-20_soul_points.png"), w - 59, h - 28, 0, 0, 13, 6, 13, 6);
+            event.getGuiGraphics().blit(RenderPipelines.GUI_TEXTURED, ResourceLocation.parse("herobrines_world:textures/gui/sprites/hud/soul_bar/seelen_bar_11-20_soul_points.png"), w - 59, h - 28, 0, 0, 13, 6, 13, 6);
         }
         if (three) {
-            event.getGuiGraphics().blit(RenderPipelines.GUI_TEXTURED, ResourceLocation.parse("herobrines_world:textures/screens/seelen_bar_21-30_soul_points.png"), w - 59, h - 28, 0, 0, 13, 6, 13, 6);
+            event.getGuiGraphics().blit(RenderPipelines.GUI_TEXTURED, ResourceLocation.parse("herobrines_world:textures/gui/sprites/hud/soul_bar/seelen_bar_21-30_soul_points.png"), w - 59, h - 28, 0, 0, 13, 6, 13, 6);
         }
         if (four) {
-            event.getGuiGraphics().blit(RenderPipelines.GUI_TEXTURED, ResourceLocation.parse("herobrines_world:textures/screens/seelen_bar_31-40_soul_points.png"), w - 59, h - 28, 0, 0, 13, 6, 13, 6);
+            event.getGuiGraphics().blit(RenderPipelines.GUI_TEXTURED, ResourceLocation.parse("herobrines_world:textures/gui/sprites/hud/soul_bar/seelen_bar_31-40_soul_points.png"), w - 59, h - 28, 0, 0, 13, 6, 13, 6);
         }
         if (five) {
-            event.getGuiGraphics().blit(RenderPipelines.GUI_TEXTURED, ResourceLocation.parse("herobrines_world:textures/screens/seelen_bar_41-50_soul_points.png"), w - 59, h - 28, 0, 0, 13, 6, 13, 6);
+            event.getGuiGraphics().blit(RenderPipelines.GUI_TEXTURED, ResourceLocation.parse("herobrines_world:textures/gui/sprites/hud/soul_bar/seelen_bar_41-50_soul_points.png"), w - 59, h - 28, 0, 0, 13, 6, 13, 6);
         }
         if (six) {
-            event.getGuiGraphics().blit(RenderPipelines.GUI_TEXTURED, ResourceLocation.parse("herobrines_world:textures/screens/seelen_bar_51-60_soul_points.png"), w - 59, h - 28, 0, 0, 13, 6, 13, 6);
+            event.getGuiGraphics().blit(RenderPipelines.GUI_TEXTURED, ResourceLocation.parse("herobrines_world:textures/gui/sprites/hud/soul_bar/seelen_bar_51-60_soul_points.png"), w - 59, h - 28, 0, 0, 13, 6, 13, 6);
         }
         if (seven) {
-            event.getGuiGraphics().blit(RenderPipelines.GUI_TEXTURED, ResourceLocation.parse("herobrines_world:textures/screens/seelen_bar_61-70_soul_points.png"), w - 59, h - 28, 0, 0, 13, 6, 13, 6);
+            event.getGuiGraphics().blit(RenderPipelines.GUI_TEXTURED, ResourceLocation.parse("herobrines_world:textures/gui/sprites/hud/soul_bar/seelen_bar_61-70_soul_points.png"), w - 59, h - 28, 0, 0, 13, 6, 13, 6);
         }
         if (eight) {
-            event.getGuiGraphics().blit(RenderPipelines.GUI_TEXTURED, ResourceLocation.parse("herobrines_world:textures/screens/seelen_bar_71-80_soul_points.png"), w - 59, h - 28, 0, 0, 13, 6, 13, 6);
+            event.getGuiGraphics().blit(RenderPipelines.GUI_TEXTURED, ResourceLocation.parse("herobrines_world:textures/gui/sprites/hud/soul_bar/seelen_bar_71-80_soul_points.png"), w - 59, h - 28, 0, 0, 13, 6, 13, 6);
         }
         if (nine) {
-            event.getGuiGraphics().blit(RenderPipelines.GUI_TEXTURED, ResourceLocation.parse("herobrines_world:textures/screens/seelen_bar_81-90_soul_points.png"), w - 59, h - 28, 0, 0, 13, 6, 13, 6);
+            event.getGuiGraphics().blit(RenderPipelines.GUI_TEXTURED, ResourceLocation.parse("herobrines_world:textures/gui/sprites/hud/soul_bar/seelen_bar_81-90_soul_points.png"), w - 59, h - 28, 0, 0, 13, 6, 13, 6);
         }
         if (ten) {
-            event.getGuiGraphics().blit(RenderPipelines.GUI_TEXTURED, ResourceLocation.parse("herobrines_world:textures/screens/seelen_bar_91-100_soul_points.png"), w - 59, h - 28, 0, 0, 13, 6, 13, 6);
+            event.getGuiGraphics().blit(RenderPipelines.GUI_TEXTURED, ResourceLocation.parse("herobrines_world:textures/gui/sprites/hud/soul_bar/seelen_bar_91-100_soul_points.png"), w - 59, h - 28, 0, 0, 13, 6, 13, 6);
         }
 
         String level = new DecimalFormat("##").format(entity.getData(ModVariables.PLAYER_VARIABLES).Soul_Level);
