@@ -1,6 +1,6 @@
 {
   "display": {
-    "background": "herobrines_world:screens/herobrine_ore",
+    "background": "herobrines_world:gui/advancements/backgrounds/herobrines_world",
     "icon": {
       "id": "herobrines_world:cursed_stone"
     },
