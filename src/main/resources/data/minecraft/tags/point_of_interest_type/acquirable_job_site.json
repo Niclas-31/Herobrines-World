@@ -1,6 +1,9 @@
 {
   "replace": false,
   "values": [
-    "herobrines_world:lumberjack"
+    {
+      "id": "herobrines_world:lumber_poi",
+      "required": false
+    }
   ]
 }
