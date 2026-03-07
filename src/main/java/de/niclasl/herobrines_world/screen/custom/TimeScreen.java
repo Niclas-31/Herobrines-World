@@ -39,8 +39,7 @@ public class TimeScreen extends AbstractContainerScreen<TimeMenu> {
 
 	@Override
 	protected void renderBg(GuiGraphics guiGraphics, float partialTicks, int mouseX, int mouseY) {
-		guiGraphics.blit(RenderPipelines.GUI_TEXTURED, ResourceLocation.parse("herobrines_world:textures/screens/uhr.png"), this.leftPos - 47, this.topPos - 59, 0, 0, -1, -1, -1, -1);
-		guiGraphics.blit(RenderPipelines.GUI_TEXTURED, ResourceLocation.parse("herobrines_world:textures/screens/clock.png"), this.leftPos - 49, this.topPos - 59, 0, 0, 200, 200, 200, 200);
+		guiGraphics.blit(RenderPipelines.GUI_TEXTURED, ResourceLocation.parse("herobrines_world:textures/gui/container/clock.png"), this.leftPos - 49, this.topPos - 59, 0, 0, 200, 200, 200, 200);
 	}
 
 	@Override
