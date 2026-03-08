@@ -21,6 +21,7 @@ public class ModMenuTypes {
 	public static final DeferredHolder<MenuType<?>, MenuType<SignalColorChangerMenu>> SIGNAL_COLOR_CHANGER = MENUS.register("signal_color_changer", () -> IMenuTypeExtension.create(SignalColorChangerMenu::new));
 	public static final DeferredHolder<MenuType<?>, MenuType<DelayerMenu>> DELAYER = MENUS.register("delayer", () -> IMenuTypeExtension.create(DelayerMenu::new));
 	public static final DeferredHolder<MenuType<?>, MenuType<SignalAmplifierMenu>> SIGNAL_AMPLIFIER = MENUS.register("signal_amplifier", () -> IMenuTypeExtension.create(SignalAmplifierMenu::new));
+		public static final DeferredHolder<MenuType<?>, MenuType<RedstoneTimerMenu>> REDSTONE_TIMER = MENUS.register("redstone_timer", () -> IMenuTypeExtension.create(RedstoneTimerMenu::new));
 
 	public static void register(IEventBus eventBus) {
 		MENUS.register(eventBus);
