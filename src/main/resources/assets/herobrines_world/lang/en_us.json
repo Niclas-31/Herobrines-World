@@ -66,6 +66,8 @@
   "block.herobrines_world.toxenium_ore": "Toxenium Ore",
   "block.herobrines_world.delayer": "Delayer",
   "block.herobrines_world.logic_gate_block": "Logic Gate Block",
+  "block.herobrines_world.signal_amplifier": "Signal Amplifier",
+  "block.herobrines_world.redstone_timer": "Redstone Timer",
 
   "message.pin_delete": "§4The Account and PIN deleted!",
   "message.pin_save": "§2The Account and PIN saved!",
