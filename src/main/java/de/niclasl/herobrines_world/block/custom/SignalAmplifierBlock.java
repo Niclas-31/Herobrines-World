@@ -122,7 +122,7 @@ public class SignalAmplifierBlock extends HorizontalDirectionalBlock implements 
         boolean powered = level.getSignal(inputPos, facing) > 0;
 
         if (powered != state.getValue(POWERED)) {
-            level.setBlock(pos, state.setValue(POWERED, powered), 3);
+            level.setBlock(pos, state.setValue(POWERED, powered), 2);
         }
 
         level.updateNeighborsAt(pos, this);
