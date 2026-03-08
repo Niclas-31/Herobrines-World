@@ -1,0 +1,6 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "herobrines_world:item/toxenium_upgrade_smithing_template"
+  }
+}
