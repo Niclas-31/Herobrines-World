@@ -79,7 +79,7 @@ public class LogicGateBlock extends Block implements EntityBlock {
             case XOR -> LogicMode.AND;
         };
 
-        level.setBlock(pos, state.setValue(MODE, next), 3);
+        level.setBlock(pos, state.setValue(MODE, next), 2);
 
         return InteractionResult.CONSUME;
     }
@@ -101,7 +101,7 @@ public class LogicGateBlock extends Block implements EntityBlock {
         );
 
         if (powered != state.getValue(POWERED)) {
-            level.setBlock(pos, state.setValue(POWERED, powered), 3);
+            level.setBlock(pos, state.setValue(POWERED, powered), 2);
         }
     }
 
