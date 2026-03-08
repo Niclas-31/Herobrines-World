@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "herobrines_world:block/blue_sandstone_top"
+  }
+}

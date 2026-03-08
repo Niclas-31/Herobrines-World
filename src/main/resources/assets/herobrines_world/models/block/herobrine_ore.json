@@ -1,0 +1,7 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "herobrines_world:block/herobrine_ore",
+    "particle": "herobrines_world:block/herobrine_ore"
+  }
+}
