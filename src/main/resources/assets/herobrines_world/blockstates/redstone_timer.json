@@ -1,0 +1,34 @@
+{
+    "variants": {
+        "facing=south,powered=false": {
+            "model": "herobrines_world:block/redstone_timer"
+        },
+        "facing=south,powered=true": {
+            "model": "herobrines_world:block/redstone_timer_on"
+        },
+        "facing=north,powered=false": {
+            "model": "herobrines_world:block/redstone_timer",
+            "y": 180
+        },
+        "facing=north,powered=true": {
+            "model": "herobrines_world:block/redstone_timer_on",
+            "y": 180
+        },
+        "facing=east,powered=false": {
+            "model": "herobrines_world:block/redstone_timer",
+            "y": 270
+        },
+        "facing=east,powered=true": {
+            "model": "herobrines_world:block/redstone_timer_on",
+            "y": 270
+        },
+        "facing=west,powered=false": {
+            "model": "herobrines_world:block/redstone_timer",
+            "y": 90
+        },
+        "facing=west,powered=true": {
+            "model": "herobrines_world:block/redstone_timer_on",
+            "y": 90
+        }
+    }
+}

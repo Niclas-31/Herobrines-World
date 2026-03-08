@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "herobrines_world:block/blue_smooth_sandstone_slab"
+    },
+    "type=top": {
+      "model": "herobrines_world:block/blue_smooth_sandstone_slab_top"
+    },
+    "type=double": {
+      "model": "herobrines_world:block/blue_smooth_sandstone_slab_full"
+    }
+  }
+}

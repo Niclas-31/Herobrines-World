@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "axis=z": {
+      "model": "herobrines_world:block/herobrines_realm_portal_ew"
+    },
+    "axis=x": {
+      "model": "herobrines_world:block/herobrines_realm_portal_ns"
+    }
+  }
+}
