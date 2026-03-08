@@ -94,6 +94,7 @@ public class ModCreativeModeTabs {
 						tabData.accept(ModBlocks.DELAYER);
 						tabData.accept(ModBlocks.LOGIC_GATE_BLOCK);
 						tabData.accept(ModBlocks.SIGNAL_AMPLIFIER);
+						tabData.accept(ModBlocks.REDSTONE_TIMER);
 			}).build());
 
 	public static final Supplier<CreativeModeTab> HEROBRINE_COMBAT = CREATIVE_MODE_TAB.register("herobrines_combat",
