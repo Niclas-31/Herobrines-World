@@ -79,7 +79,7 @@ public class LogicGateBlock extends Block implements EntityBlock {
             case XOR -> LogicMode.AND;
         };
 
-        level.setBlock(pos, state.setValue(MODE, next), 2);
+        level.setBlock(pos, state.setValue(MODE, next), 3);
 
         return InteractionResult.CONSUME;
     }
@@ -89,20 +89,35 @@ public class LogicGateBlock extends Block implements EntityBlock {
                                    @NotNull BlockPos pos, @NotNull Block block,
                                    @Nullable Orientation orientation, boolean isMoving) {
 
+        if(level.isClientSide()) return;
+
         Direction facing = state.getValue(FACING);
         Direction left  = facing.getCounterClockWise();
         Direction right = facing.getClockWise();
 
-        int leftSignal  = level.getSignal(pos.relative(left), left);
-        int rightSignal = level.getSignal(pos.relative(right), right);
+        int leftSignal  = getSignalFromNeighbor(level, pos.relative(left), left);
+        int rightSignal = getSignalFromNeighbor(level, pos.relative(right), right);
 
-        boolean powered = evaluate(
-                state.getValue(MODE), leftSignal, rightSignal
-        );
+        boolean powered = evaluate(state.getValue(MODE), leftSignal, rightSignal);
 
-        if (powered != state.getValue(POWERED)) {
-            level.setBlock(pos, state.setValue(POWERED, powered), 2);
+        if(level.getBlockEntity(pos) instanceof LogicGateBlockEntity entity) {
+            entity.setCurrentSignal(powered ? 15 : 0);
         }
+
+        if(powered != state.getValue(POWERED)) {
+            level.setBlock(pos, state.setValue(POWERED, powered), 3);
+        }
+    }
+
+    private int getSignalFromNeighbor(Level level, BlockPos pos, Direction side) {
+        int redstoneSignal = level.getSignal(pos, side);
+
+        BlockEntity be = level.getBlockEntity(pos);
+        if(be instanceof LogicGateBlockEntity logic) {
+            redstoneSignal = Math.max(redstoneSignal, logic.getCurrentSignal());
+        }
+
+        return redstoneSignal;
     }
 
     private boolean evaluate(
@@ -117,11 +132,12 @@ public class LogicGateBlock extends Block implements EntityBlock {
     }
 
     @Override
-    public int getSignal(BlockState state, @NotNull BlockGetter level,
+    public int getSignal(@NotNull BlockState state, @NotNull BlockGetter level,
                          @NotNull BlockPos pos, @NotNull Direction direction) {
 
-        return direction == state.getValue(FACING)
-                && state.getValue(POWERED) ? 15 : 0;
+        if (!(level.getBlockEntity(pos) instanceof LogicGateBlockEntity entity)) return 0;
+
+        return direction == state.getValue(FACING) ? entity.getCurrentSignal() : 0;
     }
 
     @Override
