@@ -29,10 +29,6 @@ public class ModBlockEntities {
             BLOCK_ENTITIES.register("signal_amplifier", () -> new BlockEntityType<>(
                     SignalAmplifierBlockEntity::new, ModBlocks.SIGNAL_AMPLIFIER.get()));
 
-    public static final Supplier<BlockEntityType<RedstoneTimerBlockEntity>> REDSTONE_TIMER =
-            BLOCK_ENTITIES.register("redstone_timer_block", () -> new BlockEntityType<>(
-                    RedstoneTimerBlockEntity::new, ModBlocks.REDSTONE_TIMER.get()));
-
     public static void register(IEventBus eventBus) {
         BLOCK_ENTITIES.register(eventBus);
     }
