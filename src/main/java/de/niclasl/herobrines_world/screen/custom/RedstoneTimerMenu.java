@@ -34,10 +34,6 @@ public class RedstoneTimerMenu extends AbstractContainerMenu {
         this.be = (RedstoneTimerBlockEntity) inv.player.level().getBlockEntity(pos);
     }
 
-    public RedstoneTimerBlockEntity getBlockEntity() {
-        return be;
-    }
-
     @Override
     public @NotNull ItemStack quickMoveStack(@NotNull Player player, int i) {
         return ItemStack.EMPTY;
