@@ -4,6 +4,7 @@ import de.niclasl.herobrines_world.HerobrinesWorld;
 import de.niclasl.herobrines_world.block.ModBlocks;
 import de.niclasl.herobrines_world.block.entity.custom.DelayerEntity;
 import de.niclasl.herobrines_world.block.entity.custom.LogicGateBlockEntity;
+import de.niclasl.herobrines_world.block.entity.custom.RedstoneTimerBlockEntity;
 import de.niclasl.herobrines_world.block.entity.custom.SignalAmplifierBlockEntity;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -22,13 +23,15 @@ public class ModBlockEntities {
 
     public static final Supplier<BlockEntityType<LogicGateBlockEntity>> LOGIC_GATE_BLOCK =
             BLOCK_ENTITIES.register("logic_gate_block", () -> new BlockEntityType<>(
-                    LogicGateBlockEntity::new, ModBlocks.LOGIC_GATE_BLOCK.get()
-            ));
+                    LogicGateBlockEntity::new, ModBlocks.LOGIC_GATE_BLOCK.get()));
 
     public static final Supplier<BlockEntityType<SignalAmplifierBlockEntity>> SIGNAL_AMPLIFIER =
             BLOCK_ENTITIES.register("signal_amplifier", () -> new BlockEntityType<>(
-                    SignalAmplifierBlockEntity::new, ModBlocks.SIGNAL_AMPLIFIER.get()
-            ));
+                    SignalAmplifierBlockEntity::new, ModBlocks.SIGNAL_AMPLIFIER.get()));
+
+    public static final Supplier<BlockEntityType<RedstoneTimerBlockEntity>> REDSTONE_TIMER =
+            BLOCK_ENTITIES.register("redstone_timer_block", () -> new BlockEntityType<>(
+                    RedstoneTimerBlockEntity::new, ModBlocks.REDSTONE_TIMER.get()));
 
     public static void register(IEventBus eventBus) {
         BLOCK_ENTITIES.register(eventBus);
