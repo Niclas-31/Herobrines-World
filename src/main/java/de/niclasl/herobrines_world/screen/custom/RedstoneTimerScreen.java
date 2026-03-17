@@ -1,10 +1,13 @@
 package de.niclasl.herobrines_world.screen.custom;
 
+import de.niclasl.herobrines_world.network.message.RedstoneTimerUpdate;
 import de.niclasl.herobrines_world.screen.custom.slider.TimerSlider;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
+import net.neoforged.neoforge.client.network.ClientPacketDistributor;
 import org.jetbrains.annotations.NotNull;
 
 public class RedstoneTimerScreen extends AbstractContainerScreen<RedstoneTimerMenu> {
@@ -13,25 +16,8 @@ public class RedstoneTimerScreen extends AbstractContainerScreen<RedstoneTimerMe
 
     public RedstoneTimerScreen(RedstoneTimerMenu menu, Inventory inventory, Component title) {
         super(menu, inventory, title);
-    }
-
-    @Override
-    protected void init() {
-
-        slider = new TimerSlider(
-                leftPos + 20,
-                topPos + 40,
-                120,
-                20,
-                Component.literal("Interval"),
-                menu.getBlockEntity()
-        );
-
-        addRenderableWidget(slider);
-    }
-
-    private void saveTimer() {
-
+        this.imageWidth = 176;
+        this.imageHeight = 166;
     }
 
     @Override
@@ -46,5 +32,38 @@ public class RedstoneTimerScreen extends AbstractContainerScreen<RedstoneTimerMe
 
     @Override
     protected void renderLabels(@NotNull GuiGraphics guiGraphics, int mouseX, int mouseY) {
+    }
+
+    @Override
+    protected void init() {
+        super.init();
+
+        int x = leftPos + 20;
+        int y = topPos + 40;
+
+        double startValue = menu.be.getInterval() / 200.0;
+
+        slider = new TimerSlider(x, y, 120, 20, startValue);
+
+        addRenderableWidget(slider);
+
+        int saveButtonWidth = 60;
+        int saveButtonHeight = 20;
+        int saveButtonX = this.leftPos + (this.imageWidth / 2) - (saveButtonWidth / 2);
+        int saveButtonY = this.topPos + this.imageHeight - 25;
+
+        this.addRenderableWidget(Button.builder(Component.translatable("gui.herobrines_world.delayer.button.save"), b -> saveInterval())
+                .bounds(saveButtonX, saveButtonY, saveButtonWidth, saveButtonHeight).build());
+    }
+
+    private void saveInterval() {
+        int interval = parseSlider(slider);
+
+        ClientPacketDistributor.sendToServer(new RedstoneTimerUpdate(menu.pos, interval));
+        RedstoneTimerUpdate.handleAction(menu.player, menu.pos, interval);
+    }
+
+    private int parseSlider(TimerSlider slider) {
+        return slider.getInterval();
     }
 }
