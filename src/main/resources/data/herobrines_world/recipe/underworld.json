@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 {
     "type": "crafting_shaped",
     "category": "equipment",
@@ -15,22 +14,4 @@
         "id": "herobrines_world:underworld",
         "count": 1
     }
-=======
-{
-    "type": "crafting_shaped",
-    "category": "equipment",
-    "pattern": [
-        " a ",
-        "aba",
-        " a "
-    ],
-    "key": {
-        "a": "herobrines_world:abyssal_block",
-        "b": "minecraft:flint_and_steel"
-    },
-    "result": {
-        "id": "herobrines_world:underworld",
-        "count": 1
-    }
->>>>>>> 518d1b56f9483d0f8c1bbbbd1257398343a230b6
 }

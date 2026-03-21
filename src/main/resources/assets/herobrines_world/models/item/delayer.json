@@ -1,8 +1,3 @@
-<<<<<<< HEAD
 {
     "parent": "herobrines_world:block/delayer"
-=======
-{
-    "parent": "herobrines_world:block/delayer"
->>>>>>> 518d1b56f9483d0f8c1bbbbd1257398343a230b6
 }

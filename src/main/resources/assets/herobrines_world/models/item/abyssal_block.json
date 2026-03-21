@@ -1,8 +1,3 @@
-<<<<<<< HEAD
 {
     "parent": "herobrines_world:block/abyssal_block"
-=======
-{
-    "parent": "herobrines_world:block/abyssal_block"
->>>>>>> 518d1b56f9483d0f8c1bbbbd1257398343a230b6
 }

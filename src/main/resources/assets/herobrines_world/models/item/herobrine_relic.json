@@ -1,14 +1,6 @@
-<<<<<<< HEAD
 {
     "parent": "item/generated",
     "textures": {
         "layer0": "herobrines_world:item/herobrine_relic"
     }
-=======
-{
-    "parent": "item/generated",
-    "textures": {
-        "layer0": "herobrines_world:item/herobrine_relic"
-    }
->>>>>>> 518d1b56f9483d0f8c1bbbbd1257398343a230b6
 }
