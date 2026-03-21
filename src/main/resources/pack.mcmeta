@@ -1,6 +1,12 @@
 {
     "pack": {
         "description": "",
-        "pack_format":88
+        "min_format": 64,
+        "max_format": 81,
+        "supported_formats": {
+            "min_inclusive": 64,
+            "max_inclusive": 81
+        },
+        "pack_format": 81
     }
 }

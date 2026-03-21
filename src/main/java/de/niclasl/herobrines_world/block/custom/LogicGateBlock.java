@@ -1,9 +1,11 @@
 package de.niclasl.herobrines_world.block.custom;
 
+import com.mojang.serialization.MapCodec;
 import de.niclasl.herobrines_world.block.entity.custom.LogicGateBlockEntity;
 import de.niclasl.herobrines_world.block.properties.LogicMode;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -11,9 +13,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.EntityBlock;
-import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.ScheduledTickAccess;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
@@ -28,9 +30,11 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class LogicGateBlock extends Block implements EntityBlock {
+public class LogicGateBlock extends DiodeBlock implements EntityBlock {
 
     public static final VoxelShape SHAPE = Block.box(0, 0, 0, 16, 2, 16);
+
+    public static final MapCodec<LogicGateBlock> CODEC = simpleCodec(LogicGateBlock::new);
 
     public static final EnumProperty<Direction> FACING =
             BlockStateProperties.HORIZONTAL_FACING;
@@ -46,11 +50,21 @@ public class LogicGateBlock extends Block implements EntityBlock {
     }
 
     @Override
-    public BlockState getStateForPlacement(BlockPlaceContext context) {
+    protected @NotNull MapCodec<? extends DiodeBlock> codec() {
+        return CODEC;
+    }
+
+    @Override
+    public @NotNull BlockState getStateForPlacement(BlockPlaceContext context) {
         return this.defaultBlockState()
                 .setValue(FACING, context.getHorizontalDirection().getOpposite())
                 .setValue(POWERED, false)
                 .setValue(MODE, LogicMode.AND);
+    }
+
+    @Override
+    protected int getDelay(@NotNull BlockState blockState) {
+        return 0;
     }
 
     @Override
@@ -143,6 +157,15 @@ public class LogicGateBlock extends Block implements EntityBlock {
     @Override
     public boolean isSignalSource(@NotNull BlockState state) {
         return true;
+    }
+
+    @Override
+    protected @NotNull BlockState updateShape(@NotNull BlockState state, @NotNull LevelReader level, @NotNull ScheduledTickAccess scheduledTickAccess, @NotNull BlockPos pos, @NotNull Direction direction, @NotNull BlockPos neighborPos, @NotNull BlockState neighborState, @NotNull RandomSource random) {
+        if (direction == Direction.DOWN && !this.canSurviveOn(level, neighborPos, neighborState)) {
+            return Blocks.AIR.defaultBlockState();
+        } else {
+            return super.updateShape(state, level, scheduledTickAccess, pos, direction, neighborPos, neighborState, random);
+        }
     }
 
     @Override
