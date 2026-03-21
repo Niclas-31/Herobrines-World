@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "aa",
+    "aa"
+  ],
+  "key": {
+    "a": "herobrines_world:ash_block"
+  },
+  "result": {
+    "id": "herobrines_world:blue_sandstone",
+    "count": 1
+  }
+}

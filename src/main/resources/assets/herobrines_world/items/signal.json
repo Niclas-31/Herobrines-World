@@ -1,0 +1,90 @@
+{
+  "model": {
+    "type": "minecraft:select",
+    "block_state_property": "color",
+    "cases": [
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "herobrines_world:block/signal_yellow"
+        },
+        "when": "yellow"
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "herobrines_world:block/signal_green"
+        },
+        "when": "green"
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "herobrines_world:block/signal_blue"
+        },
+        "when": "blue"
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "herobrines_world:block/signal_cyan"
+        },
+        "when": "cyan"
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "herobrines_world:block/signal_orange"
+        },
+        "when": "orange"
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "herobrines_world:block/signal_gray"
+        },
+        "when": "gray"
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "herobrines_world:block/signal_light_blue"
+        },
+        "when": "light_blue"
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "herobrines_world:block/signal_light_gray"
+        },
+        "when": "light_gray"
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "herobrines_world:block/signal_lime"
+        },
+        "when": "lime"
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "herobrines_world:block/signal_magenta"
+        },
+        "when": "magenta"
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "herobrines_world:block/signal_pink"
+        },
+        "when": "pink"
+      }
+    ],
+    "fallback": {
+      "type": "minecraft:model",
+      "model": "herobrines_world:block/signal_red"
+    },
+    "property": "minecraft:block_state"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "down": "herobrines_world:block/blue_sandstone_top",
+    "up": "herobrines_world:block/blue_sandstone_top",
+    "north": "herobrines_world:block/blue_cut_sandstone",
+    "east": "herobrines_world:block/blue_cut_sandstone",
+    "south": "herobrines_world:block/blue_cut_sandstone",
+    "west": "herobrines_world:block/blue_cut_sandstone",
+    "particle": "herobrines_world:block/blue_sandstone_top"
+  }
+}

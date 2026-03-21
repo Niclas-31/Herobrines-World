@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smithing_transform",
+  "template": "herobrines_world:toxenium_upgrade_smithing_template",
+  "base": "herobrines_world:herobrine_leggings",
+  "addition": "herobrines_world:toxenium_ingot",
+  "result": {
+    "id": "herobrines_world:toxenium_leggings"
+  }
+}

@@ -1,0 +1,124 @@
+{
+    "variants": {
+        "powered=false,facing=south,mode=and": {
+            "model": "herobrines_world:block/logic_gate_block_and"
+        },
+        "powered=true,facing=south,mode=and": {
+            "model": "herobrines_world:block/logic_gate_block_and_on"
+        },
+        "powered=false,facing=north,mode=and": {
+            "model": "herobrines_world:block/logic_gate_block_and",
+            "y": 180
+        },
+        "powered=true,facing=north,mode=and": {
+            "model": "herobrines_world:block/logic_gate_block_and_on",
+            "y": 180
+        },
+        "powered=false,facing=east,mode=and": {
+            "model": "herobrines_world:block/logic_gate_block_and",
+            "y": 270
+        },
+        "powered=true,facing=east,mode=and": {
+            "model": "herobrines_world:block/logic_gate_block_and_on",
+            "y": 270
+        },
+        "powered=false,facing=west,mode=and": {
+            "model": "herobrines_world:block/logic_gate_block_and",
+            "y": 90
+        },
+        "powered=true,facing=west,mode=and": {
+            "model": "herobrines_world:block/logic_gate_block_and_on",
+            "y": 90
+        },
+        "powered=false,facing=south,mode=or": {
+            "model": "herobrines_world:block/logic_gate_block_or"
+        },
+        "powered=true,facing=south,mode=or": {
+            "model": "herobrines_world:block/logic_gate_block_or_on"
+        },
+        "powered=false,facing=north,mode=or": {
+            "model": "herobrines_world:block/logic_gate_block_or",
+            "y": 180
+        },
+        "powered=true,facing=north,mode=or": {
+            "model": "herobrines_world:block/logic_gate_block_or_on",
+            "y": 180
+        },
+        "powered=false,facing=east,mode=or": {
+            "model": "herobrines_world:block/logic_gate_block_or",
+            "y": 270
+        },
+        "powered=true,facing=east,mode=or": {
+            "model": "herobrines_world:block/logic_gate_block_or_on",
+            "y": 270
+        },
+        "powered=false,facing=west,mode=or": {
+            "model": "herobrines_world:block/logic_gate_block_or",
+            "y": 90
+        },
+        "powered=true,facing=west,mode=or": {
+            "model": "herobrines_world:block/logic_gate_block_or_on",
+            "y": 90
+        },
+        "powered=false,facing=south,mode=not": {
+            "model": "herobrines_world:block/logic_gate_block_not"
+        },
+        "powered=true,facing=south,mode=not": {
+            "model": "herobrines_world:block/logic_gate_block_not_on"
+        },
+        "powered=false,facing=north,mode=not": {
+            "model": "herobrines_world:block/logic_gate_block_not",
+            "y": 180
+        },
+        "powered=true,facing=north,mode=not": {
+            "model": "herobrines_world:block/logic_gate_block_not_on",
+            "y": 180
+        },
+        "powered=false,facing=east,mode=not": {
+            "model": "herobrines_world:block/logic_gate_block_not",
+            "y": 270
+        },
+        "powered=true,facing=east,mode=not": {
+            "model": "herobrines_world:block/logic_gate_block_not_on",
+            "y": 270
+        },
+        "powered=false,facing=west,mode=not": {
+            "model": "herobrines_world:block/logic_gate_block_not",
+            "y": 90
+        },
+        "powered=true,facing=west,mode=not": {
+            "model": "herobrines_world:block/logic_gate_block_not_on",
+            "y": 90
+        },
+        "powered=false,facing=south,mode=xor": {
+            "model": "herobrines_world:block/logic_gate_block_xor"
+        },
+        "powered=true,facing=south,mode=xor": {
+            "model": "herobrines_world:block/logic_gate_block_xor_on"
+        },
+        "powered=false,facing=north,mode=xor": {
+            "model": "herobrines_world:block/logic_gate_block_xor",
+            "y": 180
+        },
+        "powered=true,facing=north,mode=xor": {
+            "model": "herobrines_world:block/logic_gate_block_xor_on",
+            "y": 180
+        },
+        "powered=false,facing=east,mode=xor": {
+            "model": "herobrines_world:block/logic_gate_block_xor",
+            "y": 270
+        },
+        "powered=true,facing=east,mode=xor": {
+            "model": "herobrines_world:block/logic_gate_block_xor_on",
+            "y": 270
+        },
+        "powered=false,facing=west,mode=xor": {
+            "model": "herobrines_world:block/logic_gate_block_xor",
+            "y": 90
+        },
+        "powered=true,facing=west,mode=xor": {
+            "model": "herobrines_world:block/logic_gate_block_xor_on",
+            "y": 90
+        }
+    }
+}

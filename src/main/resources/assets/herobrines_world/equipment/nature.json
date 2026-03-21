@@ -1,0 +1,14 @@
+{
+  "layers": {
+    "humanoid": [
+      {
+        "texture": "herobrines_world:nature"
+      }
+    ],
+    "humanoid_leggings": [
+      {
+        "texture": "herobrines_world:nature"
+      }
+    ]
+  }
+}

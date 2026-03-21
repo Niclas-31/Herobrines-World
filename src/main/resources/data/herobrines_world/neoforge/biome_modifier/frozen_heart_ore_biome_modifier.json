@@ -1,0 +1,6 @@
+{
+  "type": "neoforge:add_features",
+  "biomes": "#herobrines_world:is_all_biomes",
+  "features": "herobrines_world:frozen_heart_ore",
+  "step": "underground_ores"
+}

@@ -1,0 +1,15 @@
+{
+  "name": "herobrines_world:copper_dungeon/deco",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 3,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "herobrines_world:copper_dungeon/decos/tree",
+        "projection": "rigid",
+        "processors": []
+      }
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "parent": "block/template_wall_post",
+  "textures": {
+    "wall": "herobrines_world:block/blue_sandstone_bottom",
+    "particle": "herobrines_world:block/blue_sandstone_bottom"
+  }
+}

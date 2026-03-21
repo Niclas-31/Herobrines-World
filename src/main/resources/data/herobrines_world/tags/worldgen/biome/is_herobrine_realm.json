@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "herobrines_world:fire_land",
+    "herobrines_world:ash_desert",
+    "herobrines_world:cursed_forest",
+    "herobrines_world:frozen_forest"
+  ]
+}

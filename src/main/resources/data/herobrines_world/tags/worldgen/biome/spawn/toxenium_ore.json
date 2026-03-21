@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "warped_forest",
+    "soul_sand_valley",
+    "nether_wastes",
+    "basalt_deltas",
+    "herobrines_world:void_depths",
+    "crimson_forest",
+    "herobrines_world:misty_chasms",
+    "herobrines_world:abyssal_wastes"
+  ]
+}

@@ -1,0 +1,6 @@
+{
+  "type": "neoforge:add_features",
+  "biomes": "#herobrines_world:spawn/toxenium_ore",
+  "features": "herobrines_world:toxenium_ore",
+  "step": "underground_ores"
+}

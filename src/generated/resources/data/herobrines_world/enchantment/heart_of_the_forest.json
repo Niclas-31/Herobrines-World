@@ -1,0 +1,33 @@
+{
+  "anvil_cost": 1,
+  "description": {
+    "translate": "enchantment.herobrines_world.heart_of_the_forest"
+  },
+  "effects": {
+    "minecraft:tick": [
+      {
+        "effect": {
+          "type": "herobrines_world:heart_of_the_forest"
+        }
+      }
+    ]
+  },
+  "exclusive_set": [
+    "minecraft:binding_curse",
+    "minecraft:vanishing_curse"
+  ],
+  "max_cost": {
+    "base": 40,
+    "per_level_above_first": 15
+  },
+  "max_level": 2,
+  "min_cost": {
+    "base": 20,
+    "per_level_above_first": 15
+  },
+  "slots": [
+    "chest"
+  ],
+  "supported_items": "#minecraft:enchantable/chest_armor",
+  "weight": 4
+}

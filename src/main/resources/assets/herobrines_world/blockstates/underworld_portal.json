@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "axis=z": {
+      "model": "herobrines_world:block/underworld_portal_ew"
+    },
+    "axis=x": {
+      "model": "herobrines_world:block/underworld_portal_ns"
+    }
+  }
+}

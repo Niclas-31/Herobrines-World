@@ -1,0 +1,78 @@
+{
+  "name": "herobrines_world:copper_dungeon/ways",
+  "fallback": "herobrines_world:copper_dungeon/end",
+  "elements": [
+    {
+      "weight": 3,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "herobrines_world:copper_dungeon/ways/corner_1",
+        "projection": "rigid",
+        "processors": []
+      }
+    },
+    {
+      "weight": 3,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "herobrines_world:copper_dungeon/ways/corner_2",
+        "projection": "rigid",
+        "processors": []
+      }
+    },
+    {
+      "weight": 3,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "herobrines_world:copper_dungeon/ways/corner_3",
+        "projection": "rigid",
+        "processors": []
+      }
+    },
+    {
+      "weight": 3,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "herobrines_world:copper_dungeon/ways/corner_4",
+        "projection": "rigid",
+        "processors": []
+      }
+    },
+    {
+      "weight": 3,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "herobrines_world:copper_dungeon/ways/way_1",
+        "projection": "rigid",
+        "processors": []
+      }
+    },
+    {
+      "weight": 3,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "herobrines_world:copper_dungeon/ways/way_2",
+        "projection": "rigid",
+        "processors": []
+      }
+    },
+    {
+      "weight": 3,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "herobrines_world:copper_dungeon/ways/way_3",
+        "projection": "rigid",
+        "processors": []
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "herobrines_world:copper_dungeon/ways/way_4",
+        "projection": "rigid",
+        "processors": []
+      }
+    }
+  ]
+}

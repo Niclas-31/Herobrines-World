@@ -1,0 +1,14 @@
+{
+  "structures": [
+    {
+      "structure": "herobrines_world:herobrines_tower",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "spacing": 48,
+    "separation": 32,
+    "salt": 618988177
+  }
+}

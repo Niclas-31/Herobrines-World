@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "aaa"
+  ],
+  "key": {
+    "a": "herobrines_world:blue_smooth_sandstone"
+  },
+  "result": {
+    "id": "herobrines_world:blue_smooth_sandstone_slab",
+    "count": 6
+  }
+}

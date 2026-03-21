@@ -1,0 +1,33 @@
+{
+  "anvil_cost": 1,
+  "description": {
+    "translate": "enchantment.herobrines_world.roots_of_the_earth"
+  },
+  "effects": {
+    "minecraft:tick": [
+      {
+        "effect": {
+          "type": "herobrines_world:roots_of_the_forest"
+        }
+      }
+    ]
+  },
+  "exclusive_set": [
+    "minecraft:binding_curse",
+    "minecraft:vanishing_curse"
+  ],
+  "max_cost": {
+    "base": 25,
+    "per_level_above_first": 10
+  },
+  "max_level": 4,
+  "min_cost": {
+    "base": 8,
+    "per_level_above_first": 10
+  },
+  "slots": [
+    "legs"
+  ],
+  "supported_items": "#minecraft:enchantable/leg_armor",
+  "weight": 6
+}

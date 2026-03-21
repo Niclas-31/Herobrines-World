@@ -1,0 +1,33 @@
+{
+  "name": "herobrines_world:herobrines_tower/rooms",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 3,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "herobrines_world:herobrines_tower/rooms/boss_structure_2",
+        "projection": "rigid",
+        "processors": []
+      }
+    },
+    {
+      "weight": 3,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "herobrines_world:herobrines_tower/rooms/boss_structure_3",
+        "projection": "rigid",
+        "processors": []
+      }
+    },
+    {
+      "weight": 3,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "herobrines_world:herobrines_tower/rooms/boss_structure_4",
+        "projection": "rigid",
+        "processors": []
+      }
+    }
+  ]
+}

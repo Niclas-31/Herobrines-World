@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "#herobrines_world:is_herobrine_realm",
+      "required": false
+    },
+    {
+      "id": "#minecraft:is_overworld",
+      "required": false
+    }
+  ]
+}

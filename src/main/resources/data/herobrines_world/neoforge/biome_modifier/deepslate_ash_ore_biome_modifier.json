@@ -1,0 +1,6 @@
+{
+  "type": "neoforge:add_features",
+  "biomes": "#herobrines_world:is_ash_ore",
+  "features": "herobrines_world:deepslate_ash_ore",
+  "step": "underground_ores"
+}

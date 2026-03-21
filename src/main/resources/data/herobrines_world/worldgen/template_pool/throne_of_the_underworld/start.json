@@ -1,0 +1,15 @@
+{
+  "name": "herobrines_world:throne_of_the_underworld/start",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "herobrines_world:throne_of_the_underworld/entity_303_boss_arena_1",
+        "projection": "rigid",
+        "processors": []
+      }
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "name": "herobrines_world:cursed_well/cursed_well",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "herobrines_world:cursed_well/cursed_well",
+        "projection": "rigid",
+        "processors": []
+      }
+    }
+  ]
+}

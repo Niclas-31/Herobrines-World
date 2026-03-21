@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "a"
+  ],
+  "key": {
+    "a": "herobrines_world:herobrine_block"
+  },
+  "result": {
+    "id": "herobrines_world:herobrine_diamond",
+    "count": 9
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "parent": "block/stairs",
+  "textures": {
+    "particle": "herobrines_world:block/blue_sandstone_bottom",
+    "bottom": "herobrines_world:block/blue_sandstone_bottom",
+    "top": "herobrines_world:block/blue_sandstone_top",
+    "side": "herobrines_world:block/blue_sandstone"
+  }
+}

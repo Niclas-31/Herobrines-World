@@ -1,0 +1,14 @@
+{
+  "structures": [
+    {
+      "structure": "herobrines_world:cursed_well",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "spacing": 64,
+    "separation": 48,
+    "salt": 323292870
+  }
+}

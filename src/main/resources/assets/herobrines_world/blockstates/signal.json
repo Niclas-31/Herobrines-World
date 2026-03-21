@@ -1,0 +1,76 @@
+{
+  "variants": {
+    "color=red,lit=false": {
+      "model": "herobrines_world:block/signal_red"
+    },
+    "color=red,lit=true": {
+      "model": "herobrines_world:block/signal_red_on"
+    },
+    "color=yellow,lit=false": {
+      "model": "herobrines_world:block/signal_yellow"
+    },
+    "color=yellow,lit=true": {
+      "model": "herobrines_world:block/signal_yellow_on"
+    },
+    "color=green,lit=false": {
+      "model": "herobrines_world:block/signal_green"
+    },
+    "color=green,lit=true": {
+      "model": "herobrines_world:block/signal_green_on"
+    },
+    "color=blue,lit=false": {
+      "model": "herobrines_world:block/signal_blue"
+    },
+    "color=blue,lit=true": {
+      "model": "herobrines_world:block/signal_blue_on"
+    },
+    "color=light_blue,lit=false": {
+      "model": "herobrines_world:block/signal_light_blue"
+    },
+    "color=light_blue,lit=true": {
+      "model": "herobrines_world:block/signal_light_blue_on"
+    },
+    "color=gray,lit=false": {
+      "model": "herobrines_world:block/signal_gray"
+    },
+    "color=gray,lit=true": {
+      "model": "herobrines_world:block/signal_gray_on"
+    },
+    "color=light_gray,lit=false": {
+      "model": "herobrines_world:block/signal_light_gray"
+    },
+    "color=light_gray,lit=true": {
+      "model": "herobrines_world:block/signal_light_gray_on"
+    },
+    "color=lime,lit=false": {
+      "model": "herobrines_world:block/signal_lime"
+    },
+    "color=lime,lit=true": {
+      "model": "herobrines_world:block/signal_lime_on"
+    },
+    "color=cyan,lit=false": {
+      "model": "herobrines_world:block/signal_cyan"
+    },
+    "color=cyan,lit=true": {
+      "model": "herobrines_world:block/signal_cyan_on"
+    },
+    "color=orange,lit=false": {
+      "model": "herobrines_world:block/signal_orange"
+    },
+    "color=orange,lit=true": {
+      "model": "herobrines_world:block/signal_orange_on"
+    },
+    "color=pink,lit=false": {
+      "model": "herobrines_world:block/signal_pink"
+    },
+    "color=pink,lit=true": {
+      "model": "herobrines_world:block/signal_pink_on"
+    },
+    "color=magenta,lit=false": {
+      "model": "herobrines_world:block/signal_magenta"
+    },
+    "color=magenta,lit=true": {
+      "model": "herobrines_world:block/signal_magenta_on"
+    }
+  }
+}

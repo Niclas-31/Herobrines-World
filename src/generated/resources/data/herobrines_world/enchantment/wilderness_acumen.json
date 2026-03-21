@@ -1,0 +1,33 @@
+{
+  "anvil_cost": 1,
+  "description": {
+    "translate": "enchantment.herobrines_world.wilderness_acumen"
+  },
+  "effects": {
+    "minecraft:tick": [
+      {
+        "effect": {
+          "type": "herobrines_world:wilderness"
+        }
+      }
+    ]
+  },
+  "exclusive_set": [
+    "minecraft:binding_curse",
+    "minecraft:vanishing_curse"
+  ],
+  "max_cost": {
+    "base": 30,
+    "per_level_above_first": 12
+  },
+  "max_level": 3,
+  "min_cost": {
+    "base": 10,
+    "per_level_above_first": 12
+  },
+  "slots": [
+    "head"
+  ],
+  "supported_items": "#minecraft:enchantable/head_armor",
+  "weight": 7
+}

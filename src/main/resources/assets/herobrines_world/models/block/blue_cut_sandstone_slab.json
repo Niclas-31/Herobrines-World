@@ -1,0 +1,9 @@
+{
+  "parent": "block/slab",
+  "textures": {
+    "particle": "herobrines_world:block/blue_sandstone_top",
+    "bottom": "herobrines_world:block/blue_sandstone_top",
+    "top": "herobrines_world:block/blue_sandstone_top",
+    "side": "herobrines_world:block/blue_cut_sandstone"
+  }
+}
