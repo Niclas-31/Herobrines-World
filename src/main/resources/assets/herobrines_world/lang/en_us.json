@@ -53,6 +53,10 @@
   "block.herobrines_world.delayer": "Delayer",
   "block.herobrines_world.logic_gate_block": "Logic Gate Block",
   "block.herobrines_world.signal_amplifier": "Signal Amplifier",
+<<<<<<< HEAD
+=======
+  "block.herobrines_world.redstone_timer": "Redstone Timer",
+>>>>>>> 518d1b56f9483d0f8c1bbbbd1257398343a230b6
 
   "message.not_more_hearts": "§4You can\u0027t have more hearts!",
   "message.gamerule_deactivate": "§4Gamerule is not activate!",

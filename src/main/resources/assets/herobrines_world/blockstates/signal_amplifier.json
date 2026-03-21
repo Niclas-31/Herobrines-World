@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {
     "variants": {
         "facing=north,powered=false": {
@@ -31,4 +32,39 @@
             "y": 90
         }
     }
+=======
+{
+    "variants": {
+        "facing=north,powered=false": {
+            "model": "herobrines_world:block/signal_amplifier",
+            "y": 180
+        },
+        "facing=north,powered=true": {
+            "model": "herobrines_world:block/signal_amplifier_on",
+            "y": 180
+        },
+        "facing=south,powered=false": {
+            "model": "herobrines_world:block/signal_amplifier"
+        },
+        "facing=south,powered=true": {
+            "model": "herobrines_world:block/signal_amplifier_on"
+        },
+        "facing=east,powered=false": {
+            "model": "herobrines_world:block/signal_amplifier",
+            "y": 270
+        },
+        "facing=east,powered=true": {
+            "model": "herobrines_world:block/signal_amplifier_on",
+            "y": 270
+        },
+        "facing=west,powered=false": {
+            "model": "herobrines_world:block/signal_amplifier",
+            "y": 90
+        },
+        "facing=west,powered=true": {
+            "model": "herobrines_world:block/signal_amplifier_on",
+            "y": 90
+        }
+    }
+>>>>>>> 518d1b56f9483d0f8c1bbbbd1257398343a230b6
 }

@@ -1,6 +1,14 @@
+<<<<<<< HEAD
 {
     "model": {
         "type": "minecraft:model",
         "model": "herobrines_world:item/herobrine_relic"
     }
+=======
+{
+    "model": {
+        "type": "minecraft:model",
+        "model": "herobrines_world:item/herobrine_relic"
+    }
+>>>>>>> 518d1b56f9483d0f8c1bbbbd1257398343a230b6
 }

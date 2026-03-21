@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {
     "type": "crafting_shaped",
     "category": "redstone",
@@ -16,3 +17,23 @@
         "count": 1
     }
 }
+=======
+{
+    "type": "crafting_shaped",
+    "category": "redstone",
+    "pattern": [
+        " R ",
+        "QSQ",
+        " R "
+    ],
+    "key": {
+        "R": "minecraft:redstone",
+        "Q": "minecraft:quartz",
+        "S": "minecraft:smooth_stone"
+    },
+    "result": {
+        "id": "herobrines_world:logic_gate_block",
+        "count": 1
+    }
+}
+>>>>>>> 518d1b56f9483d0f8c1bbbbd1257398343a230b6

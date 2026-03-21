@@ -1,6 +1,14 @@
+<<<<<<< HEAD
 {
   "parent": "block/cube_all",
   "textures": {
     "all": "herobrines_world:block/pink_lamp_on"
   }
+=======
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "herobrines_world:block/pink_lamp_on"
+  }
+>>>>>>> 518d1b56f9483d0f8c1bbbbd1257398343a230b6
 }

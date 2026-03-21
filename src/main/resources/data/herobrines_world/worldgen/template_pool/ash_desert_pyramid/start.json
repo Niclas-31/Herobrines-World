@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {
   "name": "herobrines_world:ash_desert_pyramid/start",
   "fallback": "minecraft:empty",
@@ -12,4 +13,20 @@
       }
     }
   ]
+=======
+{
+  "name": "herobrines_world:ash_desert_pyramid/start",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "herobrines_world:ash_desert_pyramid/ash_desert_pyramid",
+        "projection": "rigid",
+        "processors": []
+      }
+    }
+  ]
+>>>>>>> 518d1b56f9483d0f8c1bbbbd1257398343a230b6
 }

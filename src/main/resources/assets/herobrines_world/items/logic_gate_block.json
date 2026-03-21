@@ -1,6 +1,14 @@
+<<<<<<< HEAD
 {
     "model": {
         "type": "minecraft:model",
         "model": "herobrines_world:block/logic_gate_block_and"
     }
+=======
+{
+    "model": {
+        "type": "minecraft:model",
+        "model": "herobrines_world:block/logic_gate_block_and"
+    }
+>>>>>>> 518d1b56f9483d0f8c1bbbbd1257398343a230b6
 }

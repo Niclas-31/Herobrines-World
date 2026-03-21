@@ -1,3 +1,8 @@
+<<<<<<< HEAD
 {
     "parent": "herobrines_world:block/signal_amplifier"
+=======
+{
+    "parent": "herobrines_world:block/signal_amplifier"
+>>>>>>> 518d1b56f9483d0f8c1bbbbd1257398343a230b6
 }
