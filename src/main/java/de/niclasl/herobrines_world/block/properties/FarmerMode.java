@@ -18,8 +18,4 @@ public enum FarmerMode implements StringRepresentable {
     public @NotNull String getSerializedName() {
         return name;
     }
-
-    public FarmerMode next() {
-        return values()[(this.ordinal() + 1) % values().length];
-    }
 }
