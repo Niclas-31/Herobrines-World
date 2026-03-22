@@ -5,11 +5,15 @@ import de.niclasl.herobrines_world.block.entity.ModBlockEntities;
 import de.niclasl.herobrines_world.block.entity.custom.AutoFarmerBlockEntity;
 import de.niclasl.herobrines_world.block.properties.FarmerMode;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.BlockItemStateProperties;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -76,6 +80,17 @@ public class AutoFarmerBlock extends BaseEntityBlock {
         }
 
         return InteractionResult.SUCCESS;
+    }
+
+    public static ItemStack setModeOnStack(ItemStack stack, FarmerMode mode) {
+        stack.set(DataComponents.BLOCK_STATE, stack.getOrDefault(DataComponents.BLOCK_STATE, BlockItemStateProperties.EMPTY).with(FARMER_MODE, mode));
+        return stack;
+    }
+
+    @Override
+    public @NotNull ItemStack getCloneItemStack(@NotNull LevelReader level, @NotNull BlockPos pos, @NotNull BlockState state, boolean includeData, @NotNull Player player) {
+        ItemStack itemstack = super.getCloneItemStack(level, pos, state, includeData, player);
+        return setModeOnStack(itemstack, state.getValue(FARMER_MODE));
     }
 
     @Nullable

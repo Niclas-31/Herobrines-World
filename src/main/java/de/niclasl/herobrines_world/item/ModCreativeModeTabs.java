@@ -1,7 +1,9 @@
 package de.niclasl.herobrines_world.item;
 
 import de.niclasl.herobrines_world.block.ModBlocks;
+import de.niclasl.herobrines_world.block.custom.AutoFarmerBlock;
 import de.niclasl.herobrines_world.block.custom.Signal;
+import de.niclasl.herobrines_world.block.properties.FarmerMode;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -94,6 +96,9 @@ public class ModCreativeModeTabs {
 						tabData.accept(ModBlocks.DELAYER);
 						tabData.accept(ModBlocks.LOGIC_GATE_BLOCK);
 						tabData.accept(ModBlocks.SIGNAL_AMPLIFIER);
+						for (FarmerMode mode : FarmerMode.values()) {
+							tabData.accept(AutoFarmerBlock.setModeOnStack(new ItemStack(ModBlocks.AUTO_FARMER), mode));
+						}
 			}).build());
 
 	public static final Supplier<CreativeModeTab> HEROBRINE_COMBAT = CREATIVE_MODE_TAB.register("herobrines_combat",

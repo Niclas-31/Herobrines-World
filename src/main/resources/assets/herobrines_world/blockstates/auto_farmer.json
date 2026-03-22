@@ -1,0 +1,13 @@
+{
+    "variants": {
+        "farmer_mode=breaker": {
+            "model": "herobrines_world:block/auto_farmer_breaker"
+        },
+        "farmer_mode=placer": {
+            "model": "herobrines_world:block/auto_farmer_placer"
+        },
+        "farmer_mode=both": {
+            "model": "herobrines_world:block/auto_farmer_both"
+        }
+    }
+}
