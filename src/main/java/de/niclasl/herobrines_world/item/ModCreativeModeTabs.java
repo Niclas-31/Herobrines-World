@@ -98,7 +98,6 @@ public class ModCreativeModeTabs {
 						}
 						tabData.accept(ModBlocks.DELAYER);
 						tabData.accept(ModBlocks.LOGIC_GATE_BLOCK);
-						tabData.accept(ModBlocks.SIGNAL_AMPLIFIER);
 						for (FarmerMode mode : FarmerMode.values()) {
 							tabData.accept(AutoFarmerBlock.setModeOnStack(new ItemStack(ModBlocks.AUTO_FARMER), mode));
 						}

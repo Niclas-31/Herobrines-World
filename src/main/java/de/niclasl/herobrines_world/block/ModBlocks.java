@@ -111,9 +111,6 @@ public class ModBlocks {
 	public static final DeferredBlock<Block> LOGIC_GATE_BLOCK = registerBlock("logic_gate_block",
 			(properties) -> new LogicGateBlock(properties.instabreak()));
 
-	public static final DeferredBlock<Block> SIGNAL_AMPLIFIER = registerBlock("signal_amplifier",
-			(properties) -> new SignalAmplifierBlock(properties.instabreak()));
-
 	public static final DeferredBlock<Block> AUTO_FARMER = registerBlock("auto_farmer",
 			(properties) -> new AutoFarmerBlock(properties.instabreak()));
 

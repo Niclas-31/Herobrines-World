@@ -5,7 +5,6 @@ import de.niclasl.herobrines_world.block.ModBlocks;
 import de.niclasl.herobrines_world.block.entity.custom.AutoFarmerBlockEntity;
 import de.niclasl.herobrines_world.block.entity.custom.DelayerEntity;
 import de.niclasl.herobrines_world.block.entity.custom.LogicGateBlockEntity;
-import de.niclasl.herobrines_world.block.entity.custom.SignalAmplifierBlockEntity;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.bus.api.IEventBus;
@@ -24,10 +23,6 @@ public class ModBlockEntities {
     public static final Supplier<BlockEntityType<LogicGateBlockEntity>> LOGIC_GATE_BLOCK =
             BLOCK_ENTITIES.register("logic_gate_block", () -> new BlockEntityType<>(
                     LogicGateBlockEntity::new, ModBlocks.LOGIC_GATE_BLOCK.get()));
-
-    public static final Supplier<BlockEntityType<SignalAmplifierBlockEntity>> SIGNAL_AMPLIFIER =
-            BLOCK_ENTITIES.register("signal_amplifier", () -> new BlockEntityType<>(
-                    SignalAmplifierBlockEntity::new, ModBlocks.SIGNAL_AMPLIFIER.get()));
 
     public static final Supplier<BlockEntityType<AutoFarmerBlockEntity>> AUTO_FARMER =
             BLOCK_ENTITIES.register("auto_farmer", () -> new BlockEntityType<>(
