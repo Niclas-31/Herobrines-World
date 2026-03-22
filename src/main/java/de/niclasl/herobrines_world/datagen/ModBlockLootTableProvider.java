@@ -47,7 +47,7 @@ public class ModBlockLootTableProvider extends BlockLootSubProvider {
 
         dropSelf(ModBlocks.DELAYER.get());
         dropSelf(ModBlocks.LOGIC_GATE_BLOCK.get());
-        dropSelf(ModBlocks.SIGNAL_AMPLIFIER.get());
+        dropSelf(ModBlocks.AUTO_FARMER.get());
     }
 
     @Override

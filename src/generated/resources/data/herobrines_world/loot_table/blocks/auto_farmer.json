@@ -11,11 +11,11 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "herobrines_world:signal_amplifier"
+          "name": "herobrines_world:auto_farmer"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "herobrines_world:blocks/signal_amplifier"
+  "random_sequence": "herobrines_world:blocks/auto_farmer"
 }
