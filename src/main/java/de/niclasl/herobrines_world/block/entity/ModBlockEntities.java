@@ -2,6 +2,7 @@ package de.niclasl.herobrines_world.block.entity;
 
 import de.niclasl.herobrines_world.HerobrinesWorld;
 import de.niclasl.herobrines_world.block.ModBlocks;
+import de.niclasl.herobrines_world.block.entity.custom.AutoFarmerBlockEntity;
 import de.niclasl.herobrines_world.block.entity.custom.DelayerEntity;
 import de.niclasl.herobrines_world.block.entity.custom.LogicGateBlockEntity;
 import de.niclasl.herobrines_world.block.entity.custom.SignalAmplifierBlockEntity;
@@ -27,6 +28,10 @@ public class ModBlockEntities {
     public static final Supplier<BlockEntityType<SignalAmplifierBlockEntity>> SIGNAL_AMPLIFIER =
             BLOCK_ENTITIES.register("signal_amplifier", () -> new BlockEntityType<>(
                     SignalAmplifierBlockEntity::new, ModBlocks.SIGNAL_AMPLIFIER.get()));
+
+    public static final Supplier<BlockEntityType<AutoFarmerBlockEntity>> AUTO_FARMER =
+            BLOCK_ENTITIES.register("auto_farmer", () -> new BlockEntityType<>(
+                    AutoFarmerBlockEntity::new, ModBlocks.AUTO_FARMER.get()));
 
     public static void register(IEventBus eventBus) {
         BLOCK_ENTITIES.register(eventBus);

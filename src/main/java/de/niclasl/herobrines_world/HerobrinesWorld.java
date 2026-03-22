@@ -121,6 +121,7 @@ public class HerobrinesWorld {
 			event.register(ModMenuTypes.TIMER.get(), TimerScreen::new);
 			event.register(ModMenuTypes.SIGNAL_COLOR_CHANGER.get(), SignalColorChangerScreen::new);
 			event.register(ModMenuTypes.SIGNAL_AMPLIFIER.get(), SignalAmplifierScreen::new);
+			event.register(ModMenuTypes.AUTO_FARMER.get(), AutoFarmerScreen::new);
 		}
 	}
 }
