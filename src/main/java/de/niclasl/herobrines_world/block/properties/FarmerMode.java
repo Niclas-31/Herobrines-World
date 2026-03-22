@@ -6,7 +6,7 @@ import org.jetbrains.annotations.NotNull;
 public enum FarmerMode implements StringRepresentable {
     BREAKER("breaker"),
     PLACER("placer"),
-    COMBO("combo");
+    BOTH("both");
 
     private final String name;
 

@@ -26,7 +26,6 @@ public class AutoFarmerScreen extends AbstractContainerScreen<AutoFarmerMenu> {
         int x = (this.width - this.imageWidth) / 2;
         int y = (this.height - this.imageHeight) / 2;
 
-        // Texture zeichnen
         guiGraphics.blit(
                 RenderPipelines.GUI_TEXTURED,
                 TEXTURE,
