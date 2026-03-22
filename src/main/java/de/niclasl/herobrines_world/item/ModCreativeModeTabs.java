@@ -22,76 +22,68 @@ public class ModCreativeModeTabs {
 	public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TAB =
 			DeferredRegister.create(Registries.CREATIVE_MODE_TAB, HerobrinesWorld.MODID);
 
-	public static final Supplier<CreativeModeTab> HEROBRINES_SPAWN_EGGS = CREATIVE_MODE_TAB.register("herobrines_spawn_eggs",
-			() -> CreativeModeTab.builder().icon(() -> new ItemStack(ModItems.GOOD_HEROBRINE_SPAWN_EGG.get()))
-					.title(Component.translatable("item_group.herobrines_world.herobrines_spawn_eggs"))
+	public static final DeferredHolder<CreativeModeTab, CreativeModeTab> HEROBRINE_BUILDING_BLOCKS = CREATIVE_MODE_TAB.register("herobrine_building_blocks",
+			() -> CreativeModeTab.builder().icon(() -> new ItemStack(ModBlocks.BLUE_SANDSTONE.get()))
+					.title(Component.translatable("item_group.herobrines_world.herobrine_building_blocks"))
 					.displayItems((parameters, tabData) -> {
-				tabData.accept(ModItems.HEROBRINE_BOSS_SPAWN_EGG);
-				tabData.accept(ModItems.NICLASL_SPAWN_EGG);
-				tabData.accept(ModItems.ENTITY_303_SPAWN_EGG);
-				tabData.accept(ModItems.GOOD_HEROBRINE_SPAWN_EGG);
-				tabData.accept(ModItems.BAD_HEROBRINE_SPAWN_EGG);
-				tabData.accept(ModItems.CHRISTMAS_NICLASL_SPAWN_EGG);
-			}).build());
+						tabData.accept(ModBlocks.BLUE_SANDSTONE);
+						tabData.accept(ModBlocks.BLUE_SANDSTONE_STAIRS);
+						tabData.accept(ModBlocks.BLUE_SANDSTONE_SLAB);
+						tabData.accept(ModBlocks.BLUE_SANDSTONE_WALL);
+						tabData.accept(ModBlocks.BLUE_CHISELED_SANDSTONE);
+						tabData.accept(ModBlocks.BLUE_SMOOTH_SANDSTONE);
+						tabData.accept(ModBlocks.BLUE_SMOOTH_SANDSTONE_STAIRS);
+						tabData.accept(ModBlocks.BLUE_SMOOTH_SANDSTONE_SLAB);
+						tabData.accept(ModBlocks.BLUE_CUT_SANDSTONE);
+						tabData.accept(ModBlocks.BLUE_CUT_SANDSTONE_SLAB);
+						tabData.accept(ModBlocks.HEROBRINE_BLOCK);
+					}).build());
 
-	public static final Supplier<CreativeModeTab> HEROBRINE_INGREDIENTS = CREATIVE_MODE_TAB.register("herobrines_ingredients",
-			() -> CreativeModeTab.builder().icon(() -> new ItemStack(ModItems.ASH_INGOT.get()))
-					.withTabsBefore(ResourceLocation.fromNamespaceAndPath(HerobrinesWorld.MODID, "herobrines_spawn_eggs"))
-					.title(Component.translatable("item_group.herobrines_world.herobrines_ingredients"))
+	public static final Supplier<CreativeModeTab> HEROBRINE_COLORED_BLOCKS = CREATIVE_MODE_TAB.register("herobrine_colored_blocks",
+			() -> CreativeModeTab.builder().icon(() -> new ItemStack(ModBlocks.SIGNAL.get()))
+					.withTabsBefore(ResourceLocation.fromNamespaceAndPath(HerobrinesWorld.MODID, "herobrine_building_blocks"))
+					.title(Component.translatable("item_group.herobrines_world.herobrine_colored_blocks"))
 					.displayItems((parameters, tabData) -> {
-				tabData.accept(ModItems.HEROBRINE_DIAMOND);
-				tabData.accept(ModItems.ASH);
-				tabData.accept(ModItems.ASH_INGOT);
-				tabData.accept(ModItems.FROZEN_HEART);
-				tabData.accept(ModItems.TOXENIUM_UPGRADE_SMITHING_TEMPLATE);
-				tabData.accept(ModItems.TOXENIUM_INGOT);
-				tabData.accept(ModItems.GREEN_GEMSTONE);
-				tabData.accept(ModItems.RUNE_STONE);
-			}).build());
+						for (Signal.ColorProperty color : Signal.ColorProperty.values()) {
+							tabData.accept(Signal.setModeOnStack(new ItemStack(ModBlocks.SIGNAL.get()), color));
+						}
+					}).build());
 
-	public static final Supplier<CreativeModeTab> HEROBRINE_FUNCTIONAL_BLOCKS = CREATIVE_MODE_TAB.register("herobrines_functional_blocks",
+	public static final Supplier<CreativeModeTab> HEROBRINE_NATURAL_BLOCKS = CREATIVE_MODE_TAB.register("herobrine_natural_blocks",
+			() -> CreativeModeTab.builder().icon(() -> new ItemStack(ModBlocks.ASH_BLOCK.get()))
+					.withTabsBefore(ResourceLocation.fromNamespaceAndPath(HerobrinesWorld.MODID, "herobrine_colored_blocks"))
+					.title(Component.translatable("item_group.herobrines_world.herobrine_natural_blocks"))
+					.displayItems((parameters, tabData) -> {
+						tabData.accept(ModBlocks.ASH_BLOCK);
+						tabData.accept(ModBlocks.BLUE_SANDSTONE);
+						tabData.accept(ModBlocks.CURSED_STONE);
+						tabData.accept(ModBlocks.ABYSSAL_BLOCK);
+						tabData.accept(ModBlocks.FROZEN_HEART_ORE);
+						tabData.accept(ModBlocks.DEEPSLATE_FROZEN_HEART_ORE);
+						tabData.accept(ModBlocks.GREEN_ORE);
+						tabData.accept(ModBlocks.DEEPSLATE_GREEN_ORE);
+						tabData.accept(ModBlocks.ASH_ORE);
+						tabData.accept(ModBlocks.DEEPSLATE_ASH_ORE);
+						tabData.accept(ModBlocks.HEROBRINE_ORE);
+						tabData.accept(ModBlocks.DEEPSLATE_HEROBRINE_ORE);
+						tabData.accept(ModBlocks.TOXENIUM_ORE);
+					}).build());
+
+	public static final Supplier<CreativeModeTab> HEROBRINE_FUNCTIONAL_BLOCKS = CREATIVE_MODE_TAB.register("herobrine_functional_blocks",
 			() -> CreativeModeTab.builder().icon(() -> new ItemStack(ModBlocks.LUMBERJACK_TABLE.get()))
-					.withTabsBefore(ResourceLocation.fromNamespaceAndPath(HerobrinesWorld.MODID, "herobrines_ingredients"))
-					.title(Component.translatable("item_group.herobrines_world.herobrines_functional_blocks"))
+					.withTabsBefore(ResourceLocation.fromNamespaceAndPath(HerobrinesWorld.MODID, "herobrine_natural_blocks"))
+					.title(Component.translatable("item_group.herobrines_world.herobrine_functional_blocks"))
 					.displayItems((parameters, tabData) -> {
-				tabData.accept(ModBlocks.LUMBERJACK_TABLE);
-				for (FarmerMode mode : FarmerMode.values()) {
-					tabData.accept(AutoFarmerBlock.setModeOnStack(new ItemStack(ModBlocks.AUTO_FARMER), mode));
-				}
-			}).build());
+						tabData.accept(ModBlocks.LUMBERJACK_TABLE);
+						for (FarmerMode mode : FarmerMode.values()) {
+							tabData.accept(AutoFarmerBlock.setModeOnStack(new ItemStack(ModBlocks.AUTO_FARMER), mode));
+						}
+					}).build());
 
-	public static final Supplier<CreativeModeTab> HEROBRINE_TOOLS = CREATIVE_MODE_TAB.register("herobrines_tools",
-			() -> CreativeModeTab.builder().icon(() -> new ItemStack(ModItems.HEROBRINE_PICKAXE.get()))
-					.withTabsBefore(ResourceLocation.fromNamespaceAndPath(HerobrinesWorld.MODID, "herobrines_functional_blocks"))
-					.title(Component.translatable("item_group.herobrines_world.herobrines_tools"))
-					.displayItems((parameters, tabData) -> {
-				tabData.accept(ModItems.ASH_PICKAXE);
-				tabData.accept(ModItems.ORE_DETECTOR);
-				tabData.accept(ModItems.NATURE_SHOVEL);
-				tabData.accept(ModItems.NATURE_PICKAXE);
-				tabData.accept(ModItems.NATURE_AXE);
-				tabData.accept(ModItems.NATURE_HOE);
-				tabData.accept(ModItems.FIRE_SHOVEL);
-				tabData.accept(ModItems.FIRE_PICKAXE);
-				tabData.accept(ModItems.FIRE_AXE);
-				tabData.accept(ModItems.FIRE_HOE);
-				tabData.accept(ModItems.HEROBRINE_SHOVEL);
-				tabData.accept(ModItems.HEROBRINE_PICKAXE);
-				tabData.accept(ModItems.HEROBRINE_AXE);
-				tabData.accept(ModItems.HEROBRINE_HOE);
-				tabData.accept(ModItems.TOXENIUM_SHOVEL);
-				tabData.accept(ModItems.TOXENIUM_PICKAXE);
-				tabData.accept(ModItems.TOXENIUM_AXE);
-				tabData.accept(ModItems.TOXENIUM_HOE);
-				tabData.accept(ModItems.TIMER_CLOCK);
-				tabData.accept(ModItems.TIME_CLOCK);
-				tabData.accept(ModItems.HEROBRINES_REALM);
-				tabData.accept(ModItems.UNDERWORLD);
-			}).build());
-
-	public static final Supplier<CreativeModeTab> HEROBRINE_REDSTONE_BLOCKS = CREATIVE_MODE_TAB.register("herobrines_redstone_blocks",
-			() -> CreativeModeTab.builder().icon(() -> new ItemStack(ModBlocks.SIGNAL.get())).withTabsBefore(ResourceLocation.fromNamespaceAndPath(HerobrinesWorld.MODID, "herobrines_tools"))
-					.title(Component.translatable("item_group.herobrines_world.herobrines_redstone_blocks"))
+	public static final Supplier<CreativeModeTab> HEROBRINE_REDSTONE_BLOCKS = CREATIVE_MODE_TAB.register("herobrine_redstone_blocks",
+			() -> CreativeModeTab.builder().icon(() -> new ItemStack(ModBlocks.SIGNAL.get()))
+					.withTabsBefore(ResourceLocation.fromNamespaceAndPath(HerobrinesWorld.MODID, "herobrine_functional_blocks"))
+					.title(Component.translatable("item_group.herobrines_world.herobrine_redstone_blocks"))
 					.displayItems((parameters, tabData) -> {
 						for(Signal.ColorProperty color : Signal.ColorProperty.values()) {
 							tabData.accept(Signal.setModeOnStack(new ItemStack(ModBlocks.SIGNAL), color));
@@ -103,10 +95,39 @@ public class ModCreativeModeTabs {
 						}
 			}).build());
 
+	public static final Supplier<CreativeModeTab> HEROBRINE_TOOLS_AND_UTILITIES = CREATIVE_MODE_TAB.register("herobrine_tools_and_utilities",
+			() -> CreativeModeTab.builder().icon(() -> new ItemStack(ModItems.HEROBRINE_PICKAXE.get()))
+					.withTabsBefore(ResourceLocation.fromNamespaceAndPath(HerobrinesWorld.MODID, "herobrine_redstone_blocks"))
+					.title(Component.translatable("item_group.herobrines_world.herobrine_tools_and_utilities"))
+					.displayItems((parameters, tabData) -> {
+						tabData.accept(ModItems.ASH_PICKAXE);
+						tabData.accept(ModItems.ORE_DETECTOR);
+						tabData.accept(ModItems.NATURE_SHOVEL);
+						tabData.accept(ModItems.NATURE_PICKAXE);
+						tabData.accept(ModItems.NATURE_AXE);
+						tabData.accept(ModItems.NATURE_HOE);
+						tabData.accept(ModItems.FIRE_SHOVEL);
+						tabData.accept(ModItems.FIRE_PICKAXE);
+						tabData.accept(ModItems.FIRE_AXE);
+						tabData.accept(ModItems.FIRE_HOE);
+						tabData.accept(ModItems.HEROBRINE_SHOVEL);
+						tabData.accept(ModItems.HEROBRINE_PICKAXE);
+						tabData.accept(ModItems.HEROBRINE_AXE);
+						tabData.accept(ModItems.HEROBRINE_HOE);
+						tabData.accept(ModItems.TOXENIUM_SHOVEL);
+						tabData.accept(ModItems.TOXENIUM_PICKAXE);
+						tabData.accept(ModItems.TOXENIUM_AXE);
+						tabData.accept(ModItems.TOXENIUM_HOE);
+						tabData.accept(ModItems.TIMER_CLOCK);
+						tabData.accept(ModItems.TIME_CLOCK);
+						tabData.accept(ModItems.HEROBRINES_REALM);
+						tabData.accept(ModItems.UNDERWORLD);
+					}).build());
+
 	public static final Supplier<CreativeModeTab> HEROBRINE_COMBAT = CREATIVE_MODE_TAB.register("herobrines_combat",
 			() -> CreativeModeTab.builder().icon(() -> new ItemStack(ModItems.TOXENIUM_SWORD.get()))
-					.withTabsBefore(ResourceLocation.fromNamespaceAndPath(HerobrinesWorld.MODID, "herobrines_redstone_blocks"))
-					.title(Component.translatable("item_group.herobrines_world.herobrines_combat"))
+					.withTabsBefore(ResourceLocation.fromNamespaceAndPath(HerobrinesWorld.MODID, "herobrine_tools_and_utilities"))
+					.title(Component.translatable("item_group.herobrines_world.herobrine_combat"))
 					.displayItems((parameters, tabData) -> {
 				tabData.accept(ModItems.NATURE_SWORD);
 				tabData.accept(ModItems.FIRE_SWORD);
@@ -134,43 +155,33 @@ public class ModCreativeModeTabs {
 				tabData.accept(ModItems.TOXENIUM_BOOTS);
 			}).build());
 
-	public static final Supplier<CreativeModeTab> HEROBRINE_NATURAL_BLOCKS = CREATIVE_MODE_TAB.register("herobrines_natural_blocks",
-			() -> CreativeModeTab.builder().icon(() -> new ItemStack(ModBlocks.ASH_BLOCK.get()))
-					.withTabsBefore(ResourceLocation.fromNamespaceAndPath(HerobrinesWorld.MODID, "herobrines_combat"))
-					.title(Component.translatable("item_group.herobrines_world.herobrines_natural_blocks"))
+	public static final Supplier<CreativeModeTab> HEROBRINE_INGREDIENTS = CREATIVE_MODE_TAB.register("herobrine_ingredients",
+			() -> CreativeModeTab.builder().icon(() -> new ItemStack(ModItems.ASH_INGOT.get()))
+					.withTabsBefore(ResourceLocation.fromNamespaceAndPath(HerobrinesWorld.MODID, "herobrine_combat"))
+					.title(Component.translatable("item_group.herobrines_world.herobrine_ingredients"))
 					.displayItems((parameters, tabData) -> {
-				tabData.accept(ModBlocks.ASH_BLOCK);
-				tabData.accept(ModBlocks.BLUE_SANDSTONE);
-				tabData.accept(ModBlocks.CURSED_STONE);
-				tabData.accept(ModBlocks.ABYSSAL_BLOCK);
-				tabData.accept(ModBlocks.FROZEN_HEART_ORE);
-				tabData.accept(ModBlocks.DEEPSLATE_FROZEN_HEART_ORE);
-				tabData.accept(ModBlocks.GREEN_ORE);
-				tabData.accept(ModBlocks.DEEPSLATE_GREEN_ORE);
-				tabData.accept(ModBlocks.ASH_ORE);
-				tabData.accept(ModBlocks.DEEPSLATE_ASH_ORE);
-				tabData.accept(ModBlocks.HEROBRINE_ORE);
-				tabData.accept(ModBlocks.DEEPSLATE_HEROBRINE_ORE);
-				tabData.accept(ModBlocks.TOXENIUM_ORE);
-			}).build());
+						tabData.accept(ModItems.HEROBRINE_DIAMOND);
+						tabData.accept(ModItems.ASH);
+						tabData.accept(ModItems.ASH_INGOT);
+						tabData.accept(ModItems.FROZEN_HEART);
+						tabData.accept(ModItems.TOXENIUM_UPGRADE_SMITHING_TEMPLATE);
+						tabData.accept(ModItems.TOXENIUM_INGOT);
+						tabData.accept(ModItems.GREEN_GEMSTONE);
+						tabData.accept(ModItems.RUNE_STONE);
+					}).build());
 
-	public static final DeferredHolder<CreativeModeTab, CreativeModeTab> HEROBRINE_BUILDING_BLOCKS = CREATIVE_MODE_TAB.register("herobrines_building_blocks",
-			() -> CreativeModeTab.builder().icon(() -> new ItemStack(ModBlocks.BLUE_SANDSTONE.get()))
-					.withTabsBefore(ResourceLocation.fromNamespaceAndPath(HerobrinesWorld.MODID, "herobrines_natural_blocks"))
-					.title(Component.translatable("item_group.herobrines_world.herobrines_building_blocks"))
+	public static final Supplier<CreativeModeTab> HEROBRINE_SPAWN_EGGS = CREATIVE_MODE_TAB.register("herobrine_spawn_eggs",
+			() -> CreativeModeTab.builder().icon(() -> new ItemStack(ModItems.GOOD_HEROBRINE_SPAWN_EGG.get()))
+					.withTabsBefore(ResourceLocation.fromNamespaceAndPath(HerobrinesWorld.MODID, "herobrine_ingredients"))
+					.title(Component.translatable("item_group.herobrines_world.herobrine_spawn_eggs"))
 					.displayItems((parameters, tabData) -> {
-				tabData.accept(ModBlocks.BLUE_SANDSTONE);
-				tabData.accept(ModBlocks.BLUE_SANDSTONE_STAIRS);
-				tabData.accept(ModBlocks.BLUE_SANDSTONE_SLAB);
-				tabData.accept(ModBlocks.BLUE_SANDSTONE_WALL);
-				tabData.accept(ModBlocks.BLUE_CHISELED_SANDSTONE);
-				tabData.accept(ModBlocks.BLUE_SMOOTH_SANDSTONE);
-				tabData.accept(ModBlocks.BLUE_SMOOTH_SANDSTONE_STAIRS);
-				tabData.accept(ModBlocks.BLUE_SMOOTH_SANDSTONE_SLAB);
-				tabData.accept(ModBlocks.BLUE_CUT_SANDSTONE);
-				tabData.accept(ModBlocks.BLUE_CUT_SANDSTONE_SLAB);
-				tabData.accept(ModBlocks.HEROBRINE_BLOCK);
-			}).build());
+						tabData.accept(ModItems.HEROBRINE_BOSS_SPAWN_EGG);
+						tabData.accept(ModItems.NICLASL_SPAWN_EGG);
+						tabData.accept(ModItems.ENTITY_303_SPAWN_EGG);
+						tabData.accept(ModItems.GOOD_HEROBRINE_SPAWN_EGG);
+						tabData.accept(ModItems.BAD_HEROBRINE_SPAWN_EGG);
+						tabData.accept(ModItems.CHRISTMAS_NICLASL_SPAWN_EGG);
+					}).build());
 
 	public static void register(IEventBus eventBus) {
 		CREATIVE_MODE_TAB.register(eventBus);
