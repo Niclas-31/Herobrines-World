@@ -55,6 +55,9 @@ public class ModCreativeModeTabs {
 					.title(Component.translatable("item_group.herobrines_world.herobrines_functional_blocks"))
 					.displayItems((parameters, tabData) -> {
 				tabData.accept(ModBlocks.LUMBERJACK_TABLE);
+				for (FarmerMode mode : FarmerMode.values()) {
+					tabData.accept(AutoFarmerBlock.setModeOnStack(new ItemStack(ModBlocks.AUTO_FARMER), mode));
+				}
 			}).build());
 
 	public static final Supplier<CreativeModeTab> HEROBRINE_TOOLS = CREATIVE_MODE_TAB.register("herobrines_tools",
