@@ -53,7 +53,6 @@
   "block.herobrines_world.delayer": "Delayer",
   "block.herobrines_world.logic_gate_block": "Logic Gate Block",
   "block.herobrines_world.signal_amplifier": "Signal Amplifier",
-  "block.herobrines_world.auto_farmer": "Auto Farmer",
 
   "message.not_more_hearts": "§4You can\u0027t have more hearts!",
   "message.gamerule_deactivate": "§4Gamerule is not activate!",
