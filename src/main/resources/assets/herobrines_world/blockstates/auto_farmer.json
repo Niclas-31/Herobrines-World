@@ -1,13 +1,22 @@
 {
     "variants": {
-        "farmer_mode=breaker": {
+        "farmer_mode=breaker,powered=false": {
             "model": "herobrines_world:block/auto_farmer_breaker"
         },
-        "farmer_mode=placer": {
+        "farmer_mode=breaker,powered=true": {
+            "model": "herobrines_world:block/auto_farmer_breaker_on"
+        },
+        "farmer_mode=placer,powered=false": {
             "model": "herobrines_world:block/auto_farmer_placer"
         },
-        "farmer_mode=both": {
+        "farmer_mode=placer,powered=true": {
+            "model": "herobrines_world:block/auto_farmer_placer_on"
+        },
+        "farmer_mode=both,powered=false": {
             "model": "herobrines_world:block/auto_farmer_both"
+        },
+        "farmer_mode=both,powered=true": {
+            "model": "herobrines_world:block/auto_farmer_both_on"
         }
     }
 }

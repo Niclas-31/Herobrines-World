@@ -19,6 +19,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.CropBlock;
@@ -36,6 +37,7 @@ public class AutoFarmerBlockEntity extends BlockEntity implements Container, Men
 
     private NonNullList<ItemStack> items = NonNullList.withSize(27, ItemStack.EMPTY);
     private static final int RADIUS = 4;
+    private int cleanupTimer = 0;
 
     public AutoFarmerBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.AUTO_FARMER.get(), pos, state);
@@ -142,8 +144,67 @@ public class AutoFarmerBlockEntity extends BlockEntity implements Container, Men
         if (level.isClientSide()) return;
 
         if (level.getGameTime() % 20 == 0) {
-            be.doWork();
+            be.doWork(state);
         }
+
+        be.cleanupTimer++;
+
+        if (be.cleanupTimer >= 1200) {
+            be.cleanupSeeds();
+            be.cleanupTimer = 0;
+        }
+    }
+
+    private void cleanupSeeds() {
+        boolean keptNormalSeeds = false;
+        boolean keptBeetrootSeeds = false;
+
+        for (int i = 0; i < items.size(); i++) {
+            ItemStack stack = items.get(i);
+
+            if (stack.isEmpty()) continue;
+
+            if (stack.getItem() == Items.POISONOUS_POTATO) {
+                items.set(i, ItemStack.EMPTY);
+                continue;
+            }
+
+            if (stack.getItem() == Items.BEETROOT_SEEDS) {
+                if (!keptBeetrootSeeds) {
+                    if (stack.getCount() > stack.getMaxStackSize()) {
+                        stack.setCount(stack.getMaxStackSize());
+                    }
+                    keptBeetrootSeeds = true;
+                } else {
+                    items.set(i, ItemStack.EMPTY);
+                }
+                continue;
+            }
+
+            if (isSeed(stack)) {
+                if (!keptNormalSeeds) {
+                    if (stack.getCount() > stack.getMaxStackSize()) {
+                        stack.setCount(stack.getMaxStackSize());
+                    }
+                    keptNormalSeeds = true;
+                } else {
+                    items.set(i, ItemStack.EMPTY);
+                }
+            }
+        }
+
+        setChanged();
+    }
+
+    private boolean isSeed(ItemStack stack) {
+        if (stack.getItem() == Items.CARROT || stack.getItem() == Items.POTATO) {
+            return false;
+        }
+
+        if (stack.getItem() instanceof BlockItem blockItem) {
+            return blockItem.getBlock() instanceof CropBlock;
+        }
+        return false;
     }
 
     private void breakCrops() {
@@ -226,7 +287,9 @@ public class AutoFarmerBlockEntity extends BlockEntity implements Container, Men
         }
     }
 
-    private void doWork() {
+    private void doWork(BlockState state) {
+        if (!state.getValue(AutoFarmerBlock.POWERED)) return;
+
         switch (getMode()) {
             case BREAKER -> breakCrops();
             case PLACER -> placeCrops();

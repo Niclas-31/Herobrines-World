@@ -15,13 +15,17 @@ import net.minecraft.world.item.component.BlockItemStateProperties;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.BaseEntityBlock;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.world.level.redstone.Orientation;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -31,12 +35,29 @@ public class AutoFarmerBlock extends BaseEntityBlock {
     public static final EnumProperty<FarmerMode> FARMER_MODE =
             EnumProperty.create("farmer_mode", FarmerMode.class);
 
+    public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
+
     public static final MapCodec<AutoFarmerBlock> CODEC = simpleCodec(AutoFarmerBlock::new);
 
     public AutoFarmerBlock(Properties properties) {
         super(properties);
         this.registerDefaultState(this.stateDefinition.any()
-                .setValue(FARMER_MODE, FarmerMode.BREAKER));
+                .setValue(FARMER_MODE, FarmerMode.BREAKER)
+                .setValue(POWERED, false));
+    }
+
+    @Override
+    protected void neighborChanged(@NotNull BlockState state, @NotNull Level level,
+                                   @NotNull BlockPos pos, @NotNull Block neighborBlock,
+                                   @Nullable Orientation orientation, boolean movedByPiston) {
+
+        if (level.isClientSide()) return;
+
+        boolean powered = level.hasNeighborSignal(pos);
+
+        if (powered != state.getValue(POWERED)) {
+            level.setBlock(pos, state.setValue(POWERED, powered), 3);
+        }
     }
 
     @Override
@@ -106,7 +127,7 @@ public class AutoFarmerBlock extends BaseEntityBlock {
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<net.minecraft.world.level.block.Block, BlockState> builder) {
-        builder.add(FARMER_MODE);
+        builder.add(FARMER_MODE, POWERED);
     }
 
     @Override
