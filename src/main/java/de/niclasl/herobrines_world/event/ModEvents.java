@@ -3,6 +3,7 @@ package de.niclasl.herobrines_world.event;
 import de.niclasl.herobrines_world.HerobrinesWorld;
 import de.niclasl.herobrines_world.entity.custom.HerobrineBoss;
 import de.niclasl.herobrines_world.network.ModVariables;
+import de.niclasl.herobrines_world.potion.ModPotions;
 import de.niclasl.herobrines_world.util.ModGameRules;
 import de.niclasl.herobrines_world.villager.ModVillagers;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
@@ -19,6 +20,8 @@ import net.minecraft.world.entity.npc.VillagerTrades;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.alchemy.PotionBrewing;
+import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.item.trading.ItemCost;
 import net.minecraft.world.item.trading.MerchantOffer;
 import net.minecraft.world.level.LevelAccessor;
@@ -29,6 +32,7 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlac
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.event.brewing.RegisterBrewingRecipesEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 import net.neoforged.neoforge.event.village.VillagerTradesEvent;
@@ -37,6 +41,14 @@ import java.util.List;
 
 @EventBusSubscriber(modid = HerobrinesWorld.MODID)
 public class ModEvents {
+
+    @SubscribeEvent
+    public static void onBrewingRecipeRegister(RegisterBrewingRecipesEvent event) {
+        PotionBrewing.Builder builder = event.getBuilder();
+
+        builder.addMix(Potions.AWKWARD, Items.RED_DYE, ModPotions.GOOD_HEROBRINE_OMEN);
+        builder.addMix(Potions.AWKWARD, Items.BLACK_DYE, ModPotions.BAD_HEROBRINE_OMEN);
+    }
 
     @SubscribeEvent
     public static void addCustomTrades(VillagerTradesEvent event) {
@@ -100,7 +112,7 @@ public class ModEvents {
                     new ItemStack(Items.DIAMOND_AXE), 1, 20, 0.14f));
 
             trades.get(5).add((entity, randomSource) -> new MerchantOffer(
-                    new ItemCost(Items.EMERALD, 10),
+                    new ItemCost(Items.EMERALD, 15),
                     new ItemStack(Items.NETHERITE_AXE), 1, 25, 0.17f));
         }
     }
