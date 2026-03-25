@@ -1,21 +1,24 @@
 package de.niclasl.herobrines_world.item;
 
+import de.niclasl.herobrines_world.HerobrinesWorld;
 import de.niclasl.herobrines_world.util.ModTags;
 import net.minecraft.Util;
+import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.item.equipment.ArmorMaterial;
 import net.minecraft.world.item.equipment.ArmorType;
 import net.minecraft.world.item.equipment.EquipmentAsset;
-import net.minecraft.world.item.equipment.EquipmentAssets;
 
 import java.util.EnumMap;
 
 public class ModArmorMaterials {
-    public static ResourceKey<EquipmentAsset> NATURE = EquipmentAssets.createId("nature");
-    public static ResourceKey<EquipmentAsset> FIRE = EquipmentAssets.createId("fire");
-    public static ResourceKey<EquipmentAsset> HEROBRINE = EquipmentAssets.createId("herobrine");
-    public static ResourceKey<EquipmentAsset> TOXENIUM = EquipmentAssets.createId("toxenium");
+    static ResourceKey<? extends Registry<EquipmentAsset>> ROOT_ID = ResourceKey.createRegistryKey(ResourceLocation.withDefaultNamespace("equipment_asset"));
+    public static ResourceKey<EquipmentAsset> NATURE = ResourceKey.create(ROOT_ID, ResourceLocation.fromNamespaceAndPath(HerobrinesWorld.MODID, "nature"));
+    public static ResourceKey<EquipmentAsset> FIRE = ResourceKey.create(ROOT_ID, ResourceLocation.fromNamespaceAndPath(HerobrinesWorld.MODID, "fire"));
+    public static ResourceKey<EquipmentAsset> HEROBRINE = ResourceKey.create(ROOT_ID, ResourceLocation.fromNamespaceAndPath(HerobrinesWorld.MODID, "herobrine"));
+    public static ResourceKey<EquipmentAsset> TOXENIUM = ResourceKey.create(ROOT_ID, ResourceLocation.fromNamespaceAndPath(HerobrinesWorld.MODID, "toxenium"));
 
     public static final ArmorMaterial NATURE_ARMOR_MATERIAL = new ArmorMaterial(2500,
             Util.make(new EnumMap<>(ArmorType.class), attribute -> {
