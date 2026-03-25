@@ -57,30 +57,29 @@ public class LootBox {
 		);
 	}
 	private static void setLootBoxPosition(Level world, CommandContext<CommandSourceStack> arguments) {
-
-		ModVariables.PlayerVariables _vars = world.getData(ModVariables.PLAYER_VARIABLES);
-		_vars.X = commandParameterBlockPos(arguments).getX();
-		_vars.Y = commandParameterBlockPos(arguments).getY();
-		_vars.Z = commandParameterBlockPos(arguments).getZ();
-		_vars.markSyncDirty();
+		ModVariables.PlayerVariables vars = world.getData(ModVariables.PLAYER_VARIABLES);
+		vars.X = commandParameterBlockPos(arguments).getX();
+		vars.Y = commandParameterBlockPos(arguments).getY();
+		vars.Z = commandParameterBlockPos(arguments).getZ();
+		vars.markSyncDirty();
 	}
 
 	private static void setLootBoxTimer(Level world, CommandContext<CommandSourceStack> arguments) {
-		if (world instanceof ServerLevel _serverLevel)
-			_serverLevel.getGameRules().getRule(ModGameRules.SPAWN_LOOT_BOX_TIMER).set((int) DoubleArgumentType.getDouble(arguments, "timer"), world.getServer());
+		if (world instanceof ServerLevel serverLevel)
+			serverLevel.getGameRules().getRule(ModGameRules.SPAWN_LOOT_BOX_TIMER).set((int) DoubleArgumentType.getDouble(arguments, "timer"), world.getServer());
 	}
 
 	private static void turnLootBoxOn(Level world) {
-		if (!(world instanceof ServerLevel _serverLevelGR0 && _serverLevelGR0.getGameRules().getBoolean(ModGameRules.CAN_LOOT_BOX_SPAWN))) {
-			if (world instanceof ServerLevel _serverLevel)
-				_serverLevel.getGameRules().getRule(ModGameRules.CAN_LOOT_BOX_SPAWN).set(true, world.getServer());
+		if (!(world instanceof ServerLevel serverLevelGR0 && serverLevelGR0.getGameRules().getBoolean(ModGameRules.CAN_LOOT_BOX_SPAWN))) {
+			if (world instanceof ServerLevel serverLevel)
+				serverLevel.getGameRules().getRule(ModGameRules.CAN_LOOT_BOX_SPAWN).set(true, world.getServer());
 		}
 	}
 
 	private static void turnLootBoxOff(Level world) {
-		if ((world instanceof ServerLevel _serverLevelGR0 && _serverLevelGR0.getGameRules().getBoolean(ModGameRules.CAN_LOOT_BOX_SPAWN))) {
-			if (world instanceof ServerLevel _serverLevel)
-				_serverLevel.getGameRules().getRule(ModGameRules.CAN_LOOT_BOX_SPAWN).set(false, world.getServer());
+		if ((world instanceof ServerLevel serverLevelGR0 && serverLevelGR0.getGameRules().getBoolean(ModGameRules.CAN_LOOT_BOX_SPAWN))) {
+			if (world instanceof ServerLevel serverLevel)
+				serverLevel.getGameRules().getRule(ModGameRules.CAN_LOOT_BOX_SPAWN).set(false, world.getServer());
 		}
 	}
 
