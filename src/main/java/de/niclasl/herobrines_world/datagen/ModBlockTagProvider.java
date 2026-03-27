@@ -40,7 +40,8 @@ public class ModBlockTagProvider extends BlockTagsProvider {
                 .add(ModBlocks.BLUE_SMOOTH_SANDSTONE_SLAB.get())
                 .add(ModBlocks.BLUE_CUT_SANDSTONE.get())
                 .add(ModBlocks.BLUE_CUT_SANDSTONE_SLAB.get())
-                .add(ModBlocks.HEROBRINE_BLOCK.get());
+                .add(ModBlocks.HEROBRINE_BLOCK.get())
+                .add(ModBlocks.AUTO_FARMER.get());
 
         tag(BlockTags.MINEABLE_WITH_SHOVEL)
                 .add(ModBlocks.ASH_BLOCK.get());
