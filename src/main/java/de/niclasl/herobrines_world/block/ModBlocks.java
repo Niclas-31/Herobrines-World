@@ -112,7 +112,7 @@ public class ModBlocks {
 			(properties) -> new LogicGateBlock(properties.instabreak()));
 
 	public static final DeferredBlock<Block> AUTO_FARMER = registerBlock("auto_farmer",
-			(properties) -> new AutoFarmerBlock(properties.instabreak()));
+			(properties) -> new AutoFarmerBlock(properties.strength(15f).requiresCorrectToolForDrops()));
 
 	private static <T extends Block> DeferredBlock<T> registerBlock(String name, Function<BlockBehaviour.Properties, T> function) {
 		DeferredBlock<T> toReturn = BLOCKS.registerBlock(name, function);

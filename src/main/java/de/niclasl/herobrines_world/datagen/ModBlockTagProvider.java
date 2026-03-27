@@ -52,7 +52,8 @@ public class ModBlockTagProvider extends BlockTagsProvider {
                 .add(ModBlocks.FROZEN_HEART_ORE.get())
                 .add(ModBlocks.DEEPSLATE_FROZEN_HEART_ORE.get())
                 .add(ModBlocks.GREEN_ORE.get())
-                .add(ModBlocks.DEEPSLATE_GREEN_ORE.get());
+                .add(ModBlocks.DEEPSLATE_GREEN_ORE.get())
+                .add(ModBlocks.AUTO_FARMER.get());
 
         tag(BlockTags.NEEDS_IRON_TOOL)
                 .add(ModBlocks.HEROBRINE_ORE.get())
