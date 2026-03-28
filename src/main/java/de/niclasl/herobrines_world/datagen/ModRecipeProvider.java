@@ -5,10 +5,7 @@ import de.niclasl.herobrines_world.block.ModBlocks;
 import de.niclasl.herobrines_world.item.ModItems;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
-import net.minecraft.data.recipes.RecipeCategory;
-import net.minecraft.data.recipes.RecipeOutput;
-import net.minecraft.data.recipes.RecipeProvider;
-import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
+import net.minecraft.data.recipes.*;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.ItemLike;
@@ -50,7 +47,7 @@ public class ModRecipeProvider extends RecipeProvider {
         List<ItemLike> SMOOTH_SMELTABLES = List.of(ModBlocks.BLUE_SANDSTONE);
 
         oreSmelting(output, ASH_SMELTABLES, RecipeCategory.MISC, ModItems.ASH_INGOT.get(), 0.25f, "ash");
-        oreBlasting(output, ASH_SMELTABLES, RecipeCategory.MISC, ModItems.ASH_INGOT.get(), 0.25f, "ash");
+        oreBlasting(output, ASH_SMELTABLES, ModItems.ASH_INGOT.get(), 0.25f, "ash");
 
         shaped(RecipeCategory.TOOLS, ModItems.ASH_PICKAXE.get())
                 .pattern("aaa")
@@ -224,7 +221,7 @@ public class ModRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_magma", has(Items.MAGMA_BLOCK)).save(output);
 
         oreSmelting(output, GREEN_SMELTABLES, RecipeCategory.MISC, ModItems.GREEN_GEMSTONE.get(), 0.5f, "green");
-        oreBlasting(output, GREEN_SMELTABLES, RecipeCategory.MISC, ModItems.GREEN_GEMSTONE.get(), 0.5f, "green");
+        oreBlasting(output, GREEN_SMELTABLES, ModItems.GREEN_GEMSTONE.get(), 0.5f, "green");
 
         shaped(RecipeCategory.TOOLS, ModItems.HEROBRINE_AXE.get())
                 .pattern("DD")
@@ -259,7 +256,7 @@ public class ModRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_herobrine_block", has(ModBlocks.HEROBRINE_BLOCK)).save(output);
 
         oreSmelting(output, HEROBRINE_SMELTABLES, RecipeCategory.MISC, ModItems.HEROBRINE_DIAMOND.get(), 0.75f, "herobrine");
-        oreBlasting(output, HEROBRINE_SMELTABLES, RecipeCategory.MISC, ModItems.HEROBRINE_DIAMOND.get(), 0.75f, "herobrine");
+        oreBlasting(output, HEROBRINE_SMELTABLES, ModItems.HEROBRINE_DIAMOND.get(), 0.75f, "herobrine");
 
         shaped(RecipeCategory.TOOLS, ModItems.HEROBRINE_HELMET.get())
                 .pattern("DDD")
@@ -404,6 +401,114 @@ public class ModRecipeProvider extends RecipeProvider {
                 .define('G', Items.GOLD_INGOT)
                 .define('C', Items.CLOCK)
                 .unlockedBy("has_clock", has(Items.CLOCK)).save(output);
+
+        // toxenium
+
+        SmithingTransformRecipeBuilder.smithing(
+                        Ingredient.of(ModItems.TOXENIUM_UPGRADE_SMITHING_TEMPLATE.get()),
+                        Ingredient.of(ModItems.HEROBRINE_AXE.get()),
+                        Ingredient.of(ModItems.TOXENIUM_INGOT.get()),
+                        RecipeCategory.TOOLS,
+                        ModItems.TOXENIUM_AXE.get()
+                )
+                .unlocks("has_toxenium", has(ModItems.TOXENIUM_INGOT.get()))
+                .save(output, "toxenium_axe");
+
+        SmithingTransformRecipeBuilder.smithing(
+                        Ingredient.of(ModItems.TOXENIUM_UPGRADE_SMITHING_TEMPLATE.get()),
+                        Ingredient.of(ModItems.HEROBRINE_BOOTS.get()),
+                        Ingredient.of(ModItems.TOXENIUM_INGOT.get()),
+                        RecipeCategory.TOOLS,
+                        ModItems.TOXENIUM_BOOTS.get()
+                )
+                .unlocks("has_toxenium", has(ModItems.TOXENIUM_INGOT.get()))
+                .save(output, "toxenium_boots");
+
+        SmithingTransformRecipeBuilder.smithing(
+                        Ingredient.of(ModItems.TOXENIUM_UPGRADE_SMITHING_TEMPLATE.get()),
+                        Ingredient.of(ModItems.HEROBRINE_CHESTPLATE.get()),
+                        Ingredient.of(ModItems.TOXENIUM_INGOT.get()),
+                        RecipeCategory.TOOLS,
+                        ModItems.TOXENIUM_CHESTPLATE.get()
+                )
+                .unlocks("has_toxenium", has(ModItems.TOXENIUM_INGOT.get()))
+                .save(output, "toxenium_chestplate");
+
+        SmithingTransformRecipeBuilder.smithing(
+                        Ingredient.of(ModItems.TOXENIUM_UPGRADE_SMITHING_TEMPLATE.get()),
+                        Ingredient.of(ModItems.HEROBRINE_HELMET.get()),
+                        Ingredient.of(ModItems.TOXENIUM_INGOT.get()),
+                        RecipeCategory.TOOLS,
+                        ModItems.TOXENIUM_HELMET.get()
+                )
+                .unlocks("has_toxenium", has(ModItems.TOXENIUM_INGOT.get()))
+                .save(output, "toxenium_helmet");
+
+        SmithingTransformRecipeBuilder.smithing(
+                        Ingredient.of(ModItems.TOXENIUM_UPGRADE_SMITHING_TEMPLATE.get()),
+                        Ingredient.of(ModItems.HEROBRINE_HOE.get()),
+                        Ingredient.of(ModItems.TOXENIUM_INGOT.get()),
+                        RecipeCategory.TOOLS,
+                        ModItems.TOXENIUM_HOE.get()
+                )
+                .unlocks("has_toxenium", has(ModItems.TOXENIUM_INGOT.get()))
+                .save(output, "toxenium_hoe");
+
+        SmithingTransformRecipeBuilder.smithing(
+                        Ingredient.of(ModItems.TOXENIUM_UPGRADE_SMITHING_TEMPLATE.get()),
+                        Ingredient.of(ModItems.HEROBRINE_LEGGINGS.get()),
+                        Ingredient.of(ModItems.TOXENIUM_INGOT.get()),
+                        RecipeCategory.TOOLS,
+                        ModItems.TOXENIUM_LEGGINGS.get()
+                )
+                .unlocks("has_toxenium", has(ModItems.TOXENIUM_INGOT.get()))
+                .save(output, "toxenium_leggings");
+
+        SmithingTransformRecipeBuilder.smithing(
+                        Ingredient.of(ModItems.TOXENIUM_UPGRADE_SMITHING_TEMPLATE.get()),
+                        Ingredient.of(ModItems.HEROBRINE_PICKAXE.get()),
+                        Ingredient.of(ModItems.TOXENIUM_INGOT.get()),
+                        RecipeCategory.TOOLS,
+                        ModItems.TOXENIUM_PICKAXE.get()
+                )
+                .unlocks("has_toxenium", has(ModItems.TOXENIUM_INGOT.get()))
+                .save(output, "toxenium_pickaxe");
+
+        SmithingTransformRecipeBuilder.smithing(
+                        Ingredient.of(ModItems.TOXENIUM_UPGRADE_SMITHING_TEMPLATE.get()),
+                        Ingredient.of(ModItems.HEROBRINE_SHOVEL.get()),
+                        Ingredient.of(ModItems.TOXENIUM_INGOT.get()),
+                        RecipeCategory.TOOLS,
+                        ModItems.TOXENIUM_SHOVEL.get()
+                )
+                .unlocks("has_toxenium", has(ModItems.TOXENIUM_INGOT.get()))
+                .save(output, "toxenium_shovel");
+
+        SmithingTransformRecipeBuilder.smithing(
+                        Ingredient.of(ModItems.TOXENIUM_UPGRADE_SMITHING_TEMPLATE.get()),
+                        Ingredient.of(ModItems.HEROBRINE_SWORD.get()),
+                        Ingredient.of(ModItems.TOXENIUM_INGOT.get()),
+                        RecipeCategory.TOOLS,
+                        ModItems.TOXENIUM_SWORD.get()
+                )
+                .unlocks("has_toxenium", has(ModItems.TOXENIUM_INGOT.get()))
+                .save(output, "toxenium_sword");
+
+        shaped(RecipeCategory.TOOLS, ModItems.UNDERWORLD.get())
+                .pattern(" A ")
+                .pattern("AFA")
+                .pattern(" A ")
+                .define('A', ModBlocks.ABYSSAL_BLOCK.get())
+                .define('F', Items.FLINT_AND_STEEL)
+                .unlockedBy("has_abyssal_block", has(ModBlocks.ABYSSAL_BLOCK.get())).save(output);
+
+        shaped(RecipeCategory.REDSTONE, ModBlocks.AUTO_FARMER.get())
+                .pattern("III")
+                .pattern("R R")
+                .pattern("III")
+                .define('I', Items.IRON_INGOT)
+                .define('R', Items.REDSTONE)
+                .unlockedBy("has_redstone", has(Items.REDSTONE)).save(output);
     }
 
     protected void oreSmelting(RecipeOutput recipeOutput, List<ItemLike> pIngredients, RecipeCategory pCategory, ItemLike pResult,
@@ -412,9 +517,9 @@ public class ModRecipeProvider extends RecipeProvider {
                 pExperience, 200, pGroup, "_from_smelting");
     }
 
-    protected void oreBlasting(RecipeOutput recipeOutput, List<ItemLike> pIngredients, RecipeCategory pCategory, ItemLike pResult,
+    protected void oreBlasting(RecipeOutput recipeOutput, List<ItemLike> pIngredients, ItemLike pResult,
                                float pExperience, String pGroup) {
-        oreCooking(recipeOutput, RecipeSerializer.BLASTING_RECIPE, BlastingRecipe::new, pIngredients, pCategory, pResult,
+        oreCooking(recipeOutput, RecipeSerializer.BLASTING_RECIPE, BlastingRecipe::new, pIngredients, RecipeCategory.MISC, pResult,
                 pExperience, 100, pGroup, "_from_blasting");
     }
 
