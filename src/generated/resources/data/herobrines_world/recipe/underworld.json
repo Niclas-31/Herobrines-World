@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "A": "herobrines_world:abyssal_block",
+    "F": "minecraft:flint_and_steel"
+  },
+  "pattern": [
+    " A ",
+    "AFA",
+    " A "
+  ],
+  "result": {
+    "count": 1,
+    "id": "herobrines_world:underworld"
+  }
+}

@@ -105,6 +105,7 @@ public class ModCreativeModeTabs {
 								for (FarmerMode mode : FarmerMode.values()) {
 									tabData.accept(AutoFarmerBlock.setModeOnStack(new ItemStack(ModBlocks.AUTO_FARMER), mode));
 								}
+								tabData.accept(ModItems.BATTERY);
 							}).build());
 
 	// -------------------- Unterer Bereich --------------------

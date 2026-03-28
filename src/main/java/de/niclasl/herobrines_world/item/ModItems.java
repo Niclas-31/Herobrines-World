@@ -284,6 +284,10 @@ public class ModItems {
 			"herobrine_relic",
 			(properties) -> new HerobrineRelicItem(properties.fireResistant().stacksTo(1)));
 
+	public static final DeferredItem<Item> BATTERY = ITEMS.registerItem(
+			"battery",
+			(properties) -> new BatteryItem(properties.rarity(Rarity.EPIC).stacksTo(1)));
+
 	public static void register(IEventBus eventBus) {
 		ITEMS.register(eventBus);
 	}

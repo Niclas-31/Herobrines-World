@@ -504,10 +504,11 @@ public class ModRecipeProvider extends RecipeProvider {
 
         shaped(RecipeCategory.REDSTONE, ModBlocks.AUTO_FARMER.get())
                 .pattern("III")
-                .pattern("R R")
+                .pattern("RBR")
                 .pattern("III")
                 .define('I', Items.IRON_INGOT)
                 .define('R', Items.REDSTONE)
+                .define('B', ModItems.BATTERY.get())
                 .unlockedBy("has_redstone", has(Items.REDSTONE)).save(output);
     }
 

@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "B": "herobrines_world:battery",
+    "I": "minecraft:iron_ingot",
+    "R": "minecraft:redstone"
+  },
+  "pattern": [
+    "III",
+    "RBR",
+    "III"
+  ],
+  "result": {
+    "count": 1,
+    "id": "herobrines_world:auto_farmer"
+  }
+}
