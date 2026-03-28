@@ -16,7 +16,6 @@ import java.awt.*;
 public class ModMenuTypes {
 	public static final DeferredRegister<MenuType<?>> MENUS = DeferredRegister.create(Registries.MENU, HerobrinesWorld.MODID);
 
-	public static final DeferredHolder<MenuType<?>, MenuType<TimerMenu>> TIMER = MENUS.register("timer", () -> IMenuTypeExtension.create(TimerMenu::new));
 	public static final DeferredHolder<MenuType<?>, MenuType<TimeMenu>> TIME = MENUS.register("time", () -> IMenuTypeExtension.create(TimeMenu::new));
 	public static final DeferredHolder<MenuType<?>, MenuType<SignalColorChangerMenu>> SIGNAL_COLOR_CHANGER = MENUS.register("signal_color_changer", () -> IMenuTypeExtension.create(SignalColorChangerMenu::new));
 	public static final DeferredHolder<MenuType<?>, MenuType<DelayerMenu>> DELAYER = MENUS.register("delayer", () -> IMenuTypeExtension.create(DelayerMenu::new));

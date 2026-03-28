@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "D": "herobrines_world:herobrine_diamond",
+    "F": "minecraft:flint_and_steel"
+  },
+  "pattern": [
+    " D ",
+    "DFD",
+    " D "
+  ],
+  "result": {
+    "count": 1,
+    "id": "herobrines_world:herobrines_realm"
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_deepslate_green_ore": {
+      "conditions": {
+        "items": [
+          {
+            "items": "herobrines_world:deepslate_green_ore"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "herobrines_world:green_gemstone_from_blasting_deepslate_green_ore"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_deepslate_green_ore"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "herobrines_world:green_gemstone_from_blasting_deepslate_green_ore"
+    ]
+  }
+}

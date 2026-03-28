@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "S": [
+      "herobrines_world:blue_sandstone",
+      "herobrines_world:blue_chiseled_sandstone",
+      "herobrines_world:blue_cut_sandstone"
+    ]
+  },
+  "pattern": [
+    "S  ",
+    "SS ",
+    "SSS"
+  ],
+  "result": {
+    "count": 4,
+    "id": "herobrines_world:blue_sandstone_stairs"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "M": "minecraft:magma_block",
+    "S": "minecraft:stick"
+  },
+  "pattern": [
+    "MM",
+    " S",
+    " S"
+  ],
+  "result": {
+    "count": 1,
+    "id": "herobrines_world:fire_hoe"
+  }
+}

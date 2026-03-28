@@ -260,10 +260,6 @@ public class ModItems {
 			"toxenium_ingot",
 			(properties) -> new ToxeniumIngot(properties.rarity(Rarity.EPIC).fireResistant()));
 
-	public static final DeferredItem<Item> TIMER_CLOCK = ITEMS.registerItem(
-			"timer_clock",
-			(properties) -> new TimerClock(properties.rarity(Rarity.EPIC).stacksTo(1)));
-
 	public static final DeferredItem<Item> TIME_CLOCK = ITEMS.registerItem(
 			"time_clock",
 			(properties) -> new TimeClock(properties.rarity(Rarity.EPIC).stacksTo(1)));
@@ -294,48 +290,6 @@ public class ModItems {
 
 	@SubscribeEvent
 	public static void registerCapabilities(RegisterCapabilitiesEvent event) {
-
-		event.registerItem(
-				Capabilities.Item.ITEM,
-				(stack, access) -> new ResourceHandler<>() {
-                    @Override
-                    public int size() {
-                        return 0;
-                    }
-
-                    @Override
-                    public @Nullable ItemResource getResource(int i) {
-                        return null;
-                    }
-
-                    @Override
-                    public long getAmountAsLong(int i) {
-                        return 0;
-                    }
-
-                    @Override
-                    public long getCapacityAsLong(int i, @NotNull ItemResource resource) {
-                        return 0;
-                    }
-
-                    @Override
-                    public boolean isValid(int i, @NotNull ItemResource resource) {
-                        return stack.getItem() != ModItems.TIMER_CLOCK.get();
-                    }
-
-                    @Override
-                    public int insert(int i, @NotNull ItemResource resource, int amount, @NotNull TransactionContext context) {
-                        return 0;
-                    }
-
-                    @Override
-                    public int extract(int i, @NotNull ItemResource resource, int amount, @NotNull TransactionContext context) {
-                        return 0;
-                    }
-                },
-				ModItems.TIMER_CLOCK.get()
-		);
-
 		event.registerItem(
 				Capabilities.Item.ITEM,
 				(stack, access) -> new ResourceHandler<>() {

@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_deepslate_herobrine_ore": {
+      "conditions": {
+        "items": [
+          {
+            "items": "herobrines_world:deepslate_herobrine_ore"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "herobrines_world:herobrine_diamond_from_blasting_deepslate_herobrine_ore"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_deepslate_herobrine_ore"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "herobrines_world:herobrine_diamond_from_blasting_deepslate_herobrine_ore"
+    ]
+  }
+}

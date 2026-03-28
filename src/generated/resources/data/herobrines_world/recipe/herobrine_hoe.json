@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "D": "herobrines_world:herobrine_diamond",
+    "S": "minecraft:stick"
+  },
+  "pattern": [
+    "DD",
+    " S",
+    " S"
+  ],
+  "result": {
+    "count": 1,
+    "id": "herobrines_world:herobrine_hoe"
+  }
+}

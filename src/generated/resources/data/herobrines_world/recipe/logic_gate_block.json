@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "Q": "minecraft:quartz",
+    "R": "minecraft:redstone",
+    "S": "minecraft:smooth_stone"
+  },
+  "pattern": [
+    " R ",
+    "QSQ",
+    " R "
+  ],
+  "result": {
+    "count": 1,
+    "id": "herobrines_world:logic_gate_block"
+  }
+}

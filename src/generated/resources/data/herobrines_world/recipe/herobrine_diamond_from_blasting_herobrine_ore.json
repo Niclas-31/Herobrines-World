@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "cookingtime": 100,
+  "experience": 0.75,
+  "group": "herobrine",
+  "ingredient": "herobrines_world:herobrine_ore",
+  "result": {
+    "count": 1,
+    "id": "herobrines_world:herobrine_diamond"
+  }
+}

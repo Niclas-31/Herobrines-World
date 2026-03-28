@@ -121,7 +121,6 @@ public class HerobrinesWorld {
 		public static void registerScreens(RegisterMenuScreensEvent event) {
 			event.register(ModMenuTypes.DELAYER.get(), DelayerScreen::new);
 			event.register(ModMenuTypes.TIME.get(), TimeScreen::new);
-			event.register(ModMenuTypes.TIMER.get(), TimerScreen::new);
 			event.register(ModMenuTypes.SIGNAL_COLOR_CHANGER.get(), SignalColorChangerScreen::new);
 			event.register(ModMenuTypes.AUTO_FARMER.get(), AutoFarmerScreen::new);
 		}

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "G": "herobrines_world:green_gemstone",
+    "S": "minecraft:stick"
+  },
+  "pattern": [
+    "G",
+    "S",
+    "S"
+  ],
+  "result": {
+    "count": 1,
+    "id": "herobrines_world:nature_shovel"
+  }
+}

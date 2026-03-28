@@ -133,7 +133,6 @@ public class ModCreativeModeTabs {
 								tabData.accept(ModItems.TOXENIUM_PICKAXE);
 								tabData.accept(ModItems.TOXENIUM_AXE);
 								tabData.accept(ModItems.TOXENIUM_HOE);
-								tabData.accept(ModItems.TIMER_CLOCK);
 								tabData.accept(ModItems.TIME_CLOCK);
 								tabData.accept(ModItems.HEROBRINES_REALM);
 								tabData.accept(ModItems.UNDERWORLD);

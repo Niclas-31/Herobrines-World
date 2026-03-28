@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 200,
+  "experience": 0.5,
+  "group": "green",
+  "ingredient": "herobrines_world:deepslate_green_ore",
+  "result": {
+    "count": 1,
+    "id": "herobrines_world:green_gemstone"
+  }
+}

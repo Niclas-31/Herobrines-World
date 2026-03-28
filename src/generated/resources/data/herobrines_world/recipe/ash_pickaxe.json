@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "a": "herobrines_world:ash_ingot",
+    "s": "minecraft:stick"
+  },
+  "pattern": [
+    "aaa",
+    " s ",
+    " s "
+  ],
+  "result": {
+    "count": 1,
+    "id": "herobrines_world:ash_pickaxe"
+  }
+}
