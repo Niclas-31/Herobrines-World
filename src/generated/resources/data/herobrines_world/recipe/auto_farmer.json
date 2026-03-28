@@ -3,13 +3,14 @@
   "category": "redstone",
   "key": {
     "B": "herobrines_world:battery",
+    "D": "minecraft:dispenser",
     "I": "minecraft:iron_ingot",
     "R": "minecraft:redstone"
   },
   "pattern": [
-    "III",
+    "IRI",
     "RBR",
-    "III"
+    "IDI"
   ],
   "result": {
     "count": 1,

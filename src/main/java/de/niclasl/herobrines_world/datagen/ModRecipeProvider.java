@@ -503,12 +503,13 @@ public class ModRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_abyssal_block", has(ModBlocks.ABYSSAL_BLOCK.get())).save(output);
 
         shaped(RecipeCategory.REDSTONE, ModBlocks.AUTO_FARMER.get())
-                .pattern("III")
+                .pattern("IRI")
                 .pattern("RBR")
-                .pattern("III")
+                .pattern("IDI")
                 .define('I', Items.IRON_INGOT)
                 .define('R', Items.REDSTONE)
                 .define('B', ModItems.BATTERY.get())
+                .define('D', Items.DISPENSER)
                 .unlockedBy("has_redstone", has(Items.REDSTONE)).save(output);
     }
 
