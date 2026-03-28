@@ -117,7 +117,6 @@ public class ModEvents {
         }
     }
 
-
     @SubscribeEvent
     public static void onPlayerTick(PlayerTickEvent.Post event) {
         if (event.getEntity().level().isClientSide()) return;

@@ -4,6 +4,7 @@ import de.niclasl.herobrines_world.block.ModBlocks;
 import de.niclasl.herobrines_world.block.entity.ModBlockEntities;
 import de.niclasl.herobrines_world.block.entity.renderer.DelayerRenderer;
 import de.niclasl.herobrines_world.block.entity.renderer.LogicGateBlockEntityRenderer;
+import de.niclasl.herobrines_world.components.ModDataComponents;
 import de.niclasl.herobrines_world.effect.ModEffects;
 import de.niclasl.herobrines_world.enchantment.ModEnchantmentEffects;
 import de.niclasl.herobrines_world.entity.ModEntities;
@@ -50,6 +51,8 @@ public class HerobrinesWorld {
 
 		ModItems.register(modEventBus);
 		ModBlocks.register(modEventBus);
+
+		ModDataComponents.register(modEventBus);
 
 		ModEffects.register(modEventBus);
 		ModPotions.register(modEventBus);
