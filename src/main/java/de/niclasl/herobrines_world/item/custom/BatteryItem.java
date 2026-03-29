@@ -2,7 +2,6 @@ package de.niclasl.herobrines_world.item.custom;
 
 import de.niclasl.herobrines_world.components.ModDataComponents;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -19,13 +18,7 @@ public class BatteryItem extends Item {
         super(properties);
     }
 
-    @Override
-    public void onCraftedBy(@NotNull ItemStack stack, @NotNull Player player) {
-        super.onCraftedBy(stack, player);
-
-        stack.set(ModDataComponents.ENERGY.get(), 0);
-    }
-
+    @SuppressWarnings("deprecation")
     @Override
     public void appendHoverText(@NotNull ItemStack stack, @NotNull TooltipContext context, @NotNull TooltipDisplay tooltipDisplay, @NotNull Consumer<Component> tooltipAdder, @NotNull TooltipFlag flag) {
         super.appendHoverText(stack, context, tooltipDisplay, tooltipAdder, flag);

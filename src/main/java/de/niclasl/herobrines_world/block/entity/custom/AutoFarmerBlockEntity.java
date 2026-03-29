@@ -50,13 +50,6 @@ public class AutoFarmerBlockEntity extends BlockEntity implements Container, Men
         super.handleUpdateTag(input);
 
         ContainerHelper.loadAllItems(input, this.items);
-
-        String modeName = input.getStringOr("FarmerMode", FarmerMode.BREAKER.name());
-        try {
-            this.setMode(FarmerMode.valueOf(modeName));
-        } catch (IllegalArgumentException e) {
-            this.setMode(FarmerMode.BREAKER);
-        }
     }
 
     @Override
@@ -69,13 +62,6 @@ public class AutoFarmerBlockEntity extends BlockEntity implements Container, Men
         super.loadAdditional(input);
 
         ContainerHelper.loadAllItems(input, this.items);
-
-        String modeName = input.getStringOr("FarmerMode", FarmerMode.BREAKER.name());
-        try {
-            this.setMode(FarmerMode.valueOf(modeName));
-        } catch (IllegalArgumentException e) {
-            this.setMode(FarmerMode.BREAKER);
-        }
     }
 
     @Override
@@ -83,18 +69,11 @@ public class AutoFarmerBlockEntity extends BlockEntity implements Container, Men
         super.saveAdditional(output);
 
         ContainerHelper.saveAllItems(output, this.items);
-
-        output.putString("FarmerMode", getMode().name());
     }
 
     public FarmerMode getMode() {
         if (level == null) return FarmerMode.BREAKER;
         return level.getBlockState(worldPosition).getValue(AutoFarmerBlock.FARMER_MODE);
-    }
-
-    private void setMode(FarmerMode farmerMode) {
-        assert level != null;
-        level.setBlock(getBlockPos(), getBlockState().setValue(AutoFarmerBlock.FARMER_MODE, farmerMode), 3);
     }
 
     @Override

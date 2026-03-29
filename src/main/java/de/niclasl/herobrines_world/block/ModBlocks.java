@@ -114,6 +114,9 @@ public class ModBlocks {
 	public static final DeferredBlock<Block> AUTO_FARMER = registerBlock("auto_farmer",
 			(properties) -> new AutoFarmerBlock(properties.strength(15f).requiresCorrectToolForDrops()));
 
+	public static final DeferredBlock<Block> BATTERY_CHARGER = registerBlock("battery_charger",
+			(properties) -> new BatteryChargerBlock(properties.strength(20f).requiresCorrectToolForDrops()));
+
 	private static <T extends Block> DeferredBlock<T> registerBlock(String name, Function<BlockBehaviour.Properties, T> function) {
 		DeferredBlock<T> toReturn = BLOCKS.registerBlock(name, function);
 		registerBlockItem(name, toReturn);

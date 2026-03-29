@@ -123,6 +123,7 @@ public class HerobrinesWorld {
 			event.register(ModMenuTypes.TIME.get(), TimeScreen::new);
 			event.register(ModMenuTypes.SIGNAL_COLOR_CHANGER.get(), SignalColorChangerScreen::new);
 			event.register(ModMenuTypes.AUTO_FARMER.get(), AutoFarmerScreen::new);
+			event.register(ModMenuTypes.BATTERY_CHARGER.get(), BatteryChargerScreen::new);
 		}
 	}
 }
