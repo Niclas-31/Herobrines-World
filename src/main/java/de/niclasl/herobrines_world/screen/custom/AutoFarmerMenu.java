@@ -1,6 +1,7 @@
 package de.niclasl.herobrines_world.screen.custom;
 
 import de.niclasl.herobrines_world.block.entity.custom.AutoFarmerBlockEntity;
+import de.niclasl.herobrines_world.item.custom.BatteryItem;
 import de.niclasl.herobrines_world.screen.ModMenuTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
@@ -26,28 +27,34 @@ public class AutoFarmerMenu extends AbstractContainerMenu {
         int startX = 8;
         int startY = 18;
 
-        if (buf != null) {
-            this.pos = buf.readBlockPos();
-            BlockEntity be = playerInventory.player.level().getBlockEntity(pos);
-
-            if (be instanceof AutoFarmerBlockEntity autoFarmer) {
-                this.blockEntity = autoFarmer;
-
-                for (int row = 0; row < 3; row++) {
-                    for (int col = 0; col < 9; col++) {
-                        int index = col + row * 9;
-                        this.addSlot(new Slot(blockEntity, index,
-                                startX + col * SLOT_SIZE,
-                                startY + row * SLOT_SIZE));
-                    }
-                }
-            } else {
-                this.blockEntity = null;
-            }
-        } else {
-            this.pos = null;
-            this.blockEntity = null;
+        if (buf == null) {
+            throw new IllegalStateException("Buffer is null!");
         }
+
+        this.pos = buf.readBlockPos();
+
+        BlockEntity be = playerInventory.player.level().getBlockEntity(pos);
+        if (!(be instanceof AutoFarmerBlockEntity autoFarmer)) {
+            throw new IllegalStateException("BlockEntity missing at: " + pos);
+        }
+
+        this.blockEntity = autoFarmer;
+
+        for (int row = 0; row < 3; row++) {
+            for (int col = 0; col < 9; col++) {
+                int index = col + row * 9;
+                this.addSlot(new Slot(blockEntity, index,
+                        startX + col * SLOT_SIZE,
+                        startY + row * SLOT_SIZE));
+            }
+        }
+
+        this.addSlot(new Slot(blockEntity, 27, 174, 36) {
+            @Override
+            public boolean mayPlace(@NotNull ItemStack stack) {
+                return stack.getItem() instanceof BatteryItem;
+            }
+        });
 
         int playerStartY = startY + 3 * SLOT_SIZE + 12;
 
@@ -60,6 +67,7 @@ public class AutoFarmerMenu extends AbstractContainerMenu {
         }
 
         int hotbarY = playerStartY + 3 * SLOT_SIZE + 4;
+
         for (int col = 0; col < 9; col++) {
             this.addSlot(new Slot(playerInventory, col,
                     startX + col * SLOT_SIZE,
@@ -74,7 +82,7 @@ public class AutoFarmerMenu extends AbstractContainerMenu {
         this.pos = blockEntity.getBlockPos();
 
         int startX = 8;
-        int startY = 17;
+        int startY = 18;
 
         for (int row = 0; row < 3; row++) {
             for (int col = 0; col < 9; col++) {
@@ -85,7 +93,14 @@ public class AutoFarmerMenu extends AbstractContainerMenu {
             }
         }
 
-        int playerStartY = startY + 3 * SLOT_SIZE + 4;
+        this.addSlot(new Slot(blockEntity, 27, 174, 36) {
+            @Override
+            public boolean mayPlace(@NotNull ItemStack stack) {
+                return stack.getItem() instanceof BatteryItem;
+            }
+        });
+
+        int playerStartY = startY + 3 * SLOT_SIZE + 12;
 
         for (int row = 0; row < 3; row++) {
             for (int col = 0; col < 9; col++) {
@@ -96,6 +111,7 @@ public class AutoFarmerMenu extends AbstractContainerMenu {
         }
 
         int hotbarY = playerStartY + 3 * SLOT_SIZE + 4;
+
         for (int col = 0; col < 9; col++) {
             this.addSlot(new Slot(playerInventory, col,
                     startX + col * SLOT_SIZE,
@@ -105,40 +121,51 @@ public class AutoFarmerMenu extends AbstractContainerMenu {
 
     @Override
     public boolean stillValid(@NotNull Player player) {
-        if (blockEntity == null) return false;
-
-        return player.distanceToSqr(
-                blockEntity.getBlockPos().getX() + 0.5,
-                blockEntity.getBlockPos().getY() + 0.5,
-                blockEntity.getBlockPos().getZ() + 0.5
-        ) <= 64.0;
+        return blockEntity != null && blockEntity.stillValid(player);
     }
 
     @Override
     public @NotNull ItemStack quickMoveStack(@NotNull Player player, int index) {
-        if (blockEntity == null) return ItemStack.EMPTY;
-
-        ItemStack stack = ItemStack.EMPTY;
+        ItemStack result;
         Slot slot = this.slots.get(index);
 
-        if (slot.hasItem()) {
-            ItemStack original = slot.getItem();
-            stack = original.copy();
+        if (!slot.hasItem()) return ItemStack.EMPTY;
 
-            int blockSize = 27;
+        ItemStack stack = slot.getItem();
+        result = stack.copy();
 
-            if (index < blockSize) {
-                if (!this.moveItemStackTo(original, blockSize, this.slots.size(), true))
-                    return ItemStack.EMPTY;
-            } else {
-                if (!this.moveItemStackTo(original, 0, blockSize, false))
-                    return ItemStack.EMPTY;
+        int blockStart = 0;
+        int batterySlot = 27;
+        int playerStart = 28;
+
+        if (index >= blockStart && index < batterySlot) {
+            if (!this.moveItemStackTo(stack, playerStart, this.slots.size(), true)) {
+                return ItemStack.EMPTY;
             }
 
-            if (original.isEmpty()) slot.set(ItemStack.EMPTY);
-            else slot.setChanged();
+        } else if (index == batterySlot) {
+            if (!this.moveItemStackTo(stack, playerStart, this.slots.size(), true)) {
+                return ItemStack.EMPTY;
+            }
+
+        } else {
+            if (stack.getItem() instanceof BatteryItem) {
+                if (!this.moveItemStackTo(stack, batterySlot, batterySlot + 1, false)) {
+                    return ItemStack.EMPTY;
+                }
+            } else {
+                if (!this.moveItemStackTo(stack, blockStart, batterySlot, false)) {
+                    return ItemStack.EMPTY;
+                }
+            }
         }
 
-        return stack;
+        if (stack.isEmpty()) {
+            slot.set(ItemStack.EMPTY);
+        } else {
+            slot.setChanged();
+        }
+
+        return result;
     }
 }

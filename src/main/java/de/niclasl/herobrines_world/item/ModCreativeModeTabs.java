@@ -6,6 +6,7 @@ import de.niclasl.herobrines_world.block.custom.Signal;
 import de.niclasl.herobrines_world.block.properties.FarmerMode;
 import de.niclasl.herobrines_world.HerobrinesWorld;
 
+import de.niclasl.herobrines_world.components.ModDataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -105,7 +106,9 @@ public class ModCreativeModeTabs {
 								for (FarmerMode mode : FarmerMode.values()) {
 									tabData.accept(AutoFarmerBlock.setModeOnStack(new ItemStack(ModBlocks.AUTO_FARMER), mode));
 								}
-								tabData.accept(ModItems.BATTERY);
+								ItemStack stack = new ItemStack(ModItems.BATTERY.get());
+								stack.set(ModDataComponents.ENERGY.get(), 0);
+								tabData.accept(stack);
 							}).build());
 
 	// -------------------- Unterer Bereich --------------------

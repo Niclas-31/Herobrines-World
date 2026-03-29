@@ -15,7 +15,6 @@ import net.minecraft.world.item.component.BlockItemStateProperties;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.BaseEntityBlock;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
@@ -25,7 +24,6 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
-import net.minecraft.world.level.redstone.Orientation;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -44,20 +42,6 @@ public class AutoFarmerBlock extends BaseEntityBlock {
         this.registerDefaultState(this.stateDefinition.any()
                 .setValue(FARMER_MODE, FarmerMode.BREAKER)
                 .setValue(POWERED, false));
-    }
-
-    @Override
-    protected void neighborChanged(@NotNull BlockState state, @NotNull Level level,
-                                   @NotNull BlockPos pos, @NotNull Block neighborBlock,
-                                   @Nullable Orientation orientation, boolean movedByPiston) {
-
-        if (level.isClientSide()) return;
-
-        boolean powered = level.hasNeighborSignal(pos);
-
-        if (powered != state.getValue(POWERED)) {
-            level.setBlock(pos, state.setValue(POWERED, powered), 3);
-        }
     }
 
     @Override

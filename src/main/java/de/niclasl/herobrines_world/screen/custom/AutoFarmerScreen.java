@@ -17,7 +17,7 @@ public class AutoFarmerScreen extends AbstractContainerScreen<AutoFarmerMenu> {
     public AutoFarmerScreen(AutoFarmerMenu menu, Inventory inventory, Component title) {
         super(menu, inventory, title);
 
-        this.imageWidth = 176;
+        this.imageWidth = 198;
         this.imageHeight = 166;
     }
 

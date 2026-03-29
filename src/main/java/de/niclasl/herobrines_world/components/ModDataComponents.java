@@ -4,7 +4,6 @@ import com.mojang.serialization.Codec;
 import de.niclasl.herobrines_world.HerobrinesWorld;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.network.codec.ByteBufCodecs;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -16,10 +15,7 @@ public class ModDataComponents {
             DeferredRegister.createDataComponents(Registries.DATA_COMPONENT_TYPE, HerobrinesWorld.MODID);
 
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> ENERGY = register("energy",
-            builder -> builder
-                    .persistent(Codec.INT)
-                    .networkSynchronized(ByteBufCodecs.INT)
-    );
+            builder -> builder.persistent(Codec.INT));
 
     private static <T> DeferredHolder<DataComponentType<?>, DataComponentType<T>> register(String name,
                                                                                            UnaryOperator<DataComponentType.Builder<T>> builderOperator) {

@@ -1,4 +1,4 @@
-// 1.21.10	2026-03-28T16:37:59.3274422	My Recipes
+// 1.21.10	2026-03-28T20:23:33.2317476	My Recipes
 3c8159aaec0e8e077f358fd3d8927531c6443fd7 data/herobrines_world/advancement/recipes/building_blocks/blue_chiseled_sandstone.json
 1bc804bb3809009fdf729bc4e8a0653e87ce9d68 data/herobrines_world/advancement/recipes/building_blocks/blue_cut_sandstone.json
 839329294a2439f02cade6df317c640b3a813b5a data/herobrines_world/advancement/recipes/building_blocks/blue_cut_sandstone_slab.json
@@ -28,6 +28,7 @@ a82e8af842ee6edf6cf45ab0a653be71fcd660d8 data/herobrines_world/advancement/recip
 03b9e10492a0ce6a150d34e739d12999dba71a06 data/herobrines_world/advancement/recipes/misc/ore_detector.json
 00b1fb6bf059bc875824cd764dd32ba6804688ea data/herobrines_world/advancement/recipes/misc/time_clock.json
 ca8dd0b33874797b54b1dc71a29f0a54b3415fb7 data/herobrines_world/advancement/recipes/redstone/auto_farmer.json
+f8e984e44a4f8aae8285c65d64c56b2a1a310ad2 data/herobrines_world/advancement/recipes/redstone/battery.json
 e49c61a6701410523f93cfe750b721f2f932e74c data/herobrines_world/advancement/recipes/redstone/delayer.json
 46008f808ab2ee60de08dd2e67f97ac0413cb6d1 data/herobrines_world/advancement/recipes/redstone/logic_gate_block.json
 5a8e04c616ab5194b69b6c58a2c88488f25456f0 data/herobrines_world/advancement/recipes/tools/ash_pickaxe.json
@@ -68,6 +69,7 @@ a924c79b33881097b5914cc4517175490283d7a8 data/herobrines_world/recipe/ash_ingot_
 ba6509710965ecf440e5b9ccffc9ec028b5b06aa data/herobrines_world/recipe/ash_ingot_from_smelting_deepslate_ash_ore.json
 128508eb487cf733e318b31260ea9d3ce6346521 data/herobrines_world/recipe/ash_pickaxe.json
 5a481401d22937f1d9bf4e80c922489706240090 data/herobrines_world/recipe/auto_farmer.json
+bc8d1d7f9f0948d16db05e3e61b63ffebe053b11 data/herobrines_world/recipe/battery.json
 9ce73cc6e6ba813dbc2f889709fb3b8db500c6c5 data/herobrines_world/recipe/blue_chiseled_sandstone.json
 0669faca9cdb61e21b7f738d09b4738a5b2febbe data/herobrines_world/recipe/blue_cut_sandstone.json
 1430a0e4f5c52f508b971e40bd91035302a58b9c data/herobrines_world/recipe/blue_cut_sandstone_slab.json

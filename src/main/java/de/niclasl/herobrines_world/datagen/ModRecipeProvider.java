@@ -511,6 +511,15 @@ public class ModRecipeProvider extends RecipeProvider {
                 .define('B', ModItems.BATTERY.get())
                 .define('D', Items.DISPENSER)
                 .unlockedBy("has_redstone", has(Items.REDSTONE)).save(output);
+
+        shaped(RecipeCategory.REDSTONE, ModItems.BATTERY.get())
+                .pattern("IRI")
+                .pattern("RCR")
+                .pattern("IRI")
+                .define('I', Items.IRON_INGOT)
+                .define('R', Items.REDSTONE)
+                .define('C', Items.COPPER_INGOT)
+                .unlockedBy("has_redstone", has(Items.REDSTONE)).save(output);
     }
 
     protected void oreSmelting(RecipeOutput recipeOutput, List<ItemLike> pIngredients, RecipeCategory pCategory, ItemLike pResult,

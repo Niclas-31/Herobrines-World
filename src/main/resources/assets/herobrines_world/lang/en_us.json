@@ -115,6 +115,7 @@
   "item.herobrines_world.niclasl_spawn_egg": "Niclasl Spawn Egg",
   "item.herobrines_world.herobrine_boss_spawn_egg": "Herobrine Boss Spawn Egg",
   "item.herobrines_world.herobrine_relic": "Herobrine Relic",
+  "item.herobrines_world.battery": "Battery",
 
   "item.herobrines_world.herobrine_relic.bound_on": "This Relic is associated with: %s",
   "item.herobrines_world.herobrine_relic.unbound": "This Relic is not bound to anyone.",

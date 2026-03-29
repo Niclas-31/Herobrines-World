@@ -3,6 +3,7 @@ package de.niclasl.herobrines_world.block.entity.custom;
 import de.niclasl.herobrines_world.block.custom.AutoFarmerBlock;
 import de.niclasl.herobrines_world.block.entity.ModBlockEntities;
 import de.niclasl.herobrines_world.block.properties.FarmerMode;
+import de.niclasl.herobrines_world.item.custom.BatteryItem;
 import de.niclasl.herobrines_world.screen.custom.AutoFarmerMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
@@ -35,9 +36,10 @@ import java.util.List;
 
 public class AutoFarmerBlockEntity extends BlockEntity implements Container, MenuProvider {
 
-    private NonNullList<ItemStack> items = NonNullList.withSize(27, ItemStack.EMPTY);
+    private NonNullList<ItemStack> items = NonNullList.withSize(28, ItemStack.EMPTY);
     private static final int RADIUS = 4;
     private int cleanupTimer = 0;
+    private int ticks = 0;
 
     public AutoFarmerBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.AUTO_FARMER.get(), pos, state);
@@ -47,7 +49,6 @@ public class AutoFarmerBlockEntity extends BlockEntity implements Container, Men
     public void handleUpdateTag(@NotNull ValueInput input) {
         super.handleUpdateTag(input);
 
-        this.items = NonNullList.withSize(27, ItemStack.EMPTY);
         ContainerHelper.loadAllItems(input, this.items);
 
         String modeName = input.getStringOr("FarmerMode", FarmerMode.BREAKER.name());
@@ -67,8 +68,14 @@ public class AutoFarmerBlockEntity extends BlockEntity implements Container, Men
     protected void loadAdditional(@NotNull ValueInput input) {
         super.loadAdditional(input);
 
-        this.items = NonNullList.withSize(27, ItemStack.EMPTY);
         ContainerHelper.loadAllItems(input, this.items);
+
+        String modeName = input.getStringOr("FarmerMode", FarmerMode.BREAKER.name());
+        try {
+            this.setMode(FarmerMode.valueOf(modeName));
+        } catch (IllegalArgumentException e) {
+            this.setMode(FarmerMode.BREAKER);
+        }
     }
 
     @Override
@@ -76,6 +83,8 @@ public class AutoFarmerBlockEntity extends BlockEntity implements Container, Men
         super.saveAdditional(output);
 
         ContainerHelper.saveAllItems(output, this.items);
+
+        output.putString("FarmerMode", getMode().name());
     }
 
     public FarmerMode getMode() {
@@ -128,7 +137,8 @@ public class AutoFarmerBlockEntity extends BlockEntity implements Container, Men
 
     @Override
     public void clearContent() {
-        items.clear();
+        items = NonNullList.withSize(28, ItemStack.EMPTY);
+        setChanged();
     }
 
     @Override
@@ -143,7 +153,18 @@ public class AutoFarmerBlockEntity extends BlockEntity implements Container, Men
     public static void tick(Level level, BlockPos pos, BlockState state, AutoFarmerBlockEntity be) {
         if (level.isClientSide()) return;
 
-        if (level.getGameTime() % 20 == 0) {
+        boolean hasEnergy = false;
+
+        ItemStack stack = be.items.get(27);
+        if (stack.getItem() instanceof BatteryItem item) {
+            hasEnergy = item.getEnergy(stack) > 0;
+        }
+
+        if (state.getValue(AutoFarmerBlock.POWERED) != hasEnergy) {
+            level.setBlock(pos, state.setValue(AutoFarmerBlock.POWERED, hasEnergy), 3);
+        }
+
+        if (hasEnergy && level.getGameTime() % 20 == 0) {
             be.doWork(state);
         }
 
@@ -152,6 +173,31 @@ public class AutoFarmerBlockEntity extends BlockEntity implements Container, Men
         if (be.cleanupTimer >= 1200) {
             be.cleanupSeeds();
             be.cleanupTimer = 0;
+        }
+
+        be.ticks++;
+
+        if (be.ticks >= 1500) {
+            if (hasEnergy) {
+                be.useEnergyOfBattery();
+            }
+            be.ticks = 0;
+        }
+    }
+
+    private void useEnergyOfBattery() {
+        ItemStack stack = items.get(27);
+        if (stack.getItem() instanceof BatteryItem item) {
+            item.consumeEnergy(stack, 1);
+            setChanged();
+        }
+    }
+
+    @Override
+    public void setChanged() {
+        super.setChanged();
+        if (level != null && !level.isClientSide()) {
+            level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), 3);
         }
     }
 
@@ -274,6 +320,7 @@ public class AutoFarmerBlockEntity extends BlockEntity implements Container, Men
 
             if (slot.isEmpty()) {
                 items.set(i, stack.copy());
+                setChanged();
                 return;
             } else if (ItemStack.isSameItemSameComponents(slot, stack) && slot.getCount() < slot.getMaxStackSize()) {
                 int space = slot.getMaxStackSize() - slot.getCount();
@@ -281,6 +328,8 @@ public class AutoFarmerBlockEntity extends BlockEntity implements Container, Men
 
                 slot.grow(toAdd);
                 stack.shrink(toAdd);
+
+                setChanged();
 
                 if (stack.isEmpty()) return;
             }
