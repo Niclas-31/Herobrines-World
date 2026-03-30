@@ -2,6 +2,7 @@ package de.niclasl.herobrines_world;
 
 import de.niclasl.herobrines_world.block.ModBlocks;
 import de.niclasl.herobrines_world.block.entity.ModBlockEntities;
+import de.niclasl.herobrines_world.block.entity.renderer.BatteryChargerRenderer;
 import de.niclasl.herobrines_world.block.entity.renderer.DelayerRenderer;
 import de.niclasl.herobrines_world.block.entity.renderer.LogicGateBlockEntityRenderer;
 import de.niclasl.herobrines_world.components.ModDataComponents;
@@ -23,6 +24,7 @@ import net.minecraft.util.Tuple;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.util.thread.SidedThreadGroups;
@@ -41,8 +43,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 public class HerobrinesWorld {
 	public static final String MODID = "herobrines_world";
 
-    public HerobrinesWorld(IEventBus modEventBus) {
-
+    public HerobrinesWorld(IEventBus modEventBus, ModContainer modContainer) {
 		modEventBus.addListener(this::registerNetworking);
 
 		NeoForge.EVENT_BUS.register(this);
@@ -115,6 +116,7 @@ public class HerobrinesWorld {
 		public static void registerBER(EntityRenderersEvent.RegisterRenderers event) {
 			event.registerBlockEntityRenderer(ModBlockEntities.DELAYER.get(), DelayerRenderer::new);
 			event.registerBlockEntityRenderer(ModBlockEntities.LOGIC_GATE_BLOCK.get(), LogicGateBlockEntityRenderer::new);
+			event.registerBlockEntityRenderer(ModBlockEntities.BATTERY_CHARGER.get(), BatteryChargerRenderer::new);
 		}
 
 		@SubscribeEvent

@@ -1,8 +1,9 @@
-// 1.21.10	2026-03-22T15:07:02.3218025	Loot Tables
+// 1.21.10	2026-03-30T17:52:02.2038572	Loot Tables
 24a7cc8dbb2405e957a33a010d3ff42364af4a42 data/herobrines_world/loot_table/blocks/abyssal_block.json
 7af76326fd995331f6e2c33677b34c7b0714b3a0 data/herobrines_world/loot_table/blocks/ash_block.json
 a6205993704351e4b1456c9381be68154347908b data/herobrines_world/loot_table/blocks/ash_ore.json
 2b3346d3246f0454c9de37e126ec64c284066c21 data/herobrines_world/loot_table/blocks/auto_farmer.json
+77b2517d7e482fcb006547dd35ce73e11c1d82ee data/herobrines_world/loot_table/blocks/battery_charger.json
 1afa468698e2c15be131dfb1035e144abfcbf92c data/herobrines_world/loot_table/blocks/blue_chiseled_sandstone.json
 00c8e2f6a98cdfc2f9b0398115ec0c2ec8a5a5b3 data/herobrines_world/loot_table/blocks/blue_cut_sandstone.json
 7b24f7dcd2a6163677ea4e0a361cd3986ba154b6 data/herobrines_world/loot_table/blocks/blue_cut_sandstone_slab.json

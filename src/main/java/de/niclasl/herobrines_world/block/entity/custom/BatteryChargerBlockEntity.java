@@ -1,5 +1,6 @@
 package de.niclasl.herobrines_world.block.entity.custom;
 
+import de.niclasl.herobrines_world.block.custom.BatteryChargerBlock;
 import de.niclasl.herobrines_world.block.entity.ModBlockEntities;
 import de.niclasl.herobrines_world.item.custom.BatteryItem;
 import de.niclasl.herobrines_world.screen.custom.BatteryChargerMenu;
@@ -25,7 +26,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class BatteryChargerBlockEntity extends BlockEntity implements Container, MenuProvider {
 
-    private NonNullList<ItemStack> items = NonNullList.withSize(1, ItemStack.EMPTY);
+    public NonNullList<ItemStack> items = NonNullList.withSize(1, ItemStack.EMPTY);
 
     private int tickCounter = 0;
 
@@ -38,6 +39,7 @@ public class BatteryChargerBlockEntity extends BlockEntity implements Container,
         super.handleUpdateTag(input);
 
         ContainerHelper.loadAllItems(input, this.items);
+        setChanged();
     }
 
     @Override
@@ -50,6 +52,7 @@ public class BatteryChargerBlockEntity extends BlockEntity implements Container,
         super.loadAdditional(input);
 
         ContainerHelper.loadAllItems(input, this.items);
+        setChanged();
     }
 
     @Override
@@ -59,16 +62,19 @@ public class BatteryChargerBlockEntity extends BlockEntity implements Container,
         ContainerHelper.saveAllItems(output, this.items);
     }
 
-    public static void tick(BatteryChargerBlockEntity be) {
-        be.tickCounter++;
+    public static void tick(BlockState state, BatteryChargerBlockEntity be) {
 
-        ItemStack batterySlot = be.items.getFirst();
+        if (state.getValue(BatteryChargerBlock.POWERED)) {
+            be.tickCounter++;
 
-        if (be.tickCounter >= 600) {
-            be.tickCounter = 0;
+            ItemStack batterySlot = be.items.getFirst();
 
-            if (!batterySlot.isEmpty() && batterySlot.getItem() instanceof BatteryItem battery) {
-                battery.addEnergy(batterySlot, 100);
+            if (be.tickCounter >= 600) {
+                be.tickCounter = 0;
+
+                if (!batterySlot.isEmpty() && batterySlot.getItem() instanceof BatteryItem battery) {
+                    battery.addEnergy(batterySlot, 100);
+                }
             }
         }
     }

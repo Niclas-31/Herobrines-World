@@ -23,7 +23,7 @@ public class Herobrine {
 
 		event.getDispatcher().register(
 				Commands.literal("herobrine")
-						.requires(s -> s.hasPermission(4))
+						.requires(Commands.hasPermission(Commands.LEVEL_OWNERS))
 
 						.then(modeCommand("survival", GameType.SURVIVAL))
 						.then(modeCommand("s", GameType.SURVIVAL))

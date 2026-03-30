@@ -38,7 +38,7 @@ public class ModEnchantments {
         var vanishingCurse = enchantments.getOrThrow(Enchantments.VANISHING_CURSE);
 
         register(context, HEROBRINE, Enchantment.enchantment(Enchantment.definition(
-                        items.getOrThrow(ItemTags.SWORD_ENCHANTABLE),
+                        items.getOrThrow(ItemTags.WEAPON_ENCHANTABLE),
                         5,
                         4,
                         Enchantment.dynamicCost(10, 10),
@@ -50,7 +50,7 @@ public class ModEnchantments {
                         EnchantmentTarget.VICTIM, new HerobrineEnchantmentEffect()));
 
         register(context, MORE_SOULS, Enchantment.enchantment(Enchantment.definition(
-                items.getOrThrow(ItemTags.SWORD_ENCHANTABLE),
+                items.getOrThrow(ItemTags.WEAPON_ENCHANTABLE),
                 8,
                 2,
                 Enchantment.dynamicCost(5, 10),

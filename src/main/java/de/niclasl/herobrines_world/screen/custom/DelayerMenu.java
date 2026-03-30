@@ -19,14 +19,7 @@ public class DelayerMenu extends AbstractContainerMenu {
     public Player player;
 
     public DelayerMenu(int id, Inventory inv, FriendlyByteBuf extraData) {
-        super(ModMenuTypes.DELAYER.get(), id);
-        this.level = inv.player.level();
-        BlockPos pos;
-        if (extraData != null) {
-            pos = extraData.readBlockPos();
-            this.pos = pos;
-        }
-        this.player = inv.player;
+        this(id, inv, extraData.readBlockPos());
     }
 
     public DelayerMenu(int id, Inventory inv, BlockPos pos) {

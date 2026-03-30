@@ -59,7 +59,7 @@ public class BadHerobrine extends Monster {
 			}
 
 			public boolean canUse() {
-                return BadHerobrine.this.getTarget() != null && !BadHerobrine.this.getMoveControl().hasWanted();
+				return BadHerobrine.this.getTarget() != null && !BadHerobrine.this.getMoveControl().hasWanted();
 			}
 
 			@Override
@@ -70,16 +70,16 @@ public class BadHerobrine extends Monster {
 			@Override
 			public void start() {
 				LivingEntity livingentity = BadHerobrine.this.getTarget();
-                assert livingentity != null;
-                Vec3 vec3d = livingentity.getEyePosition(1);
+				assert livingentity != null;
+				Vec3 vec3d = livingentity.getEyePosition(1);
 				BadHerobrine.this.moveControl.setWantedPosition(vec3d.x, vec3d.y, vec3d.z, 1);
 			}
 
 			@Override
 			public void tick() {
 				LivingEntity livingentity = BadHerobrine.this.getTarget();
-                assert livingentity != null;
-                if (BadHerobrine.this.getBoundingBox().intersects(livingentity.getBoundingBox())) {
+				assert livingentity != null;
+				if (BadHerobrine.this.getBoundingBox().intersects(livingentity.getBoundingBox())) {
 					BadHerobrine.this.doHurtTarget(getServerLevel(livingentity), livingentity);
 				} else {
 					double d0 = BadHerobrine.this.distanceToSqr(livingentity);

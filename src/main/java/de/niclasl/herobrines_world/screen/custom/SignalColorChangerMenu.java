@@ -26,16 +26,7 @@ public class SignalColorChangerMenu extends AbstractContainerMenu {
 	}
 
 	public SignalColorChangerMenu(int id, Inventory inv, RegistryFriendlyByteBuf buf) {
-		super(ModMenuTypes.SIGNAL_COLOR_CHANGER.get(), id);
-		this.entity = inv.player;
-		this.world = inv.player.level();
-        BlockPos pos;
-		if (buf != null) {
-			pos = buf.readBlockPos();
-            this.x = pos.getX();
-			this.y = pos.getY();
-			this.z = pos.getZ();
-		}
+		this(id, inv, buf.readBlockPos());
 	}
 
 	@Override

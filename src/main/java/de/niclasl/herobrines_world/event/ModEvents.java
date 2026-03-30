@@ -52,7 +52,7 @@ public class ModEvents {
 
     @SubscribeEvent
     public static void addCustomTrades(VillagerTradesEvent event) {
-        if (event.getType() == ModVillagers.LUMBERJACK.getKey()) {
+        if (event.getType() == ModVillagers.LUMBERJACK) {
             Int2ObjectMap<List<VillagerTrades.ItemListing>> trades = event.getTrades();
 
             trades.get(1).add((entity, randomSource) -> new MerchantOffer(

@@ -2,6 +2,7 @@ package de.niclasl.herobrines_world.block.custom;
 
 import de.niclasl.herobrines_world.teleporter.HerobrinesRealmPortalShape;
 import de.niclasl.herobrines_world.teleporter.HerobrinesRealmTeleporter;
+import net.minecraft.BlockUtil;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 
@@ -30,7 +31,6 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.Direction;
 import net.minecraft.core.BlockPos;
-import net.minecraft.BlockUtil;
 
 import javax.annotation.Nullable;
 

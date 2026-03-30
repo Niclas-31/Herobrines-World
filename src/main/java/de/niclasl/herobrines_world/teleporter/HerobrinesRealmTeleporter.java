@@ -1,5 +1,6 @@
 package de.niclasl.herobrines_world.teleporter;
 
+import net.minecraft.BlockUtil;
 import net.neoforged.neoforge.registries.RegisterEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -22,7 +23,6 @@ import net.minecraft.core.Vec3i;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Direction;
 import net.minecraft.core.BlockPos;
-import net.minecraft.BlockUtil;
 
 import de.niclasl.herobrines_world.block.ModBlocks;
 

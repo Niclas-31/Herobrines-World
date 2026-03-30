@@ -18,7 +18,7 @@ public class Souls {
 	public static void registerCommand(RegisterCommandsEvent event) {
 		event.getDispatcher().register(
 				Commands.literal("souls")
-						.requires(src -> src.hasPermission(4))
+						.requires(Commands.hasPermission(Commands.LEVEL_OWNERS))
 						.then(Commands.literal("add")
 								.then(Commands.argument("targets", EntityArgument.players())
 										.then(Commands.argument("souls", IntegerArgumentType.integer(0))
