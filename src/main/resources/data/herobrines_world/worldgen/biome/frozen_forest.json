@@ -70,12 +70,6 @@
         "weight": 5,
         "minCount": 1,
         "maxCount": 1
-      },
-      {
-        "type": "glow_squid",
-        "weight": 10,
-        "minCount": 4,
-        "maxCount": 6
       }
     ],
     "creature": [
@@ -131,7 +125,14 @@
       }
     ],
     "axolotls": [],
-    "underground_water_creature": [],
+    "underground_water_creature": [
+      {
+        "type": "glow_squid",
+        "weight": 10,
+        "minCount": 4,
+        "maxCount": 6
+      }
+    ],
     "water_creature": [],
     "water_ambient": [],
     "misc": []

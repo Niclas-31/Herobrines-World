@@ -1,7 +1,6 @@
 package de.niclasl.herobrines_world.network;
 
 import de.niclasl.herobrines_world.HerobrinesWorld;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
@@ -130,15 +129,18 @@ public class ModVariables {
 	public static class WorldVariables extends SavedData {
 		public static final SavedDataType<WorldVariables> TYPE = new SavedDataType<>("world_variables", ctx -> new WorldVariables(), ctx -> CompoundTag.CODEC.xmap(tag -> {
 			WorldVariables instance = new WorldVariables();
-            instance.read(tag, ctx.levelOrThrow().registryAccess());
+            instance.read(tag);
 			return instance;
-		}, instance -> instance.save(new CompoundTag(), ctx.levelOrThrow().registryAccess())));
+		}, instance -> instance.save(new CompoundTag())));
 		boolean _syncDirty = false;
+		public static boolean isHerobrineDead;
 
-		public void read(CompoundTag nbt, HolderLookup.Provider lookupProvider) {
+		public void read(CompoundTag nbt) {
+			isHerobrineDead = nbt.getBooleanOr("HerobrineDead", false);
 		}
 
-		public CompoundTag save(CompoundTag nbt, HolderLookup.Provider lookupProvider) {
+		public CompoundTag save(CompoundTag nbt) {
+			nbt.putBoolean("HerobrineDead", isHerobrineDead);
 			return nbt;
 		}
 
@@ -161,21 +163,18 @@ public class ModVariables {
 	public static class MapVariables extends SavedData {
 		public static final SavedDataType<MapVariables> TYPE = new SavedDataType<>("map_variables", ctx -> new MapVariables(), ctx -> CompoundTag.CODEC.xmap(tag -> {
 			MapVariables instance = new MapVariables();
-            instance.read(tag, ctx.levelOrThrow().registryAccess());
+            instance.read(tag);
 			return instance;
-		}, instance -> instance.save(new CompoundTag(), ctx.levelOrThrow().registryAccess())));
+		}, instance -> instance.save(new CompoundTag())));
 		boolean _syncDirty = false;
 		public boolean ThreeHearts = false;
-		public String modNamespace = "";
 
-		public void read(CompoundTag nbt, HolderLookup.Provider lookupProvider) {
+		public void read(CompoundTag nbt) {
 			ThreeHearts = nbt.getBooleanOr("ThreeHearts", false);
-			modNamespace = nbt.getStringOr("modNamespace", "");
 		}
 
-		public CompoundTag save(CompoundTag nbt, HolderLookup.Provider lookupProvider) {
+		public CompoundTag save(CompoundTag nbt) {
 			nbt.putBoolean("ThreeHearts", ThreeHearts);
-			nbt.putString("modNamespace", modNamespace);
 			return nbt;
 		}
 
@@ -200,9 +199,9 @@ public class ModVariables {
 		public static final StreamCodec<RegistryFriendlyByteBuf, SavedDataSyncMessage> STREAM_CODEC = StreamCodec.of((RegistryFriendlyByteBuf buffer, SavedDataSyncMessage message) -> {
 			buffer.writeInt(message.dataType);
 			if (message.data instanceof MapVariables mapVariables)
-				buffer.writeNbt(mapVariables.save(new CompoundTag(), buffer.registryAccess()));
+				buffer.writeNbt(mapVariables.save(new CompoundTag()));
 			else if (message.data instanceof WorldVariables worldVariables)
-				buffer.writeNbt(worldVariables.save(new CompoundTag(), buffer.registryAccess()));
+				buffer.writeNbt(worldVariables.save(new CompoundTag()));
 		}, (RegistryFriendlyByteBuf buffer) -> {
 			int dataType = buffer.readInt();
 			CompoundTag nbt = buffer.readNbt();
@@ -210,9 +209,9 @@ public class ModVariables {
 			if (nbt != null) {
 				data = dataType == 0 ? new MapVariables() : new WorldVariables();
 				if (data instanceof MapVariables mapVariables)
-					mapVariables.read(nbt, buffer.registryAccess());
+					mapVariables.read(nbt);
 				else if (data instanceof WorldVariables worldVariables)
-					worldVariables.read(nbt, buffer.registryAccess());
+					worldVariables.read(nbt);
 			}
 			return new SavedDataSyncMessage(dataType, data);
 		});
@@ -226,9 +225,9 @@ public class ModVariables {
 			if (context.flow() == PacketFlow.CLIENTBOUND && message.data != null) {
 				context.enqueueWork(() -> {
 					if (message.dataType == 0)
-						MapVariables.clientSide.read(((MapVariables) message.data).save(new CompoundTag(), context.player().registryAccess()), context.player().registryAccess());
+						MapVariables.clientSide.read(((MapVariables) message.data).save(new CompoundTag()));
 					else
-						WorldVariables.clientSide.read(((WorldVariables) message.data).save(new CompoundTag(), context.player().registryAccess()), context.player().registryAccess());
+						WorldVariables.clientSide.read(((WorldVariables) message.data).save(new CompoundTag()));
 				}).exceptionally(e -> {
 					context.connection().disconnect(Component.literal(e.getMessage()));
 					return null;

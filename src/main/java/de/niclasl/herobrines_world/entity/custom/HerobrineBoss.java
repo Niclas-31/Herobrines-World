@@ -276,12 +276,16 @@ public class HerobrineBoss extends Monster {
 			return;
 		}
 
-		if (source.getEntity() instanceof ServerPlayer player) {
+		ModVariables.WorldVariables world = ModVariables.WorldVariables.get(level());
+
+		if (source.getEntity() instanceof ServerPlayer player && !ModVariables.WorldVariables.isHerobrineDead) {
 			ItemStack relicStack = new ItemStack(ModItems.HEROBRINE_RELIC.get());
 			player.addItem(relicStack);
 
 			ModVariables.PlayerVariables vars = player.getData(ModVariables.PLAYER_VARIABLES);
 			vars.herobrineRelicOwner = player.getUUID().toString();
+			ModVariables.WorldVariables.isHerobrineDead = true;
+			world.markSyncDirty();
 		}
 	}
 
