@@ -80,21 +80,11 @@ public class ModVariables {
 	public static void clonePlayer(PlayerEvent.Clone event) {
 		PlayerVariables original = event.getOriginal().getData(PLAYER_VARIABLES);
 		PlayerVariables clone = new PlayerVariables();
-		clone.canFly = original.canFly;
-		clone.TimerActive = original.TimerActive;
 		clone.AbilityActive = original.AbilityActive;
 		clone.Hide = original.Hide;
 		clone.Hearts = original.Hearts;
-		clone.Ticks = original.Ticks;
-		clone.Second = original.Second;
-		clone.Minute = original.Minute;
-		clone.Hour = original.Hour;
-		clone.Day = original.Day;
 		clone.Soul_Current = original.Soul_Current;
 		clone.Soul_Level = original.Soul_Level;
-		clone.X = original.X;
-		clone.Y = original.Y;
-		clone.Z = original.Z;
 		clone.herobrineRelicOwner = original.herobrineRelicOwner;
 		clone.ownedBossUUID = original.ownedBossUUID;
         event.getEntity().setData(PLAYER_VARIABLES, clone);
@@ -177,21 +167,15 @@ public class ModVariables {
 		boolean _syncDirty = false;
 		public boolean ThreeHearts = false;
 		public String modNamespace = "";
-		public double LootBoxTimer = 0;
-		public double LastSpawnLootBoxTimer = 0;
 
 		public void read(CompoundTag nbt, HolderLookup.Provider lookupProvider) {
 			ThreeHearts = nbt.getBooleanOr("ThreeHearts", false);
 			modNamespace = nbt.getStringOr("modNamespace", "");
-			LootBoxTimer = nbt.getDoubleOr("LootBoxTimer", 0);
-			LastSpawnLootBoxTimer = nbt.getDoubleOr("LastSpawnLootBoxTimer", 0);
 		}
 
 		public CompoundTag save(CompoundTag nbt, HolderLookup.Provider lookupProvider) {
 			nbt.putBoolean("ThreeHearts", ThreeHearts);
 			nbt.putString("modNamespace", modNamespace);
-			nbt.putDouble("LootBoxTimer", LootBoxTimer);
-			nbt.putDouble("LastSpawnLootBoxTimer", LastSpawnLootBoxTimer);
 			return nbt;
 		}
 
@@ -255,21 +239,11 @@ public class ModVariables {
 
 	public static class PlayerVariables implements ValueIOSerializable {
 		boolean _syncDirty = false;
-		public boolean canFly = false;
-		public boolean TimerActive = false;
 		public boolean AbilityActive = false;
 		public boolean Hide = false;
 		public int Hearts = 3;
-		public int Ticks = 0;
-		public int Second = 0;
-		public int Minute = 0;
-		public int Hour = 0;
-		public int Day = 0;
 		public int Soul_Current = 0;
 		public int Soul_Level = 0;
-		public double X = 0;
-		public double Y = 0;
-		public double Z = 0;
 		public String herobrineRelicOwner = "";
 		public String ownedBossUUID = "";
 
@@ -288,23 +262,12 @@ public class ModVariables {
 
 		@Override
 		public void serialize(ValueOutput output) {
-			output.putBoolean("canFly", canFly);
-			output.putBoolean("TimerActive", TimerActive);
 			output.putBoolean("AbilityActive", AbilityActive);
 			output.putBoolean("Hide", Hide);
 
 			output.putInt("Hearts", Hearts);
-			output.putInt("Ticks", Ticks);
-			output.putInt("Second", Second);
-			output.putInt("Minute", Minute);
-			output.putInt("Hour", Hour);
-			output.putInt("Day", Day);
 			output.putInt("Soul_Current", Soul_Current);
 			output.putInt("Soul_Level", Soul_Level);
-
-			output.putDouble("X", X);
-			output.putDouble("Y", Y);
-			output.putDouble("Z", Z);
 
 			output.putString("herobrineRelicOwner",
 					herobrineRelicOwner == null ? "" : herobrineRelicOwner);
@@ -315,20 +278,11 @@ public class ModVariables {
 
 		@Override
 		public void deserialize(ValueInput input) {
-			canFly = input.getBooleanOr("canFly", false);
-			TimerActive = input.getBooleanOr("TimerActive", false);
 			AbilityActive = input.getBooleanOr("AbilityActive", false);
 			Hide = input.getBooleanOr("Hide", false);
 			Hearts = input.getIntOr("Hearts", 0);
-			Ticks = input.getIntOr("Ticks", 0);
-			Second = input.getIntOr("Second", 0);
-			Minute = input.getIntOr("Minute", 0);
-			Hour = input.getIntOr("Hour", 0);
-			Day = input.getIntOr("Day", 0);
+
 			Soul_Current = input.getIntOr("Soul_Current", 0);
-			X = input.getDoubleOr("X", 0);
-			Y = input.getDoubleOr("Y", 0);
-			Z = input.getDoubleOr("Z", 0);
 			Soul_Level = input.getIntOr("Soul_Level", 0);
 			herobrineRelicOwner = input.getStringOr("herobrineRelicOwner", "");
 			ownedBossUUID = input.getStringOr("ownedBossUUID", "");

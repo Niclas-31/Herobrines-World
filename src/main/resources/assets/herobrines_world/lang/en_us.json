@@ -1,27 +1,10 @@
 {
-  "gui.herobrines_world.timer_gui.label_days": "Days:",
-  "gui.herobrines_world.timer_gui.label_timer": "Timer",
-  "gui.herobrines_world.timer_gui.label_seconds": "Seconds:",
-  "gui.herobrines_world.timer_gui.button_stop": "Stop",
-  "gui.herobrines_world.timer_gui.button_start": "Start",
-  "gui.herobrines_world.timer_gui.label_minuten": "Minutes:",
-  "gui.herobrines_world.timer_gui.button_reset": "Reset",
-  "gui.herobrines_world.timer_gui.label_hours": "Hours:",
-  "gui.herobrines_world.timer_gui.label_timer1": "Timer:",
   "gui.herobrines_world.clock_gui.label_clock": "Date \u0026 Time",
   "gui.herobrines_world.clock_gui.button_hide": "Hide",
   "gui.herobrines_world.clock_gui.label_time": "Time:",
   "gui.herobrines_world.clock_gui.label_date": "Date:",
-  "gui.herobrines_world.timer_overlay.label_min": "Min.",
-  "gui.herobrines_world.timer_overlay.label_sec": "Sec.",
-  "gui.herobrines_world.timer_overlay.label_h": "H.",
-  "gui.herobrines_world.timer_overlay.label_d": "D.",
   "gui.herobrines_world.delayer.button.save": "Save",
 
-  "gamerule.spawnLootBoxTimer.description": "Loot Box spawns after time",
-  "gamerule.spawnLootBoxTimer": "Loot Box Timer",
-  "gamerule.canLootBoxSpawn.description": "Spawns loot boxes",
-  "gamerule.canLootBoxSpawn": "Spawn Loot Box",
   "gamerule.threeHearts.description": "You have 3 Lives. Then can you not respawn.",
   "gamerule.threeHearts": "Three Hearts",
 
@@ -153,8 +136,6 @@
   "biome.herobrines_world.misty_chasms": "Misty Chasms",
   "biome.herobrines_world.cursed_forest": "Cursed Forest",
 
-  "key.herobrines_world.reset_timer_keybind": "Reset Timer Keybind",
-  "key.herobrines_world.ability_controll": "Ability Controll",
   "key.herobrines_world.controll_variable_timer": "Controll Variable Timer",
 
   "relic.is_not_yours": "§4This relic does not belong to you.",
