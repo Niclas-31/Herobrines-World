@@ -133,7 +133,7 @@ public class ModVariables {
 			return instance;
 		}, instance -> instance.save(new CompoundTag())));
 		boolean _syncDirty = false;
-		public static boolean isHerobrineDead;
+		public boolean isHerobrineDead;
 
 		public void read(CompoundTag nbt) {
 			isHerobrineDead = nbt.getBooleanOr("HerobrineDead", false);
@@ -153,7 +153,8 @@ public class ModVariables {
 
 		public static WorldVariables get(LevelAccessor world) {
 			if (world instanceof ServerLevel level) {
-				return level.getDataStorage().computeIfAbsent(WorldVariables.TYPE);
+				ServerLevel overworld = level.getServer().overworld();
+				return overworld.getDataStorage().computeIfAbsent(WorldVariables.TYPE);
 			} else {
 				return clientSide;
 			}
