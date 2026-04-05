@@ -1,46 +1,41 @@
 package de.niclasl.herobrines_world.block.custom;
 
+import com.mojang.logging.LogUtils;
+import de.niclasl.herobrines_world.teleporter.UnderworldPortalShape;
+import de.niclasl.herobrines_world.teleporter.UnderworldTeleporter;
+import de.niclasl.herobrines_world.util.ModDimensions;
 import net.minecraft.BlockUtil;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityDimensions;
+import net.minecraft.world.entity.Relative;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.ScheduledTickAccess;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.NetherPortalBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.border.WorldBorder;
+import net.minecraft.world.level.dimension.DimensionType;
+import net.minecraft.world.level.portal.TeleportTransition;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 
-import net.minecraft.world.phys.Vec3;
-import net.minecraft.world.level.portal.TeleportTransition;
-import net.minecraft.world.level.dimension.DimensionType;
-import net.minecraft.world.level.border.WorldBorder;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.Portal;
-import net.minecraft.world.level.block.NetherPortalBlock;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.ScheduledTickAccess;
-import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.entity.Relative;
-import net.minecraft.world.entity.EntityDimensions;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.util.RandomSource;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.resources.ResourceKey;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.core.Direction;
-import net.minecraft.core.BlockPos;
-
-import de.niclasl.herobrines_world.teleporter.UnderworldTeleporter;
-import de.niclasl.herobrines_world.teleporter.UnderworldPortalShape;
-
 import javax.annotation.Nullable;
-
 import java.util.Objects;
 import java.util.Optional;
 
-import com.mojang.logging.LogUtils;
-
-public class UnderworldPortal extends NetherPortalBlock {
+public class UnderworldPortalBlock extends NetherPortalBlock {
 	private static final Logger LOGGER = LogUtils.getLogger();
 
 	public static void portalSpawn(Level world, BlockPos pos) {
@@ -48,7 +43,7 @@ public class UnderworldPortal extends NetherPortalBlock {
         optional.ifPresent(underworldPortalShape -> underworldPortalShape.createPortalBlocks(world));
 	}
 
-	public UnderworldPortal(Properties properties) {
+	public UnderworldPortalBlock(Properties properties) {
 		super(properties);
 	}
 
@@ -72,14 +67,14 @@ public class UnderworldPortal extends NetherPortalBlock {
 	@Override
 	@Nullable
 	public TeleportTransition getPortalDestination(ServerLevel level, @NotNull Entity entity, @NotNull BlockPos pos) {
-		ResourceKey<Level> resourcekey = level.dimension() == ResourceKey.create(Registries.DIMENSION, ResourceLocation.parse("herobrines_world:underworld"))
+		ResourceKey<Level> resourcekey = level.dimension() == ModDimensions.UNDERWORLD
 				? Level.OVERWORLD
-				: ResourceKey.create(Registries.DIMENSION, ResourceLocation.parse("herobrines_world:underworld"));
+				: ModDimensions.UNDERWORLD;
 		ServerLevel serverlevel = level.getServer().getLevel(resourcekey);
 		if (serverlevel == null) {
 			return null;
 		} else {
-			boolean flag = serverlevel.dimension() == ResourceKey.create(Registries.DIMENSION, ResourceLocation.parse("herobrines_world:underworld"));
+			boolean flag = serverlevel.dimension() == ModDimensions.UNDERWORLD;
 			WorldBorder worldborder = serverlevel.getWorldBorder();
 			double d0 = DimensionType.getTeleportationScale(level.dimensionType(), serverlevel.dimensionType());
 			BlockPos blockpos = worldborder.clampToBounds(pos.getX() * d0, pos.getY(), pos.getZ() * d0);
@@ -152,12 +147,7 @@ public class UnderworldPortal extends NetherPortalBlock {
 		return 0;
 	}
 
-	@Override
-	public Portal.@NotNull Transition getLocalTransition() {
-		return Transition.CONFUSION;
-	}
-
-	@Override
+    @Override
 	public void randomTick(@NotNull BlockState blockstate, @NotNull ServerLevel world, @NotNull BlockPos pos, @NotNull RandomSource random) {
 	}
 

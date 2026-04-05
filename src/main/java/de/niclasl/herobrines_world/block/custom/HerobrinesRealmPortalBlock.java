@@ -8,9 +8,7 @@ import net.minecraft.BlockUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -68,14 +66,14 @@ public class HerobrinesRealmPortalBlock extends NetherPortalBlock {
     @Nullable
     public TeleportTransition getPortalDestination(ServerLevel level, @NotNull Entity entity,
                                                    @NotNull BlockPos pos) {
-        ResourceKey<Level> resourcekey = level.dimension() == ResourceKey.create(Registries.DIMENSION, ResourceLocation.parse("herobrines_world:herobrines_realm"))
+        ResourceKey<Level> resourcekey = level.dimension() == ModDimensions.HEROBRINE_REALM
                 ? Level.OVERWORLD
                 : ModDimensions.HEROBRINE_REALM;
         ServerLevel serverlevel = level.getServer().getLevel(resourcekey);
         if (serverlevel == null) {
             return null;
         } else {
-            boolean flag = serverlevel.dimension() == ResourceKey.create(Registries.DIMENSION, ResourceLocation.parse("herobrines_world:herobrines_realm"));
+            boolean flag = serverlevel.dimension() == ModDimensions.HEROBRINE_REALM;
             WorldBorder worldborder = serverlevel.getWorldBorder();
             double d0 = DimensionType.getTeleportationScale(level.dimensionType(), serverlevel.dimensionType());
             BlockPos blockpos = worldborder.clampToBounds(entity.getX() * d0, entity.getY(), entity.getZ() * d0);

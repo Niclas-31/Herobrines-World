@@ -37,7 +37,7 @@ public class ModBlocks {
 			(properties) -> new HerobrinesRealmPortalBlock(properties.noCollision().randomTicks().pushReaction(PushReaction.BLOCK).strength(-1.0F).sound(SoundType.GLASS).lightLevel(s -> 0).noLootTable()));
 
 	public static final DeferredBlock<Block> UNDERWORLD_PORTAL = registerBlock("underworld_portal",
-			(properties) -> new UnderworldPortal(properties.noCollision().randomTicks().pushReaction(PushReaction.BLOCK).strength(-1.0F).sound(SoundType.GLASS).lightLevel(s -> 0).noLootTable()));
+			(properties) -> new UnderworldPortalBlock(properties.noCollision().randomTicks().pushReaction(PushReaction.BLOCK).strength(-1.0F).sound(SoundType.GLASS).lightLevel(s -> 0).noLootTable()));
 
 	public static final DeferredBlock<Block> BLUE_SANDSTONE = registerBlock("blue_sandstone",
 			(properties) -> new Block(properties.strength(0.8f).requiresCorrectToolForDrops()));

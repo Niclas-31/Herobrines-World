@@ -10,7 +10,7 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.core.BlockPos;
 
-import de.niclasl.herobrines_world.block.custom.UnderworldPortal;
+import de.niclasl.herobrines_world.block.custom.UnderworldPortalBlock;
 import org.jetbrains.annotations.NotNull;
 
 public class Underworld extends Item {
@@ -33,7 +33,7 @@ public class Underworld extends Item {
 		}
 
 		if (level.isEmptyBlock(pos)) {
-			UnderworldPortal.portalSpawn(level, pos);
+			UnderworldPortalBlock.portalSpawn(level, pos);
 
 			stack.hurtAndBreak(
 					1,

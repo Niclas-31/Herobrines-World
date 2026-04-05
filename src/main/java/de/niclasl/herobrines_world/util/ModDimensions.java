@@ -10,4 +10,7 @@ public class ModDimensions {
     public static final ResourceKey<Level> HEROBRINE_REALM =
             ResourceKey.create(Registries.DIMENSION,
                     ResourceLocation.fromNamespaceAndPath(HerobrinesWorld.MODID, "herobrines_realm"));
+    public static final ResourceKey<Level> UNDERWORLD =
+            ResourceKey.create(Registries.DIMENSION,
+                    ResourceLocation.fromNamespaceAndPath(HerobrinesWorld.MODID, "underworld"));
 }
