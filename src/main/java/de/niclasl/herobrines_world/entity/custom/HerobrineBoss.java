@@ -267,7 +267,7 @@ public class HerobrineBoss extends Monster {
 	@Override
 	protected void dropCustomDeathLoot(@NotNull ServerLevel level, @NotNull DamageSource source, boolean recentlyHit) {
 		if (ownedBoss) return;
-		this.spawnAtLocation(level, new ItemStack(Items.ENDER_EYE, 16 + random.nextInt(49)));
+		this.spawnAtLocation(level, new ItemStack(Items.ENDER_EYE, 32 + random.nextInt(32)));
 		super.dropCustomDeathLoot(level, source, recentlyHit);
 	}
 
