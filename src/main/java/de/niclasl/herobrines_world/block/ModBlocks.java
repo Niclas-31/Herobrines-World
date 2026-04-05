@@ -34,7 +34,7 @@ public class ModBlocks {
 			(properties) -> new ColoredFallingBlock(new ColorRGBA(14406560), properties.sound(SoundType.SAND).strength(1f, 10f)));
 
 	public static final DeferredBlock<Block> HEROBRINES_REALM_PORTAL = registerBlock("herobrines_realm_portal",
-			(properties) -> new HerobrinesRealmPortal(properties.noCollision().randomTicks().pushReaction(PushReaction.BLOCK).strength(-1.0F).sound(SoundType.GLASS).lightLevel(s -> 0).noLootTable()));
+			(properties) -> new HerobrinesRealmPortalBlock(properties.noCollision().randomTicks().pushReaction(PushReaction.BLOCK).strength(-1.0F).sound(SoundType.GLASS).lightLevel(s -> 0).noLootTable()));
 
 	public static final DeferredBlock<Block> UNDERWORLD_PORTAL = registerBlock("underworld_portal",
 			(properties) -> new UnderworldPortal(properties.noCollision().randomTicks().pushReaction(PushReaction.BLOCK).strength(-1.0F).sound(SoundType.GLASS).lightLevel(s -> 0).noLootTable()));
