@@ -3,6 +3,7 @@ package de.niclasl.herobrines_world.entity.custom;
 import de.niclasl.herobrines_world.entity.ModEntities;
 import de.niclasl.herobrines_world.item.ModItems;
 import de.niclasl.herobrines_world.network.ModVariables;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerBossEvent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -38,7 +39,9 @@ import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.awt.*;
 import java.util.*;
+import java.util.List;
 
 public class HerobrineBoss extends Monster {
 
@@ -286,6 +289,7 @@ public class HerobrineBoss extends Monster {
 			vars.herobrineRelicOwner = player.getUUID().toString();
 			world.isHerobrineDead = true;
 			world.markSyncDirty();
+			player.sendSystemMessage(Component.translatable("message.you_have_defeated_herobrine"));
 		}
 	}
 

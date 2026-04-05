@@ -43,12 +43,12 @@ public class HerobrineRelicItem extends Item {
 
         UUID owner = vars.getRelicOwner();
         if (owner == null) {
-            player.sendSystemMessage(Component.translatable("relic.is_defect"));
+            player.sendSystemMessage(Component.translatable("message.relic.is_defect"));
             return InteractionResult.FAIL;
         }
 
         if (!owner.equals(player.getUUID())) {
-            player.sendSystemMessage(Component.translatable("relic.is_not_yours"));
+            player.sendSystemMessage(Component.translatable("message.relic.is_not_yours"));
             return InteractionResult.FAIL;
         }
 
@@ -63,8 +63,8 @@ public class HerobrineRelicItem extends Item {
 
                     player.sendSystemMessage(Component.translatable(
                             newMode
-                                    ? "boss.minion_mode.enabled"
-                                    : "boss.minion_mode.disabled"
+                                    ? "message.boss.minion_mode.enabled"
+                                    : "message.boss.minion_mode.disabled"
                     ));
                     return InteractionResult.SUCCESS;
                 }
@@ -73,7 +73,7 @@ public class HerobrineRelicItem extends Item {
                 vars.ownedBossUUID = null;
 
                 player.sendSystemMessage(
-                        Component.translatable("boss.removed")
+                        Component.translatable("message.boss.removed")
                 );
                 return InteractionResult.SUCCESS;
             }
@@ -106,7 +106,7 @@ public class HerobrineRelicItem extends Item {
         vars.ownedBossUUID = boss.getUUID().toString();
 
         player.sendSystemMessage(
-                Component.translatable("boss.spawned")
+                Component.translatable("message.boss.spawned")
         );
 
         return InteractionResult.SUCCESS;

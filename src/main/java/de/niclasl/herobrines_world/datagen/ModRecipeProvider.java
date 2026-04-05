@@ -402,8 +402,6 @@ public class ModRecipeProvider extends RecipeProvider {
                 .define('C', Items.CLOCK)
                 .unlockedBy("has_clock", has(Items.CLOCK)).save(output);
 
-        // toxenium
-
         SmithingTransformRecipeBuilder.smithing(
                         Ingredient.of(ModItems.TOXENIUM_UPGRADE_SMITHING_TEMPLATE.get()),
                         Ingredient.of(ModItems.HEROBRINE_AXE.get()),
