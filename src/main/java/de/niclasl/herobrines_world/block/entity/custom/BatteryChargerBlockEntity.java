@@ -67,7 +67,7 @@ public class BatteryChargerBlockEntity extends BlockEntity implements Container,
         if (state.getValue(BatteryChargerBlock.POWERED)) {
             be.tickCounter++;
 
-            if (be.tickCounter >= 600) {
+            if (be.tickCounter >= 200) {
                 be.tickCounter = 0;
 
                 ItemStack stack = be.items.get(SLOT_BATTERY);

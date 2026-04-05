@@ -1,5 +1,6 @@
 package de.niclasl.herobrines_world.screen.custom;
 
+import de.niclasl.herobrines_world.HerobrinesWorld;
 import net.neoforged.neoforge.client.network.ClientPacketDistributor;
 
 import net.minecraft.world.entity.player.Player;
@@ -36,31 +37,33 @@ public class SignalColorChangerScreen extends AbstractContainerScreen<SignalColo
 	}
 
 	@Override
-	protected void renderBg(GuiGraphics guiGraphics, float partialTicks, int mouseX, int mouseY) {
-		guiGraphics.blit(RenderPipelines.GUI_TEXTURED, ResourceLocation.parse("herobrines_world:textures/gui/sprites/container/signal/red_lamp.png"), this.leftPos - 105, this.topPos + 56, 0, 0, 16, 16, 16, 16);
-		guiGraphics.blit(RenderPipelines.GUI_TEXTURED, ResourceLocation.parse("herobrines_world:textures/gui/sprites/container/signal/red_lamp_on.png"), this.leftPos - 89, this.topPos + 56, 0, 0, 16, 16, 16, 16);
-		guiGraphics.blit(RenderPipelines.GUI_TEXTURED, ResourceLocation.parse("herobrines_world:textures/gui/sprites/container/signal/yellow_lamp.png"), this.leftPos - 63, this.topPos + 56, 0, 0, 16, 16, 16, 16);
-		guiGraphics.blit(RenderPipelines.GUI_TEXTURED, ResourceLocation.parse("herobrines_world:textures/gui/sprites/container/signal/yellow_lamp_on.png"), this.leftPos - 48, this.topPos + 56, 0, 0, 16, 16, 16, 16);
-		guiGraphics.blit(RenderPipelines.GUI_TEXTURED, ResourceLocation.parse("herobrines_world:textures/gui/sprites/container/signal/green_lamp.png"), this.leftPos - 21, this.topPos + 56, 0, 0, 16, 16, 16, 16);
-		guiGraphics.blit(RenderPipelines.GUI_TEXTURED, ResourceLocation.parse("herobrines_world:textures/gui/sprites/container/signal/green_lamp_on.png"), this.leftPos - 5, this.topPos + 56, 0, 0, 16, 16, 16, 16);
-		guiGraphics.blit(RenderPipelines.GUI_TEXTURED, ResourceLocation.parse("herobrines_world:textures/gui/sprites/container/signal/blue_lamp.png"), this.leftPos + 20, this.topPos + 56, 0, 0, 16, 16, 16, 16);
-		guiGraphics.blit(RenderPipelines.GUI_TEXTURED, ResourceLocation.parse("herobrines_world:textures/gui/sprites/container/signal/blue_lamp_on.png"), this.leftPos + 36, this.topPos + 56, 0, 0, 16, 16, 16, 16);
-		guiGraphics.blit(RenderPipelines.GUI_TEXTURED, ResourceLocation.parse("herobrines_world:textures/gui/sprites/container/signal/cyan_lamp.png"), this.leftPos + 63, this.topPos + 56, 0, 0, 16, 16, 16, 16);
-		guiGraphics.blit(RenderPipelines.GUI_TEXTURED, ResourceLocation.parse("herobrines_world:textures/gui/sprites/container/signal/cyan_lamp_on.png"), this.leftPos + 79, this.topPos + 56, 0, 0, 16, 16, 16, 16);
-		guiGraphics.blit(RenderPipelines.GUI_TEXTURED, ResourceLocation.parse("herobrines_world:textures/gui/sprites/container/signal/orange_lamp.png"), this.leftPos + 106, this.topPos + 56, 0, 0, 16, 16, 16, 16);
-		guiGraphics.blit(RenderPipelines.GUI_TEXTURED, ResourceLocation.parse("herobrines_world:textures/gui/sprites/container/signal/orange_lamp_on.png"), this.leftPos + 122, this.topPos + 56, 0, 0, 16, 16, 16, 16);
-		guiGraphics.blit(RenderPipelines.GUI_TEXTURED, ResourceLocation.parse("herobrines_world:textures/gui/sprites/container/signal/gray_lamp.png"), this.leftPos - 105, this.topPos + 87, 0, 0, 16, 16, 16, 16);
-		guiGraphics.blit(RenderPipelines.GUI_TEXTURED, ResourceLocation.parse("herobrines_world:textures/gui/sprites/container/signal/gray_lamp_on.png"), this.leftPos - 89, this.topPos + 87, 0, 0, 16, 16, 16, 16);
-		guiGraphics.blit(RenderPipelines.GUI_TEXTURED, ResourceLocation.parse("herobrines_world:textures/gui/sprites/container/signal/light_blue_lamp.png"), this.leftPos - 63, this.topPos + 87, 0, 0, 16, 16, 16, 16);
-		guiGraphics.blit(RenderPipelines.GUI_TEXTURED, ResourceLocation.parse("herobrines_world:textures/gui/sprites/container/signal/light_blue_lamp_on.png"), this.leftPos - 47, this.topPos + 87, 0, 0, 16, 16, 16, 16);
-		guiGraphics.blit(RenderPipelines.GUI_TEXTURED, ResourceLocation.parse("herobrines_world:textures/gui/sprites/container/signal/light_gray_lamp.png"), this.leftPos - 21, this.topPos + 87, 0, 0, 16, 16, 16, 16);
-		guiGraphics.blit(RenderPipelines.GUI_TEXTURED, ResourceLocation.parse("herobrines_world:textures/gui/sprites/container/signal/gray_lamp_on.png"), this.leftPos - 5, this.topPos + 87, 0, 0, 16, 16, 16, 16);
-		guiGraphics.blit(RenderPipelines.GUI_TEXTURED, ResourceLocation.parse("herobrines_world:textures/gui/sprites/container/signal/lime_lamp.png"), this.leftPos + 20, this.topPos + 87, 0, 0, 16, 16, 16, 16);
-		guiGraphics.blit(RenderPipelines.GUI_TEXTURED, ResourceLocation.parse("herobrines_world:textures/gui/sprites/container/signal/lime_lamp_on.png"), this.leftPos + 36, this.topPos + 87, 0, 0, 16, 16, 16, 16);
-		guiGraphics.blit(RenderPipelines.GUI_TEXTURED, ResourceLocation.parse("herobrines_world:textures/gui/sprites/container/signal/magenta_lamp.png"), this.leftPos + 63, this.topPos + 87, 0, 0, 16, 16, 16, 16);
-		guiGraphics.blit(RenderPipelines.GUI_TEXTURED, ResourceLocation.parse("herobrines_world:textures/gui/sprites/container/signal/magenta_lamp_on.png"), this.leftPos + 79, this.topPos + 87, 0, 0, 16, 16, 16, 16);
-		guiGraphics.blit(RenderPipelines.GUI_TEXTURED, ResourceLocation.parse("herobrines_world:textures/gui/sprites/container/signal/pink_lamp.png"), this.leftPos + 106, this.topPos + 87, 0, 0, 16, 16, 16, 16);
-		guiGraphics.blit(RenderPipelines.GUI_TEXTURED, ResourceLocation.parse("herobrines_world:textures/gui/sprites/container/signal/pink_lamp_on.png"), this.leftPos + 122, this.topPos + 87, 0, 0, 16, 16, 16, 16);
+	protected void renderBg(@NotNull GuiGraphics guiGraphics, float partialTicks, int mouseX, int mouseY) {
+		Object[][] lamps = {
+				{-105, 56, "red_lamp"}, {-89, 56, "red_lamp_on"},
+				{-63, 56, "yellow_lamp"}, {-48, 56, "yellow_lamp_on"},
+				{-21, 56, "green_lamp"}, {-5, 56, "green_lamp_on"},
+				{20, 56, "blue_lamp"}, {36, 56, "blue_lamp_on"},
+				{63, 56, "cyan_lamp"}, {79, 56, "cyan_lamp_on"},
+				{106, 56, "orange_lamp"}, {122, 56, "orange_lamp_on"},
+				{-105, 87, "gray_lamp"}, {-89, 87, "gray_lamp_on"},
+				{-63, 87, "light_blue_lamp"}, {-47, 87, "light_blue_lamp_on"},
+				{-21, 87, "light_gray_lamp"}, {-5, 87, "gray_lamp_on"},
+				{20, 87, "lime_lamp"}, {36, 87, "lime_lamp_on"},
+				{63, 87, "magenta_lamp"}, {79, 87, "magenta_lamp_on"},
+				{106, 87, "pink_lamp"}, {122, 87, "pink_lamp_on"}
+		};
+
+		for (Object[] lamp : lamps) {
+			int x = (int) lamp[0];
+			int y = (int) lamp[1];
+			String color = (String) lamp[2];
+
+			ResourceLocation texture = ResourceLocation.fromNamespaceAndPath(HerobrinesWorld.MODID,
+					"textures/gui/sprites/container/signal/" + color + ".png");
+
+			guiGraphics.blit(RenderPipelines.GUI_TEXTURED, texture, this.leftPos + x, this.topPos + y,
+					0, 0, 16, 16, 16, 16);
+		}
 	}
 
     @Override
@@ -70,77 +73,48 @@ public class SignalColorChangerScreen extends AbstractContainerScreen<SignalColo
 	@Override
 	public void init() {
 		super.init();
-        ImageButton imagebutton_green_gui_button = new ImageButton(this.leftPos - 21, this.topPos - 20, 24, 24,
-                new WidgetSprites(ResourceLocation.parse("herobrines_world:textures/gui/sprites/container/signal/green_gui_button.png"), ResourceLocation.parse("herobrines_world:textures/gui/sprites/container/signal/green_gui_button.png")), e -> {
-            ClientPacketDistributor.sendToServer(new SignalColorChangerGuiButton(0, x, y, z));
-            SignalColorChangerGuiButton.handleButtonAction(entity, 0, x, y, z);
-        });
-		this.addRenderableWidget(imagebutton_green_gui_button);
-        ImageButton imagebutton_yellow_gui_button = new ImageButton(this.leftPos - 63, this.topPos - 20, 24, 24,
-                new WidgetSprites(ResourceLocation.parse("herobrines_world:textures/gui/sprites/container/signal/yellow_gui_button.png"), ResourceLocation.parse("herobrines_world:textures/gui/sprites/container/signal/yellow_gui_button.png")), e -> {
-            ClientPacketDistributor.sendToServer(new SignalColorChangerGuiButton(1, x, y, z));
-            SignalColorChangerGuiButton.handleButtonAction(entity, 1, x, y, z);
-        });
-		this.addRenderableWidget(imagebutton_yellow_gui_button);
-        ImageButton imagebutton_red_gui_button = new ImageButton(this.leftPos - 104, this.topPos - 20, 24, 24,
-                new WidgetSprites(ResourceLocation.parse("herobrines_world:textures/gui/sprites/container/signal/red_gui_button.png"), ResourceLocation.parse("herobrines_world:textures/gui/sprites/container/signal/red_gui_button.png")), e -> {
-            ClientPacketDistributor.sendToServer(new SignalColorChangerGuiButton(2, x, y, z));
-            SignalColorChangerGuiButton.handleButtonAction(entity, 2, x, y, z);
-        });
-		this.addRenderableWidget(imagebutton_red_gui_button);
-        ImageButton imagebutton_blue_gui_button = new ImageButton(this.leftPos + 20, this.topPos - 20, 24, 24,
-                new WidgetSprites(ResourceLocation.parse("herobrines_world:textures/gui/sprites/container/signal/blue_gui_button.png"), ResourceLocation.parse("herobrines_world:textures/gui/sprites/container/signal/blue_gui_button.png")), e -> {
-            ClientPacketDistributor.sendToServer(new SignalColorChangerGuiButton(3, x, y, z));
-            SignalColorChangerGuiButton.handleButtonAction(entity, 3, x, y, z);
-        });
-		this.addRenderableWidget(imagebutton_blue_gui_button);
-        ImageButton imagebutton_cyan_gui_button = new ImageButton(this.leftPos + 63, this.topPos - 20, 24, 24,
-                new WidgetSprites(ResourceLocation.parse("herobrines_world:textures/gui/sprites/container/signal/cyan_gui_button.png"), ResourceLocation.parse("herobrines_world:textures/gui/sprites/container/signal/cyan_gui_button.png")), e -> {
-            ClientPacketDistributor.sendToServer(new SignalColorChangerGuiButton(4, x, y, z));
-            SignalColorChangerGuiButton.handleButtonAction(entity, 4, x, y, z);
-        });
-		this.addRenderableWidget(imagebutton_cyan_gui_button);
-        ImageButton imagebutton_gray_gui_button = new ImageButton(this.leftPos - 104, this.topPos + 20, 24, 24,
-                new WidgetSprites(ResourceLocation.parse("herobrines_world:textures/gui/sprites/container/signal/gray_gui_button.png"), ResourceLocation.parse("herobrines_world:textures/gui/sprites/container/signal/gray_gui_button.png")), e -> {
-            ClientPacketDistributor.sendToServer(new SignalColorChangerGuiButton(5, x, y, z));
-            SignalColorChangerGuiButton.handleButtonAction(entity, 5, x, y, z);
-        });
-		this.addRenderableWidget(imagebutton_gray_gui_button);
-        ImageButton imagebutton_light_blue_gui_button = new ImageButton(this.leftPos - 63, this.topPos + 20, 24, 24,
-                new WidgetSprites(ResourceLocation.parse("herobrines_world:textures/gui/sprites/container/signal/light_blue_gui_button.png"), ResourceLocation.parse("herobrines_world:textures/gui/sprites/container/signal/light_blue_gui_button.png")), e -> {
-            ClientPacketDistributor.sendToServer(new SignalColorChangerGuiButton(6, x, y, z));
-            SignalColorChangerGuiButton.handleButtonAction(entity, 6, x, y, z);
-        });
-		this.addRenderableWidget(imagebutton_light_blue_gui_button);
-        ImageButton imagebutton_light_gray_gui_button = new ImageButton(this.leftPos - 21, this.topPos + 20, 24, 24,
-                new WidgetSprites(ResourceLocation.parse("herobrines_world:textures/gui/sprites/container/signal/light_gray_gui_button.png"), ResourceLocation.parse("herobrines_world:textures/gui/sprites/container/signal/light_gray_gui_button.png")), e -> {
-            ClientPacketDistributor.sendToServer(new SignalColorChangerGuiButton(7, x, y, z));
-            SignalColorChangerGuiButton.handleButtonAction(entity, 7, x, y, z);
-        });
-		this.addRenderableWidget(imagebutton_light_gray_gui_button);
-        ImageButton imagebutton_lime_gui_button = new ImageButton(this.leftPos + 20, this.topPos + 20, 24, 24,
-                new WidgetSprites(ResourceLocation.parse("herobrines_world:textures/gui/sprites/container/signal/lime_gui_button.png"), ResourceLocation.parse("herobrines_world:textures/gui/sprites/container/signal/lime_gui_button.png")), e -> {
-            ClientPacketDistributor.sendToServer(new SignalColorChangerGuiButton(8, x, y, z));
-            SignalColorChangerGuiButton.handleButtonAction(entity, 8, x, y, z);
-        });
-		this.addRenderableWidget(imagebutton_lime_gui_button);
-        ImageButton imagebutton_magenta_gui_button = new ImageButton(this.leftPos + 63, this.topPos + 20, 24, 24,
-                new WidgetSprites(ResourceLocation.parse("herobrines_world:textures/gui/sprites/container/signal/magenta_gui_button.png"), ResourceLocation.parse("herobrines_world:textures/gui/sprites/container/signal/magenta_gui_button.png")), e -> {
-            ClientPacketDistributor.sendToServer(new SignalColorChangerGuiButton(9, x, y, z));
-            SignalColorChangerGuiButton.handleButtonAction(entity, 9, x, y, z);
-        });
-		this.addRenderableWidget(imagebutton_magenta_gui_button);
-        ImageButton imagebutton_orange_gui_button = new ImageButton(this.leftPos + 106, this.topPos - 20, 24, 24,
-                new WidgetSprites(ResourceLocation.parse("herobrines_world:textures/gui/sprites/container/signal/orange_gui_button.png"), ResourceLocation.parse("herobrines_world:textures/gui/sprites/container/signal/orange_gui_button.png")), e -> {
-            ClientPacketDistributor.sendToServer(new SignalColorChangerGuiButton(10, x, y, z));
-            SignalColorChangerGuiButton.handleButtonAction(entity, 10, x, y, z);
-        });
-		this.addRenderableWidget(imagebutton_orange_gui_button);
-        ImageButton imagebutton_pink_gui_button = new ImageButton(this.leftPos + 106, this.topPos + 20, 24, 24,
-                new WidgetSprites(ResourceLocation.parse("herobrines_world:textures/gui/sprites/container/signal/pink_gui_button.png"), ResourceLocation.parse("herobrines_world:textures/gui/sprites/container/signal/pink_gui_button.png")), e -> {
-            ClientPacketDistributor.sendToServer(new SignalColorChangerGuiButton(11, x, y, z));
-            SignalColorChangerGuiButton.handleButtonAction(entity, 11, x, y, z);
-        });
-		this.addRenderableWidget(imagebutton_pink_gui_button);
+
+		int[][] buttonData = {
+				{-21, -20, 0}, {-63, -20, 1}, {-104, -20, 2}, {20, -20, 3},
+				{63, -20, 4}, {-104, 20, 5}, {-63, 20, 6}, {-21, 20, 7},
+				{20, 20, 8}, {63, 20, 9}, {106, -20, 10}, {106, 20, 11}
+		};
+
+		String[] colors = {
+				"green", "yellow", "red", "blue",
+				"cyan", "gray", "light_blue", "light_gray",
+				"lime", "magenta", "orange", "pink"
+		};
+
+		for (int i = 0; i < buttonData.length; i++) {
+			int xOffset = buttonData[i][0];
+			int yOffset = buttonData[i][1];
+			int buttonID = buttonData[i][2];
+			String color = colors[i];
+
+			int posX = this.leftPos + xOffset;
+			int posY = this.topPos + yOffset;
+
+			ResourceLocation texture = ResourceLocation.fromNamespaceAndPath(HerobrinesWorld.MODID,
+					"textures/gui/sprites/container/signal/" + color + "_gui_button.png");
+
+			ImageButton button = new ImageButton(
+					posX,
+					posY,
+					24, 24,
+					new WidgetSprites(texture, texture),
+					e -> {
+						ClientPacketDistributor.sendToServer(new SignalColorChangerGuiButton(buttonID, x, y, z));
+						SignalColorChangerGuiButton.handleButtonAction(entity, buttonID, x, y, z);
+					}
+			) {
+				@Override
+				public void renderWidget(GuiGraphics guiGraphics, int p_281473_, int p_283021_, float p_282518_) {
+					guiGraphics.blit(RenderPipelines.GUI_TEXTURED, texture, posX, posY, 0, 0, 24, 24, 24, 24);
+				}
+			};
+
+			this.addRenderableWidget(button);
+		}
 	}
 }
