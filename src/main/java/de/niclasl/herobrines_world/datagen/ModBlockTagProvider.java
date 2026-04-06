@@ -41,7 +41,8 @@ public class ModBlockTagProvider extends BlockTagsProvider {
                 .add(ModBlocks.BLUE_CUT_SANDSTONE.get())
                 .add(ModBlocks.BLUE_CUT_SANDSTONE_SLAB.get())
                 .add(ModBlocks.HEROBRINE_BLOCK.get())
-                .add(ModBlocks.AUTO_FARMER.get());
+                .add(ModBlocks.AUTO_FARMER.get())
+                .add(ModBlocks.BATTERY_CHARGER.get());
 
         tag(BlockTags.MINEABLE_WITH_SHOVEL)
                 .add(ModBlocks.ASH_BLOCK.get());
@@ -54,7 +55,8 @@ public class ModBlockTagProvider extends BlockTagsProvider {
                 .add(ModBlocks.DEEPSLATE_FROZEN_HEART_ORE.get())
                 .add(ModBlocks.GREEN_ORE.get())
                 .add(ModBlocks.DEEPSLATE_GREEN_ORE.get())
-                .add(ModBlocks.AUTO_FARMER.get());
+                .add(ModBlocks.AUTO_FARMER.get())
+                .add(ModBlocks.BATTERY_CHARGER.get());
 
         tag(BlockTags.NEEDS_IRON_TOOL)
                 .add(ModBlocks.HEROBRINE_ORE.get())
