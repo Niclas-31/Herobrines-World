@@ -2,10 +2,7 @@ package de.niclasl.herobrines_world.block.entity;
 
 import de.niclasl.herobrines_world.HerobrinesWorld;
 import de.niclasl.herobrines_world.block.ModBlocks;
-import de.niclasl.herobrines_world.block.entity.custom.AutoFarmerBlockEntity;
-import de.niclasl.herobrines_world.block.entity.custom.BatteryChargerBlockEntity;
-import de.niclasl.herobrines_world.block.entity.custom.DelayerEntity;
-import de.niclasl.herobrines_world.block.entity.custom.LogicGateBlockEntity;
+import de.niclasl.herobrines_world.block.entity.custom.*;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.bus.api.IEventBus;
