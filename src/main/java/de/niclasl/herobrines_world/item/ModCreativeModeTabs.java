@@ -3,6 +3,7 @@ package de.niclasl.herobrines_world.item;
 import de.niclasl.herobrines_world.block.ModBlocks;
 import de.niclasl.herobrines_world.block.custom.AutoFarmerBlock;
 import de.niclasl.herobrines_world.block.custom.Signal;
+import de.niclasl.herobrines_world.block.properties.ColorProperty;
 import de.niclasl.herobrines_world.block.properties.FarmerMode;
 import de.niclasl.herobrines_world.HerobrinesWorld;
 
@@ -23,7 +24,6 @@ public class ModCreativeModeTabs {
 	public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TAB =
 			DeferredRegister.create(Registries.CREATIVE_MODE_TAB, HerobrinesWorld.MODID);
 
-	// -------------------- Oberer Bereich --------------------
 	public static final DeferredHolder<CreativeModeTab, CreativeModeTab> HEROBRINE_BUILDING_BLOCKS =
 			CREATIVE_MODE_TAB.register("herobrine_building_blocks",
 					() -> CreativeModeTab.builder()
@@ -50,7 +50,7 @@ public class ModCreativeModeTabs {
 							.withTabsBefore(ResourceLocation.fromNamespaceAndPath(HerobrinesWorld.MODID, "herobrine_building_blocks"))
 							.title(Component.translatable("item_group.herobrines_world.herobrine_colored_blocks"))
 							.displayItems((parameters, tabData) -> {
-								for (Signal.ColorProperty color : Signal.ColorProperty.values()) {
+								for (ColorProperty color : ColorProperty.values()) {
 									tabData.accept(Signal.setModeOnStack(new ItemStack(ModBlocks.SIGNAL.get()), color));
 								}
 							}).build());
@@ -97,7 +97,7 @@ public class ModCreativeModeTabs {
 							.withTabsBefore(ResourceLocation.fromNamespaceAndPath(HerobrinesWorld.MODID, "herobrine_functional_blocks"))
 							.title(Component.translatable("item_group.herobrines_world.herobrine_redstone_blocks"))
 							.displayItems((parameters, tabData) -> {
-								for (Signal.ColorProperty color : Signal.ColorProperty.values()) {
+								for (ColorProperty color : ColorProperty.values()) {
 									tabData.accept(Signal.setModeOnStack(new ItemStack(ModBlocks.SIGNAL), color));
 								}
 								tabData.accept(ModBlocks.DELAYER);
@@ -109,7 +109,6 @@ public class ModCreativeModeTabs {
 								tabData.accept(ModBlocks.BATTERY_CHARGER);
 							}).build());
 
-	// -------------------- Unterer Bereich --------------------
 	public static final Supplier<CreativeModeTab> HEROBRINE_TOOLS_AND_UTILITIES =
 			CREATIVE_MODE_TAB.register("herobrine_tools_and_utilities",
 					() -> CreativeModeTab.builder()

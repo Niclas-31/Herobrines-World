@@ -1,6 +1,7 @@
 package de.niclasl.herobrines_world.block.custom;
 
 import com.mojang.serialization.MapCodec;
+import de.niclasl.herobrines_world.block.properties.ColorProperty;
 import de.niclasl.herobrines_world.screen.custom.SignalColorChangerMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
@@ -8,7 +9,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.RandomSource;
-import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.MenuProvider;
@@ -109,22 +109,5 @@ public class Signal extends Block {
 	public @NotNull ItemStack getCloneItemStack(@NotNull LevelReader level, @NotNull BlockPos pos, @NotNull BlockState state, boolean includeData, @NotNull Player player) {
 		ItemStack itemstack = super.getCloneItemStack(level, pos, state, includeData, player);
 		return setModeOnStack(itemstack, state.getValue(COLOR));
-	}
-
-	public enum ColorProperty implements StringRepresentable {
-		RED("red"), ORANGE("orange"), YELLOW("yellow"), LIME("lime"),
-		GREEN("green"), CYAN("cyan"), BLUE("blue"), MAGENTA("magenta"),
-		PINK("pink"), GRAY("gray"), LIGHT_GRAY("light_gray"), LIGHT_BLUE("light_blue");
-
-		private final String name;
-
-		ColorProperty(String name) {
-			this.name = name;
-		}
-
-		@Override
-		public @NotNull String getSerializedName() {
-			return this.name;
-		}
 	}
 }
