@@ -22,24 +22,24 @@ public class FrozenHeart extends Item {
 	public @NotNull InteractionResult use(@NotNull Level world, @NotNull Player entity, @NotNull InteractionHand hand) {
 		if (hand != InteractionHand.MAIN_HAND) return InteractionResult.PASS;
 
-		if (entity.getMainHandItem().getItem() == ModItems.FROZEN_HEART.get() && entity.getData(ModVariables.PLAYER_VARIABLES).Hearts < 3 && world instanceof ServerLevel _serverLevelGR2 && _serverLevelGR2.getGameRules().getBoolean(ModGameRules.THREE_HEARTS)) {
-			if (entity instanceof Player _player) {
-				ItemStack _storekeeper = new ItemStack(ModItems.FROZEN_HEART.get());
-				_player.getInventory().clearOrCountMatchingItems(p -> _storekeeper.getItem() == p.getItem(), 1, _player.inventoryMenu.getCraftSlots());
+		if (entity.getMainHandItem().getItem() == ModItems.FROZEN_HEART.get() && entity.getData(ModVariables.PLAYER_VARIABLES).Hearts < 3 && world instanceof ServerLevel server && server.getGameRules().getBoolean(ModGameRules.THREE_HEARTS)) {
+			if (entity instanceof Player player) {
+				ItemStack storekeeper = new ItemStack(ModItems.FROZEN_HEART.get());
+				player.getInventory().clearOrCountMatchingItems(p -> storekeeper.getItem() == p.getItem(), 1, player.inventoryMenu.getCraftSlots());
 			}
 			{
-				ModVariables.PlayerVariables _vars = entity.getData(ModVariables.PLAYER_VARIABLES);
-				_vars.Hearts = entity.getData(ModVariables.PLAYER_VARIABLES).Hearts + 1;
-				_vars.markSyncDirty();
+				ModVariables.PlayerVariables vars = entity.getData(ModVariables.PLAYER_VARIABLES);
+				vars.Hearts = entity.getData(ModVariables.PLAYER_VARIABLES).Hearts + 1;
+				vars.markSyncDirty();
 			}
 		} else {
-			if (entity.getMainHandItem().getItem() == ModItems.FROZEN_HEART.get() && entity.getData(ModVariables.PLAYER_VARIABLES).Hearts == 3 && world instanceof ServerLevel _serverLevelGR6 && _serverLevelGR6.getGameRules().getBoolean(ModGameRules.THREE_HEARTS)) {
-				if (entity instanceof Player _player && !_player.level().isClientSide())
-					_player.displayClientMessage(Component.literal((Component.translatable("message.not_more_hearts").getString())), true);
+			if (entity.getMainHandItem().getItem() == ModItems.FROZEN_HEART.get() && entity.getData(ModVariables.PLAYER_VARIABLES).Hearts == 3 && world instanceof ServerLevel server && server.getGameRules().getBoolean(ModGameRules.THREE_HEARTS)) {
+				if (entity instanceof Player player && !player.level().isClientSide())
+					player.displayClientMessage(Component.literal((Component.translatable("message.not_more_hearts").getString())), true);
 			} else {
-				if (entity.getMainHandItem().getItem() == ModItems.FROZEN_HEART.get() && !(world instanceof ServerLevel _serverLevelGR11 && _serverLevelGR11.getGameRules().getBoolean(ModGameRules.THREE_HEARTS))) {
-					if (entity instanceof Player _player && !_player.level().isClientSide())
-						_player.displayClientMessage(Component.literal((Component.translatable("message.gamerule_deactivate").getString())), true);
+				if (entity.getMainHandItem().getItem() == ModItems.FROZEN_HEART.get() && !(world instanceof ServerLevel server && server.getGameRules().getBoolean(ModGameRules.THREE_HEARTS))) {
+					if (entity instanceof Player player && !player.level().isClientSide())
+						player.displayClientMessage(Component.literal((Component.translatable("message.gamerule_deactivate").getString())), true);
 				}
 			}
 		}
