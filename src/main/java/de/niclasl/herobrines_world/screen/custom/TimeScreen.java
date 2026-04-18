@@ -1,32 +1,26 @@
 package de.niclasl.herobrines_world.screen.custom;
 
 import de.niclasl.herobrines_world.network.ModVariables;
-import net.neoforged.neoforge.client.network.ClientPacketDistributor;
-
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.resources.Identifier;
-import net.minecraft.network.chat.Component;
-import net.minecraft.client.renderer.RenderPipelines;
-import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
-import net.minecraft.client.gui.components.Button;
-import net.minecraft.client.gui.GuiGraphics;
-
 import de.niclasl.herobrines_world.network.message.TimeGuiButton;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.renderer.RenderPipelines;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.neoforged.neoforge.client.network.ClientPacketDistributor;
 import org.jetbrains.annotations.NotNull;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class TimeScreen extends AbstractContainerScreen<TimeMenu> {
-    private final int x, y, z;
 	private final Player entity;
 
     public TimeScreen(TimeMenu container, Inventory inventory, Component text) {
 		super(container, inventory, text);
-        this.x = container.x;
-		this.y = container.y;
-		this.z = container.z;
 		this.entity = container.entity;
 		this.imageWidth = 100;
 		this.imageHeight = 80;
@@ -61,8 +55,8 @@ public class TimeScreen extends AbstractContainerScreen<TimeMenu> {
 		boolean isHide = entity.getData(ModVariables.PLAYER_VARIABLES).Hide;
 
         Button button = Button.builder(isHide ? hide : show, e -> {
-            ClientPacketDistributor.sendToServer(new TimeGuiButton(0, x, y, z));
-            TimeGuiButton.handleButtonAction(entity, 0, x, y, z);
+            ClientPacketDistributor.sendToServer(new TimeGuiButton(0));
+            TimeGuiButton.handleButtonAction(entity, 0);
         }).bounds(this.leftPos + 31, this.topPos + 83, 46, 20).build();
 		this.addRenderableWidget(button);
 	}

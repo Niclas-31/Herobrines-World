@@ -1,26 +1,25 @@
 package de.niclasl.herobrines_world.network.message;
 
+import de.niclasl.herobrines_world.HerobrinesWorld;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.PacketFlow;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.StringRepresentable;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.block.state.properties.Property;
-import net.neoforged.neoforge.network.handling.IPayloadContext;
-import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.bus.api.SubscribeEvent;
-
-import net.minecraft.world.level.Level;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.resources.Identifier;
-import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.network.protocol.PacketFlow;
-import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.RegistryFriendlyByteBuf;
-import net.minecraft.core.BlockPos;
-
-import de.niclasl.herobrines_world.HerobrinesWorld;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.neoforge.network.handling.IPayloadContext;
 import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 @EventBusSubscriber
 public record SignalColorChangerGuiButton(int buttonID, int x, int y, int z) implements CustomPacketPayload {
@@ -212,7 +211,7 @@ public record SignalColorChangerGuiButton(int buttonID, int x, int y, int z) imp
 			Level world,
 			BlockPos pos,
 			BlockState state,
-			EnumProperty<T> property,
+			EnumProperty<@NonNull T> property,
 			String value
 	) {
 		property.getValue(value).ifPresent(val ->
