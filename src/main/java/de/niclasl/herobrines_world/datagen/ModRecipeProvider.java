@@ -44,6 +44,7 @@ public class ModRecipeProvider extends RecipeProvider {
                 ModBlocks.DEEPSLATE_GREEN_ORE);
         List<ItemLike> HEROBRINE_SMELTABLES = List.of(ModBlocks.HEROBRINE_ORE,
                 ModBlocks.DEEPSLATE_HEROBRINE_ORE);
+        List<ItemLike> TOXENIUM_SMELTABLES = List.of(ModBlocks.TOXENIUM_ORE);
         List<ItemLike> SMOOTH_SMELTABLES = List.of(ModBlocks.BLUE_SANDSTONE);
 
         oreSmelting(output, ASH_SMELTABLES, RecipeCategory.MISC, ModItems.ASH_INGOT.get(), 0.25f, "ash");
@@ -491,6 +492,17 @@ public class ModRecipeProvider extends RecipeProvider {
                 )
                 .unlocks("has_toxenium", has(ModItems.TOXENIUM_INGOT.get()))
                 .save(output, "toxenium_sword");
+
+        oreSmelting(output, TOXENIUM_SMELTABLES, RecipeCategory.MISC, ModItems.TOXENIUM_SCRAP, 0.35f, "toxenium");
+        oreBlasting(output, TOXENIUM_SMELTABLES, ModItems.TOXENIUM_SCRAP, 0.35f, "toxenium");
+
+        shaped(RecipeCategory.MISC, ModItems.TOXENIUM_INGOT.get())
+                .pattern("SSS")
+                .pattern("SGG")
+                .pattern("GG ")
+                .define('S', ModItems.TOXENIUM_SCRAP.get())
+                .define('G', Items.GOLD_INGOT)
+                .unlockedBy("has_toxenium_scrap", has(ModItems.TOXENIUM_SCRAP)).save(output);
 
         shaped(RecipeCategory.TOOLS, ModItems.UNDERWORLD.get())
                 .pattern(" A ")

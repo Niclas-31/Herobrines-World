@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "herobrines_world:toxenium_scrap_from_smelting_toxenium_ore"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_toxenium_ore": {
+      "conditions": {
+        "items": [
+          {
+            "items": "herobrines_world:toxenium_ore"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_toxenium_ore"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "herobrines_world:toxenium_scrap_from_smelting_toxenium_ore"
+    ]
+  }
+}

@@ -256,6 +256,10 @@ public class ModItems {
 			"toxenium_boots",
 			(properties) -> new Toxenium.Boots(properties.fireResistant()));
 
+	public static final DeferredItem<Item> TOXENIUM_SCRAP = ITEMS.registerItem(
+			"toxenium_scrap",
+			(properties) -> new ToxeniumScrap(properties.fireResistant()));
+
 	public static final DeferredItem<Item> TOXENIUM_INGOT = ITEMS.registerItem(
 			"toxenium_ingot",
 			(properties) -> new ToxeniumIngot(properties.rarity(Rarity.EPIC).fireResistant()));

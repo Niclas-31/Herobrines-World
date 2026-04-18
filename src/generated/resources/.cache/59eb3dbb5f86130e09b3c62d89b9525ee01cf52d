@@ -1,4 +1,4 @@
-// 1.21.10	2026-03-30T17:55:33.3721166	Loot Tables
+// 1.21.11	2026-04-18T15:45:53.4041627	Loot Tables
 24a7cc8dbb2405e957a33a010d3ff42364af4a42 data/herobrines_world/loot_table/blocks/abyssal_block.json
 7af76326fd995331f6e2c33677b34c7b0714b3a0 data/herobrines_world/loot_table/blocks/ash_block.json
 a6205993704351e4b1456c9381be68154347908b data/herobrines_world/loot_table/blocks/ash_ore.json
@@ -27,4 +27,4 @@ abb54fbeeb293ec8c42b8232a05903e27730e246 data/herobrines_world/loot_table/blocks
 dd153d70725c844ee4418862b161f954bc6c3399 data/herobrines_world/loot_table/blocks/logic_gate_block.json
 17aa36175d65d90ea84f5b8bc84a37111846ed56 data/herobrines_world/loot_table/blocks/lumberjack_table.json
 5d90e4b8e46fb9743037c4ab726e27de5a6bf97a data/herobrines_world/loot_table/blocks/signal.json
-5ded54682cd55028f24913886d09e29e34213af8 data/herobrines_world/loot_table/blocks/toxenium_ore.json
+651e334be3b07a6eecc3bb8dd439a6e210772ca1 data/herobrines_world/loot_table/blocks/toxenium_ore.json

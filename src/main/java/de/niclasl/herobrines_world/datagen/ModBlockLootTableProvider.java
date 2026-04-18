@@ -43,8 +43,8 @@ public class ModBlockLootTableProvider extends BlockLootSubProvider {
         add(ModBlocks.DEEPSLATE_ASH_ORE.get(), block -> createOreDrop(block, ModItems.ASH.get()));
         add(ModBlocks.HEROBRINE_ORE.get(), block -> createOreDrop(block, ModItems.HEROBRINE_DIAMOND.get()));
         add(ModBlocks.DEEPSLATE_HEROBRINE_ORE.get(), block -> createOreDrop(block, ModItems.HEROBRINE_DIAMOND.get()));
-        add(ModBlocks.TOXENIUM_ORE.get(), block -> createOreDrop(block, ModItems.TOXENIUM_INGOT.get()));
 
+        dropSelf(ModBlocks.TOXENIUM_ORE.get());
         dropSelf(ModBlocks.DELAYER.get());
         dropSelf(ModBlocks.LOGIC_GATE_BLOCK.get());
         dropSelf(ModBlocks.AUTO_FARMER.get());

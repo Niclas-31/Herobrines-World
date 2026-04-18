@@ -185,6 +185,7 @@ public class ModCreativeModeTabs {
 								tabData.accept(ModItems.FROZEN_HEART);
 								tabData.accept(ModItems.TOXENIUM_UPGRADE_SMITHING_TEMPLATE);
 								tabData.accept(ModItems.TOXENIUM_INGOT);
+								tabData.accept(ModItems.TOXENIUM_SCRAP);
 								tabData.accept(ModItems.GREEN_GEMSTONE);
 								tabData.accept(ModItems.RUNE_STONE);
 							}).build());

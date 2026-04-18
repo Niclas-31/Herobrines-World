@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "G": "minecraft:gold_ingot",
+    "S": "herobrines_world:toxenium_scrap"
+  },
+  "pattern": [
+    "SSS",
+    "SGG",
+    "GG "
+  ],
+  "result": {
+    "count": 1,
+    "id": "herobrines_world:toxenium_ingot"
+  }
+}
