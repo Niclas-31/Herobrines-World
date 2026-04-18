@@ -1,6 +1,6 @@
 package de.niclasl.herobrines_world.teleporter;
 
-import net.minecraft.BlockUtil;
+import net.minecraft.util.BlockUtil;
 import net.neoforged.neoforge.registries.RegisterEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -16,7 +16,7 @@ import net.minecraft.world.entity.ai.village.poi.PoiRecord;
 import net.minecraft.world.entity.ai.village.poi.PoiManager;
 import net.minecraft.util.Mth;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.Vec3i;
@@ -39,7 +39,7 @@ public class HerobrinesRealmTeleporter {
     public static void registerPointOfInterest(RegisterEvent event) {
         event.register(Registries.POINT_OF_INTEREST_TYPE, registerHelper -> {
             PoiType poiType = new PoiType(ImmutableSet.copyOf(ModBlocks.HEROBRINES_REALM_PORTAL.get().getStateDefinition().getPossibleStates()), 0, 1);
-            registerHelper.register(ResourceLocation.parse("herobrines_world:herobrines_realm_portal"), poiType);
+            registerHelper.register(Identifier.parse("herobrines_world:herobrines_realm_portal"), poiType);
             poi = BuiltInRegistries.POINT_OF_INTEREST_TYPE.wrapAsHolder(poiType);
         });
     }

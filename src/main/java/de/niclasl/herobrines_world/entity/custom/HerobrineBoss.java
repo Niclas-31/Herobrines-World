@@ -3,6 +3,7 @@ package de.niclasl.herobrines_world.entity.custom;
 import de.niclasl.herobrines_world.entity.ModEntities;
 import de.niclasl.herobrines_world.item.ModItems;
 import de.niclasl.herobrines_world.network.ModVariables;
+import de.niclasl.herobrines_world.network.WorldState;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerBossEvent;
 import net.minecraft.server.level.ServerLevel;
@@ -26,7 +27,7 @@ import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.SmallFireball;
+import net.minecraft.world.entity.projectile.hurtingprojectile.SmallFireball;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
@@ -281,13 +282,13 @@ public class HerobrineBoss extends Monster {
 
 		ModVariables.WorldVariables world = ModVariables.WorldVariables.get(level());
 
-		if (source.getEntity() instanceof ServerPlayer player && !world.isHerobrineDead) {
+		if (source.getEntity() instanceof ServerPlayer player && !WorldState.isHerobrineDead(level())) {
 			ItemStack relicStack = new ItemStack(ModItems.HEROBRINE_RELIC.get());
 			player.addItem(relicStack);
 
 			ModVariables.PlayerVariables vars = player.getData(ModVariables.PLAYER_VARIABLES);
 			vars.herobrineRelicOwner = player.getUUID().toString();
-			world.isHerobrineDead = true;
+			WorldState.setHerobrineDead(level(), true);
 			world.markSyncDirty();
 			player.sendSystemMessage(Component.translatable("message.you_have_defeated_herobrine"));
 		}

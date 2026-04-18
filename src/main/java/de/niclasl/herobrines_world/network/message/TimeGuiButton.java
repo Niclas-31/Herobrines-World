@@ -8,7 +8,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 
 import net.minecraft.world.level.Level;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.network.protocol.PacketFlow;
 import net.minecraft.network.codec.StreamCodec;
@@ -22,7 +22,7 @@ import org.jetbrains.annotations.NotNull;
 @EventBusSubscriber
 public record TimeGuiButton(int buttonID, int x, int y, int z) implements CustomPacketPayload {
 
-	public static final Type<TimeGuiButton> TYPE = new Type<>(ResourceLocation.fromNamespaceAndPath(HerobrinesWorld.MODID, "uhr_gui_buttons"));
+	public static final Type<TimeGuiButton> TYPE = new Type<>(Identifier.fromNamespaceAndPath(HerobrinesWorld.MODID, "uhr_gui_buttons"));
 	public static final StreamCodec<RegistryFriendlyByteBuf, TimeGuiButton> STREAM_CODEC = StreamCodec.of((RegistryFriendlyByteBuf buffer, TimeGuiButton message) -> {
 		buffer.writeInt(message.buttonID);
 		buffer.writeInt(message.x);

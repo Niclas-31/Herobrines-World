@@ -4,7 +4,7 @@ import net.neoforged.neoforge.client.network.ClientPacketDistributor;
 
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.network.chat.Component;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
@@ -39,7 +39,7 @@ public class TimeScreen extends AbstractContainerScreen<TimeMenu> {
 
 	@Override
 	protected void renderBg(GuiGraphics guiGraphics, float partialTicks, int mouseX, int mouseY) {
-		guiGraphics.blit(RenderPipelines.GUI_TEXTURED, ResourceLocation.parse("herobrines_world:textures/gui/container/clock.png"), this.leftPos - 49, this.topPos - 59, 0, 0, 200, 200, 200, 200);
+		guiGraphics.blit(RenderPipelines.GUI_TEXTURED, Identifier.parse("herobrines_world:textures/gui/container/clock.png"), this.leftPos - 49, this.topPos - 59, 0, 0, 200, 200, 200, 200);
 	}
 
 	@Override

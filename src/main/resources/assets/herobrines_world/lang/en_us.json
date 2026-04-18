@@ -169,5 +169,7 @@
   "advancements.mine_herobrine_diamond.title": "Herobrine Diamonds!",
   "advancements.make_a_new_armor.descr": "Protect yourself with a piece of fire armor",
   "advancements.make_a_new_armor.title": "Make A New Armor",
-  "advancements.herobrines_world.title": "Herobrines World"
+  "advancements.herobrines_world.title": "Herobrines World",
+
+  "herobrines_world.configuration.threeHearts": "Three Hearts"
 }

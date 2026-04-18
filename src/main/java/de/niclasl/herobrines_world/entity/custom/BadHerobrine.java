@@ -22,9 +22,7 @@ import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.AbstractThrownPotion;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.entity.projectile.throwableitemprojectile.AbstractThrownPotion;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
@@ -169,35 +167,7 @@ public class BadHerobrine extends Monster {
 
 	public void aiStep() {
 		this.setNoGravity(true);
-
-		if (this.isAlive()) {
-			boolean flag = this.isSunSensitive() && this.isSunBurnTick();
-			if (flag) {
-				ItemStack itemstack = this.getItemBySlot(EquipmentSlot.HEAD);
-				if (!itemstack.isEmpty()) {
-					if (itemstack.isDamageableItem()) {
-						Item item = itemstack.getItem();
-						itemstack.setDamageValue(itemstack.getDamageValue() + this.random.nextInt(2));
-						if (itemstack.getDamageValue() >= itemstack.getMaxDamage()) {
-							this.onEquippedItemBroken(item, EquipmentSlot.HEAD);
-							this.setItemSlot(EquipmentSlot.HEAD, ItemStack.EMPTY);
-						}
-					}
-
-					flag = false;
-				}
-
-				if (flag) {
-					this.igniteForSeconds(8.0F);
-				}
-			}
-		}
-
 		super.aiStep();
-	}
-
-	protected boolean isSunSensitive() {
-		return true;
 	}
 
 	public static void init(RegisterSpawnPlacementsEvent event) {
@@ -209,7 +179,7 @@ public class BadHerobrine extends Monster {
 	public static AttributeSupplier.Builder createAttributes() {
 		AttributeSupplier.Builder builder = Mob.createMobAttributes();
 		builder = builder.add(Attributes.MOVEMENT_SPEED, 0.3);
-		builder = builder.add(Attributes.MAX_HEALTH, 80);
+		builder = builder.add(Attributes.MAX_HEALTH, 40);
 		builder = builder.add(Attributes.ARMOR, 0);
 		builder = builder.add(Attributes.ATTACK_DAMAGE, 3);
 		builder = builder.add(Attributes.FOLLOW_RANGE, 16);

@@ -1,10 +1,10 @@
 package de.niclasl.herobrines_world.entity.custom;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.entity.projectile.AbstractArrow;
-import net.minecraft.world.entity.projectile.AbstractThrownPotion;
+import net.minecraft.world.entity.projectile.arrow.AbstractArrow;
+import net.minecraft.world.entity.projectile.throwableitemprojectile.AbstractThrownPotion;
 import net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent;
 import net.neoforged.neoforge.common.NeoForgeMod;
 
@@ -106,10 +106,10 @@ public class ChristmasNiclasl extends Monster {
 			int x = pos.getX();
 			int y = pos.getY();
 			int z = pos.getZ();
-			if (world.getBiome(BlockPos.containing(x, y, z)).is(ResourceLocation.parse("herobrines_world:frozen_forest"))) {
+			if (world.getBiome(BlockPos.containing(x, y, z)).is(Identifier.parse("herobrines_world:frozen_forest"))) {
 				return true;
 			}
-			return world.getBiome(BlockPos.containing(x, y, z)).is(ResourceLocation.parse("herobrines_world:fire_land")) && Calendar.getInstance().get(Calendar.MONTH) == Calendar.DECEMBER
+			return world.getBiome(BlockPos.containing(x, y, z)).is(Identifier.parse("herobrines_world:fire_land")) && Calendar.getInstance().get(Calendar.MONTH) == Calendar.DECEMBER
 					&& (Calendar.getInstance().get(Calendar.DAY_OF_MONTH) == 24 || Calendar.getInstance().get(Calendar.DAY_OF_MONTH) == 25 || Calendar.getInstance().get(Calendar.DAY_OF_MONTH) == 26);
 		}, RegisterSpawnPlacementsEvent.Operation.REPLACE);
 	}
@@ -117,7 +117,7 @@ public class ChristmasNiclasl extends Monster {
 	public static AttributeSupplier.Builder createAttributes() {
 		AttributeSupplier.Builder builder = Mob.createMobAttributes();
 		builder = builder.add(Attributes.MOVEMENT_SPEED, 0.3);
-		builder = builder.add(Attributes.MAX_HEALTH, 1024);
+		builder = builder.add(Attributes.MAX_HEALTH, 100);
 		builder = builder.add(Attributes.ARMOR, 0);
 		builder = builder.add(Attributes.ATTACK_DAMAGE, 3);
 		builder = builder.add(Attributes.FOLLOW_RANGE, 16);

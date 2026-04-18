@@ -8,10 +8,10 @@ import de.niclasl.herobrines_world.villager.ModVillagers;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.npc.VillagerTrades;
+import net.minecraft.world.entity.npc.villager.VillagerTrades;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionBrewing;
@@ -43,63 +43,63 @@ public class ModEvents {
         if (event.getType() == ModVillagers.LUMBERJACK) {
             Int2ObjectMap<List<VillagerTrades.ItemListing>> trades = event.getTrades();
 
-            trades.get(1).add((entity, randomSource) -> new MerchantOffer(
+            trades.get(1).add((level, entity, randomSource) -> new MerchantOffer(
                     new ItemCost(Blocks.OAK_LOG, 16),
                     new ItemStack(Items.EMERALD), 10, 5, 0.05f));
 
-            trades.get(1).add((entity, randomSource) -> new MerchantOffer(
+            trades.get(1).add((level, entity, randomSource) -> new MerchantOffer(
                     new ItemCost(Blocks.BIRCH_LOG, 16),
                     new ItemStack(Items.EMERALD), 10, 5, 0.05f));
 
-            trades.get(1).add((entity, randomSource) -> new MerchantOffer(
+            trades.get(1).add((level, entity, randomSource) -> new MerchantOffer(
                     new ItemCost(Blocks.SPRUCE_LOG, 16),
                     new ItemStack(Items.EMERALD), 10, 5, 0.05f));
 
-            trades.get(1).add((entity, randomSource) -> new MerchantOffer(
+            trades.get(1).add((level, entity, randomSource) -> new MerchantOffer(
                     new ItemCost(Blocks.JUNGLE_LOG, 16),
                     new ItemStack(Items.EMERALD), 10, 5, 0.05f));
 
-            trades.get(1).add((entity, randomSource) -> new MerchantOffer(
+            trades.get(1).add((level, entity, randomSource) -> new MerchantOffer(
                     new ItemCost(Blocks.ACACIA_LOG, 16),
                     new ItemStack(Items.EMERALD), 10, 5, 0.05f));
 
-            trades.get(1).add((entity, randomSource) -> new MerchantOffer(
+            trades.get(1).add((level, entity, randomSource) -> new MerchantOffer(
                     new ItemCost(Blocks.DARK_OAK_LOG, 16),
                     new ItemStack(Items.EMERALD), 10, 5, 0.05f));
 
-            trades.get(2).add((entity, randomSource) -> new MerchantOffer(
+            trades.get(2).add((level, entity, randomSource) -> new MerchantOffer(
                     new ItemCost(Blocks.MANGROVE_LOG, 16),
                     new ItemStack(Items.EMERALD, 2), 15, 10, 0.08f));
 
-            trades.get(2).add((entity, randomSource) -> new MerchantOffer(
+            trades.get(2).add((level, entity, randomSource) -> new MerchantOffer(
                     new ItemCost(Blocks.BAMBOO_BLOCK, 16),
                     new ItemStack(Items.EMERALD, 2), 15, 10, 0.08f));
 
-            trades.get(2).add((entity, randomSource) -> new MerchantOffer(
+            trades.get(2).add((level, entity, randomSource) -> new MerchantOffer(
                     new ItemCost(Blocks.CHERRY_LOG, 16),
                     new ItemStack(Items.EMERALD, 2), 15, 10, 0.08f));
 
-            trades.get(3).add((entity, randomSource) -> new MerchantOffer(
+            trades.get(3).add((level, entity, randomSource) -> new MerchantOffer(
                     new ItemCost(Blocks.PALE_OAK_LOG, 16),
                     new ItemStack(Items.EMERALD, 3), 20, 15, 0.11f));
 
-            trades.get(3).add((entity, randomSource) -> new MerchantOffer(
+            trades.get(3).add((level, entity, randomSource) -> new MerchantOffer(
                     new ItemCost(Blocks.WARPED_STEM, 16),
                     new ItemStack(Items.EMERALD, 3), 20, 15, 0.11f));
 
-            trades.get(3).add((entity, randomSource) -> new MerchantOffer(
+            trades.get(3).add((level, entity, randomSource) -> new MerchantOffer(
                     new ItemCost(Blocks.CRIMSON_STEM, 16),
                     new ItemStack(Items.EMERALD, 3), 20, 15, 0.11f));
 
-            trades.get(4).add((entity, randomSource) -> new MerchantOffer(
+            trades.get(4).add((level, entity, randomSource) -> new MerchantOffer(
                     new ItemCost(Items.EMERALD, 5),
                     new ItemStack(Items.IRON_AXE), 1, 20, 0.14f));
 
-            trades.get(4).add((entity, randomSource) -> new MerchantOffer(
+            trades.get(4).add((level, entity, randomSource) -> new MerchantOffer(
                     new ItemCost(Items.EMERALD, 10),
                     new ItemStack(Items.DIAMOND_AXE), 1, 20, 0.14f));
 
-            trades.get(5).add((entity, randomSource) -> new MerchantOffer(
+            trades.get(5).add((level, entity, randomSource) -> new MerchantOffer(
                     new ItemCost(Items.EMERALD, 15),
                     new ItemStack(Items.NETHERITE_AXE), 1, 25, 0.17f));
         }
@@ -120,7 +120,7 @@ public class ModEvents {
                         .lookupOrThrow(Registries.ENCHANTMENT)
                         .getOrThrow(ResourceKey.create(
                                 Registries.ENCHANTMENT,
-                                ResourceLocation.parse("herobrines_world:more_souls")
+                                Identifier.parse("herobrines_world:more_souls")
                         ))
         );
 

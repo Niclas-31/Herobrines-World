@@ -4,13 +4,13 @@ import com.mojang.logging.LogUtils;
 import de.niclasl.herobrines_world.teleporter.UnderworldPortalShape;
 import de.niclasl.herobrines_world.teleporter.UnderworldTeleporter;
 import de.niclasl.herobrines_world.util.ModDimensions;
-import net.minecraft.BlockUtil;
+import net.minecraft.util.BlockUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
@@ -171,6 +171,6 @@ public class UnderworldPortalBlock extends NetherPortalBlock {
 			world.addParticle(ParticleTypes.PORTAL, px, py, pz, vx, vy, vz);
 		}
 		if (random.nextInt(110) == 0)
-			world.playLocalSound(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, Objects.requireNonNull(BuiltInRegistries.SOUND_EVENT.getValue(ResourceLocation.parse("block.portal.ambient"))), SoundSource.BLOCKS, 0.5f, random.nextFloat() * 0.4f + 0.8f, false);
+			world.playLocalSound(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, Objects.requireNonNull(BuiltInRegistries.SOUND_EVENT.getValue(Identifier.parse("block.portal.ambient"))), SoundSource.BLOCKS, 0.5f, random.nextFloat() * 0.4f + 0.8f, false);
 	}
 }

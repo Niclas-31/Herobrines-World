@@ -11,7 +11,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 
 import net.minecraft.world.level.Level;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.network.protocol.PacketFlow;
 import net.minecraft.network.codec.StreamCodec;
@@ -25,7 +25,7 @@ import org.jetbrains.annotations.NotNull;
 @EventBusSubscriber
 public record SignalColorChangerGuiButton(int buttonID, int x, int y, int z) implements CustomPacketPayload {
 
-	public static final Type<SignalColorChangerGuiButton> TYPE = new Type<>(ResourceLocation.fromNamespaceAndPath(HerobrinesWorld.MODID, "signal_color_changer_gui_buttons"));
+	public static final Type<SignalColorChangerGuiButton> TYPE = new Type<>(Identifier.fromNamespaceAndPath(HerobrinesWorld.MODID, "signal_color_changer_gui_buttons"));
 	public static final StreamCodec<RegistryFriendlyByteBuf, SignalColorChangerGuiButton> STREAM_CODEC = StreamCodec.of((RegistryFriendlyByteBuf buffer, SignalColorChangerGuiButton message) -> {
 		buffer.writeInt(message.buttonID);
 		buffer.writeInt(message.x);

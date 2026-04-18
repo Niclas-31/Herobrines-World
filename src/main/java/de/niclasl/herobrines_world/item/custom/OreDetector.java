@@ -2,7 +2,7 @@ package de.niclasl.herobrines_world.item.custom;
 
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.component.CustomData;
@@ -250,77 +250,77 @@ public class OreDetector extends Item {
 			if (posY > -64) {
 				for (int index0 = 0; index0 < 256; index0++) {
 					if ((itemstack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getStringOr("oreMode", "")).equals("Coal")
-							&& (world.getBlockState(BlockPos.containing(x, posY, z))).is(BlockTags.create(ResourceLocation.parse(((namespace + ":" + "ores/coal")).toLowerCase(Locale.ENGLISH))))) {
+							&& (world.getBlockState(BlockPos.containing(x, posY, z))).is(BlockTags.create(Identifier.parse(((namespace + ":" + "ores/coal")).toLowerCase(Locale.ENGLISH))))) {
 						if (entity instanceof Player player && !player.level().isClientSide())
 							player.displayClientMessage(Component.literal(("Metal Detector: §0Found ore!§f" + " X: " + x + " Y: " + posY + " Z: " + z)), false);
 					}
 					if ((itemstack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getStringOr("oreMode", "")).equals("Copper")
-							&& (world.getBlockState(BlockPos.containing(x, posY, z))).is(BlockTags.create(ResourceLocation.parse(((namespace + ":" + "ores/copper")).toLowerCase(Locale.ENGLISH))))) {
+							&& (world.getBlockState(BlockPos.containing(x, posY, z))).is(BlockTags.create(Identifier.parse(((namespace + ":" + "ores/copper")).toLowerCase(Locale.ENGLISH))))) {
 						if (entity instanceof Player player && !player.level().isClientSide())
 							player.displayClientMessage(Component.literal(("Metal Detector: §0Found ore!§f" + " X: " + x + " Y: " + posY + " Z: " + z)), false);
 					}
 					if ((itemstack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getStringOr("oreMode", "")).equals("Diamond")
-							&& (world.getBlockState(BlockPos.containing(x, posY, z))).is(BlockTags.create(ResourceLocation.parse(((namespace + ":" + "ores/diamond")).toLowerCase(Locale.ENGLISH))))) {
+							&& (world.getBlockState(BlockPos.containing(x, posY, z))).is(BlockTags.create(Identifier.parse(((namespace + ":" + "ores/diamond")).toLowerCase(Locale.ENGLISH))))) {
 						if (entity instanceof Player player && !player.level().isClientSide())
 							player.displayClientMessage(Component.literal(("Metal Detector: §0Found ore!§f" + " X: " + x + " Y: " + posY + " Z: " + z)), false);
 					}
 					if ((itemstack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getStringOr("oreMode", "")).equals("Emerald")
-							&& (world.getBlockState(BlockPos.containing(x, posY, z))).is(BlockTags.create(ResourceLocation.parse(((namespace + ":" + "ores/emerald")).toLowerCase(Locale.ENGLISH))))) {
+							&& (world.getBlockState(BlockPos.containing(x, posY, z))).is(BlockTags.create(Identifier.parse(((namespace + ":" + "ores/emerald")).toLowerCase(Locale.ENGLISH))))) {
 						if (entity instanceof Player player && !player.level().isClientSide())
 							player.displayClientMessage(Component.literal(("Metal Detector: §0Found ore!§f" + " X: " + x + " Y: " + posY + " Z: " + z)), false);
 					}
 					if ((itemstack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getStringOr("oreMode", "")).equals("Gold")
-							&& (world.getBlockState(BlockPos.containing(x, posY, z))).is(BlockTags.create(ResourceLocation.parse(((namespace + ":" + "ores/gold")).toLowerCase(Locale.ENGLISH))))) {
+							&& (world.getBlockState(BlockPos.containing(x, posY, z))).is(BlockTags.create(Identifier.parse(((namespace + ":" + "ores/gold")).toLowerCase(Locale.ENGLISH))))) {
 						if (entity instanceof Player player && !player.level().isClientSide())
 							player.displayClientMessage(Component.literal(("Metal Detector: §0Found ore!§f" + " X: " + x + " Y: " + posY + " Z: " + z)), false);
 					}
 					if ((itemstack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getStringOr("oreMode", "")).equals("Iron")
-							&& (world.getBlockState(BlockPos.containing(x, posY, z))).is(BlockTags.create(ResourceLocation.parse(((namespace + ":" + "ores/iron")).toLowerCase(Locale.ENGLISH))))) {
+							&& (world.getBlockState(BlockPos.containing(x, posY, z))).is(BlockTags.create(Identifier.parse(((namespace + ":" + "ores/iron")).toLowerCase(Locale.ENGLISH))))) {
 						if (entity instanceof Player player && !player.level().isClientSide())
 							player.displayClientMessage(Component.literal(("Metal Detector: §0Found ore!§f" + " X: " + x + " Y: " + posY + " Z: " + z)), false);
 					}
 					if ((itemstack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getStringOr("oreMode", "")).equals("Lapis")
-							&& (world.getBlockState(BlockPos.containing(x, posY, z))).is(BlockTags.create(ResourceLocation.parse(((namespace + ":" + "ores/lapis")).toLowerCase(Locale.ENGLISH))))) {
+							&& (world.getBlockState(BlockPos.containing(x, posY, z))).is(BlockTags.create(Identifier.parse(((namespace + ":" + "ores/lapis")).toLowerCase(Locale.ENGLISH))))) {
 						if (entity instanceof Player player && !player.level().isClientSide())
 							player.displayClientMessage(Component.literal(("Metal Detector: §0Found ore!§f" + " X: " + x + " Y: " + posY + " Z: " + z)), false);
 					}
 					if ((itemstack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getStringOr("oreMode", "")).equals("Quartz")
-							&& (world.getBlockState(BlockPos.containing(x, posY, z))).is(BlockTags.create(ResourceLocation.parse(((namespace + ":" + "ores/quartz")).toLowerCase(Locale.ENGLISH))))) {
+							&& (world.getBlockState(BlockPos.containing(x, posY, z))).is(BlockTags.create(Identifier.parse(((namespace + ":" + "ores/quartz")).toLowerCase(Locale.ENGLISH))))) {
 						if (entity instanceof Player player && !player.level().isClientSide())
 							player.displayClientMessage(Component.literal(("Metal Detector: §0Found ore!§f" + " X: " + x + " Y: " + posY + " Z: " + z)), false);
 					}
 					if ((itemstack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getStringOr("oreMode", "")).equals("Redstone")
-							&& (world.getBlockState(BlockPos.containing(x, posY, z))).is(BlockTags.create(ResourceLocation.parse(((namespace + ":" + "ores/redstone")).toLowerCase(Locale.ENGLISH))))) {
+							&& (world.getBlockState(BlockPos.containing(x, posY, z))).is(BlockTags.create(Identifier.parse(((namespace + ":" + "ores/redstone")).toLowerCase(Locale.ENGLISH))))) {
 						if (entity instanceof Player player && !player.level().isClientSide())
 							player.displayClientMessage(Component.literal(("Metal Detector: §0Found ore!§f" + " X: " + x + " Y: " + posY + " Z: " + z)), false);
 					}
 					if ((itemstack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getStringOr("oreMode", "")).equals("Ancient_Debris")
-							&& (world.getBlockState(BlockPos.containing(x, posY, z))).is(BlockTags.create(ResourceLocation.parse(((namespace + ":" + "ores/ancient_debris")).toLowerCase(Locale.ENGLISH))))) {
+							&& (world.getBlockState(BlockPos.containing(x, posY, z))).is(BlockTags.create(Identifier.parse(((namespace + ":" + "ores/ancient_debris")).toLowerCase(Locale.ENGLISH))))) {
 						if (entity instanceof Player player && !player.level().isClientSide())
 							player.displayClientMessage(Component.literal(("Metal Detector: §0Found ore!§f" + " X: " + x + " Y: " + posY + " Z: " + z)), false);
 					}
 					if ((itemstack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getStringOr("oreMode", "")).equals("Toxenium")
-							&& (world.getBlockState(BlockPos.containing(x, posY, z))).is(BlockTags.create(ResourceLocation.parse(((namespace + ":" + "ores/toxenium")).toLowerCase(Locale.ENGLISH))))) {
+							&& (world.getBlockState(BlockPos.containing(x, posY, z))).is(BlockTags.create(Identifier.parse(((namespace + ":" + "ores/toxenium")).toLowerCase(Locale.ENGLISH))))) {
 						if (entity instanceof Player player && !player.level().isClientSide())
 							player.displayClientMessage(Component.literal(("Metal Detector: §0Found ore!§f" + " X: " + x + " Y: " + posY + " Z: " + z)), false);
 					}
 					if ((itemstack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getStringOr("oreMode", "")).equals("Ash")
-							&& (world.getBlockState(BlockPos.containing(x, posY, z))).is(BlockTags.create(ResourceLocation.parse(((namespace + ":" + "ores/ash")).toLowerCase(Locale.ENGLISH))))) {
+							&& (world.getBlockState(BlockPos.containing(x, posY, z))).is(BlockTags.create(Identifier.parse(((namespace + ":" + "ores/ash")).toLowerCase(Locale.ENGLISH))))) {
 						if (entity instanceof Player player && !player.level().isClientSide())
 							player.displayClientMessage(Component.literal(("Metal Detector: §0Found ore!§f" + " X: " + x + " Y: " + posY + " Z: " + z)), false);
 					}
 					if ((itemstack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getStringOr("oreMode", "")).equals("Herobrine")
-							&& (world.getBlockState(BlockPos.containing(x, posY, z))).is(BlockTags.create(ResourceLocation.parse(((namespace + ":" + "ores/herobrine")).toLowerCase(Locale.ENGLISH))))) {
+							&& (world.getBlockState(BlockPos.containing(x, posY, z))).is(BlockTags.create(Identifier.parse(((namespace + ":" + "ores/herobrine")).toLowerCase(Locale.ENGLISH))))) {
 						if (entity instanceof Player player && !player.level().isClientSide())
 							player.displayClientMessage(Component.literal(("Metal Detector: §0Found ore!§f" + " X: " + x + " Y: " + posY + " Z: " + z)), false);
 					}
 					if ((itemstack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getStringOr("oreMode", "")).equals("Frozen")
-							&& (world.getBlockState(BlockPos.containing(x, posY, z))).is(BlockTags.create(ResourceLocation.parse(((namespace + ":" + "ores/frozen_heart")).toLowerCase(Locale.ENGLISH))))) {
+							&& (world.getBlockState(BlockPos.containing(x, posY, z))).is(BlockTags.create(Identifier.parse(((namespace + ":" + "ores/frozen_heart")).toLowerCase(Locale.ENGLISH))))) {
 						if (entity instanceof Player player && !player.level().isClientSide())
 							player.displayClientMessage(Component.literal(("Metal Detector: §0Found ore!§f" + " X: " + x + " Y: " + posY + " Z: " + z)), false);
 					}
 					if ((itemstack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getStringOr("oreMode", "")).equals("Green")
-							&& (world.getBlockState(BlockPos.containing(x, posY, z))).is(BlockTags.create(ResourceLocation.parse(((namespace + ":" + "ores/green")).toLowerCase(Locale.ENGLISH))))) {
+							&& (world.getBlockState(BlockPos.containing(x, posY, z))).is(BlockTags.create(Identifier.parse(((namespace + ":" + "ores/green")).toLowerCase(Locale.ENGLISH))))) {
 						if (entity instanceof Player player && !player.level().isClientSide())
 							player.displayClientMessage(Component.literal(("Metal Detector: §0Found ore!§f" + " X: " + x + " Y: " + posY + " Z: " + z)), false);
 					}

@@ -2,7 +2,7 @@
     "parent": "item/generated",
     "textures": {
 		"0": "herobrines_world:item/battery",
-		"1": "block/iron_block",
+		"1": "minecraft:block/iron_block",
 		"particle": "herobrines_world:item/battery"
 	},
 	"elements": [

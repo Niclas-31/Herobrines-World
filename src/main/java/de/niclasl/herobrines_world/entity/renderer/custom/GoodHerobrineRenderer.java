@@ -6,7 +6,7 @@ import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.HumanoidMobRenderer;
 import net.minecraft.client.renderer.entity.state.HumanoidRenderState;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import org.jetbrains.annotations.NotNull;
 
 public class GoodHerobrineRenderer extends HumanoidMobRenderer<GoodHerobrine, HumanoidRenderState, HumanoidModel<HumanoidRenderState>> {
@@ -21,7 +21,7 @@ public class GoodHerobrineRenderer extends HumanoidMobRenderer<GoodHerobrine, Hu
     }
 
     @Override
-    public @NotNull ResourceLocation getTextureLocation(@NotNull HumanoidRenderState state) {
-        return ResourceLocation.parse("herobrines_world:textures/entity/good_herobrine.png");
+    public @NotNull Identifier getTextureLocation(@NotNull HumanoidRenderState state) {
+        return Identifier.parse("herobrines_world:textures/entity/good_herobrine.png");
     }
 }

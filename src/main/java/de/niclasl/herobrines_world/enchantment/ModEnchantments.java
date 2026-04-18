@@ -9,7 +9,7 @@ import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.EnchantmentTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.EquipmentSlotGroup;
@@ -20,15 +20,15 @@ import net.minecraft.world.item.enchantment.Enchantments;
 
 public class ModEnchantments {
     public static final ResourceKey<Enchantment> HEROBRINE = ResourceKey.create(Registries.ENCHANTMENT,
-            ResourceLocation.fromNamespaceAndPath(HerobrinesWorld.MODID, "herobrine"));
+            Identifier.fromNamespaceAndPath(HerobrinesWorld.MODID, "herobrine"));
     public static final ResourceKey<Enchantment> MORE_SOULS = ResourceKey.create(Registries.ENCHANTMENT,
-            ResourceLocation.fromNamespaceAndPath(HerobrinesWorld.MODID, "more_souls"));
+            Identifier.fromNamespaceAndPath(HerobrinesWorld.MODID, "more_souls"));
     public static final ResourceKey<Enchantment> HEART_OF_THE_FOREST = ResourceKey.create(Registries.ENCHANTMENT,
-            ResourceLocation.fromNamespaceAndPath(HerobrinesWorld.MODID, "heart_of_the_forest"));
+            Identifier.fromNamespaceAndPath(HerobrinesWorld.MODID, "heart_of_the_forest"));
     public static final ResourceKey<Enchantment> ROOTS_OF_THE_EARTH = ResourceKey.create(Registries.ENCHANTMENT,
-            ResourceLocation.fromNamespaceAndPath(HerobrinesWorld.MODID, "roots_of_the_earth"));
+            Identifier.fromNamespaceAndPath(HerobrinesWorld.MODID, "roots_of_the_earth"));
     public static final ResourceKey<Enchantment> WILDERNESS_ACUMEN =  ResourceKey.create(Registries.ENCHANTMENT,
-            ResourceLocation.fromNamespaceAndPath(HerobrinesWorld.MODID, "wilderness_acumen"));
+            Identifier.fromNamespaceAndPath(HerobrinesWorld.MODID, "wilderness_acumen"));
 
     public static void bootstrap(BootstrapContext<Enchantment> context) {
         var enchantments = context.lookup(Registries.ENCHANTMENT);
@@ -94,6 +94,6 @@ public class ModEnchantments {
 
     private static void register(BootstrapContext<Enchantment> registry, ResourceKey<Enchantment> key,
                                  Enchantment.Builder builder) {
-        registry.register(key, builder.build(key.location()));
+        registry.register(key, builder.build(key.identifier()));
     }
 }

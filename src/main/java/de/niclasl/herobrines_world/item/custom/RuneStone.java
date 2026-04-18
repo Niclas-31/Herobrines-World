@@ -48,7 +48,7 @@ public class RuneStone extends Item {
 				data.putDouble("savedY", player.getY());
 				data.putDouble("savedZ", player.getZ());
 				data.putString("savedDimension",
-						player.level().dimension().location().toString());
+						player.level().dimension().identifier().toString());
 				data.putBoolean("hasSavedPosition", true);
 			});
 
@@ -70,7 +70,7 @@ public class RuneStone extends Item {
 
 		String savedDimension = tag.getStringOr("savedDimension", "");
 		String currentDimension =
-				player.level().dimension().location().toString();
+				player.level().dimension().identifier().toString();
 
 		if (!currentDimension.equals(savedDimension)) {
 			player.displayClientMessage(

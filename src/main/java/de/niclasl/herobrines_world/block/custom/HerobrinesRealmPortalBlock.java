@@ -4,7 +4,7 @@ import com.mojang.logging.LogUtils;
 import de.niclasl.herobrines_world.teleporter.HerobrinesRealmPortalShape;
 import de.niclasl.herobrines_world.teleporter.HerobrinesRealmTeleporter;
 import de.niclasl.herobrines_world.util.ModDimensions;
-import net.minecraft.BlockUtil;
+import net.minecraft.util.BlockUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;

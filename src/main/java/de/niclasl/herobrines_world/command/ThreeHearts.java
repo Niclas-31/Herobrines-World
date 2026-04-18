@@ -1,8 +1,9 @@
 package de.niclasl.herobrines_world.command;
 
 import com.mojang.brigadier.arguments.IntegerArgumentType;
+import de.niclasl.herobrines_world.Config;
 import de.niclasl.herobrines_world.network.ModVariables;
-import de.niclasl.herobrines_world.util.ModGameRules;
+import de.niclasl.herobrines_world.network.PlayerState;
 import net.minecraft.commands.Commands;
 import net.minecraft.commands.arguments.EntityArgument;
 import net.minecraft.network.chat.Component;
@@ -19,7 +20,7 @@ public class ThreeHearts {
 	public static void registerCommand(RegisterCommandsEvent event) {
 		event.getDispatcher().register(
 				Commands.literal("threehearts")
-						.requires(src -> src.hasPermission(4))
+						.requires(Commands.hasPermission(Commands.LEVEL_GAMEMASTERS))
 						.then(Commands.literal("query")
 								.then(Commands.argument("targets", EntityArgument.players())
 										.executes(ctx -> {
@@ -80,34 +81,33 @@ public class ThreeHearts {
 	}
 
 	private static void queryHearts(ServerPlayer player) {
-		ModVariables.PlayerVariables vars = player.getData(ModVariables.PLAYER_VARIABLES);
-		if (!player.level().getGameRules().getBoolean(ModGameRules.THREE_HEARTS)) {
-			player.displayClientMessage(Component.literal((Component.translatable("message.gamerule_deactivate").getString())), true);
+		if (!Config.THREE_HEARTS.getAsBoolean()) {
+			player.displayClientMessage(Component.literal(Component.translatable("message.gamerule_deactivate").getString()), true);
 			return;
 		}
-		player.displayClientMessage(Component.literal(player.getName().getString() + " Hearts: " + vars.Hearts), true);
+		player.displayClientMessage(Component.literal(player.getName().getString() + " Hearts: " + PlayerState.hearts(player)), true);
 	}
 
 	private static void setHearts(ServerPlayer player, int value) {
 		ModVariables.PlayerVariables vars = player.getData(ModVariables.PLAYER_VARIABLES);
-		if (!player.level().getGameRules().getBoolean(ModGameRules.THREE_HEARTS)) {
-			player.displayClientMessage(Component.literal((Component.translatable("message.gamerule_deactivate").getString())), true);
+		if (!Config.THREE_HEARTS.getAsBoolean()) {
+			player.displayClientMessage(Component.literal(Component.translatable("message.gamerule_deactivate").getString()), true);
 			return;
 		}
 
-		vars.Hearts = value;
+		PlayerState.setHearts(player, value);
 		vars.markSyncDirty();
 	}
 
 	private static void addHearts(ServerPlayer player, int value) {
 		ModVariables.PlayerVariables vars = player.getData(ModVariables.PLAYER_VARIABLES);
-		if (!player.level().getGameRules().getBoolean(ModGameRules.THREE_HEARTS)) {
-			player.displayClientMessage(Component.literal((Component.translatable("message.gamerule_deactivate").getString())), true);
+		if (!Config.THREE_HEARTS.getAsBoolean()) {
+			player.displayClientMessage(Component.literal(Component.translatable("message.gamerule_deactivate").getString()), true);
 			return;
 		}
 
-		if (vars.Hearts < 3) {
-			vars.Hearts = vars.Hearts + value;
+		if (PlayerState.hearts(player) < 3) {
+			PlayerState.addHearts(player, value);
 		}
 		vars.markSyncDirty();
 	}
@@ -117,13 +117,13 @@ public class ThreeHearts {
 
 		Level level = player.level();
 
-		if (!player.level().getGameRules().getBoolean(ModGameRules.THREE_HEARTS)) {
+		if (!Config.THREE_HEARTS.getAsBoolean()) {
 			player.displayClientMessage(Component.literal((Component.translatable("message.gamerule_deactivate").getString())), true);
 			return;
 		}
 
 		ModVariables.PlayerVariables vars = player.getData(ModVariables.PLAYER_VARIABLES);
-		vars.Hearts = 3;
+		PlayerState.setHearts(player, 3);
 		vars.markSyncDirty();
 
 		ServerPlayer.RespawnConfig config = new ServerPlayer.RespawnConfig(level.getLevelData().getRespawnData(), true);

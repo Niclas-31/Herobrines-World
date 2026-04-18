@@ -8,7 +8,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.PacketFlow;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -22,7 +22,7 @@ import org.jetbrains.annotations.NotNull;
 public record DelayerSetTimes(BlockPos pos, int ticks, int seconds, int minutes, int hours) implements CustomPacketPayload {
 
     public static final Type<DelayerSetTimes> TYPE =
-            new Type<>(ResourceLocation.fromNamespaceAndPath(HerobrinesWorld.MODID, "delayer_set_times"));
+            new Type<>(Identifier.fromNamespaceAndPath(HerobrinesWorld.MODID, "delayer_set_times"));
 
     public static final StreamCodec<RegistryFriendlyByteBuf, DelayerSetTimes> STREAM_CODEC = StreamCodec.of(
             (RegistryFriendlyByteBuf buffer, DelayerSetTimes message) -> {

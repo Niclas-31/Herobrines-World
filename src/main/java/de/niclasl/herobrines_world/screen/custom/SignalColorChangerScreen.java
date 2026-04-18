@@ -5,7 +5,7 @@ import net.neoforged.neoforge.client.network.ClientPacketDistributor;
 
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.network.chat.Component;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
@@ -58,7 +58,7 @@ public class SignalColorChangerScreen extends AbstractContainerScreen<SignalColo
 			int y = (int) lamp[1];
 			String color = (String) lamp[2];
 
-			ResourceLocation texture = ResourceLocation.fromNamespaceAndPath(HerobrinesWorld.MODID,
+			Identifier texture = Identifier.fromNamespaceAndPath(HerobrinesWorld.MODID,
 					"textures/gui/sprites/container/signal/" + color + ".png");
 
 			guiGraphics.blit(RenderPipelines.GUI_TEXTURED, texture, this.leftPos + x, this.topPos + y,
@@ -95,7 +95,7 @@ public class SignalColorChangerScreen extends AbstractContainerScreen<SignalColo
 			int posX = this.leftPos + xOffset;
 			int posY = this.topPos + yOffset;
 
-			ResourceLocation texture = ResourceLocation.fromNamespaceAndPath(HerobrinesWorld.MODID,
+			Identifier texture = Identifier.fromNamespaceAndPath(HerobrinesWorld.MODID,
 					"textures/gui/sprites/container/signal/" + color + "_gui_button.png");
 
 			ImageButton button = new ImageButton(
@@ -109,7 +109,7 @@ public class SignalColorChangerScreen extends AbstractContainerScreen<SignalColo
 					}
 			) {
 				@Override
-				public void renderWidget(GuiGraphics guiGraphics, int p_281473_, int p_283021_, float p_282518_) {
+				public void renderContents(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
 					guiGraphics.blit(RenderPipelines.GUI_TEXTURED, texture, posX, posY, 0, 0, 24, 24, 24, 24);
 				}
 			};

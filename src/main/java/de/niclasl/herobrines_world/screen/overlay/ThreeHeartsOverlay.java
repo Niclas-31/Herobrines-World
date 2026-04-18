@@ -1,24 +1,24 @@
 package de.niclasl.herobrines_world.screen.overlay;
 
-import de.niclasl.herobrines_world.util.ModGameRules;
+import de.niclasl.herobrines_world.Config;
+import de.niclasl.herobrines_world.network.GameState;
 import de.niclasl.herobrines_world.network.ModVariables;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.PlayerInfo;
+import net.minecraft.client.renderer.RenderPipelines;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.level.GameType;
-import net.minecraft.world.level.LevelAccessor;
-import net.neoforged.neoforge.client.event.RenderGuiEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.bus.api.EventPriority;
-import net.neoforged.api.distmarker.Dist;
-
-import net.minecraft.world.level.Level;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.client.renderer.RenderPipelines;
-import net.minecraft.client.Minecraft;
+import net.minecraft.world.level.GameType;
+import net.minecraft.world.level.Level;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.bus.api.EventPriority;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.client.event.RenderGuiEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
 import net.neoforged.neoforge.event.level.LevelEvent;
 
@@ -37,27 +37,29 @@ public class ThreeHeartsOverlay {
 			world = entity.level();
 		}
 
-		boolean gamemode = getEntityGameType(entity) == GameType.SURVIVAL || getEntityGameType(entity) == GameType.ADVENTURE;
         assert entity != null;
-        boolean heart1 = entity.getData(ModVariables.PLAYER_VARIABLES).Hearts >= 1;
-		boolean heart2 = entity.getData(ModVariables.PLAYER_VARIABLES).Hearts >= 2;
-		boolean heart3 = entity.getData(ModVariables.PLAYER_VARIABLES).Hearts == 3;
+        ModVariables.PlayerVariables vars = entity.getData(ModVariables.PLAYER_VARIABLES);
 
-		if (ModVariables.MapVariables.get(world).ThreeHearts && gamemode) {
-			event.getGuiGraphics().blit(RenderPipelines.GUI_TEXTURED, ResourceLocation.parse("minecraft:textures/gui/sprites/hud/heart/container.png"), w / 2 - 10, h - 47, 0, 0, 9, 9, 9, 9);
+        boolean gamemode = getEntityGameType(entity) == GameType.SURVIVAL || getEntityGameType(entity) == GameType.ADVENTURE;
+        boolean heart1 = vars.Hearts >= 1;
+		boolean heart2 = vars.Hearts >= 2;
+		boolean heart3 = vars.Hearts == 3;
 
-			event.getGuiGraphics().blit(RenderPipelines.GUI_TEXTURED, ResourceLocation.parse("minecraft:textures/gui/sprites/hud/heart/container.png"), w / 2, h - 47, 0, 0, 9, 9, 9, 9);
+		if (GameState.threeHearts(world) && gamemode) {
+			event.getGuiGraphics().blit(RenderPipelines.GUI_TEXTURED, Identifier.parse("minecraft:textures/gui/sprites/hud/heart/container.png"), w / 2 - 10, h - 47, 0, 0, 9, 9, 9, 9);
 
-			event.getGuiGraphics().blit(RenderPipelines.GUI_TEXTURED, ResourceLocation.parse("minecraft:textures/gui/sprites/hud/heart/container.png"), w / 2 - 5, h - 55, 0, 0, 9, 9, 9, 9);
+			event.getGuiGraphics().blit(RenderPipelines.GUI_TEXTURED, Identifier.parse("minecraft:textures/gui/sprites/hud/heart/container.png"), w / 2, h - 47, 0, 0, 9, 9, 9, 9);
+
+			event.getGuiGraphics().blit(RenderPipelines.GUI_TEXTURED, Identifier.parse("minecraft:textures/gui/sprites/hud/heart/container.png"), w / 2 - 5, h - 55, 0, 0, 9, 9, 9, 9);
 
 			if (heart3) {
-				event.getGuiGraphics().blit(RenderPipelines.GUI_TEXTURED, ResourceLocation.parse("minecraft:textures/gui/sprites/hud/heart/frozen_full.png"), w / 2 - 5, h - 55, 0, 0, 9, 9, 9, 9);
+				event.getGuiGraphics().blit(RenderPipelines.GUI_TEXTURED, Identifier.parse("minecraft:textures/gui/sprites/hud/heart/frozen_full.png"), w / 2 - 5, h - 55, 0, 0, 9, 9, 9, 9);
 			}
 			if (heart1) {
-				event.getGuiGraphics().blit(RenderPipelines.GUI_TEXTURED, ResourceLocation.parse("minecraft:textures/gui/sprites/hud/heart/frozen_full.png"), w / 2, h - 47, 0, 0, 9, 9, 9, 9);
+				event.getGuiGraphics().blit(RenderPipelines.GUI_TEXTURED, Identifier.parse("minecraft:textures/gui/sprites/hud/heart/frozen_full.png"), w / 2, h - 47, 0, 0, 9, 9, 9, 9);
 			}
 			if (heart2) {
-				event.getGuiGraphics().blit(RenderPipelines.GUI_TEXTURED, ResourceLocation.parse("minecraft:textures/gui/sprites/hud/heart/frozen_full.png"), w / 2 - 10, h - 47, 0, 0, 9, 9, 9, 9);
+				event.getGuiGraphics().blit(RenderPipelines.GUI_TEXTURED, Identifier.parse("minecraft:textures/gui/sprites/hud/heart/frozen_full.png"), w / 2 - 10, h - 47, 0, 0, 9, 9, 9, 9);
 			}
 		}
 	}
@@ -75,24 +77,21 @@ public class ThreeHeartsOverlay {
 
 	@SubscribeEvent
 	public static void onEntityDeath(LivingDeathEvent event) {
-		execute(event.getEntity().level(), event.getEntity());
+		execute(event.getEntity());
 	}
 
-	private static void execute(LevelAccessor world, Entity entity) {
-		if (entity == null)
-			return;
-		if (ModVariables.MapVariables.get(world).ThreeHearts) {
-			if (entity.getData(ModVariables.PLAYER_VARIABLES).Hearts > 0) {
-				{
-					ModVariables.PlayerVariables _vars = entity.getData(ModVariables.PLAYER_VARIABLES);
-					_vars.Hearts = entity.getData(ModVariables.PLAYER_VARIABLES).Hearts - 1;
-					_vars.markSyncDirty();
-				}
-			}
-			if (entity.getData(ModVariables.PLAYER_VARIABLES).Hearts == 0) {
-				if (entity instanceof ServerPlayer _player)
-					_player.setGameMode(GameType.SPECTATOR);
-			}
+	private static void execute(LivingEntity entity) {
+		if (!(entity instanceof ServerPlayer player)) return;
+
+		if (!GameState.threeHearts(player.level())) return;
+
+		ModVariables.PlayerVariables vars = player.getData(ModVariables.PLAYER_VARIABLES);
+
+		vars.Hearts = Math.max(0, vars.Hearts - 1);
+		vars.markSyncDirty();
+
+		if (vars.Hearts <= 0) {
+			player.setGameMode(GameType.SPECTATOR);
 		}
 	}
 
@@ -101,16 +100,12 @@ public class ThreeHeartsOverlay {
 		if (!(event.getLevel() instanceof ServerLevel level)) return;
 
 		if (level.getLevelData().isHardcore()) {
-			level.getGameRules()
-					.getRule(ModGameRules.THREE_HEARTS)
-					.set(false, level.getServer());
-
-			ModVariables.MapVariables.get(level).ThreeHearts = false;
+			GameState.setThreeHearts(level, false);
 			ModVariables.MapVariables.get(level).markSyncDirty();
 			return;
 		}
 
-		ModVariables.MapVariables.get(level).ThreeHearts = level.getGameRules().getBoolean(ModGameRules.THREE_HEARTS);
+		GameState.setThreeHearts(level, Config.THREE_HEARTS.getAsBoolean());
 		ModVariables.MapVariables.get(level).markSyncDirty();
 	}
 }

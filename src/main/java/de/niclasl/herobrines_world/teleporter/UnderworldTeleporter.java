@@ -15,14 +15,14 @@ import net.minecraft.world.entity.ai.village.poi.PoiRecord;
 import net.minecraft.world.entity.ai.village.poi.PoiManager;
 import net.minecraft.util.Mth;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.Vec3i;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Direction;
 import net.minecraft.core.BlockPos;
-import net.minecraft.BlockUtil;
+import net.minecraft.util.BlockUtil;
 
 import de.niclasl.herobrines_world.block.ModBlocks;
 
@@ -39,7 +39,7 @@ public class UnderworldTeleporter {
 	public static void registerPointOfInterest(RegisterEvent event) {
 		event.register(Registries.POINT_OF_INTEREST_TYPE, registerHelper -> {
 			PoiType poiType = new PoiType(ImmutableSet.copyOf(ModBlocks.UNDERWORLD_PORTAL.get().getStateDefinition().getPossibleStates()), 0, 1);
-			registerHelper.register(ResourceLocation.parse("herobrines_world:underworld_portal"), poiType);
+			registerHelper.register(Identifier.parse("herobrines_world:underworld_portal"), poiType);
 			poi = BuiltInRegistries.POINT_OF_INTEREST_TYPE.wrapAsHolder(poiType);
 		});
 	}

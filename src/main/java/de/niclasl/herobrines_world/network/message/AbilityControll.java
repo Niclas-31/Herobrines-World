@@ -13,7 +13,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 
 import net.minecraft.world.level.Level;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.network.protocol.PacketFlow;
 import net.minecraft.network.codec.StreamCodec;
@@ -27,7 +27,7 @@ import java.util.Objects;
 
 @EventBusSubscriber
 public record AbilityControll(int eventType) implements CustomPacketPayload {
-    public static final Type<AbilityControll> TYPE = new Type<>(ResourceLocation.fromNamespaceAndPath(HerobrinesWorld.MODID, "key_ability_controll"));
+    public static final Type<AbilityControll> TYPE = new Type<>(Identifier.fromNamespaceAndPath(HerobrinesWorld.MODID, "key_ability_controll"));
     public static final StreamCodec<RegistryFriendlyByteBuf, AbilityControll> STREAM_CODEC = StreamCodec.of((RegistryFriendlyByteBuf buffer, AbilityControll message) -> buffer.writeInt(message.eventType), (RegistryFriendlyByteBuf buffer) -> new AbilityControll(buffer.readInt()));
 
     @Override

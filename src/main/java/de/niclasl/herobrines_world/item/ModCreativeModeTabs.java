@@ -9,7 +9,7 @@ import de.niclasl.herobrines_world.HerobrinesWorld;
 
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 
@@ -47,7 +47,7 @@ public class ModCreativeModeTabs {
 			CREATIVE_MODE_TAB.register("herobrine_colored_blocks",
 					() -> CreativeModeTab.builder()
 							.icon(() -> new ItemStack(ModBlocks.SIGNAL.get()))
-							.withTabsBefore(ResourceLocation.fromNamespaceAndPath(HerobrinesWorld.MODID, "herobrine_building_blocks"))
+							.withTabsBefore(Identifier.fromNamespaceAndPath(HerobrinesWorld.MODID, "herobrine_building_blocks"))
 							.title(Component.translatable("item_group.herobrines_world.herobrine_colored_blocks"))
 							.displayItems((parameters, tabData) -> {
 								for (ColorProperty color : ColorProperty.values()) {
@@ -59,7 +59,7 @@ public class ModCreativeModeTabs {
 			CREATIVE_MODE_TAB.register("herobrine_natural_blocks",
 					() -> CreativeModeTab.builder()
 							.icon(() -> new ItemStack(ModBlocks.ASH_BLOCK.get()))
-							.withTabsBefore(ResourceLocation.fromNamespaceAndPath(HerobrinesWorld.MODID, "herobrine_colored_blocks"))
+							.withTabsBefore(Identifier.fromNamespaceAndPath(HerobrinesWorld.MODID, "herobrine_colored_blocks"))
 							.title(Component.translatable("item_group.herobrines_world.herobrine_natural_blocks"))
 							.displayItems((parameters, tabData) -> {
 								tabData.accept(ModBlocks.ASH_BLOCK);
@@ -81,7 +81,7 @@ public class ModCreativeModeTabs {
 			CREATIVE_MODE_TAB.register("herobrine_functional_blocks",
 					() -> CreativeModeTab.builder()
 							.icon(() -> new ItemStack(ModBlocks.LUMBERJACK_TABLE.get()))
-							.withTabsBefore(ResourceLocation.fromNamespaceAndPath(HerobrinesWorld.MODID, "herobrine_natural_blocks"))
+							.withTabsBefore(Identifier.fromNamespaceAndPath(HerobrinesWorld.MODID, "herobrine_natural_blocks"))
 							.title(Component.translatable("item_group.herobrines_world.herobrine_functional_blocks"))
 							.displayItems((parameters, tabData) -> {
 								tabData.accept(ModBlocks.LUMBERJACK_TABLE);
@@ -94,7 +94,7 @@ public class ModCreativeModeTabs {
 			CREATIVE_MODE_TAB.register("herobrine_redstone_blocks",
 					() -> CreativeModeTab.builder()
 							.icon(() -> new ItemStack(ModBlocks.SIGNAL.get()))
-							.withTabsBefore(ResourceLocation.fromNamespaceAndPath(HerobrinesWorld.MODID, "herobrine_functional_blocks"))
+							.withTabsBefore(Identifier.fromNamespaceAndPath(HerobrinesWorld.MODID, "herobrine_functional_blocks"))
 							.title(Component.translatable("item_group.herobrines_world.herobrine_redstone_blocks"))
 							.displayItems((parameters, tabData) -> {
 								for (ColorProperty color : ColorProperty.values()) {
@@ -113,7 +113,7 @@ public class ModCreativeModeTabs {
 			CREATIVE_MODE_TAB.register("herobrine_tools_and_utilities",
 					() -> CreativeModeTab.builder()
 							.icon(() -> new ItemStack(ModItems.HEROBRINE_PICKAXE.get()))
-							.withTabsBefore(ResourceLocation.fromNamespaceAndPath(HerobrinesWorld.MODID, "herobrine_redstone_blocks"))
+							.withTabsBefore(Identifier.fromNamespaceAndPath(HerobrinesWorld.MODID, "herobrine_redstone_blocks"))
 							.title(Component.translatable("item_group.herobrines_world.herobrine_tools_and_utilities"))
 							.displayItems((parameters, tabData) -> {
 								tabData.accept(ModItems.ASH_PICKAXE);
@@ -143,7 +143,7 @@ public class ModCreativeModeTabs {
 			CREATIVE_MODE_TAB.register("herobrine_combat",
 					() -> CreativeModeTab.builder()
 							.icon(() -> new ItemStack(ModItems.TOXENIUM_SWORD.get()))
-							.withTabsBefore(ResourceLocation.fromNamespaceAndPath(HerobrinesWorld.MODID, "herobrine_tools_and_utilities"))
+							.withTabsBefore(Identifier.fromNamespaceAndPath(HerobrinesWorld.MODID, "herobrine_tools_and_utilities"))
 							.title(Component.translatable("item_group.herobrines_world.herobrine_combat"))
 							.displayItems((parameters, tabData) -> {
 								tabData.accept(ModItems.NATURE_SWORD);
@@ -176,7 +176,7 @@ public class ModCreativeModeTabs {
 			CREATIVE_MODE_TAB.register("herobrine_ingredients",
 					() -> CreativeModeTab.builder()
 							.icon(() -> new ItemStack(ModItems.ASH_INGOT.get()))
-							.withTabsBefore(ResourceLocation.fromNamespaceAndPath(HerobrinesWorld.MODID, "herobrine_combat"))
+							.withTabsBefore(Identifier.fromNamespaceAndPath(HerobrinesWorld.MODID, "herobrine_combat"))
 							.title(Component.translatable("item_group.herobrines_world.herobrine_ingredients"))
 							.displayItems((parameters, tabData) -> {
 								tabData.accept(ModItems.HEROBRINE_DIAMOND);
@@ -193,7 +193,7 @@ public class ModCreativeModeTabs {
 			CREATIVE_MODE_TAB.register("herobrine_spawn_eggs",
 					() -> CreativeModeTab.builder()
 							.icon(() -> new ItemStack(ModItems.GOOD_HEROBRINE_SPAWN_EGG.get()))
-							.withTabsBefore(ResourceLocation.fromNamespaceAndPath(HerobrinesWorld.MODID, "herobrine_ingredients"))
+							.withTabsBefore(Identifier.fromNamespaceAndPath(HerobrinesWorld.MODID, "herobrine_ingredients"))
 							.title(Component.translatable("item_group.herobrines_world.herobrine_spawn_eggs"))
 							.displayItems((parameters, tabData) -> {
 								tabData.accept(ModItems.HEROBRINE_BOSS_SPAWN_EGG);
