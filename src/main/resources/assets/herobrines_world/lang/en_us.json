@@ -39,7 +39,7 @@
   "block.herobrines_world.battery_charger": "Battery Charger",
 
   "message.not_more_hearts": "§4You can\u0027t have more hearts!",
-  "message.gamerule_deactivate": "§4Gamerule is not activate!",
+  "message.config_deactivate": "§4Configuration: Three hearts is not activated!",
   "message.boss.spawned": "Your boss has been spawned.",
   "message.boss.removed": "Your boss has been removed.",
   "message.relic.is_not_yours": "§4This relic does not belong to you.",

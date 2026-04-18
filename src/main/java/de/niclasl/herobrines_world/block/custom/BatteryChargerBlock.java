@@ -6,9 +6,13 @@ import de.niclasl.herobrines_world.block.entity.custom.BatteryChargerBlockEntity
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -30,6 +34,7 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
 
 public class BatteryChargerBlock extends BaseEntityBlock {
 
@@ -91,16 +96,24 @@ public class BatteryChargerBlock extends BaseEntityBlock {
     }
 
     @Override
-    protected @NotNull InteractionResult useWithoutItem(@NotNull BlockState state, Level level, @NotNull BlockPos pos,
-                                                        @NotNull Player player, @NotNull BlockHitResult hitResult) {
-
-        if (!level.isClientSide()) {
-            BlockEntity be = level.getBlockEntity(pos);
-
-            if (be instanceof BatteryChargerBlockEntity batteryChargerBlockEntity) {
-                player.openMenu(new SimpleMenuProvider(batteryChargerBlockEntity, Component.translatable("block.herobrines_world.battery_charger")), pos);
-            } else {
-                throw new IllegalStateException("Missing container provider!");
+    protected @NonNull InteractionResult useItemOn(@NonNull ItemStack stack, @NonNull BlockState state,
+                                                   @NonNull Level level, @NonNull BlockPos pos,
+                                                   @NonNull Player player, @NonNull InteractionHand hand,
+                                                   @NonNull BlockHitResult hitResult) {
+        if(level.getBlockEntity(pos) instanceof BatteryChargerBlockEntity batteryCharger) {
+            if(player.isCrouching() && !level.isClientSide()) {
+                player.openMenu(new SimpleMenuProvider(batteryCharger, Component.translatable("block.herobrines_world.battery_charger")), pos);
+                return InteractionResult.SUCCESS;
+            } else if(!player.isCrouching() && batteryCharger.items.getFirst().isEmpty() && !stack.isEmpty()) {
+                batteryCharger.items.set(0, stack.copy());
+                stack.shrink(1);
+                level.playSound(player, pos, SoundEvents.ITEM_PICKUP, SoundSource.BLOCKS, 1f, 2f);
+            } else if(!player.isCrouching() && stack.isEmpty()) {
+                ItemStack stackOnBatteryCharger = batteryCharger.items.getFirst();
+                player.setItemInHand(InteractionHand.MAIN_HAND, stackOnBatteryCharger);
+                batteryCharger.items.set(0, ItemStack.EMPTY);
+                batteryCharger.clearContent();
+                level.playSound(player, pos, SoundEvents.ITEM_PICKUP, SoundSource.BLOCKS, 1f, 1f);
             }
         }
 

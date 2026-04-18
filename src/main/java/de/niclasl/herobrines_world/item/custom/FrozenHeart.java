@@ -36,7 +36,7 @@ public class FrozenHeart extends Item {
 			} else {
 				if (entity.getMainHandItem().getItem() == ModItems.FROZEN_HEART.get() && !Config.THREE_HEARTS.getAsBoolean()) {
 					if (entity instanceof Player player && !player.level().isClientSide())
-						player.displayClientMessage(Component.literal((Component.translatable("message.gamerule_deactivate").getString())), true);
+						player.displayClientMessage(Component.literal((Component.translatable("message.config_deactivate").getString())), true);
 				}
 			}
 		}

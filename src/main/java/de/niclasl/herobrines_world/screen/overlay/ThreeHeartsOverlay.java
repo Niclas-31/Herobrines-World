@@ -18,6 +18,7 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.fml.event.config.ModConfigEvent;
 import net.neoforged.neoforge.client.event.RenderGuiEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
 import net.neoforged.neoforge.event.level.LevelEvent;
@@ -93,6 +94,11 @@ public class ThreeHeartsOverlay {
 		if (vars.Hearts <= 0) {
 			player.setGameMode(GameType.SPECTATOR);
 		}
+	}
+
+	@SubscribeEvent
+	public static void onConfigChanged(ModConfigEvent.Reloading event) {
+		GameState.setThreeHearts(Minecraft.getInstance().level, Config.THREE_HEARTS.getAsBoolean());
 	}
 
 	@SubscribeEvent

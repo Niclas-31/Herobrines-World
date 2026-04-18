@@ -82,7 +82,7 @@ public class ThreeHearts {
 
 	private static void queryHearts(ServerPlayer player) {
 		if (!Config.THREE_HEARTS.getAsBoolean()) {
-			player.displayClientMessage(Component.literal(Component.translatable("message.gamerule_deactivate").getString()), true);
+			player.displayClientMessage(Component.literal(Component.translatable("message.config_deactivate").getString()), true);
 			return;
 		}
 		player.displayClientMessage(Component.literal(player.getName().getString() + " Hearts: " + PlayerState.hearts(player)), true);
@@ -91,7 +91,7 @@ public class ThreeHearts {
 	private static void setHearts(ServerPlayer player, int value) {
 		ModVariables.PlayerVariables vars = player.getData(ModVariables.PLAYER_VARIABLES);
 		if (!Config.THREE_HEARTS.getAsBoolean()) {
-			player.displayClientMessage(Component.literal(Component.translatable("message.gamerule_deactivate").getString()), true);
+			player.displayClientMessage(Component.literal(Component.translatable("message.config_deactivate").getString()), true);
 			return;
 		}
 
@@ -102,7 +102,7 @@ public class ThreeHearts {
 	private static void addHearts(ServerPlayer player, int value) {
 		ModVariables.PlayerVariables vars = player.getData(ModVariables.PLAYER_VARIABLES);
 		if (!Config.THREE_HEARTS.getAsBoolean()) {
-			player.displayClientMessage(Component.literal(Component.translatable("message.gamerule_deactivate").getString()), true);
+			player.displayClientMessage(Component.literal(Component.translatable("message.config_deactivate").getString()), true);
 			return;
 		}
 
@@ -118,7 +118,7 @@ public class ThreeHearts {
 		Level level = player.level();
 
 		if (!Config.THREE_HEARTS.getAsBoolean()) {
-			player.displayClientMessage(Component.literal((Component.translatable("message.gamerule_deactivate").getString())), true);
+			player.displayClientMessage(Component.literal((Component.translatable("message.config_deactivate").getString())), true);
 			return;
 		}
 
