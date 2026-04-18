@@ -16,7 +16,7 @@ import de.niclasl.herobrines_world.network.message.AbilityControll;
 
 @EventBusSubscriber(Dist.CLIENT)
 public class ModKeyMappings {
-	public static final KeyMapping ABILITY_CONTROLL = new KeyMapping("key.herobrines_world.ability_controll", GLFW.GLFW_KEY_I, KeyMapping.Category.GAMEPLAY) {
+	public static final KeyMapping ABILITY_CONTROLL = new KeyMapping("key.herobrines_world.ability_controll", GLFW.GLFW_KEY_K, KeyMapping.Category.GAMEPLAY) {
 		private boolean isDownOld = false;
 
 		@Override

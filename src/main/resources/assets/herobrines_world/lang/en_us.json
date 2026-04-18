@@ -1,12 +1,10 @@
 {
-  "gui.herobrines_world.clock_gui.label_clock": "Date \u0026 Time",
+  "gui.herobrines_world.clock_gui.label_clock": "Date & Time",
   "gui.herobrines_world.clock_gui.button_hide": "Hide",
+  "gui.herobrines_world.clock_gui.button_show": "Show",
   "gui.herobrines_world.clock_gui.label_time": "Time:",
   "gui.herobrines_world.clock_gui.label_date": "Date:",
   "gui.herobrines_world.delayer.button.save": "Save",
-
-  "gamerule.threeHearts.description": "You have 3 Lives. Then can you not respawn.",
-  "gamerule.threeHearts": "Three Hearts",
 
   "block.herobrines_world.blue_sandstone_slab": "Blue Sandstone Slab",
   "block.herobrines_world.blue_sandstone": "Blue Sandstone",
@@ -38,7 +36,7 @@
   "block.herobrines_world.auto_farmer": "Auto Farmer",
   "block.herobrines_world.battery_charger": "Battery Charger",
 
-  "message.not_more_hearts": "§4You can\u0027t have more hearts!",
+  "message.not_more_hearts": "§4You can't have more hearts!",
   "message.config_deactivate": "§4Configuration: Three hearts is not activated!",
   "message.boss.spawned": "Your boss has been spawned.",
   "message.boss.removed": "Your boss has been removed.",
@@ -137,7 +135,7 @@
   "item_group.herobrines_world.herobrine_functional_blocks": "Herobrine Functional Blocks",
   "item_group.herobrines_world.herobrine_redstone_blocks": "Herobrines Redstone Blocks",
   "item_group.herobrines_world.herobrine_ingredients": "Herobrines Ingredients",
-  "item_group.herobrines_world.herobrine_tools_and_utilities": "Herobrines Tools \u0026 Utilities",
+  "item_group.herobrines_world.herobrine_tools_and_utilities": "Herobrines Tools & Utilities",
   "item_group.herobrines_world.herobrine_spawn_eggs": "Herobrines Mod Spawn Eggs",
   "item_group.herobrines_world.herobrine_combat": "Herobrine Combat",
   "item_group.herobrines_world.herobrine_colored_blocks": "Herobrine Colored Blocks",
@@ -163,7 +161,7 @@
   "advancements.mine_green_ore.title": "Green Age",
   "advancements.upgrade_tools.descr": "Construct a better Pickaxe than this",
   "advancements.upgrade_tools.title": "Upgrade Tools",
-  "advancements.magma_tools.title": "Isn\u0027t It Fire Pickaxe",
+  "advancements.magma_tools.title": "Isn't It Fire Pickaxe",
   "advancements.magma_tools.descr": "Upgrade your Pickaxe",
   "advancements.mine_herobrine_diamond.descr": "Acquire herobrine diamonds",
   "advancements.mine_herobrine_diamond.title": "Herobrine Diamonds!",

@@ -1,5 +1,6 @@
 package de.niclasl.herobrines_world.screen.custom;
 
+import de.niclasl.herobrines_world.network.ModVariables;
 import net.neoforged.neoforge.client.network.ClientPacketDistributor;
 
 import net.minecraft.world.entity.player.Player;
@@ -54,10 +55,23 @@ public class TimeScreen extends AbstractContainerScreen<TimeMenu> {
 	@Override
 	public void init() {
 		super.init();
-        Button button_hide = Button.builder(Component.translatable("gui.herobrines_world.clock_gui.button_hide"), e -> {
+		Component hide = Component.translatable("gui.herobrines_world.clock_gui.button_hide");
+		Component show = Component.translatable("gui.herobrines_world.clock_gui.button_show");
+
+		boolean isHide = entity.getData(ModVariables.PLAYER_VARIABLES).Hide;
+
+        Button button = Button.builder(isHide ? hide : show, e -> {
             ClientPacketDistributor.sendToServer(new TimeGuiButton(0, x, y, z));
             TimeGuiButton.handleButtonAction(entity, 0, x, y, z);
         }).bounds(this.leftPos + 31, this.topPos + 83, 46, 20).build();
-		this.addRenderableWidget(button_hide);
+		this.addRenderableWidget(button);
+	}
+
+	@Override
+	protected void containerTick() {
+		super.containerTick();
+
+		this.clearWidgets();
+		this.init();
 	}
 }
