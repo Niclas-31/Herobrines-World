@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "herobrines_world:block/blue_chiseled_sandstone_top",
+    "side": "herobrines_world:block/blue_chiseled_sandstone_side"
+  }
+}

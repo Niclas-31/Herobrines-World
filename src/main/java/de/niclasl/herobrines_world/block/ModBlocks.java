@@ -103,7 +103,7 @@ public class ModBlocks {
 			(properties) -> new Block(properties.sound(SoundType.DEEPSLATE).strength(3f).requiresCorrectToolForDrops()));
 
 	public static final DeferredBlock<Block> TOXENIUM_ORE = registerBlock("toxenium_ore",
-			(properties) -> new Block(properties.sound(SoundType.ANCIENT_DEBRIS).strength(1200f).requiresCorrectToolForDrops()));
+			(properties) -> new Block(properties.sound(SoundType.ANCIENT_DEBRIS).strength(700f).requiresCorrectToolForDrops()));
 
 	public static final DeferredBlock<Block> DELAYER = registerBlock("delayer",
 			(properties) -> new Delayer(properties.instabreak()));

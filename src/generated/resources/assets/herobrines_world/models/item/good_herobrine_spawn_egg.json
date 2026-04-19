@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "herobrines_world:item/good_herobrine_spawn_egg"
+  }
+}

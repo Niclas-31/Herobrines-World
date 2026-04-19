@@ -33,6 +33,8 @@ public class DataGenerators {
 
         generator.addProvider(true, new ModDataMapProvider(packOutput, lookupProvider));
 
+        generator.addProvider(true, new ModModelProvider(packOutput));
+
         generator.addProvider(true, new ModDatapackProvider(packOutput, lookupProvider));
     }
 
@@ -51,6 +53,8 @@ public class DataGenerators {
         generator.addProvider(true, new ModItemTagProvider(packOutput, lookupProvider));
 
         generator.addProvider(true, new ModDataMapProvider(packOutput, lookupProvider));
+
+        generator.addProvider(true, new ModModelProvider(packOutput));
 
         generator.addProvider(true, new ModDatapackProvider(packOutput, lookupProvider));
     }

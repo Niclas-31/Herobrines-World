@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "minecraft:block/oak_planks",
+    "east": "herobrines_world:block/lumberjack_table_side",
+    "north": "herobrines_world:block/lumberjack_table_front",
+    "particle": "herobrines_world:block/lumberjack_table_front",
+    "south": "herobrines_world:block/lumberjack_table_side",
+    "up": "herobrines_world:block/lumberjack_table_top",
+    "west": "herobrines_world:block/lumberjack_table_front"
+  }
+}

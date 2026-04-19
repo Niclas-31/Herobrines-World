@@ -103,6 +103,7 @@
   "item.herobrines_world.herobrine_boss_spawn_egg": "Herobrine Boss Spawn Egg",
   "item.herobrines_world.herobrine_relic": "Herobrine Relic",
   "item.herobrines_world.battery": "Battery",
+  "item.herobrines_world.toxenium_scrap": "Toxenium Scrap",
 
   "item.herobrines_world.herobrine_relic.bound_on": "This Relic is associated with: %s",
   "item.herobrines_world.herobrine_relic.unbound": "This Relic is not bound to anyone.",

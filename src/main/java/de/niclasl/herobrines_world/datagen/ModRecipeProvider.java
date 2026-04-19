@@ -496,12 +496,15 @@ public class ModRecipeProvider extends RecipeProvider {
         oreSmelting(output, TOXENIUM_SMELTABLES, RecipeCategory.MISC, ModItems.TOXENIUM_SCRAP, 0.35f, "toxenium");
         oreBlasting(output, TOXENIUM_SMELTABLES, ModItems.TOXENIUM_SCRAP, 0.35f, "toxenium");
 
-        shaped(RecipeCategory.MISC, ModItems.TOXENIUM_INGOT.get())
-                .pattern("SSS")
-                .pattern("SGG")
-                .pattern("GG ")
-                .define('S', ModItems.TOXENIUM_SCRAP.get())
-                .define('G', Items.GOLD_INGOT)
+        shapeless(RecipeCategory.MISC, ModItems.TOXENIUM_INGOT.get())
+                .requires(ModItems.TOXENIUM_SCRAP.get())
+                .requires(ModItems.TOXENIUM_SCRAP.get())
+                .requires(ModItems.TOXENIUM_SCRAP.get())
+                .requires(ModItems.TOXENIUM_SCRAP.get())
+                .requires(Items.GOLD_INGOT)
+                .requires(Items.GOLD_INGOT)
+                .requires(Items.GOLD_INGOT)
+                .requires(Items.GOLD_INGOT)
                 .unlockedBy("has_toxenium_scrap", has(ModItems.TOXENIUM_SCRAP)).save(output);
 
         shaped(RecipeCategory.TOOLS, ModItems.UNDERWORLD.get())
