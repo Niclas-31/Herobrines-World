@@ -1,0 +1,21 @@
+{
+  "type": "herobrines_world:smart_chip",
+  "group": "smart_chip",
+  "key": {
+    "C": "#herobrines_world:machine_upgrade_material",
+    "D": "minecraft:diamond",
+    "P": "herobrines_world:platin",
+    "R": "minecraft:redstone"
+  },
+  "output_level": 2,
+  "pattern": [
+    "RPD",
+    "PCP",
+    "DPR"
+  ],
+  "result": {
+    "count": 1,
+    "id": "herobrines_world:smart_chip"
+  },
+  "show_notification": false
+}

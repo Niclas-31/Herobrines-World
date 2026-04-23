@@ -1,0 +1,23 @@
+{
+  "type": "herobrines_world:smart_chip",
+  "group": "smart_chip",
+  "input_level": 2,
+  "key": {
+    "C": "#herobrines_world:machine_upgrade_material",
+    "D": "minecraft:diamond",
+    "E": "minecraft:emerald",
+    "I": "minecraft:netherite_ingot",
+    "P": "herobrines_world:platin"
+  },
+  "output_level": 3,
+  "pattern": [
+    "IED",
+    "PCP",
+    "DEI"
+  ],
+  "result": {
+    "count": 1,
+    "id": "herobrines_world:smart_chip"
+  },
+  "show_notification": false
+}
