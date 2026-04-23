@@ -1,6 +1,7 @@
 package de.niclasl.herobrines_world.item.custom;
 
 import de.niclasl.herobrines_world.components.ModDataComponents;
+import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -12,8 +13,6 @@ import java.util.function.Consumer;
 
 public class BatteryItem extends Item {
 
-    private static final int MAX_ENERGY = 1000;
-
     public BatteryItem(Properties properties) {
         super(properties);
     }
@@ -23,10 +22,37 @@ public class BatteryItem extends Item {
     public void appendHoverText(@NotNull ItemStack stack, @NotNull TooltipContext context, @NotNull TooltipDisplay tooltipDisplay, @NotNull Consumer<Component> tooltipAdder, @NotNull TooltipFlag flag) {
         super.appendHoverText(stack, context, tooltipDisplay, tooltipAdder, flag);
 
-        Integer energyComponent = stack.get(ModDataComponents.ENERGY.get());
-        int energy = energyComponent != null ? energyComponent : 0;
+        int current = stack.getOrDefault(ModDataComponents.ENERGY.get(), 0);
+        int max = 1000;
 
-        tooltipAdder.accept(Component.literal("Energy: " + energy + " / " + MAX_ENERGY));
+        tooltipAdder.accept(Component.translatable(
+                "hover.herobrines_world.battery",
+                current,
+                max
+        ).withStyle(ChatFormatting.GREEN));
+
+        tooltipAdder.accept(Component.literal(
+                getEnergyBar(current, max, 10)
+        ).withStyle(ChatFormatting.DARK_GREEN));
+    }
+
+    public static String getEnergyBar(int current, int max, int length) {
+        if (max <= 0) return "";
+
+        float percent = (float) current / max;
+        int filled = (int) (percent * length);
+
+        StringBuilder bar = new StringBuilder();
+
+        for (int i = 0; i < length; i++) {
+            if (i < filled) {
+                bar.append("█");
+            } else {
+                bar.append("░");
+            }
+        }
+
+        return bar.toString();
     }
 
     public int getEnergy(ItemStack stack) {

@@ -104,6 +104,9 @@
   "item.herobrines_world.herobrine_relic": "Herobrine Relic",
   "item.herobrines_world.battery": "Battery",
   "item.herobrines_world.toxenium_scrap": "Toxenium Scrap",
+  "item.herobrines_world.smart_chip": "Smart Chip",
+  "item.herobrines_world.smart_chip_case": "Smart Chip Case",
+  "item.herobrines_world.platin": "Platin",
 
   "item.herobrines_world.herobrine_relic.bound_on": "This Relic is associated with: %s",
   "item.herobrines_world.herobrine_relic.unbound": "This Relic is not bound to anyone.",
@@ -170,5 +173,8 @@
   "advancements.make_a_new_armor.title": "Make A New Armor",
   "advancements.herobrines_world.title": "Herobrines World",
 
-  "herobrines_world.configuration.threeHearts": "Three Hearts"
+  "herobrines_world.configuration.threeHearts": "Three Hearts",
+  
+  "hover.herobrines_world.smart_chip": "Machine Upgrade Level: %s",
+  "hover.herobrines_world.battery": "Energy: %s/%s"
 }

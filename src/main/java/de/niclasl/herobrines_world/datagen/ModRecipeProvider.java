@@ -525,6 +525,16 @@ public class ModRecipeProvider extends RecipeProvider {
                 .define('D', Items.DISPENSER)
                 .unlockedBy("has_redstone", has(Items.REDSTONE)).save(output);
 
+        shaped(RecipeCategory.REDSTONE, ModItems.SMART_CHIP.get())
+                .pattern("PGP")
+                .pattern("GCG")
+                .pattern("PGP")
+                .define('P', ModItems.PLATIN.get())
+                .define('G', Items.GOLD_INGOT)
+                .define('C', ModItems.SMART_CHIP_CASE.get())
+                .group("smart_chip")
+                .unlockedBy("has_platin", has(ModItems.PLATIN)).save(output, "herobrines_world:smart_chip_mk1");
+
         shaped(RecipeCategory.REDSTONE, ModItems.BATTERY.get())
                 .pattern("IRI")
                 .pattern("RCR")

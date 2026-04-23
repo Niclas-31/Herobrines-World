@@ -4,6 +4,7 @@ import de.niclasl.herobrines_world.block.custom.AutoFarmerBlock;
 import de.niclasl.herobrines_world.block.entity.ModBlockEntities;
 import de.niclasl.herobrines_world.block.properties.FarmerMode;
 import de.niclasl.herobrines_world.item.custom.BatteryItem;
+import de.niclasl.herobrines_world.item.custom.SmartChip;
 import de.niclasl.herobrines_world.screen.custom.AutoFarmerMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
@@ -36,7 +37,7 @@ import java.util.List;
 
 public class AutoFarmerBlockEntity extends BlockEntity implements Container, MenuProvider {
 
-    private NonNullList<ItemStack> items = NonNullList.withSize(28, ItemStack.EMPTY);
+    private NonNullList<ItemStack> items = NonNullList.withSize(29, ItemStack.EMPTY);
     private static final int RADIUS = 4;
     private int cleanupTimer = 0;
     private int ticks = 0;
@@ -133,41 +134,122 @@ public class AutoFarmerBlockEntity extends BlockEntity implements Container, Men
         if (level.isClientSide()) return;
 
         boolean hasEnergy = false;
+        Integer hasSmartChip = 0;
 
-        ItemStack stack = be.items.get(27);
-        if (stack.getItem() instanceof BatteryItem item) {
-            hasEnergy = item.getEnergy(stack) > 0;
+        ItemStack chip = be.items.get(28);
+        if (chip.getItem() instanceof SmartChip smartChip) {
+            hasSmartChip = smartChip.getMachineUpgradeLevel(chip) ;
+        }
+
+        if (chip.isEmpty()) {
+            level.setBlock(pos, state.setValue(AutoFarmerBlock.POWERED, false), 3);
+            return;
+        }
+
+        ItemStack battery = be.items.get(27);
+        if (battery.getItem() instanceof BatteryItem batteryItem) {
+            hasEnergy = batteryItem.getEnergy(battery) > 0;
         }
 
         if (state.getValue(AutoFarmerBlock.POWERED) != hasEnergy) {
             level.setBlock(pos, state.setValue(AutoFarmerBlock.POWERED, hasEnergy), 3);
         }
 
-        if (hasEnergy && level.getGameTime() % 20 == 0) {
-            be.doWork(state);
+        int ticks;
+        int interval;
+        int amount;
+
+        if (hasSmartChip <= 0) {
+            ticks = 1200;
+            interval = 1500;
+            amount = 100;
+        } else if (hasSmartChip == 1) {
+            ticks = 1200;
+            interval = 1500;
+            amount = 100;
+        } else if (hasSmartChip == 2) {
+            ticks = 50;
+            interval = 3000;
+            amount = 50;
+        } else if (hasSmartChip == 3) {
+            ticks = 20;
+            interval = 6000;
+            amount = 1;
+        } else {
+            ticks = 20;
+            interval = 6000;
+            amount = 1;
         }
 
-        be.cleanupTimer++;
-
-        if (be.cleanupTimer >= 1200) {
-            be.cleanupSeeds();
-            be.cleanupTimer = 0;
-        }
-
-        be.ticks++;
-
-        if (be.ticks >= 1500) {
-            if (hasEnergy) {
-                be.useEnergyOfBattery();
+        if (hasEnergy) {
+            if (hasSmartChip <= 0) {
+                if (level.getGameTime() % ticks == 0) {
+                    be.doWork(state);
+                }
+            } else if (hasSmartChip == 1) {
+                if (level.getGameTime() % ticks == 0) {
+                    be.doWork(state);
+                }
+            } else if (hasSmartChip == 2) {
+                if (level.getGameTime() % ticks == 0) {
+                    be.doWork(state);
+                }
+            } else if (hasSmartChip == 3) {
+                if (level.getGameTime() % ticks == 0) {
+                    be.doWork(state);
+                }
+            } else {
+                if (level.getGameTime() % ticks == 0) {
+                    be.doWork(state);
+                }
             }
-            be.ticks = 0;
+        }
+
+        if (hasEnergy) {
+            be.cleanupTimer++;
+
+            if (be.cleanupTimer >= ticks) {
+                be.cleanupSeeds();
+                be.cleanupTimer = 0;
+            }
+        }
+
+        if (hasEnergy) {
+            be.ticks++;
+
+            if (hasSmartChip <= 0) {
+                if (be.ticks >= interval) {
+                    be.useEnergyOfBattery(amount);
+                    be.ticks = 0;
+                }
+            } else if (hasSmartChip == 1) {
+                if (be.ticks >= interval) {
+                    be.useEnergyOfBattery(amount);
+                    be.ticks = 0;
+                }
+            } else if (hasSmartChip == 2) {
+                if (be.ticks >= interval) {
+                    be.useEnergyOfBattery(amount);
+                    be.ticks = 0;
+                }
+            } else if (hasSmartChip == 3) {
+                if (be.ticks >= interval) {
+                    be.useEnergyOfBattery(amount);
+                    be.ticks = 0;
+                }
+            } else {
+                if (be.ticks >= interval) {
+                    be.useEnergyOfBattery(amount);
+                    be.ticks = 0;
+                }
+            }
         }
     }
 
-    private void useEnergyOfBattery() {
+    private void useEnergyOfBattery(int amount) {
         ItemStack stack = items.get(27);
         if (stack.getItem() instanceof BatteryItem item) {
-            item.consumeEnergy(stack, 1);
+            item.consumeEnergy(stack, amount);
             setChanged();
         }
     }

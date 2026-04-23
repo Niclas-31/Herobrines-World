@@ -14,7 +14,12 @@ public class ModDataComponents {
     public static final DeferredRegister<DataComponentType<?>> DATA_COMPONENT_TYPES =
             DeferredRegister.createDataComponents(Registries.DATA_COMPONENT_TYPE, HerobrinesWorld.MODID);
 
-    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> ENERGY = register("energy",
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> ENERGY = register(
+            "energy",
+            builder -> builder.persistent(Codec.INT));
+
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> MACHINE_UPGRADE_LEVEL = register(
+            "machine_upgrade_level",
             builder -> builder.persistent(Codec.INT));
 
     private static <T> DeferredHolder<DataComponentType<?>, DataComponentType<T>> register(String name,

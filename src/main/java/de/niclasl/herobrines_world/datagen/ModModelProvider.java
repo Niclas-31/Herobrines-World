@@ -172,6 +172,7 @@ public class ModModelProvider extends ModelProvider {
         itemModels.generateFlatItem(ModItems.GREEN_GEMSTONE.get(), ModelTemplates.FLAT_ITEM);
         itemModels.generateFlatItem(ModItems.RUNE_STONE.get(), ModelTemplates.FLAT_ITEM);
         itemModels.generateFlatItem(ModItems.HEROBRINE_RELIC.get(), ModelTemplates.FLAT_ITEM);
+        itemModels.generateFlatItem(ModItems.PLATIN.get(), ModelTemplates.FLAT_ITEM);
     }
 
     private Identifier defaultLoc() {
@@ -200,6 +201,7 @@ public class ModModelProvider extends ModelProvider {
                 && x.get() != ModBlocks.BATTERY_CHARGER.asItem() && x.get() != ModBlocks.SIGNAL.asItem()
                 && x.get() != ModBlocks.AUTO_FARMER.asItem() && x.get() != ModBlocks.BLUE_SANDSTONE_STAIRS.asItem()
                 && x.get() != ModBlocks.BLUE_SANDSTONE_SLAB.asItem() && x.get() != ModBlocks.BLUE_SANDSTONE_WALL.asItem()
-                && x.get() != ModBlocks.BLUE_CUT_SANDSTONE_SLAB.asItem());
+                && x.get() != ModBlocks.BLUE_CUT_SANDSTONE_SLAB.asItem()
+                && !x.is(ModItems.SMART_CHIP) && !x.is(ModItems.SMART_CHIP_CASE));
     }
 }

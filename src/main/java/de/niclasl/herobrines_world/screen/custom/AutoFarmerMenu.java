@@ -2,6 +2,7 @@ package de.niclasl.herobrines_world.screen.custom;
 
 import de.niclasl.herobrines_world.block.entity.custom.AutoFarmerBlockEntity;
 import de.niclasl.herobrines_world.item.custom.BatteryItem;
+import de.niclasl.herobrines_world.item.custom.SmartChip;
 import de.niclasl.herobrines_world.screen.ModMenuTypes;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
@@ -46,6 +47,13 @@ public class AutoFarmerMenu extends AbstractContainerMenu {
             }
         });
 
+        this.addSlot(new Slot(this.blockEntity, 28, 174, 54) {
+            @Override
+            public boolean mayPlace(@NotNull ItemStack stack) {
+                return stack.getItem() instanceof SmartChip;
+            }
+        });
+
         int playerStartY = startY + 3 * SLOT_SIZE + 12;
 
         for (int row = 0; row < 3; row++) {
@@ -82,23 +90,24 @@ public class AutoFarmerMenu extends AbstractContainerMenu {
 
         int blockStart = 0;
         int batterySlot = 27;
-        int playerStart = 28;
+        int chipSlot = 28;
+        int playerStart = 29;
 
-        if (index >= blockStart && index < batterySlot) {
+        if (index >= blockStart && index < playerStart) {
             if (!this.moveItemStackTo(stack, playerStart, this.slots.size(), true)) {
                 return ItemStack.EMPTY;
             }
-
-        } else if (index == batterySlot) {
-            if (!this.moveItemStackTo(stack, playerStart, this.slots.size(), true)) {
-                return ItemStack.EMPTY;
-            }
-
         } else {
             if (stack.getItem() instanceof BatteryItem) {
                 if (!this.moveItemStackTo(stack, batterySlot, batterySlot + 1, false)) {
                     return ItemStack.EMPTY;
                 }
+
+            } else if (stack.getItem() instanceof SmartChip) {
+                if (!this.moveItemStackTo(stack, chipSlot, chipSlot + 1, false)) {
+                    return ItemStack.EMPTY;
+                }
+
             } else {
                 if (!this.moveItemStackTo(stack, blockStart, batterySlot, false)) {
                     return ItemStack.EMPTY;

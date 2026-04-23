@@ -104,6 +104,9 @@
   "item.herobrines_world.herobrine_relic": "Herobrine Relikt",
   "item.herobrines_world.battery": "Batterie",
   "item.herobrines_world.toxenium_scrap": "Toxeniumplatten",
+  "item.herobrines_world.smart_chip": "Smart Chip",
+  "item.herobrines_world.smart_chip_case": "Smart Chip Gehäuse",
+  "item.herobrines_world.platin": "Platin",
 
   "item.herobrines_world.herobrine_relic.bound_on": "Dieses Relikt ist verbunden mit: %s",
   "item.herobrines_world.herobrine_relic.unbound": "Dieses Relikt ist an niemanden gebunden.",
@@ -170,5 +173,8 @@
   "advancements.make_a_new_armor.title": "Neue Rüstung herstellen",
   "advancements.herobrines_world.title": "Herobrines Welt",
 
-  "herobrines_world.configuration.threeHearts": "Drei Herzen"
+  "herobrines_world.configuration.threeHearts": "Drei Herzen",
+  
+  "hover.herobrines_world.smart_chip": "Maschinen Upgrade Level: %s",
+  "hover.herobrines_world.battery": "Energie: %s/%s"
 }

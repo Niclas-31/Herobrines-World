@@ -16,6 +16,7 @@ import de.niclasl.herobrines_world.network.ModVariables;
 import de.niclasl.herobrines_world.potion.ModPotions;
 import de.niclasl.herobrines_world.screen.ModMenuTypes;
 import de.niclasl.herobrines_world.screen.custom.*;
+import de.niclasl.herobrines_world.recipe.ModRecipes;
 import de.niclasl.herobrines_world.villager.ModVillagers;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
@@ -69,6 +70,7 @@ public class HerobrinesWorld {
 		ModBlockEntities.register(modEventBus);
 
 		ModMenuTypes.register(modEventBus);
+		ModRecipes.register(modEventBus);
 
 		ModVariables.ATTACHMENT_TYPES.register(modEventBus);
 		HerobrineBoss.register();

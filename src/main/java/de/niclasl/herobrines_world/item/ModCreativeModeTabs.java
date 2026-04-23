@@ -1,21 +1,20 @@
 package de.niclasl.herobrines_world.item;
 
+import de.niclasl.herobrines_world.HerobrinesWorld;
 import de.niclasl.herobrines_world.block.ModBlocks;
 import de.niclasl.herobrines_world.block.custom.AutoFarmerBlock;
 import de.niclasl.herobrines_world.block.custom.Signal;
 import de.niclasl.herobrines_world.block.properties.ColorProperty;
 import de.niclasl.herobrines_world.block.properties.FarmerMode;
-import de.niclasl.herobrines_world.HerobrinesWorld;
-
+import de.niclasl.herobrines_world.components.ModDataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
-
 import net.neoforged.bus.api.IEventBus;
-import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.DeferredHolder;
+import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.function.Supplier;
 
@@ -107,6 +106,20 @@ public class ModCreativeModeTabs {
 								}
 								tabData.accept(ModItems.BATTERY);
 								tabData.accept(ModBlocks.BATTERY_CHARGER);
+
+								for (int i = 0; i < 3; i++) {
+									int count = switch(i) {
+                                        case 1 -> 2;
+										case 2 -> 3;
+										default -> 1;
+									};
+
+									ItemStack stack = new ItemStack(ModItems.SMART_CHIP.get());
+									stack.set(ModDataComponents.MACHINE_UPGRADE_LEVEL.get(), count);
+									tabData.accept(stack);
+								}
+								tabData.accept(ModItems.SMART_CHIP.get());
+								tabData.accept(ModItems.SMART_CHIP_CASE);
 							}).build());
 
 	public static final Supplier<CreativeModeTab> HEROBRINE_TOOLS_AND_UTILITIES =
@@ -188,6 +201,7 @@ public class ModCreativeModeTabs {
 								tabData.accept(ModItems.TOXENIUM_SCRAP);
 								tabData.accept(ModItems.GREEN_GEMSTONE);
 								tabData.accept(ModItems.RUNE_STONE);
+								tabData.accept(ModItems.PLATIN);
 							}).build());
 
 	public static final Supplier<CreativeModeTab> HEROBRINE_SPAWN_EGGS =

@@ -1,5 +1,6 @@
 package de.niclasl.herobrines_world.item;
 
+import de.niclasl.herobrines_world.components.ModDataComponents;
 import de.niclasl.herobrines_world.entity.ModEntities;
 import de.niclasl.herobrines_world.item.custom.*;
 import net.minecraft.world.item.*;
@@ -290,7 +291,24 @@ public class ModItems {
 
 	public static final DeferredItem<Item> BATTERY = ITEMS.registerItem(
 			"battery",
-			(properties) -> new BatteryItem(properties.rarity(Rarity.EPIC).stacksTo(1)));
+			(properties) -> new BatteryItem(properties.rarity(Rarity.EPIC).stacksTo(1)
+					.component(ModDataComponents.ENERGY.get(), 0)));
+
+	public static final DeferredItem<Item> SMART_CHIP = ITEMS.registerItem(
+			"smart_chip",
+			(properties) -> new SmartChip(properties.rarity(Rarity.EPIC).stacksTo(1)
+					.component(ModDataComponents.MACHINE_UPGRADE_LEVEL.get(), 1))
+	);
+
+	public static final DeferredItem<Item> SMART_CHIP_CASE = ITEMS.registerItem(
+			"smart_chip_case",
+			(properties) -> new Item(properties.rarity(Rarity.EPIC).stacksTo(1))
+	);
+
+	public static final DeferredItem<Item> PLATIN = ITEMS.registerItem(
+			"platin",
+			(properties) -> new Item(properties.rarity(Rarity.RARE))
+	);
 
 	public static void register(IEventBus eventBus) {
 		ITEMS.register(eventBus);

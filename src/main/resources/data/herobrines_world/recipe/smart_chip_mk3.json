@@ -1,0 +1,20 @@
+{
+  "type": "herobrines_world:smart_chip",
+  "pattern": [
+    "IED",
+    "PCP",
+    "DEI"
+  ],
+  "key": {
+    "I": "minecraft:netherite_ingot",
+    "E": "minecraft:emerald",
+    "D": "minecraft:diamond",
+    "P": "herobrines_world:platin",
+    "C": "herobrines_world:smart_chip"
+  },
+  "result": {
+    "id": "herobrines_world:smart_chip",
+    "count": 1
+  },
+  "input_level": 2
+}
