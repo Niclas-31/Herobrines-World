@@ -294,10 +294,22 @@ public class ModItems {
 			(properties) -> new BatteryItem(properties.rarity(Rarity.EPIC).stacksTo(1)
 					.component(ModDataComponents.ENERGY.get(), 0)));
 
-	public static final DeferredItem<Item> SMART_CHIP = ITEMS.registerItem(
-			"smart_chip",
+	public static final DeferredItem<Item> SMART_CHIP_MK1 = ITEMS.registerItem(
+			"smart_chip_mk1",
 			(properties) -> new SmartChip(properties.rarity(Rarity.EPIC).stacksTo(1)
 					.component(ModDataComponents.MACHINE_UPGRADE_LEVEL.get(), 1))
+	);
+
+	public static final DeferredItem<Item> SMART_CHIP_MK2 = ITEMS.registerItem(
+			"smart_chip_mk2",
+			(properties) -> new SmartChip(properties.rarity(Rarity.EPIC).stacksTo(1)
+					.component(ModDataComponents.MACHINE_UPGRADE_LEVEL.get(), 2))
+	);
+
+	public static final DeferredItem<Item> SMART_CHIP_MK3 = ITEMS.registerItem(
+			"smart_chip_mk3",
+			(properties) -> new SmartChip(properties.rarity(Rarity.EPIC).stacksTo(1)
+					.component(ModDataComponents.MACHINE_UPGRADE_LEVEL.get(), 3))
 	);
 
 	public static final DeferredItem<Item> SMART_CHIP_CASE = ITEMS.registerItem(

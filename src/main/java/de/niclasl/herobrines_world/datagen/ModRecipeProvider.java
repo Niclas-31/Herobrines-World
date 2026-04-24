@@ -3,10 +3,8 @@ package de.niclasl.herobrines_world.datagen;
 import de.niclasl.herobrines_world.HerobrinesWorld;
 import de.niclasl.herobrines_world.block.ModBlocks;
 import de.niclasl.herobrines_world.item.ModItems;
-import de.niclasl.herobrines_world.recipe.builder.SmartChipRecipeBuilder;
 import de.niclasl.herobrines_world.util.ModTags;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
 import net.minecraft.world.item.Items;
@@ -528,7 +526,7 @@ public class ModRecipeProvider extends RecipeProvider {
                 .define('D', Items.DISPENSER)
                 .unlockedBy("has_redstone", has(Items.REDSTONE)).save(output);
 
-        shaped(RecipeCategory.REDSTONE, ModItems.SMART_CHIP.get())
+        shaped(RecipeCategory.REDSTONE, ModItems.SMART_CHIP_MK1.get())
                 .pattern("PGP")
                 .pattern("GCG")
                 .pattern("PGP")
@@ -538,7 +536,7 @@ public class ModRecipeProvider extends RecipeProvider {
                 .group("smart_chip")
                 .unlockedBy("has_platin", has(ModItems.PLATIN)).save(output, "herobrines_world:smart_chip_mk1");
 
-        SmartChipRecipeBuilder.smartChip(this.registries.lookupOrThrow(Registries.ITEM), ModItems.SMART_CHIP)
+        shaped(RecipeCategory.REDSTONE, ModItems.SMART_CHIP_MK2.get())
                 .group("smart_chip")
                 .pattern("RPD")
                 .pattern("PCP")
@@ -547,12 +545,9 @@ public class ModRecipeProvider extends RecipeProvider {
                 .define('P', ModItems.PLATIN.get())
                 .define('C', ModTags.Items.MACHINE_UPGRADE_MATERIAL)
                 .define('D', Items.DIAMOND)
-                .inputLevel(1)
-                .outputLevel(2)
-                .showNotification(false)
                 .unlockedBy("has_platin", has(ModItems.PLATIN)).save(output, "herobrines_world:smart_chip_mk2");
 
-        SmartChipRecipeBuilder.smartChip(this.registries.lookupOrThrow(Registries.ITEM), ModItems.SMART_CHIP)
+        shaped(RecipeCategory.REDSTONE, ModItems.SMART_CHIP_MK3)
                 .group("smart_chip")
                 .pattern("IED")
                 .pattern("PCP")
@@ -562,9 +557,6 @@ public class ModRecipeProvider extends RecipeProvider {
                 .define('P', ModItems.PLATIN.get())
                 .define('C', ModTags.Items.MACHINE_UPGRADE_MATERIAL)
                 .define('D', Items.DIAMOND)
-                .inputLevel(2)
-                .outputLevel(3)
-                .showNotification(false)
                 .unlockedBy("has_platin", has(ModItems.PLATIN)).save(output, "herobrines_world:smart_chip_mk3");
 
         shaped(RecipeCategory.REDSTONE, ModItems.BATTERY.get())

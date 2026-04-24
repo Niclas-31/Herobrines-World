@@ -6,7 +6,6 @@ import de.niclasl.herobrines_world.block.custom.AutoFarmerBlock;
 import de.niclasl.herobrines_world.block.custom.Signal;
 import de.niclasl.herobrines_world.block.properties.ColorProperty;
 import de.niclasl.herobrines_world.block.properties.FarmerMode;
-import de.niclasl.herobrines_world.components.ModDataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
@@ -106,19 +105,9 @@ public class ModCreativeModeTabs {
 								}
 								tabData.accept(ModItems.BATTERY);
 								tabData.accept(ModBlocks.BATTERY_CHARGER);
-
-								for (int i = 0; i < 3; i++) {
-									int count = switch(i) {
-                                        case 1 -> 2;
-										case 2 -> 3;
-										default -> 1;
-									};
-
-									ItemStack stack = new ItemStack(ModItems.SMART_CHIP.get());
-									stack.set(ModDataComponents.MACHINE_UPGRADE_LEVEL.get(), count);
-									tabData.accept(stack);
-								}
-								tabData.accept(ModItems.SMART_CHIP.get());
+								tabData.accept(ModItems.SMART_CHIP_MK1.get());
+								tabData.accept(ModItems.SMART_CHIP_MK2.get());
+								tabData.accept(ModItems.SMART_CHIP_MK3.get());
 								tabData.accept(ModItems.SMART_CHIP_CASE);
 							}).build());
 
