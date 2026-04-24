@@ -76,9 +76,6 @@ public class ModItemTagProvider extends ItemTagsProvider {
                 .add(ModItems.HEROBRINE_BOOTS.get())
                 .add(ModItems.TOXENIUM_BOOTS.get());
 
-        tag(ModTags.Items.MACHINE_UPGRADE_MATERIAL)
-                .add(ModItems.SMART_CHIP.get());
-
         this.tag(ItemTags.TRIMMABLE_ARMOR)
                 .add(ModItems.NATURE_HELMET.get())
                 .add(ModItems.NATURE_CHESTPLATE.get())

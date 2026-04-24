@@ -1,13 +1,13 @@
 {
-  "type": "herobrines_world:smart_chip",
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
   "group": "smart_chip",
   "key": {
-    "C": "#herobrines_world:machine_upgrade_material",
+    "C": "herobrines_world:smart_chip_mk1",
     "D": "minecraft:diamond",
     "P": "herobrines_world:platin",
     "R": "minecraft:redstone"
   },
-  "output_level": 2,
   "pattern": [
     "RPD",
     "PCP",
@@ -15,7 +15,6 @@
   ],
   "result": {
     "count": 1,
-    "id": "herobrines_world:smart_chip"
-  },
-  "show_notification": false
+    "id": "herobrines_world:smart_chip_mk2"
+  }
 }

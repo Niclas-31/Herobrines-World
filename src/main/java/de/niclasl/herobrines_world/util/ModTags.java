@@ -31,8 +31,6 @@ public class ModTags {
         public static final TagKey<Item> HEROBRINE_REPAIRABLE = createTag("herobrine_repairable");
         public static final TagKey<Item> TOXENIUM_REPAIRABLE = createTag("toxenium_repairable");
 
-        public static final TagKey<Item> MACHINE_UPGRADE_MATERIAL = createTag("machine_upgrade_material");
-
         private static TagKey<Item> createTag(String name) {
             return ItemTags.create(Identifier.fromNamespaceAndPath(HerobrinesWorld.MODID, name));
         }

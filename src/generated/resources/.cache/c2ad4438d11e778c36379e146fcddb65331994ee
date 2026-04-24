@@ -1,7 +1,6 @@
-// 1.21.11	2026-04-23T19:19:25.9877142	Tags for minecraft:item mod id herobrines_world
+// 1.21.11	2026-04-24T17:05:17.9799216	Tags for minecraft:item mod id herobrines_world
 f0f92c5f0b5c5412980a4ca8436b4cb180919deb data/herobrines_world/tags/item/fire_repairable.json
 fa89f0092e570a63292fb79c155db6b3e32b181f data/herobrines_world/tags/item/herobrine_repairable.json
-d600e58f00d723a4dcb6ae6252060d71e56b3cac data/herobrines_world/tags/item/machine_upgrade_material.json
 45ed170e17a785ca3163499d64382a162de8f30e data/herobrines_world/tags/item/nature_repairable.json
 f4e6c7d4fb560141848d1bed3804dfb3755f8d39 data/herobrines_world/tags/item/toxenium_repairable.json
 abeb7643f96ae18c2d6f8598fb53b6049ebb9df1 data/minecraft/tags/item/axes.json

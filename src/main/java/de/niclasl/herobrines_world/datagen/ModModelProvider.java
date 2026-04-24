@@ -202,6 +202,7 @@ public class ModModelProvider extends ModelProvider {
                 && x.get() != ModBlocks.AUTO_FARMER.asItem() && x.get() != ModBlocks.BLUE_SANDSTONE_STAIRS.asItem()
                 && x.get() != ModBlocks.BLUE_SANDSTONE_SLAB.asItem() && x.get() != ModBlocks.BLUE_SANDSTONE_WALL.asItem()
                 && x.get() != ModBlocks.BLUE_CUT_SANDSTONE_SLAB.asItem()
-                && !x.is(ModItems.SMART_CHIP) && !x.is(ModItems.SMART_CHIP_CASE));
+                && !x.is(ModItems.SMART_CHIP_MK1) && !x.is(ModItems.SMART_CHIP_MK2)
+                && !x.is(ModItems.SMART_CHIP_CASE) && !x.is(ModItems.SMART_CHIP_MK3));
     }
 }
