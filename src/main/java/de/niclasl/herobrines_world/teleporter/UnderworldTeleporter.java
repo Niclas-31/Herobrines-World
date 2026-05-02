@@ -24,7 +24,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.BlockUtil;
 
-import de.niclasl.herobrines_world.block.ModBlocks;
+import de.niclasl.herobrines_world.registries.block.ModBlocks;
 
 import java.util.Optional;
 import java.util.Comparator;

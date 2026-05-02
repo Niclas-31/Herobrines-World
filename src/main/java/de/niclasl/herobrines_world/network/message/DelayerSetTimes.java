@@ -1,7 +1,7 @@
 package de.niclasl.herobrines_world.network.message;
 
 import de.niclasl.herobrines_world.HerobrinesWorld;
-import de.niclasl.herobrines_world.block.entity.custom.DelayerEntity;
+import de.niclasl.herobrines_world.registries.block.entity.custom.DelayerEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;

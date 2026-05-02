@@ -1,7 +1,7 @@
 package de.niclasl.herobrines_world.datagen;
 
-import de.niclasl.herobrines_world.block.ModBlocks;
-import de.niclasl.herobrines_world.item.ModItems;
+import de.niclasl.herobrines_world.registries.block.ModBlocks;
+import de.niclasl.herobrines_world.registries.item.ModItems;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.loot.BlockLootSubProvider;

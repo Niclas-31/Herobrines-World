@@ -1,0 +1,7 @@
+// 1.21.11	2026-04-25T21:35:12.6856655	Tags for minecraft:worldgen/biome mod id herobrines_world
+80849b7695b0a229e98afe993cf00a1bf32c91bc data/herobrines_world/tags/worldgen/biome/is_all_biomes.json
+c3441febebe9a3726c72ee0b079d9c765f073a4a data/herobrines_world/tags/worldgen/biome/is_ash_ore.json
+6b3c383c1dcc3b226d247bf13ceec0d0d0ca953f data/herobrines_world/tags/worldgen/biome/is_green_ore.json
+86675aee090a358559a4fc00cfcba94004d9e4fa data/herobrines_world/tags/worldgen/biome/is_herobrine_ore.json
+6ac1c782fadf215bdd73a085962a23b455cb41a9 data/herobrines_world/tags/worldgen/biome/is_herobrine_realm.json
+ddfbdffe4df963769dd15e41d002dd6e492266bd data/herobrines_world/tags/worldgen/biome/is_toxium_ore.json

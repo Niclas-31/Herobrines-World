@@ -1,11 +1,13 @@
 package de.niclasl.herobrines_world.util;
 
 import de.niclasl.herobrines_world.HerobrinesWorld;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 
 public class ModTags {
@@ -33,6 +35,20 @@ public class ModTags {
 
         private static TagKey<Item> createTag(String name) {
             return ItemTags.create(Identifier.fromNamespaceAndPath(HerobrinesWorld.MODID, name));
+        }
+    }
+
+    public static class Biomes {
+        public static final TagKey<Biome> IS_ASH_ORE = createTag("is_ash_ore");
+        public static final TagKey<Biome> IS_GREEN_ORE = createTag("is_green_ore");
+        public static final TagKey<Biome> IS_HEROBRINE_ORE = createTag("is_herobrine_ore");
+        public static final TagKey<Biome> IS_TOXENIUM_ORE = createTag("is_toxium_ore");
+
+        public static final TagKey<Biome> IS_HEROBRINE_REALM = createTag("is_herobrine_realm");
+        public static final TagKey<Biome> IS_ALL_BIOMES = createTag("is_all_biomes");
+
+        private static TagKey<Biome> createTag(String name) {
+            return TagKey.create(Registries.BIOME, Identifier.fromNamespaceAndPath(HerobrinesWorld.MODID, name));
         }
     }
 }

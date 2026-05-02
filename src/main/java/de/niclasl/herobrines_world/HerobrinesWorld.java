@@ -1,39 +1,16 @@
 package de.niclasl.herobrines_world;
 
-import de.niclasl.herobrines_world.block.ModBlocks;
-import de.niclasl.herobrines_world.block.entity.ModBlockEntities;
-import de.niclasl.herobrines_world.block.entity.renderer.BatteryChargerRenderer;
-import de.niclasl.herobrines_world.block.entity.renderer.DelayerRenderer;
-import de.niclasl.herobrines_world.block.entity.renderer.LogicGateBlockEntityRenderer;
-import de.niclasl.herobrines_world.components.ModDataComponents;
-import de.niclasl.herobrines_world.effect.ModEffects;
-import de.niclasl.herobrines_world.enchantment.ModEnchantmentEffects;
-import de.niclasl.herobrines_world.entity.ModEntities;
-import de.niclasl.herobrines_world.entity.custom.HerobrineBoss;
-import de.niclasl.herobrines_world.item.ModCreativeModeTabs;
-import de.niclasl.herobrines_world.item.ModItems;
-import de.niclasl.herobrines_world.network.ModVariables;
-import de.niclasl.herobrines_world.potion.ModPotions;
-import de.niclasl.herobrines_world.screen.ModMenuTypes;
-import de.niclasl.herobrines_world.screen.custom.*;
-import de.niclasl.herobrines_world.recipe.ModRecipes;
-import de.niclasl.herobrines_world.villager.ModVillagers;
+import de.niclasl.herobrines_world.registries.ModRegistries;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.util.Tuple;
-import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModContainer;
-import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.util.thread.SidedThreadGroups;
-import net.neoforged.neoforge.client.event.EntityRenderersEvent;
-import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
-import net.neoforged.neoforge.client.gui.ConfigurationScreen;
-import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.tick.ServerTickEvent;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
@@ -43,40 +20,18 @@ import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 import java.util.*;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-@Mod("herobrines_world")
+@Mod(HerobrinesWorld.MODID)
 public class HerobrinesWorld {
 	public static final String MODID = "herobrines_world";
 
     public HerobrinesWorld(IEventBus modEventBus, ModContainer modContainer) {
 		modEventBus.addListener(this::registerNetworking);
 
+		ModRegistries.register(modEventBus);
+
 		NeoForge.EVENT_BUS.register(this);
 
-		ModCreativeModeTabs.register(modEventBus);
-
-		ModItems.register(modEventBus);
-		ModBlocks.register(modEventBus);
-
-		ModDataComponents.register(modEventBus);
-
-		ModEffects.register(modEventBus);
-		ModPotions.register(modEventBus);
-
-		ModEnchantmentEffects.register(modEventBus);
-		ModEntities.register(modEventBus);
-
-		ModVillagers.register(modEventBus);
-
-		ModBlockEntities.register(modEventBus);
-
-		ModMenuTypes.register(modEventBus);
-		ModRecipes.register(modEventBus);
-
-		ModVariables.ATTACHMENT_TYPES.register(modEventBus);
-		HerobrineBoss.register();
-
 		modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
-		modContainer.registerExtensionPoint(IConfigScreenFactory.class, ConfigurationScreen::new);
 	}
 
 	private static boolean networkingRegistered = false;
@@ -115,24 +70,5 @@ public class HerobrinesWorld {
 		});
 		actions.forEach(e -> e.getA().run());
 		workQueue.removeAll(actions);
-	}
-
-	@EventBusSubscriber(modid = MODID, value = Dist.CLIENT)
-	public static class Client {
-		@SubscribeEvent
-		public static void registerBER(EntityRenderersEvent.RegisterRenderers event) {
-			event.registerBlockEntityRenderer(ModBlockEntities.DELAYER.get(), DelayerRenderer::new);
-			event.registerBlockEntityRenderer(ModBlockEntities.LOGIC_GATE_BLOCK.get(), LogicGateBlockEntityRenderer::new);
-			event.registerBlockEntityRenderer(ModBlockEntities.BATTERY_CHARGER.get(), BatteryChargerRenderer::new);
-		}
-
-		@SubscribeEvent
-		public static void registerScreens(RegisterMenuScreensEvent event) {
-			event.register(ModMenuTypes.DELAYER.get(), DelayerScreen::new);
-			event.register(ModMenuTypes.TIME.get(), TimeScreen::new);
-			event.register(ModMenuTypes.SIGNAL_COLOR_CHANGER.get(), SignalColorChangerScreen::new);
-			event.register(ModMenuTypes.AUTO_FARMER.get(), AutoFarmerScreen::new);
-			event.register(ModMenuTypes.BATTERY_CHARGER.get(), BatteryChargerScreen::new);
-		}
 	}
 }

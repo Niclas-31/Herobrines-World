@@ -34,7 +34,6 @@ import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
-import java.util.UUID;
 import java.util.function.Supplier;
 
 @EventBusSubscriber
@@ -81,13 +80,10 @@ public class ModVariables {
 		PlayerVariables original = event.getOriginal().getData(PLAYER_VARIABLES);
 		PlayerVariables clone = new PlayerVariables();
 
-		clone.AbilityActive = original.AbilityActive;
 		clone.Hide = original.Hide;
 		clone.Hearts = original.Hearts;
 		clone.Soul_Current = original.Soul_Current;
 		clone.Soul_Level = original.Soul_Level;
-		clone.herobrineRelicOwner = original.herobrineRelicOwner;
-		clone.ownedBossUUID = original.ownedBossUUID;
 
 		event.getEntity().setData(PLAYER_VARIABLES, clone);
 	}
@@ -229,53 +225,27 @@ public class ModVariables {
 
 	public static class PlayerVariables implements ValueIOSerializable {
 		boolean _syncDirty = false;
-		public boolean AbilityActive = false;
 		public boolean Hide = false;
 		public int Hearts = 3;
 		public int Soul_Current = 0;
 		public int Soul_Level = 0;
-		public String herobrineRelicOwner = "";
-		public String ownedBossUUID = "";
-
-		public UUID getRelicOwner() {
-			if (herobrineRelicOwner == null || herobrineRelicOwner.isEmpty())
-				return null;
-			return UUID.fromString(herobrineRelicOwner);
-		}
-
-		public UUID getOwnedBossUUID() {
-			if (ownedBossUUID == null || ownedBossUUID.isEmpty()) {
-				return null;
-			}
-			return UUID.fromString(ownedBossUUID);
-		}
 
 		@Override
 		public void serialize(ValueOutput output) {
-			output.putBoolean("AbilityActive", AbilityActive);
 			output.putBoolean("Hide", Hide);
 
 			output.putInt("Hearts", Hearts);
 			output.putInt("Soul_Current", Soul_Current);
 			output.putInt("Soul_Level", Soul_Level);
-
-			output.putString("herobrineRelicOwner",
-					herobrineRelicOwner == null ? "" : herobrineRelicOwner);
-
-			output.putString("ownedBossUUID",
-					ownedBossUUID == null ? "" : ownedBossUUID);
 		}
 
 		@Override
 		public void deserialize(ValueInput input) {
-			AbilityActive = input.getBooleanOr("AbilityActive", false);
 			Hide = input.getBooleanOr("Hide", false);
 			Hearts = input.getIntOr("Hearts", 0);
 
 			Soul_Current = input.getIntOr("Soul_Current", 0);
 			Soul_Level = input.getIntOr("Soul_Level", 0);
-			herobrineRelicOwner = input.getStringOr("herobrineRelicOwner", "");
-			ownedBossUUID = input.getStringOr("ownedBossUUID", "");
 		}
 
 		public void markSyncDirty() {

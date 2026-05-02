@@ -1,0 +1,14 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": [
+    "herobrines_world:fire_land",
+    "herobrines_world:cursed_forest",
+    "herobrines_world:ash_desert"
+  ],
+  "spawners": {
+    "type": "herobrines_world:good_herobrine",
+    "maxCount": 4,
+    "minCount": 4,
+    "weight": 1
+  }
+}

@@ -1,4 +1,4 @@
-// 1.21.11	2026-04-24T17:05:17.9695607	My Recipes
+// 1.21.11	2026-04-25T21:07:40.2038126	My Recipes
 3c8159aaec0e8e077f358fd3d8927531c6443fd7 data/herobrines_world/advancement/recipes/building_blocks/blue_chiseled_sandstone.json
 1bc804bb3809009fdf729bc4e8a0653e87ce9d68 data/herobrines_world/advancement/recipes/building_blocks/blue_cut_sandstone.json
 839329294a2439f02cade6df317c640b3a813b5a data/herobrines_world/advancement/recipes/building_blocks/blue_cut_sandstone_slab.json
@@ -34,6 +34,7 @@ ca8dd0b33874797b54b1dc71a29f0a54b3415fb7 data/herobrines_world/advancement/recip
 f8e984e44a4f8aae8285c65d64c56b2a1a310ad2 data/herobrines_world/advancement/recipes/redstone/battery.json
 e49c61a6701410523f93cfe750b721f2f932e74c data/herobrines_world/advancement/recipes/redstone/delayer.json
 46008f808ab2ee60de08dd2e67f97ac0413cb6d1 data/herobrines_world/advancement/recipes/redstone/logic_gate_block.json
+bdfcd82f786307948316a0d50f7c230126fe77bf data/herobrines_world/advancement/recipes/redstone/smart_chip_case.json
 fe922fedc9139bb05fbe2cefe2260d37a4431c90 data/herobrines_world/advancement/recipes/redstone/smart_chip_mk1.json
 1e5282ae846f12800072f8d7a094919538b6b4f4 data/herobrines_world/advancement/recipes/redstone/smart_chip_mk2.json
 a1f5a0dc9b9e487a31836231ff33eacafa604f82 data/herobrines_world/advancement/recipes/redstone/smart_chip_mk3.json
@@ -127,6 +128,7 @@ d0c6e9077ce068a238d3cb5b747241a2db0ed7a4 data/herobrines_world/recipe/nature_hoe
 5a7ca67c47a0d217d0a032be0949316ceb8e6b7d data/herobrines_world/recipe/nature_shovel.json
 576611eb50a6e2ad9b096ef240d795a7a9f4d36f data/herobrines_world/recipe/nature_sword.json
 35999e1a5f6409011f28b9bed0adf5cdb065f969 data/herobrines_world/recipe/ore_detector.json
+cf3e3269d65953cd08f4475edcea05820f72945c data/herobrines_world/recipe/smart_chip_case.json
 277d2bb1d0ca248108ca32189b132deef05293a2 data/herobrines_world/recipe/smart_chip_mk1.json
 a75e905cf8262dce1407099974383a8279f5ca25 data/herobrines_world/recipe/smart_chip_mk2.json
 e2471c7ef4aa6b127c7804d6ac8cac4b942007ab data/herobrines_world/recipe/smart_chip_mk3.json

@@ -1,8 +1,8 @@
 package de.niclasl.herobrines_world.datagen;
 
 import de.niclasl.herobrines_world.HerobrinesWorld;
-import de.niclasl.herobrines_world.block.ModBlocks;
-import de.niclasl.herobrines_world.item.ModItems;
+import de.niclasl.herobrines_world.registries.block.ModBlocks;
+import de.niclasl.herobrines_world.registries.item.ModItems;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
@@ -524,6 +524,15 @@ public class ModRecipeProvider extends RecipeProvider {
                 .define('B', ModItems.BATTERY.get())
                 .define('D', Items.DISPENSER)
                 .unlockedBy("has_redstone", has(Items.REDSTONE)).save(output);
+
+        shaped(RecipeCategory.REDSTONE, ModItems.SMART_CHIP_CASE.get())
+                .pattern("IRP")
+                .pattern("R R")
+                .pattern("PRI")
+                .define('I', Items.IRON_INGOT)
+                .define('R', Items.REDSTONE)
+                .define('P', ModItems.PLATIN.get())
+                .unlockedBy("has_platin", has(ModItems.PLATIN)).save(output);
 
         shaped(RecipeCategory.REDSTONE, ModItems.SMART_CHIP_MK1.get())
                 .pattern("PGP")

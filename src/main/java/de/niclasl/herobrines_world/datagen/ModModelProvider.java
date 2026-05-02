@@ -1,8 +1,8 @@
 package de.niclasl.herobrines_world.datagen;
 
 import de.niclasl.herobrines_world.HerobrinesWorld;
-import de.niclasl.herobrines_world.block.ModBlocks;
-import de.niclasl.herobrines_world.item.ModItems;
+import de.niclasl.herobrines_world.registries.block.ModBlocks;
+import de.niclasl.herobrines_world.registries.item.ModItems;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.client.data.models.ModelProvider;

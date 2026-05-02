@@ -1,10 +1,10 @@
 package de.niclasl.herobrines_world.event;
 
 import de.niclasl.herobrines_world.HerobrinesWorld;
-import de.niclasl.herobrines_world.entity.custom.HerobrineBoss;
+import de.niclasl.herobrines_world.registries.entity.custom.HerobrineBoss;
 import de.niclasl.herobrines_world.network.ModVariables;
-import de.niclasl.herobrines_world.potion.ModPotions;
-import de.niclasl.herobrines_world.villager.ModVillagers;
+import de.niclasl.herobrines_world.registries.potion.ModPotions;
+import de.niclasl.herobrines_world.registries.villager.ModVillagers;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;

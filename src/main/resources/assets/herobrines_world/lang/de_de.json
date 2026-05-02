@@ -45,6 +45,7 @@
   "message.you_have_defeated_herobrine": "Du hast Herobrine besiegt!",
   "message.boss.minion_mode.enabled": "Minion-Modus: Aktiviert",
   "message.boss.minion_mode.disabled": "Minion-Modus: Deaktiviert",
+  "message.relic.cooldown_active": "Abklingzeit ist aktiviert! Übrige Abklingzeit: %s",
   
   "item.herobrines_world.ash": "Asche",
   "item.herobrines_world.ash_ingot": "Aschebarren",

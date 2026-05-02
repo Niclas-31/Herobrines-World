@@ -1,0 +1,10 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": "herobrines_world:fire_land",
+  "spawners": {
+    "type": "herobrines_world:niclasl",
+    "maxCount": 2,
+    "minCount": 1,
+    "weight": 1
+  }
+}

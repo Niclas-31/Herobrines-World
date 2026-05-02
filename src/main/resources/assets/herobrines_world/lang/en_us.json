@@ -45,6 +45,7 @@
   "message.you_have_defeated_herobrine": "You have defeated Herobrine!",
   "message.boss.minion_mode.enabled": "Minion Mode: Enabled",
   "message.boss.minion_mode.disabled": "Minion Mode: Disabled",
+  "message.relic.cooldown_active": "Cooldown is enabled! Cooldown Left: %s",
   
   "item.herobrines_world.ash": "Ash",
   "item.herobrines_world.ash_ingot": "Ash Ingot",
