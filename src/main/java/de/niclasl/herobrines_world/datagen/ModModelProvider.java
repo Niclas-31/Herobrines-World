@@ -96,11 +96,6 @@ public class ModModelProvider extends ModelProvider {
                 )
         );
 
-        /*
-         * =========================
-         * 🎒 ITEMS
-         * =========================
-         */
 
         itemModels.generateFlatItem(ModItems.HEROBRINE_DIAMOND.get(), ModelTemplates.FLAT_ITEM);
         itemModels.generateFlatItem(ModItems.ASH.get(), ModelTemplates.FLAT_ITEM);
