@@ -1,0 +1,31 @@
+{
+  "criteria": {
+    "entered_herobrines_world": {
+      "conditions": {
+        "to": "herobrines_world:herobrines_realm"
+      },
+      "trigger": "minecraft:changed_dimension"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "background": "herobrines_world:gui/advancements/backgrounds/herobrines_world",
+    "description": {
+      "translate": "advancements.herobrines_world.root.descr"
+    },
+    "icon": {
+      "count": 1,
+      "id": "herobrines_world:cursed_stone"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancements.herobrines_world.root.title"
+    }
+  },
+  "requirements": [
+    [
+      "entered_herobrines_world"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

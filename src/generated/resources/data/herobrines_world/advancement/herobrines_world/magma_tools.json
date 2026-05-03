@@ -1,0 +1,33 @@
+{
+  "parent": "herobrines_world:herobrines_world/lava_time",
+  "criteria": {
+    "fire_pickaxe": {
+      "conditions": {
+        "items": [
+          {
+            "items": "herobrines_world:fire_pickaxe"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.herobrines_world.magma_tools.descr"
+    },
+    "icon": {
+      "count": 1,
+      "id": "herobrines_world:fire_pickaxe"
+    },
+    "title": {
+      "translate": "advancements.herobrines_world.magma_tools.title"
+    }
+  },
+  "requirements": [
+    [
+      "fire_pickaxe"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

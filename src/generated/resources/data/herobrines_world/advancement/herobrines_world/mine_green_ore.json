@@ -1,0 +1,33 @@
+{
+  "parent": "herobrines_world:herobrines_world/root",
+  "criteria": {
+    "get_gemstone": {
+      "conditions": {
+        "items": [
+          {
+            "items": "herobrines_world:green_gemstone"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.herobrines_world.mine_green_ore.descr"
+    },
+    "icon": {
+      "count": 1,
+      "id": "minecraft:stone_pickaxe"
+    },
+    "title": {
+      "translate": "advancements.herobrines_world.mine_green_ore.title"
+    }
+  },
+  "requirements": [
+    [
+      "get_gemstone"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

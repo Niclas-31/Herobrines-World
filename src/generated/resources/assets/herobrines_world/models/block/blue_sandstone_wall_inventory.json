@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/wall_inventory",
+  "textures": {
+    "wall": "herobrines_world:block/blue_sandstone"
+  }
+}

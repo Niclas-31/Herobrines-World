@@ -1,0 +1,33 @@
+{
+  "parent": "herobrines_world:herobrines_world/mine_green_ore",
+  "criteria": {
+    "nature_pickaxe": {
+      "conditions": {
+        "items": [
+          {
+            "items": "herobrines_world:nature_pickaxe"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.herobrines_world.upgrade_tools.descr"
+    },
+    "icon": {
+      "count": 1,
+      "id": "herobrines_world:nature_pickaxe"
+    },
+    "title": {
+      "translate": "advancements.herobrines_world.upgrade_tools.title"
+    }
+  },
+  "requirements": [
+    [
+      "nature_pickaxe"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

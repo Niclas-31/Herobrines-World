@@ -1,0 +1,33 @@
+{
+  "parent": "herobrines_world:herobrines_world/magma_tools",
+  "criteria": {
+    "herobrine_diamond": {
+      "conditions": {
+        "items": [
+          {
+            "items": "herobrines_world:herobrine_diamond"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.herobrines_world.mine_herobrine_diamond.descr"
+    },
+    "icon": {
+      "count": 1,
+      "id": "herobrines_world:herobrine_diamond"
+    },
+    "title": {
+      "translate": "advancements.herobrines_world.mine_herobrine_diamond.title"
+    }
+  },
+  "requirements": [
+    [
+      "herobrine_diamond"
+    ]
+  ],
+  "sends_telemetry_event": true
+}
