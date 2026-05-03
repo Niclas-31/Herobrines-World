@@ -1,5 +1,6 @@
 package de.niclasl.herobrines_world.datagen;
 
+import com.google.common.collect.ImmutableMap;
 import de.niclasl.herobrines_world.HerobrinesWorld;
 import de.niclasl.herobrines_world.registries.block.ModBlocks;
 import de.niclasl.herobrines_world.registries.item.ModItems;
@@ -17,9 +18,25 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import org.jspecify.annotations.NonNull;
 
+import java.util.Map;
 import java.util.stream.Stream;
 
 public class ModModelProvider extends ModelProvider {
+
+    public static final Map<Block, TexturedModel> TEXTURED_MODELS = ImmutableMap.<Block, TexturedModel>builder()
+            .put(ModBlocks.BLUE_SANDSTONE.get(), TexturedModel.TOP_BOTTOM_WITH_WALL.get(ModBlocks.BLUE_SANDSTONE.get()))
+            .put(ModBlocks.BLUE_SMOOTH_SANDSTONE.get(), TexturedModel.createAllSame(TextureMapping.getBlockTexture(ModBlocks.BLUE_SANDSTONE.get(), "_top")))
+            .put(
+                    ModBlocks.BLUE_CUT_SANDSTONE.get(),
+                    TexturedModel.COLUMN
+                            .get(ModBlocks.BLUE_SANDSTONE.get())
+                            .updateTextures(p_465393_ -> p_465393_.put(TextureSlot.SIDE, TextureMapping.getBlockTexture(ModBlocks.BLUE_CUT_SANDSTONE.get())))
+            )
+            .put(ModBlocks.BLUE_CHISELED_SANDSTONE.get(), TexturedModel.COLUMN.get(ModBlocks.BLUE_CHISELED_SANDSTONE.get()).updateTextures(p_465378_ -> {
+                p_465378_.put(TextureSlot.END, TextureMapping.getBlockTexture(ModBlocks.BLUE_SANDSTONE.get(), "_top"));
+                p_465378_.put(TextureSlot.SIDE, TextureMapping.getBlockTexture(ModBlocks.BLUE_CHISELED_SANDSTONE.get()));
+            }))
+            .build();
 
     public ModModelProvider(PackOutput output) {
         super(output, HerobrinesWorld.MODID);
@@ -47,33 +64,19 @@ public class ModModelProvider extends ModelProvider {
 
         blockModels.createTrivialCube(ModBlocks.ASH_BLOCK.get());
 
-        blockModels.createTrivialBlock(
-                ModBlocks.BLUE_SANDSTONE.get(),
-                TexturedModel.createDefault(
-                        TextureMapping::cubeBottomTop,
-                        ModelTemplates.CUBE_BOTTOM_TOP
-                )
-        );
+        family(blockModels, ModBlocks.BLUE_SANDSTONE.get())
+                .wall(ModBlocks.BLUE_SANDSTONE_WALL.get())
+                .slab(ModBlocks.BLUE_SANDSTONE_SLAB.get())
+                .stairs(ModBlocks.BLUE_SANDSTONE_STAIRS.get());
 
-        blockModels.createTrivialBlock(
-                ModBlocks.BLUE_CHISELED_SANDSTONE.get(),
-                TexturedModel.createDefault(
-                        TextureMapping::column,
-                        ModelTemplates.CUBE_COLUMN
-                )
-        );
+        family(blockModels, ModBlocks.BLUE_CHISELED_SANDSTONE.get());
 
-        blockModels.family(ModBlocks.BLUE_SMOOTH_SANDSTONE.get())
+        family(blockModels, ModBlocks.BLUE_SMOOTH_SANDSTONE.get())
                 .stairs(ModBlocks.BLUE_SMOOTH_SANDSTONE_STAIRS.get())
                 .slab(ModBlocks.BLUE_SMOOTH_SANDSTONE_SLAB.get());
 
-        blockModels.createTrivialBlock(
-                ModBlocks.BLUE_CUT_SANDSTONE.get(),
-                TexturedModel.createDefault(
-                        TextureMapping::column,
-                        ModelTemplates.CUBE_COLUMN
-                )
-        );
+        family(blockModels, ModBlocks.BLUE_CUT_SANDSTONE.get())
+                .slab(ModBlocks.BLUE_CUT_SANDSTONE_SLAB.get());
 
         blockModels.createTrivialCube(ModBlocks.HEROBRINE_BLOCK.get());
         blockModels.createTrivialCube(ModBlocks.CURSED_STONE.get());
@@ -177,13 +180,16 @@ public class ModModelProvider extends ModelProvider {
         return Identifier.fromNamespaceAndPath(HerobrinesWorld.MODID, path);
     }
 
+    public BlockModelGenerators.BlockFamilyProvider family(BlockModelGenerators generators, Block block) {
+        TexturedModel texturedmodel = TEXTURED_MODELS.getOrDefault(block, TexturedModel.CUBE.get(block));
+        return generators.new BlockFamilyProvider(texturedmodel.getMapping()).fullBlock(block, texturedmodel.getTemplate());
+    }
+
     @Override
     protected @NonNull Stream<? extends Holder<Block>> getKnownBlocks() {
         return ModBlocks.BLOCKS.getEntries().stream().filter(x -> !x.is(ModBlocks.HEROBRINES_REALM_PORTAL)
                 && !x.is(ModBlocks.UNDERWORLD_PORTAL) && !x.is(ModBlocks.DELAYER) && !x.is(ModBlocks.LOGIC_GATE_BLOCK)
-                && !x.is(ModBlocks.BATTERY_CHARGER) && !x.is(ModBlocks.SIGNAL) && !x.is(ModBlocks.AUTO_FARMER)
-                && !x.is(ModBlocks.BLUE_SANDSTONE_STAIRS) && !x.is(ModBlocks.BLUE_SANDSTONE_SLAB)
-                && !x.is(ModBlocks.BLUE_SANDSTONE_WALL) && !x.is(ModBlocks.BLUE_CUT_SANDSTONE_SLAB));
+                && !x.is(ModBlocks.BATTERY_CHARGER) && !x.is(ModBlocks.SIGNAL) && !x.is(ModBlocks.AUTO_FARMER));
     }
 
     @Override
@@ -193,10 +199,8 @@ public class ModModelProvider extends ModelProvider {
                 && x.get() != ModBlocks.HEROBRINES_REALM_PORTAL.asItem() && x.get() != ModBlocks.UNDERWORLD_PORTAL.asItem()
                 && x.get() != ModBlocks.DELAYER.asItem() && x.get() != ModBlocks.LOGIC_GATE_BLOCK.asItem()
                 && x.get() != ModBlocks.BATTERY_CHARGER.asItem() && x.get() != ModBlocks.SIGNAL.asItem()
-                && x.get() != ModBlocks.AUTO_FARMER.asItem() && x.get() != ModBlocks.BLUE_SANDSTONE_STAIRS.asItem()
-                && x.get() != ModBlocks.BLUE_SANDSTONE_SLAB.asItem() && x.get() != ModBlocks.BLUE_SANDSTONE_WALL.asItem()
-                && x.get() != ModBlocks.BLUE_CUT_SANDSTONE_SLAB.asItem()
-                && !x.is(ModItems.SMART_CHIP_MK1) && !x.is(ModItems.SMART_CHIP_MK2)
-                && !x.is(ModItems.SMART_CHIP_CASE) && !x.is(ModItems.SMART_CHIP_MK3));
+                && x.get() != ModBlocks.AUTO_FARMER.asItem() && !x.is(ModItems.SMART_CHIP_MK1)
+                && !x.is(ModItems.SMART_CHIP_MK2) && !x.is(ModItems.SMART_CHIP_CASE)
+                && !x.is(ModItems.SMART_CHIP_MK3));
     }
 }

@@ -18,7 +18,10 @@ import net.neoforged.neoforge.common.world.BiomeModifiers;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
 
 public class ModBiomeModifiers {
-    public static final ResourceKey<BiomeModifier> ADD_ASH_ORE = registerKey("add_ash_ore");
+    public static final ResourceKey<BiomeModifier> ADD_ASH_ORE_SMALL = registerKey("add_ash_ore_small");
+    public static final ResourceKey<BiomeModifier> ADD_ASH_ORE_MIDDLE = registerKey("add_ash_ore_middle");
+    public static final ResourceKey<BiomeModifier> ADD_ASH_ORE_UPPER = registerKey("add_ash_ore_upper");
+
     public static final ResourceKey<BiomeModifier> ADD_FROZEN_HEART_ORE = registerKey("add_frozen_heart_ore");
     public static final ResourceKey<BiomeModifier> ADD_GREEN_ORE = registerKey("add_green_ore");
 
@@ -41,9 +44,19 @@ public class ModBiomeModifiers {
         var placedFeatures = context.lookup(Registries.PLACED_FEATURE);
         var biomes = context.lookup(Registries.BIOME);
 
-        context.register(ADD_ASH_ORE, new BiomeModifiers.AddFeaturesBiomeModifier(
+        context.register(ADD_ASH_ORE_SMALL, new BiomeModifiers.AddFeaturesBiomeModifier(
                 biomes.getOrThrow(ModTags.Biomes.IS_ASH_ORE),
-                HolderSet.direct(placedFeatures.getOrThrow(ModPlacedFeatures.ASH_ORE_PLACED_KEY)),
+                HolderSet.direct(placedFeatures.getOrThrow(ModPlacedFeatures.ORE_ASH_SMALL)),
+                GenerationStep.Decoration.UNDERGROUND_ORES));
+
+        context.register(ADD_ASH_ORE_MIDDLE, new BiomeModifiers.AddFeaturesBiomeModifier(
+                biomes.getOrThrow(ModTags.Biomes.IS_ASH_ORE),
+                HolderSet.direct(placedFeatures.getOrThrow(ModPlacedFeatures.ORE_ASH_MIDDLE)),
+                GenerationStep.Decoration.UNDERGROUND_ORES));
+
+        context.register(ADD_ASH_ORE_UPPER, new BiomeModifiers.AddFeaturesBiomeModifier(
+                biomes.getOrThrow(ModTags.Biomes.IS_ASH_ORE),
+                HolderSet.direct(placedFeatures.getOrThrow(ModPlacedFeatures.ORE_ASH_UPPER)),
                 GenerationStep.Decoration.UNDERGROUND_ORES));
 
         context.register(ADD_FROZEN_HEART_ORE, new BiomeModifiers.AddFeaturesBiomeModifier(

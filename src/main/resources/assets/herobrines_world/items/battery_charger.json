@@ -1,6 +1,6 @@
 {
     "model": {
         "type": "minecraft:model",
-        "model": "herobrines_world:item/battery_charger"
+        "model": "herobrines_world:block/battery_charger"
     }
 }

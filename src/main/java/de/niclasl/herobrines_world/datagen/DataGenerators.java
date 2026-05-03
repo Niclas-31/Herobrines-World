@@ -1,6 +1,7 @@
 package de.niclasl.herobrines_world.datagen;
 
 import de.niclasl.herobrines_world.HerobrinesWorld;
+import de.niclasl.herobrines_world.datagen.advancements.ModAdvancementProvider;
 import de.niclasl.herobrines_world.datagen.tags.*;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
@@ -32,6 +33,8 @@ public class DataGenerators {
         event.createProvider(ModEnchantmentTagProvider::new);
         event.createProvider(ModPoiTypeTagProvider::new);
         event.createProvider(ModEntityTypeTagProvider::new);
+
+        event.createProvider(ModAdvancementProvider::new);
 
         event.createProvider(ModDataMapProvider::new);
         event.createProvider(ModModelProvider::new);

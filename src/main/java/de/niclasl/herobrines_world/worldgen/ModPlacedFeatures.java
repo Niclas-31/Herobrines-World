@@ -15,7 +15,10 @@ import net.minecraft.world.level.levelgen.placement.PlacementModifier;
 import java.util.List;
 
 public class ModPlacedFeatures {
-    public static final ResourceKey<PlacedFeature> ASH_ORE_PLACED_KEY = registerKey("ash_ore_placed");
+    public static final ResourceKey<PlacedFeature> ORE_ASH_SMALL = registerKey("ore_ash_small");
+    public static final ResourceKey<PlacedFeature> ORE_ASH_MIDDLE = registerKey("ore_ash_middle");
+    public static final ResourceKey<PlacedFeature> ORE_ASH_UPPER = registerKey("ore_ash_upper");
+
     public static final ResourceKey<PlacedFeature> FROZEN_HEART_ORE_PLACED_KEY = registerKey("frozen_heart_ore_placed");
     public static final ResourceKey<PlacedFeature> GREEN_ORE_PLACED_KEY = registerKey("green_ore_placed");
 
@@ -32,8 +35,13 @@ public class ModPlacedFeatures {
     public static void bootstrap(BootstrapContext<PlacedFeature> context) {
         var configuredFeatures = context.lookup(Registries.CONFIGURED_FEATURE);
 
-        register(context, ASH_ORE_PLACED_KEY, configuredFeatures.getOrThrow(ModConfiguredFeatures.ASH_ORE_KEY),
-                ModOrePlacement.commonOrePlacement(2, HeightRangePlacement.triangle(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(32))));
+        register(context, ORE_ASH_SMALL, configuredFeatures.getOrThrow(ModConfiguredFeatures.ORE_ASH_SMALL),
+                ModOrePlacement.commonOrePlacement(12, HeightRangePlacement.triangle(VerticalAnchor.absolute(2), VerticalAnchor.absolute(74))));
+        register(context, ORE_ASH_MIDDLE, configuredFeatures.getOrThrow(ModConfiguredFeatures.ORE_ASH),
+                ModOrePlacement.commonOrePlacement(12, HeightRangePlacement.triangle(VerticalAnchor.absolute(-26), VerticalAnchor.absolute(58))));
+        register(context, ORE_ASH_UPPER, configuredFeatures.getOrThrow(ModConfiguredFeatures.ORE_ASH),
+                ModOrePlacement.commonOrePlacement(92, HeightRangePlacement.triangle(VerticalAnchor.absolute(82), VerticalAnchor.absolute(384))));
+
         register(context, FROZEN_HEART_ORE_PLACED_KEY, configuredFeatures.getOrThrow(ModConfiguredFeatures.FROZEN_HEART_ORE_KEY),
                 ModOrePlacement.commonOrePlacement(20, HeightRangePlacement.triangle(VerticalAnchor.absolute(-32), VerticalAnchor.absolute(256))));
         register(context, GREEN_ORE_PLACED_KEY, configuredFeatures.getOrThrow(ModConfiguredFeatures.GREEN_ORE_KEY),
@@ -48,8 +56,8 @@ public class ModPlacedFeatures {
         register(context, ORE_HEROBRINE_MEDIUM, configuredFeatures.getOrThrow(ModConfiguredFeatures.ORE_HEROBRINE_SMALL),
                 ModOrePlacement.commonOrePlacement(2, HeightRangePlacement.triangle(VerticalAnchor.aboveBottom(-64), VerticalAnchor.aboveBottom(-4))));
 
-        register(context, TOXENIUM_ORE_PLACED_KEY, configuredFeatures.getOrThrow(ModConfiguredFeatures.TOXENIUM_ORE_KEY),
-                ModOrePlacement.rareOrePlacement(1, HeightRangePlacement.uniform(VerticalAnchor.absolute(8), VerticalAnchor.absolute(24))));
+        register(context, TOXENIUM_ORE_PLACED_KEY, configuredFeatures.getOrThrow(ModConfiguredFeatures.ORE_TOXENIUM_LARGE),
+                ModOrePlacement.toxeniumOrePlacement(HeightRangePlacement.uniform(VerticalAnchor.absolute(8), VerticalAnchor.absolute(24))));
 
         register(context, CURSED_STONE_PLACED_KEY, configuredFeatures.getOrThrow(ModConfiguredFeatures.CURSED_STONE_KEY),
                 ModOrePlacement.commonOrePlacement(20, HeightRangePlacement.triangle(VerticalAnchor.absolute(0), VerticalAnchor.absolute(256))));

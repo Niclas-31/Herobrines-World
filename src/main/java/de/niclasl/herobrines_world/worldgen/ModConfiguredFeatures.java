@@ -19,7 +19,9 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest;
 import java.util.List;
 
 public class ModConfiguredFeatures {
-    public static final ResourceKey<ConfiguredFeature<?, ?>> ASH_ORE_KEY = registerKey("ash_ore");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_ASH_SMALL = registerKey("ore_ash_small");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_ASH = registerKey("ore_ash");
+
     public static final ResourceKey<ConfiguredFeature<?, ?>> FROZEN_HEART_ORE_KEY = registerKey("frozen_heart_ore");
     public static final ResourceKey<ConfiguredFeature<?, ?>> GREEN_ORE_KEY = registerKey("green_ore");
 
@@ -28,7 +30,8 @@ public class ModConfiguredFeatures {
     public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_HEROBRINE_LARGE = registerKey("ore_herobrine_large");
     public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_HEROBRINE_BURIED = registerKey("ore_herobrine_buried");
 
-    public static final ResourceKey<ConfiguredFeature<?, ?>> TOXENIUM_ORE_KEY = registerKey("toxenium_ore");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_TOXENIUM_LARGE = registerKey("ore_toxenium_large");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_TOXENIUM_SMALL = registerKey("ore_toxenium_small");
 
     public static final ResourceKey<ConfiguredFeature<?, ?>> CURSED_STONE_KEY = registerKey("cursed_stone");
     public static final ResourceKey<ConfiguredFeature<?, ?>> ABYSSAL_BLOCK_KEY = registerKey("abyssal_block");
@@ -55,7 +58,9 @@ public class ModConfiguredFeatures {
         List<OreConfiguration.TargetBlockState> overworldAbyssalBlock = List.of(
                 OreConfiguration.target(stoneReplaceables, ModBlocks.ABYSSAL_BLOCK.get().defaultBlockState()));
 
-        register(context, ASH_ORE_KEY, Feature.ORE, new OreConfiguration(overworldAshOres, 9));
+        register(context, ORE_ASH_SMALL, Feature.ORE, new OreConfiguration(overworldAshOres, 9));
+        register(context, ORE_ASH, Feature.ORE, new OreConfiguration(overworldAshOres, 4));
+
         register(context, FROZEN_HEART_ORE_KEY, Feature.ORE, new OreConfiguration(overworldFrozenHeartOres, 9));
         register(context, GREEN_ORE_KEY, Feature.ORE, new OreConfiguration(overworldGreenOres, 9));
 
@@ -64,8 +69,10 @@ public class ModConfiguredFeatures {
         register(context, ORE_HEROBRINE_LARGE, Feature.ORE, new OreConfiguration(overworldHerobrineOres, 12, 0.7F));
         register(context, ORE_HEROBRINE_BURIED, Feature.ORE, new OreConfiguration(overworldHerobrineOres, 8, 1.0F));
 
-        register(context, TOXENIUM_ORE_KEY, Feature.ORE, new OreConfiguration(netherrackReplaceables,
-                ModBlocks.TOXENIUM_ORE.get().defaultBlockState(), 3));
+        register(context, ORE_TOXENIUM_LARGE, Feature.SCATTERED_ORE, new OreConfiguration(netherrackReplaceables,
+                ModBlocks.TOXENIUM_ORE.get().defaultBlockState(), 3, 1.0F));
+        register(context, ORE_TOXENIUM_SMALL, Feature.SCATTERED_ORE, new OreConfiguration(netherrackReplaceables,
+                ModBlocks.TOXENIUM_ORE.get().defaultBlockState(), 2, 1.0F));
 
         register(context, CURSED_STONE_KEY, Feature.ORE, new OreConfiguration(overworldCursedStone, 7));
         register(context, ABYSSAL_BLOCK_KEY, Feature.ORE, new OreConfiguration(overworldAbyssalBlock, 10));

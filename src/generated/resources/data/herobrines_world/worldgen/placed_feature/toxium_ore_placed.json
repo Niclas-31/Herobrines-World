@@ -1,13 +1,6 @@
 {
-  "feature": "herobrines_world:toxenium_ore",
+  "feature": "herobrines_world:ore_toxenium_large",
   "placement": [
-    {
-      "type": "minecraft:rarity_filter",
-      "chance": 1
-    },
-    {
-      "type": "minecraft:in_square"
-    },
     {
       "type": "minecraft:height_range",
       "height": {
@@ -19,9 +12,6 @@
           "absolute": 8
         }
       }
-    },
-    {
-      "type": "minecraft:biome"
     }
   ]
 }
