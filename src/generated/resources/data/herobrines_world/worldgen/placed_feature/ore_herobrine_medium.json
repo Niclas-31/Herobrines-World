@@ -1,5 +1,5 @@
 {
-  "feature": "herobrines_world:ore_herobrine_small",
+  "feature": "herobrines_world:ore_herobrine_medium",
   "placement": [
     {
       "type": "minecraft:count",
@@ -13,10 +13,10 @@
       "height": {
         "type": "minecraft:trapezoid",
         "max_inclusive": {
-          "above_bottom": -4
+          "absolute": -4
         },
         "min_inclusive": {
-          "above_bottom": -64
+          "absolute": -64
         }
       }
     },

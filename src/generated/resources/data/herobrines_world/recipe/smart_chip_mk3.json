@@ -7,7 +7,7 @@
     "D": "minecraft:diamond",
     "E": "minecraft:emerald",
     "I": "minecraft:netherite_ingot",
-    "P": "herobrines_world:platin"
+    "P": "herobrines_world:platin_ingot"
   },
   "pattern": [
     "IED",

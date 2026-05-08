@@ -22,15 +22,23 @@ public class ModBiomeModifiers {
     public static final ResourceKey<BiomeModifier> ADD_ASH_ORE_MIDDLE = registerKey("add_ash_ore_middle");
     public static final ResourceKey<BiomeModifier> ADD_ASH_ORE_UPPER = registerKey("add_ash_ore_upper");
 
-    public static final ResourceKey<BiomeModifier> ADD_FROZEN_HEART_ORE = registerKey("add_frozen_heart_ore");
-    public static final ResourceKey<BiomeModifier> ADD_GREEN_ORE = registerKey("add_green_ore");
+    public static final ResourceKey<BiomeModifier> ADD_FROZEN_HEART_ORE_SMALL = registerKey("add_frozen_heart_ore_small");
+    public static final ResourceKey<BiomeModifier> ADD_FROZEN_HEART_ORE_MIDDLE = registerKey("add_frozen_heart_ore_middle");
+    public static final ResourceKey<BiomeModifier> ADD_FROZEN_HEART_ORE_UPPER = registerKey("add_frozen_heart_ore_upper");
+
+    public static final ResourceKey<BiomeModifier> ADD_GREEN_ORE_SMALL = registerKey("add_green_ore_small");
+    public static final ResourceKey<BiomeModifier> ADD_GREEN_ORE_MIDDLE = registerKey("add_green_ore_middle");
+    public static final ResourceKey<BiomeModifier> ADD_GREEN_ORE_UPPER = registerKey("add_green_ore_upper");
 
     public static final ResourceKey<BiomeModifier> ADD_HEROBRINE_ORE_SMALL = registerKey("add_herobrine_ore_small");
     public static final ResourceKey<BiomeModifier> ADD_HEROBRINE_ORE_MEDIUM = registerKey("add_herobrine_ore_medium");
     public static final ResourceKey<BiomeModifier> ADD_HEROBRINE_ORE_LARGE = registerKey("add_herobrine_ore_large");
     public static final ResourceKey<BiomeModifier> ADD_HEROBRINE_ORE_BURIED = registerKey("add_herobrine_ore_buried");
 
-    public static final ResourceKey<BiomeModifier> ADD_TOXENIUM_ORE = registerKey("add_toxium_ore");
+    public static final ResourceKey<BiomeModifier> ADD_PLATIN_ORE_SMALL = registerKey("add_platin_ore_small");
+    public static final ResourceKey<BiomeModifier> ADD_PLATIN_ORE_MEDIUM = registerKey("add_platin_ore_medium");
+    public static final ResourceKey<BiomeModifier> ADD_PLATIN_ORE_LARGE = registerKey("add_platin_ore_large");
+    public static final ResourceKey<BiomeModifier> ADD_PLATIN_ORE_BURIED = registerKey("add_platin_ore_buried");
 
     public static final ResourceKey<BiomeModifier> ADD_CURSED_STONE = registerKey("add_cursed_stone");
     public static final ResourceKey<BiomeModifier> ADD_ABYSSAL_BLOCK = registerKey("add_abyssal_block");
@@ -48,25 +56,39 @@ public class ModBiomeModifiers {
                 biomes.getOrThrow(ModTags.Biomes.IS_ASH_ORE),
                 HolderSet.direct(placedFeatures.getOrThrow(ModPlacedFeatures.ORE_ASH_SMALL)),
                 GenerationStep.Decoration.UNDERGROUND_ORES));
-
         context.register(ADD_ASH_ORE_MIDDLE, new BiomeModifiers.AddFeaturesBiomeModifier(
                 biomes.getOrThrow(ModTags.Biomes.IS_ASH_ORE),
                 HolderSet.direct(placedFeatures.getOrThrow(ModPlacedFeatures.ORE_ASH_MIDDLE)),
                 GenerationStep.Decoration.UNDERGROUND_ORES));
-
         context.register(ADD_ASH_ORE_UPPER, new BiomeModifiers.AddFeaturesBiomeModifier(
                 biomes.getOrThrow(ModTags.Biomes.IS_ASH_ORE),
                 HolderSet.direct(placedFeatures.getOrThrow(ModPlacedFeatures.ORE_ASH_UPPER)),
                 GenerationStep.Decoration.UNDERGROUND_ORES));
 
-        context.register(ADD_FROZEN_HEART_ORE, new BiomeModifiers.AddFeaturesBiomeModifier(
+        context.register(ADD_FROZEN_HEART_ORE_SMALL, new BiomeModifiers.AddFeaturesBiomeModifier(
                 biomes.getOrThrow(ModTags.Biomes.IS_ALL_BIOMES),
-                HolderSet.direct(placedFeatures.getOrThrow(ModPlacedFeatures.FROZEN_HEART_ORE_PLACED_KEY)),
+                HolderSet.direct(placedFeatures.getOrThrow(ModPlacedFeatures.ORE_FROZEN_HEART_SMALL)),
+                GenerationStep.Decoration.UNDERGROUND_ORES));
+        context.register(ADD_FROZEN_HEART_ORE_MIDDLE, new BiomeModifiers.AddFeaturesBiomeModifier(
+                biomes.getOrThrow(ModTags.Biomes.IS_ALL_BIOMES),
+                HolderSet.direct(placedFeatures.getOrThrow(ModPlacedFeatures.ORE_FROZEN_HEART_MIDDLE)),
+                GenerationStep.Decoration.UNDERGROUND_ORES));
+        context.register(ADD_FROZEN_HEART_ORE_UPPER, new BiomeModifiers.AddFeaturesBiomeModifier(
+                biomes.getOrThrow(ModTags.Biomes.IS_ALL_BIOMES),
+                HolderSet.direct(placedFeatures.getOrThrow(ModPlacedFeatures.ORE_FROZEN_HEART_UPPER)),
                 GenerationStep.Decoration.UNDERGROUND_ORES));
 
-        context.register(ADD_GREEN_ORE, new BiomeModifiers.AddFeaturesBiomeModifier(
+        context.register(ADD_GREEN_ORE_SMALL, new BiomeModifiers.AddFeaturesBiomeModifier(
                 biomes.getOrThrow(ModTags.Biomes.IS_GREEN_ORE),
-                HolderSet.direct(placedFeatures.getOrThrow(ModPlacedFeatures.GREEN_ORE_PLACED_KEY)),
+                HolderSet.direct(placedFeatures.getOrThrow(ModPlacedFeatures.ORE_GREEN_SMALL)),
+                GenerationStep.Decoration.UNDERGROUND_ORES));
+        context.register(ADD_GREEN_ORE_MIDDLE, new BiomeModifiers.AddFeaturesBiomeModifier(
+                biomes.getOrThrow(ModTags.Biomes.IS_GREEN_ORE),
+                HolderSet.direct(placedFeatures.getOrThrow(ModPlacedFeatures.ORE_GREEN_MIDDLE)),
+                GenerationStep.Decoration.UNDERGROUND_ORES));
+        context.register(ADD_GREEN_ORE_UPPER, new BiomeModifiers.AddFeaturesBiomeModifier(
+                biomes.getOrThrow(ModTags.Biomes.IS_GREEN_ORE),
+                HolderSet.direct(placedFeatures.getOrThrow(ModPlacedFeatures.ORE_GREEN_UPPER)),
                 GenerationStep.Decoration.UNDERGROUND_ORES));
 
         context.register(ADD_HEROBRINE_ORE_SMALL, new BiomeModifiers.AddFeaturesBiomeModifier(
@@ -86,9 +108,21 @@ public class ModBiomeModifiers {
                 HolderSet.direct(placedFeatures.getOrThrow(ModPlacedFeatures.ORE_HEROBRINE_BURIED)),
                 GenerationStep.Decoration.UNDERGROUND_ORES));
 
-        context.register(ADD_TOXENIUM_ORE, new BiomeModifiers.AddFeaturesBiomeModifier(
-                biomes.getOrThrow(ModTags.Biomes.IS_TOXENIUM_ORE),
-                HolderSet.direct(placedFeatures.getOrThrow(ModPlacedFeatures.TOXENIUM_ORE_PLACED_KEY)),
+        context.register(ADD_PLATIN_ORE_SMALL, new BiomeModifiers.AddFeaturesBiomeModifier(
+                biomes.getOrThrow(ModTags.Biomes.IS_PLATIN_ORE),
+                HolderSet.direct(placedFeatures.getOrThrow(ModPlacedFeatures.ORE_PLATIN)),
+                GenerationStep.Decoration.UNDERGROUND_ORES));
+        context.register(ADD_PLATIN_ORE_MEDIUM, new BiomeModifiers.AddFeaturesBiomeModifier(
+                biomes.getOrThrow(ModTags.Biomes.IS_PLATIN_ORE),
+                HolderSet.direct(placedFeatures.getOrThrow(ModPlacedFeatures.ORE_PLATIN_MEDIUM)),
+                GenerationStep.Decoration.UNDERGROUND_ORES));
+        context.register(ADD_PLATIN_ORE_LARGE, new BiomeModifiers.AddFeaturesBiomeModifier(
+                biomes.getOrThrow(ModTags.Biomes.IS_PLATIN_ORE),
+                HolderSet.direct(placedFeatures.getOrThrow(ModPlacedFeatures.ORE_PLATIN_LARGE)),
+                GenerationStep.Decoration.UNDERGROUND_ORES));
+        context.register(ADD_PLATIN_ORE_BURIED, new BiomeModifiers.AddFeaturesBiomeModifier(
+                biomes.getOrThrow(ModTags.Biomes.IS_PLATIN_ORE),
+                HolderSet.direct(placedFeatures.getOrThrow(ModPlacedFeatures.ORE_PLATIN_BURIED)),
                 GenerationStep.Decoration.UNDERGROUND_ORES));
 
         context.register(ADD_CURSED_STONE, new BiomeModifiers.AddFeaturesBiomeModifier(

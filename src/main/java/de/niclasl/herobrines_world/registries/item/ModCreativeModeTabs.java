@@ -72,7 +72,8 @@ public class ModCreativeModeTabs {
 								tabData.accept(ModBlocks.DEEPSLATE_ASH_ORE);
 								tabData.accept(ModBlocks.HEROBRINE_ORE);
 								tabData.accept(ModBlocks.DEEPSLATE_HEROBRINE_ORE);
-								tabData.accept(ModBlocks.TOXENIUM_ORE);
+								tabData.accept(ModBlocks.PLATINE_ORE);
+								tabData.accept(ModBlocks.DEEPSLATE_PLATIN_ORE);
 							}).build());
 
 	public static final Supplier<CreativeModeTab> HEROBRINE_FUNCTIONAL_BLOCKS =
@@ -132,10 +133,10 @@ public class ModCreativeModeTabs {
 								tabData.accept(ModItems.HEROBRINE_PICKAXE);
 								tabData.accept(ModItems.HEROBRINE_AXE);
 								tabData.accept(ModItems.HEROBRINE_HOE);
-								tabData.accept(ModItems.TOXENIUM_SHOVEL);
-								tabData.accept(ModItems.TOXENIUM_PICKAXE);
-								tabData.accept(ModItems.TOXENIUM_AXE);
-								tabData.accept(ModItems.TOXENIUM_HOE);
+								tabData.accept(ModItems.PLATIN_SHOVEL);
+								tabData.accept(ModItems.PLATIN_PICKAXE);
+								tabData.accept(ModItems.PLATIN_AXE);
+								tabData.accept(ModItems.PLATIN_HOE);
 								tabData.accept(ModItems.TIME_CLOCK);
 								tabData.accept(ModItems.HEROBRINES_REALM);
 								tabData.accept(ModItems.UNDERWORLD);
@@ -144,18 +145,18 @@ public class ModCreativeModeTabs {
 	public static final Supplier<CreativeModeTab> HEROBRINE_COMBAT =
 			CREATIVE_MODE_TAB.register("herobrine_combat",
 					() -> CreativeModeTab.builder()
-							.icon(() -> new ItemStack(ModItems.TOXENIUM_SWORD.get()))
+							.icon(() -> new ItemStack(ModItems.PLATIN_SWORD.get()))
 							.withTabsBefore(Identifier.fromNamespaceAndPath(HerobrinesWorld.MODID, "herobrine_tools_and_utilities"))
 							.title(Component.translatable("item_group.herobrines_world.herobrine_combat"))
 							.displayItems((parameters, tabData) -> {
 								tabData.accept(ModItems.NATURE_SWORD);
 								tabData.accept(ModItems.FIRE_SWORD);
 								tabData.accept(ModItems.HEROBRINE_SWORD);
-								tabData.accept(ModItems.TOXENIUM_SWORD);
+								tabData.accept(ModItems.PLATIN_SWORD);
 								tabData.accept(ModItems.NATURE_AXE);
 								tabData.accept(ModItems.FIRE_AXE);
 								tabData.accept(ModItems.HEROBRINE_AXE);
-								tabData.accept(ModItems.TOXENIUM_AXE);
+								tabData.accept(ModItems.PLATIN_AXE);
 								tabData.accept(ModItems.NATURE_HELMET);
 								tabData.accept(ModItems.NATURE_CHESTPLATE);
 								tabData.accept(ModItems.NATURE_LEGGINGS);
@@ -168,10 +169,10 @@ public class ModCreativeModeTabs {
 								tabData.accept(ModItems.HEROBRINE_CHESTPLATE);
 								tabData.accept(ModItems.HEROBRINE_LEGGINGS);
 								tabData.accept(ModItems.HEROBRINE_BOOTS);
-								tabData.accept(ModItems.TOXENIUM_HELMET);
-								tabData.accept(ModItems.TOXENIUM_CHESTPLATE);
-								tabData.accept(ModItems.TOXENIUM_LEGGINGS);
-								tabData.accept(ModItems.TOXENIUM_BOOTS);
+								tabData.accept(ModItems.PLATIN_HELMET);
+								tabData.accept(ModItems.PLATIN_CHESTPLATE);
+								tabData.accept(ModItems.PLATIN_LEGGINGS);
+								tabData.accept(ModItems.PLATIN_BOOTS);
 							}).build());
 
 	public static final Supplier<CreativeModeTab> HEROBRINE_INGREDIENTS =
@@ -185,12 +186,9 @@ public class ModCreativeModeTabs {
 								tabData.accept(ModItems.ASH);
 								tabData.accept(ModItems.ASH_INGOT);
 								tabData.accept(ModItems.FROZEN_HEART);
-								tabData.accept(ModItems.TOXENIUM_UPGRADE_SMITHING_TEMPLATE);
-								tabData.accept(ModItems.TOXENIUM_INGOT);
-								tabData.accept(ModItems.TOXENIUM_SCRAP);
+								tabData.accept(ModItems.PLATIN_INGOT);
 								tabData.accept(ModItems.GREEN_GEMSTONE);
 								tabData.accept(ModItems.RUNE_STONE);
-								tabData.accept(ModItems.PLATIN);
 							}).build());
 
 	public static final Supplier<CreativeModeTab> HEROBRINE_SPAWN_EGGS =

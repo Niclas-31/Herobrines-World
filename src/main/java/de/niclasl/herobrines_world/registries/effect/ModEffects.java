@@ -20,9 +20,6 @@ public class ModEffects {
 	public static final Holder<MobEffect> BAD_HEROBRINE_EFFECT = MOB_EFFECTS.register("bad_herobrine_effect",
 			() -> new BadHerobrine(MobEffectCategory.HARMFUL, -16777216));
 
-	public static final Holder<MobEffect> RADIO_ACTIVE = MOB_EFFECTS.register("radio_active",
-			() -> new RadioActive(MobEffectCategory.HARMFUL, -256));
-
 	public static void register(IEventBus eventBus) {
 		MOB_EFFECTS.register(eventBus);
 	}

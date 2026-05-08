@@ -1,6 +1,7 @@
 {
   "values": [
-    "#herobrines_world:needs_herobrine_tool",
-    "#herobrines_world:needs_toxium_tool"
+    "#minecraft:needs_diamond_tool",
+    "#herobrines_world:needs_platin_tool",
+    "#herobrines_world:needs_herobrine_tool"
   ]
 }

@@ -9,6 +9,7 @@ import de.niclasl.herobrines_world.worldgen.biome.data.ModBiomeData;
 import de.niclasl.herobrines_world.worldgen.dimension.ModDimensions;
 import de.niclasl.herobrines_world.worldgen.dimension.noise.data.ModNoiseData;
 import de.niclasl.herobrines_world.worldgen.dimension.noise.generator.ModNoiseGeneratorSettings;
+import de.niclasl.herobrines_world.worldgen.structure.ModStructures;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;
@@ -24,6 +25,7 @@ public class ModDatapackProvider extends DatapackBuiltinEntriesProvider {
             .add(Registries.DIMENSION_TYPE, ModDimensions::bootstrapType)
             .add(Registries.CONFIGURED_FEATURE, ModConfiguredFeatures::bootstrap)
             .add(Registries.PLACED_FEATURE, ModPlacedFeatures::bootstrap)
+            .add(Registries.STRUCTURE, ModStructures::bootstrap)
             .add(Registries.BIOME, ModBiomeData::bootstrap)
             .add(Registries.NOISE, ModNoiseData::bootstrap)
             .add(Registries.NOISE_SETTINGS, ModNoiseGeneratorSettings::bootstrap)

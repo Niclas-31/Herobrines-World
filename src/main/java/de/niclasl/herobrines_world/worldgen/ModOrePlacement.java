@@ -16,8 +16,4 @@ public class ModOrePlacement {
     public static List<PlacementModifier> rareOrePlacement(int pChance, PlacementModifier pHeightRange) {
         return orePlacement(RarityFilter.onAverageOnceEvery(pChance), pHeightRange);
     }
-
-    public static List<PlacementModifier> toxeniumOrePlacement(PlacementModifier pHeightRange) {
-        return List.of(pHeightRange);
-    }
 }

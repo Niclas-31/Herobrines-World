@@ -1,16 +1,21 @@
 package de.niclasl.herobrines_world.registries.item.custom;
 
-import net.minecraft.core.component.DataComponents;
+import de.niclasl.herobrines_world.registries.components.ModDataComponents;
+import de.niclasl.herobrines_world.registries.components.RuneData;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.item.component.CustomData;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionHand;
-
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.Relative;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.EnumSet;
 
 public class RuneStone extends Item {
 
@@ -29,31 +34,32 @@ public class RuneStone extends Item {
 
 		var stack = player.getItemInHand(hand);
 
-		var tag = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
+		var tag = stack.getOrDefault(ModDataComponents.RUNE_DATA, new RuneData(0, 0, 0, Level.OVERWORLD, false, 0, 0));
 
-		boolean hasSaved = tag.getBooleanOr("hasSavedPosition", false);
+		boolean hasSaved = tag.saved();
 
 		if (player.isShiftKeyDown()) {
 
 			if (hasSaved) {
 				player.displayClientMessage(
-						Component.literal("§4A position has already been saved on this item!"),
+						Component.translatable("message.rune_stone.already_saved"),
 						true
 				);
 				return InteractionResult.SUCCESS;
 			}
 
-			CustomData.update(DataComponents.CUSTOM_DATA, stack, data -> {
-				data.putDouble("savedX", player.getX());
-				data.putDouble("savedY", player.getY());
-				data.putDouble("savedZ", player.getZ());
-				data.putString("savedDimension",
-						player.level().dimension().identifier().toString());
-				data.putBoolean("hasSavedPosition", true);
-			});
+			stack.set(ModDataComponents.RUNE_DATA, new RuneData(
+					player.getX(),
+					player.getY(),
+					player.getZ(),
+					player.level().dimension(),
+					true,
+					player.getYRot(),
+					player.getXRot()
+			));
 
 			player.displayClientMessage(
-					Component.literal("§2Position was successfully saved in the item!"),
+					Component.translatable("message.rune_stone.position_saved"),
 					true
 			);
 
@@ -62,36 +68,42 @@ public class RuneStone extends Item {
 
 		if (!hasSaved) {
 			player.displayClientMessage(
-					Component.literal("§4No position has been saved yet."),
+					Component.translatable("message.rune_stone.no_position_saved"),
 					true
 			);
 			return InteractionResult.SUCCESS;
 		}
 
-		String savedDimension = tag.getStringOr("savedDimension", "");
-		String currentDimension =
-				player.level().dimension().identifier().toString();
+		ResourceKey<Level> savedDimension = tag.dimension();
 
-		if (!currentDimension.equals(savedDimension)) {
-			player.displayClientMessage(
-					Component.literal("§4You cannot teleport to another dimension!"),
-					true
-			);
-			return InteractionResult.SUCCESS;
-		}
-
-		double x = tag.getDoubleOr("savedX", 0);
-		double y = tag.getDoubleOr("savedY", 0);
-		double z = tag.getDoubleOr("savedZ", 0);
+		double x = tag.x();
+		double y = tag.y();
+		double z = tag.z();
+		float yaw = tag.yaw();
+		float pitch = tag.pitch();
 
 		if (player instanceof ServerPlayer serverPlayer) {
-			serverPlayer.connection.teleport(
-					x, y, z,
-					player.getYRot(),
-					player.getXRot()
-			);
+			teleportToDimension(serverPlayer, savedDimension, x, y, z, yaw, pitch);
 		}
 
 		return InteractionResult.SUCCESS;
 	}
+
+	public static void teleportToDimension(ServerPlayer player, ResourceKey<Level> targetDim, double x, double y, double z, float yaw, float pitch) {
+		MinecraftServer server = player.level().getServer();
+
+        ServerLevel targetLevel = server.getLevel(targetDim);
+		if (targetLevel == null) return;
+
+		player.teleportTo(
+				targetLevel,
+				x,
+				y,
+				z,
+				EnumSet.noneOf(Relative.class),
+				yaw,
+				pitch,
+				true
+		);
+    }
 }

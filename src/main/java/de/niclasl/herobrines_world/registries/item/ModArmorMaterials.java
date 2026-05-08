@@ -18,45 +18,65 @@ public class ModArmorMaterials {
     public static ResourceKey<EquipmentAsset> NATURE = ResourceKey.create(ROOT_ID, Identifier.fromNamespaceAndPath(HerobrinesWorld.MODID, "nature"));
     public static ResourceKey<EquipmentAsset> FIRE = ResourceKey.create(ROOT_ID, Identifier.fromNamespaceAndPath(HerobrinesWorld.MODID, "fire"));
     public static ResourceKey<EquipmentAsset> HEROBRINE = ResourceKey.create(ROOT_ID, Identifier.fromNamespaceAndPath(HerobrinesWorld.MODID, "herobrine"));
-    public static ResourceKey<EquipmentAsset> TOXENIUM = ResourceKey.create(ROOT_ID, Identifier.fromNamespaceAndPath(HerobrinesWorld.MODID, "toxenium"));
+    public static ResourceKey<EquipmentAsset> PLATIN = ResourceKey.create(ROOT_ID, Identifier.fromNamespaceAndPath(HerobrinesWorld.MODID, "platin"));
 
-    public static final ArmorMaterial NATURE_ARMOR_MATERIAL = new ArmorMaterial(2500,
-            Util.make(new EnumMap<>(ArmorType.class), attribute -> {
-                attribute.put(ArmorType.BOOTS, 300);
-                attribute.put(ArmorType.LEGGINGS, 600);
-                attribute.put(ArmorType.CHESTPLATE, 700);
-                attribute.put(ArmorType.HELMET, 400);
-                attribute.put(ArmorType.BODY, 700);
-            }), 20, SoundEvents.ARMOR_EQUIP_CHAIN,
-            2.7f, 1.8f, ModTags.Items.NATURE_REPAIRABLE, NATURE);
+    public static final ArmorMaterial NATURE_ARMOR_MATERIAL = new ArmorMaterial(150,
+            Util.make(new EnumMap<>(ArmorType.class), map -> {
+                map.put(ArmorType.BOOTS, 1);
+                map.put(ArmorType.LEGGINGS, 3);
+                map.put(ArmorType.CHESTPLATE, 4);
+                map.put(ArmorType.HELMET, 1);
+            }),
+            12,
+            SoundEvents.ARMOR_EQUIP_LEATHER,
+            0.0f,
+            0.0f,
+            ModTags.Items.REPAIRS_NATURE_ARMOR,
+            NATURE
+    );
 
-    public static final ArmorMaterial FIRE_ARMOR_MATERIAL = new ArmorMaterial(5000,
-            Util.make(new EnumMap<>(ArmorType.class), attribute -> {
-                attribute.put(ArmorType.BOOTS, 400);
-                attribute.put(ArmorType.LEGGINGS, 700);
-                attribute.put(ArmorType.CHESTPLATE, 800);
-                attribute.put(ArmorType.HELMET, 500);
-                attribute.put(ArmorType.BODY, 800);
-            }),30, SoundEvents.ARMOR_EQUIP_IRON,
-            3.6f, 2.0f, ModTags.Items.FIRE_REPAIRABLE, FIRE);
+    public static final ArmorMaterial FIRE_ARMOR_MATERIAL = new ArmorMaterial(250,
+            Util.make(new EnumMap<>(ArmorType.class), map -> {
+                map.put(ArmorType.BOOTS, 2);
+                map.put(ArmorType.LEGGINGS, 5);
+                map.put(ArmorType.CHESTPLATE, 6);
+                map.put(ArmorType.HELMET, 2);
+            }),
+            14,
+            SoundEvents.ARMOR_EQUIP_IRON,
+            0.0f,
+            0.0f,
+            ModTags.Items.REPAIRS_FIRE_ARMOR,
+            FIRE
+    );
 
-    public static final ArmorMaterial HEROBRINE_ARMOR_MATERIAL = new ArmorMaterial(7500,
-            Util.make(new EnumMap<>(ArmorType.class), attribute -> {
-                attribute.put(ArmorType.BOOTS, 500);
-                attribute.put(ArmorType.LEGGINGS, 800);
-                attribute.put(ArmorType.CHESTPLATE, 900);
-                attribute.put(ArmorType.HELMET, 600);
-                attribute.put(ArmorType.BODY, 900);
-            }), 40, SoundEvents.ARMOR_EQUIP_DIAMOND,
-            3.7f, 2.5f, ModTags.Items.HEROBRINE_REPAIRABLE, HEROBRINE);
+    public static final ArmorMaterial HEROBRINE_ARMOR_MATERIAL = new ArmorMaterial(400,
+            Util.make(new EnumMap<>(ArmorType.class), map -> {
+                map.put(ArmorType.BOOTS, 3);
+                map.put(ArmorType.LEGGINGS, 6);
+                map.put(ArmorType.CHESTPLATE, 8);
+                map.put(ArmorType.HELMET, 3);
+            }),
+            12,
+            SoundEvents.ARMOR_EQUIP_DIAMOND,
+            2.0f,
+            0.0f,
+            ModTags.Items.REPAIRS_HEROBRINE_ARMOR,
+            HEROBRINE
+    );
 
-    public static final ArmorMaterial TOXENIUM_ARMOR_MATERIAL = new ArmorMaterial(10000,
-            Util.make(new EnumMap<>(ArmorType.class), attribute -> {
-                attribute.put(ArmorType.BOOTS, 600);
-                attribute.put(ArmorType.LEGGINGS, 900);
-                attribute.put(ArmorType.CHESTPLATE, 1000);
-                attribute.put(ArmorType.HELMET, 700);
-                attribute.put(ArmorType.BODY, 1000);
-            }), 50, SoundEvents.ARMOR_EQUIP_NETHERITE,
-            4.3f, 3.2f, ModTags.Items.TOXENIUM_REPAIRABLE, TOXENIUM);
+    public static final ArmorMaterial PLATIN_ARMOR_MATERIAL = new ArmorMaterial(500,
+            Util.make(new EnumMap<>(ArmorType.class), map -> {
+                map.put(ArmorType.BOOTS, 3);
+                map.put(ArmorType.LEGGINGS, 6);
+                map.put(ArmorType.CHESTPLATE, 8);
+                map.put(ArmorType.HELMET, 3);
+            }),
+            18,
+            SoundEvents.ARMOR_EQUIP_NETHERITE,
+            3.0f,
+            0.1f,
+            ModTags.Items.REPAIRS_PLATIN_ARMOR,
+            PLATIN
+    );
 }

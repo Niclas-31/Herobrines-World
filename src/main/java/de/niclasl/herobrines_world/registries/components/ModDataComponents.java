@@ -26,6 +26,14 @@ public class ModDataComponents {
             "relic_data",
             builder -> builder.persistent(RelicData.CODEC));
 
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<String>> ORE_DATA = register(
+            "ore_data",
+            builder -> builder.persistent(Codec.STRING));
+
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<RuneData>> RUNE_DATA = register(
+            "rune_data",
+            builder -> builder.persistent(RuneData.CODEC));
+
     private static <T> DeferredHolder<DataComponentType<?>, DataComponentType<T>> register(String name,
                                                                                            UnaryOperator<DataComponentType.Builder<T>> builderOperator) {
         return DATA_COMPONENT_TYPES.register(name, () -> builderOperator.apply(DataComponentType.builder()).build());

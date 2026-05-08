@@ -1,0 +1,6 @@
+{
+  "type": "neoforge:add_features",
+  "biomes": "#herobrines_world:is_platin_ore",
+  "features": "herobrines_world:ore_platin_buried",
+  "step": "underground_ores"
+}

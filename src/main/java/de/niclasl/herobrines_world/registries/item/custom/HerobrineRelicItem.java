@@ -47,7 +47,6 @@ public class HerobrineRelicItem extends Item {
 
     @Override
     public @NotNull InteractionResult useOn(@NotNull UseOnContext ctx) {
-
         if (!(ctx.getLevel() instanceof ServerLevel level)) {
             return InteractionResult.SUCCESS;
         }

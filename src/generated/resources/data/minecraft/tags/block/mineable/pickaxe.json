@@ -10,7 +10,6 @@
     "herobrines_world:deepslate_ash_ore",
     "herobrines_world:herobrine_ore",
     "herobrines_world:deepslate_herobrine_ore",
-    "herobrines_world:toxenium_ore",
     "herobrines_world:blue_sandstone",
     "herobrines_world:blue_sandstone_stairs",
     "herobrines_world:blue_sandstone_slab",
@@ -23,6 +22,8 @@
     "herobrines_world:blue_cut_sandstone_slab",
     "herobrines_world:herobrine_block",
     "herobrines_world:auto_farmer",
-    "herobrines_world:battery_charger"
+    "herobrines_world:battery_charger",
+    "herobrines_world:platin_ore",
+    "herobrines_world:deepslate_platin_ore"
   ]
 }

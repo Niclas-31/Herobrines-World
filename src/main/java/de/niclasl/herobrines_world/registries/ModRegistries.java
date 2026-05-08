@@ -14,6 +14,8 @@ import de.niclasl.herobrines_world.registries.potion.ModPotions;
 import de.niclasl.herobrines_world.registries.recipe.ModRecipes;
 import de.niclasl.herobrines_world.registries.screen.ModMenuTypes;
 import de.niclasl.herobrines_world.registries.villager.ModVillagers;
+import de.niclasl.herobrines_world.worldgen.structure.ModStructurePieceType;
+import de.niclasl.herobrines_world.worldgen.structure.ModStructureType;
 import net.neoforged.bus.api.IEventBus;
 
 public class ModRegistries {
@@ -32,8 +34,10 @@ public class ModRegistries {
         ModEnchantmentEffects.register(eventBus);
         ModEntities.register(eventBus);
 
-        ModVillagers.register(eventBus);
+        ModStructureType.register(eventBus);
+        ModStructurePieceType.register(eventBus);
 
+        ModVillagers.register(eventBus);
         ModBlockEntities.register(eventBus);
 
         ModMenuTypes.register(eventBus);

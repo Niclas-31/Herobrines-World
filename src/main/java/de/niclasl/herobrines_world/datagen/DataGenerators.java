@@ -2,6 +2,9 @@ package de.niclasl.herobrines_world.datagen;
 
 import de.niclasl.herobrines_world.HerobrinesWorld;
 import de.niclasl.herobrines_world.datagen.advancements.ModAdvancementProvider;
+import de.niclasl.herobrines_world.datagen.loottables.ModBlockLootTableProvider;
+import de.niclasl.herobrines_world.datagen.loottables.ModChestLootTableProvider;
+import de.niclasl.herobrines_world.datagen.loottables.ModEntityLootTableProvider;
 import de.niclasl.herobrines_world.datagen.tags.*;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
@@ -39,8 +42,16 @@ public class DataGenerators {
         event.createProvider(ModDataMapProvider::new);
         event.createProvider(ModModelProvider::new);
 
-        generator.addProvider(true, new LootTableProvider(output, Collections.emptySet(),
-                List.of(new LootTableProvider.SubProviderEntry(ModBlockLootTableProvider::new, LootContextParamSets.BLOCK)), lookup));
+        generator.addProvider(true, new LootTableProvider(
+                output,
+                Collections.emptySet(),
+                List.of(
+                        new LootTableProvider.SubProviderEntry(ModBlockLootTableProvider::new, LootContextParamSets.BLOCK),
+                        new LootTableProvider.SubProviderEntry(ModEntityLootTableProvider::new, LootContextParamSets.ENTITY),
+                        new LootTableProvider.SubProviderEntry(ModChestLootTableProvider::new, LootContextParamSets.CHEST)
+                ),
+                lookup
+        ));
         generator.addProvider(true, new ModRecipeProvider.Runner(output, lookup));
     }
 
@@ -58,8 +69,16 @@ public class DataGenerators {
         event.createProvider(ModDataMapProvider::new);
         event.createProvider(ModModelProvider::new);
 
-        generator.addProvider(true, new LootTableProvider(output, Collections.emptySet(),
-                List.of(new LootTableProvider.SubProviderEntry(ModBlockLootTableProvider::new, LootContextParamSets.BLOCK)), lookup));
+        generator.addProvider(true, new LootTableProvider(
+                output,
+                Collections.emptySet(),
+                List.of(
+                        new LootTableProvider.SubProviderEntry(ModBlockLootTableProvider::new, LootContextParamSets.BLOCK),
+                        new LootTableProvider.SubProviderEntry(ModEntityLootTableProvider::new, LootContextParamSets.ENTITY),
+                        new LootTableProvider.SubProviderEntry(ModChestLootTableProvider::new, LootContextParamSets.CHEST)
+                ),
+                lookup
+        ));
         generator.addProvider(true, new ModRecipeProvider.Runner(output, lookup));
     }
 }

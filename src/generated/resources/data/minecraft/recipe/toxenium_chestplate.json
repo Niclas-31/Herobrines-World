@@ -1,9 +1,0 @@
-{
-  "type": "minecraft:smithing_transform",
-  "addition": "herobrines_world:toxenium_ingot",
-  "base": "herobrines_world:herobrine_chestplate",
-  "result": {
-    "id": "herobrines_world:toxenium_chestplate"
-  },
-  "template": "herobrines_world:toxenium_upgrade_smithing_template"
-}

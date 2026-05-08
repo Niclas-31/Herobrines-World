@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:block/cube_column",
-  "textures": {
-    "end": "herobrines_world:block/toxenium_ore_top",
-    "side": "herobrines_world:block/toxenium_ore_side"
-  }
-}

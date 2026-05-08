@@ -1,15 +1,20 @@
-// 1.21.11	2026-04-25T21:07:40.2203442	Tags for minecraft:item mod id herobrines_world
-f0f92c5f0b5c5412980a4ca8436b4cb180919deb data/herobrines_world/tags/item/fire_repairable.json
-fa89f0092e570a63292fb79c155db6b3e32b181f data/herobrines_world/tags/item/herobrine_repairable.json
-45ed170e17a785ca3163499d64382a162de8f30e data/herobrines_world/tags/item/nature_repairable.json
-f4e6c7d4fb560141848d1bed3804dfb3755f8d39 data/herobrines_world/tags/item/toxenium_repairable.json
-abeb7643f96ae18c2d6f8598fb53b6049ebb9df1 data/minecraft/tags/item/axes.json
-b0ab8f3f3d7e7f6aba93481e71ee274de8f6b61e data/minecraft/tags/item/chest_armor.json
-9edaaae97604fe4536d272379baa1e960f0755be data/minecraft/tags/item/foot_armor.json
-806bd6c2e18f537fa76f64c0e5d3017466d2df46 data/minecraft/tags/item/head_armor.json
-db8131a525ba8ba3a87a0ed0029d3c59b15cd561 data/minecraft/tags/item/hoes.json
-8066ff645e7fa2daab7f7fba8c4edd07fb34883c data/minecraft/tags/item/leg_armor.json
-841071dec2e18df5f1fe851d8db34962e0258811 data/minecraft/tags/item/pickaxes.json
-2009b0979db972dacb0a33d05609c55a7a67dad8 data/minecraft/tags/item/shovels.json
-66b8d6c0db36bf44dfc9b4f046b89fda4df32ceb data/minecraft/tags/item/swords.json
-4dd7aee2c154c2c7311971f1a4f9ad038d05de8e data/minecraft/tags/item/trimmable_armor.json
+// 1.21.11	2026-05-08T18:32:37.4270655	Tags for minecraft:item mod id herobrines_world
+e907e7d6b3e3ee872aac784295aed1b76169ece7 data/herobrines_world/tags/item/ash_tool_materials.json
+f0f92c5f0b5c5412980a4ca8436b4cb180919deb data/herobrines_world/tags/item/fire_tool_materials.json
+fa89f0092e570a63292fb79c155db6b3e32b181f data/herobrines_world/tags/item/herorbine_tool_materials.json
+45ed170e17a785ca3163499d64382a162de8f30e data/herobrines_world/tags/item/nature_tool_materials.json
+9341bcd221d03d0ce99b3ca21b0e028660f11d57 data/herobrines_world/tags/item/platin_tool_materials.json
+f0f92c5f0b5c5412980a4ca8436b4cb180919deb data/herobrines_world/tags/item/repairs_fire_armor.json
+fa89f0092e570a63292fb79c155db6b3e32b181f data/herobrines_world/tags/item/repairs_herobrine_armor.json
+45ed170e17a785ca3163499d64382a162de8f30e data/herobrines_world/tags/item/repairs_nature_armor.json
+9341bcd221d03d0ce99b3ca21b0e028660f11d57 data/herobrines_world/tags/item/repairs_platin_armor.json
+f2e67cbb308d964d34eb0e09ced33014ff758a30 data/minecraft/tags/item/axes.json
+32822a88ccb82db7865da6e1a97f8e4c708b11a5 data/minecraft/tags/item/chest_armor.json
+1fd87eefc796ef70bb05c60fb389cf8872a9e9c9 data/minecraft/tags/item/foot_armor.json
+a85d993f946aa74aa3eca01fa86d8ebf257f6a4b data/minecraft/tags/item/head_armor.json
+081423d9eef64f32554389526ec6db81827e988f data/minecraft/tags/item/hoes.json
+5d41a0a3da1b74c33807716162b652fa779a1de3 data/minecraft/tags/item/leg_armor.json
+e9a844508a471359be49f84033b810a07633538e data/minecraft/tags/item/pickaxes.json
+42cb2b5ca9b0fb475f1f4870d76ccd61e8d88017 data/minecraft/tags/item/shovels.json
+ad01982247719785b411027899ebca9e102b5344 data/minecraft/tags/item/swords.json
+180200668d39915e9530a86a4af7ce0cd99b92e6 data/minecraft/tags/item/trimmable_armor.json

@@ -90,14 +90,8 @@ public class ModModelProvider extends ModelProvider {
         blockModels.createTrivialCube(ModBlocks.DEEPSLATE_ASH_ORE.get());
         blockModels.createTrivialCube(ModBlocks.HEROBRINE_ORE.get());
         blockModels.createTrivialCube(ModBlocks.DEEPSLATE_HEROBRINE_ORE.get());
-
-        blockModels.createTrivialBlock(
-                ModBlocks.TOXENIUM_ORE.get(),
-                TexturedModel.createDefault(
-                        TextureMapping::column,
-                        ModelTemplates.CUBE_COLUMN
-                )
-        );
+        blockModels.createTrivialCube(ModBlocks.PLATINE_ORE.get());
+        blockModels.createTrivialCube(ModBlocks.DEEPSLATE_PLATIN_ORE.get());
 
         itemModels.generateFlatItem(ModItems.HEROBRINE_DIAMOND.get(), ModelTemplates.FLAT_ITEM);
         itemModels.generateFlatItem(ModItems.ASH.get(), ModelTemplates.FLAT_ITEM);
@@ -113,8 +107,6 @@ public class ModModelProvider extends ModelProvider {
         itemModels.generateFlatItem(ModItems.GOOD_HEROBRINE_SPAWN_EGG.get(), ModelTemplates.FLAT_ITEM);
         itemModels.generateFlatItem(ModItems.BAD_HEROBRINE_SPAWN_EGG.get(), ModelTemplates.FLAT_ITEM);
         itemModels.generateFlatItem(ModItems.CHRISTMAS_NICLASL_SPAWN_EGG.get(), ModelTemplates.FLAT_ITEM);
-
-        itemModels.generateFlatItem(ModItems.TOXENIUM_UPGRADE_SMITHING_TEMPLATE.get(), ModelTemplates.FLAT_ITEM);
 
         itemModels.generateFlatItem(ModItems.NATURE_SWORD.get(), ModelTemplates.FLAT_HANDHELD_ITEM);
         itemModels.generateFlatItem(ModItems.NATURE_PICKAXE.get(), ModelTemplates.FLAT_HANDHELD_ITEM);
@@ -134,11 +126,11 @@ public class ModModelProvider extends ModelProvider {
         itemModels.generateFlatItem(ModItems.HEROBRINE_SHOVEL.get(), ModelTemplates.FLAT_HANDHELD_ITEM);
         itemModels.generateFlatItem(ModItems.HEROBRINE_HOE.get(), ModelTemplates.FLAT_HANDHELD_ITEM);
 
-        itemModels.generateFlatItem(ModItems.TOXENIUM_SWORD.get(), ModelTemplates.FLAT_HANDHELD_ITEM);
-        itemModels.generateFlatItem(ModItems.TOXENIUM_PICKAXE.get(), ModelTemplates.FLAT_HANDHELD_ITEM);
-        itemModels.generateFlatItem(ModItems.TOXENIUM_AXE.get(), ModelTemplates.FLAT_HANDHELD_ITEM);
-        itemModels.generateFlatItem(ModItems.TOXENIUM_SHOVEL.get(), ModelTemplates.FLAT_HANDHELD_ITEM);
-        itemModels.generateFlatItem(ModItems.TOXENIUM_HOE.get(), ModelTemplates.FLAT_HANDHELD_ITEM);
+        itemModels.generateFlatItem(ModItems.PLATIN_SWORD.get(), ModelTemplates.FLAT_HANDHELD_ITEM);
+        itemModels.generateFlatItem(ModItems.PLATIN_PICKAXE.get(), ModelTemplates.FLAT_HANDHELD_ITEM);
+        itemModels.generateFlatItem(ModItems.PLATIN_AXE.get(), ModelTemplates.FLAT_HANDHELD_ITEM);
+        itemModels.generateFlatItem(ModItems.PLATIN_SHOVEL.get(), ModelTemplates.FLAT_HANDHELD_ITEM);
+        itemModels.generateFlatItem(ModItems.PLATIN_HOE.get(), ModelTemplates.FLAT_HANDHELD_ITEM);
 
         itemModels.generateFlatItem(ModItems.NATURE_HELMET.get(), ModelTemplates.FLAT_ITEM);
         itemModels.generateFlatItem(ModItems.NATURE_CHESTPLATE.get(), ModelTemplates.FLAT_ITEM);
@@ -155,13 +147,10 @@ public class ModModelProvider extends ModelProvider {
         itemModels.generateFlatItem(ModItems.HEROBRINE_LEGGINGS.get(), ModelTemplates.FLAT_ITEM);
         itemModels.generateFlatItem(ModItems.HEROBRINE_BOOTS.get(), ModelTemplates.FLAT_ITEM);
 
-        itemModels.generateFlatItem(ModItems.TOXENIUM_HELMET.get(), ModelTemplates.FLAT_ITEM);
-        itemModels.generateFlatItem(ModItems.TOXENIUM_CHESTPLATE.get(), ModelTemplates.FLAT_ITEM);
-        itemModels.generateFlatItem(ModItems.TOXENIUM_LEGGINGS.get(), ModelTemplates.FLAT_ITEM);
-        itemModels.generateFlatItem(ModItems.TOXENIUM_BOOTS.get(), ModelTemplates.FLAT_ITEM);
-
-        itemModels.generateFlatItem(ModItems.TOXENIUM_SCRAP.get(), ModelTemplates.FLAT_ITEM);
-        itemModels.generateFlatItem(ModItems.TOXENIUM_INGOT.get(), ModelTemplates.FLAT_ITEM);
+        itemModels.generateFlatItem(ModItems.PLATIN_HELMET.get(), ModelTemplates.FLAT_ITEM);
+        itemModels.generateFlatItem(ModItems.PLATIN_CHESTPLATE.get(), ModelTemplates.FLAT_ITEM);
+        itemModels.generateFlatItem(ModItems.PLATIN_LEGGINGS.get(), ModelTemplates.FLAT_ITEM);
+        itemModels.generateFlatItem(ModItems.PLATIN_BOOTS.get(), ModelTemplates.FLAT_ITEM);
 
         itemModels.generateFlatItem(ModItems.HEROBRINES_REALM.get(), ModelTemplates.FLAT_ITEM);
         itemModels.generateFlatItem(ModItems.UNDERWORLD.get(), ModelTemplates.FLAT_ITEM);
@@ -169,7 +158,7 @@ public class ModModelProvider extends ModelProvider {
         itemModels.generateFlatItem(ModItems.GREEN_GEMSTONE.get(), ModelTemplates.FLAT_ITEM);
         itemModels.generateFlatItem(ModItems.RUNE_STONE.get(), ModelTemplates.FLAT_ITEM);
         itemModels.generateFlatItem(ModItems.HEROBRINE_RELIC.get(), ModelTemplates.FLAT_ITEM);
-        itemModels.generateFlatItem(ModItems.PLATIN.get(), ModelTemplates.FLAT_ITEM);
+        itemModels.generateFlatItem(ModItems.PLATIN_INGOT.get(), ModelTemplates.FLAT_ITEM);
     }
 
     private Identifier defaultLoc() {

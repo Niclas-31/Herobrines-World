@@ -29,7 +29,7 @@ public class TimeClock extends Item {
 			serverPlayer.openMenu(new MenuProvider() {
 				@Override
 				public @NotNull Component getDisplayName() {
-					return Component.literal("Time Clock");
+					return Component.translatable("item.herobrines_world.time_clock");
 				}
 
 				@Override

@@ -1,0 +1,6 @@
+{
+  "type": "herobrines_world:desert_pyramid",
+  "biomes": "#herobrines_world:has_structure/ash_desert_pyramid",
+  "spawn_overrides": {},
+  "step": "surface_structures"
+}

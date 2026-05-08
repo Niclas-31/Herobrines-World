@@ -33,10 +33,10 @@ public class ModBlocks {
 	public static final DeferredBlock<Block> ASH_BLOCK = registerBlock("ash_block",
 			(properties) -> new ColoredFallingBlock(new ColorRGBA(14406560), properties.sound(SoundType.SAND).strength(1f, 10f)));
 
-	public static final DeferredBlock<Block> HEROBRINES_REALM_PORTAL = registerBlock("herobrines_realm_portal",
+	public static final DeferredBlock<Block> HEROBRINES_REALM_PORTAL = registerBlockNoItem("herobrines_realm_portal",
 			(properties) -> new HerobrinesRealmPortalBlock(properties.noCollision().randomTicks().pushReaction(PushReaction.BLOCK).strength(-1.0F).sound(SoundType.GLASS).lightLevel(s -> 0).noLootTable()));
 
-	public static final DeferredBlock<Block> UNDERWORLD_PORTAL = registerBlock("underworld_portal",
+	public static final DeferredBlock<Block> UNDERWORLD_PORTAL = registerBlockNoItem("underworld_portal",
 			(properties) -> new UnderworldPortalBlock(properties.noCollision().randomTicks().pushReaction(PushReaction.BLOCK).strength(-1.0F).sound(SoundType.GLASS).lightLevel(s -> 0).noLootTable()));
 
 	public static final DeferredBlock<Block> BLUE_SANDSTONE = registerBlock("blue_sandstone",
@@ -85,13 +85,13 @@ public class ModBlocks {
 			(properties) -> new Block(properties.sound(SoundType.DEEPSLATE).strength(16f).requiresCorrectToolForDrops()));
 
 	public static final DeferredBlock<Block> GREEN_ORE = registerBlock("green_ore",
-			(properties) -> new Block(properties.strength(3f).requiresCorrectToolForDrops()));
+			(properties) -> new Block(properties.strength(2.5f).requiresCorrectToolForDrops()));
 
 	public static final DeferredBlock<Block> DEEPSLATE_GREEN_ORE = registerBlock("deepslate_green_ore",
 			(properties) -> new Block(properties.sound(SoundType.DEEPSLATE).strength(3f).requiresCorrectToolForDrops()));
 
 	public static final DeferredBlock<Block> ASH_ORE = registerBlock("ash_ore",
-			(properties) -> new Block(properties.strength(3f).requiresCorrectToolForDrops()));
+			(properties) -> new Block(properties.strength(2.5f).requiresCorrectToolForDrops()));
 
 	public static final DeferredBlock<Block> DEEPSLATE_ASH_ORE = registerBlock("deepslate_ash_ore",
 			(properties) -> new Block(properties.sound(SoundType.DEEPSLATE).strength(3f).requiresCorrectToolForDrops()));
@@ -100,10 +100,13 @@ public class ModBlocks {
 			(properties) -> new Block(properties.strength(3f).requiresCorrectToolForDrops()));
 
 	public static final DeferredBlock<Block> DEEPSLATE_HEROBRINE_ORE = registerBlock("deepslate_herobrine_ore",
-			(properties) -> new Block(properties.sound(SoundType.DEEPSLATE).strength(3f).requiresCorrectToolForDrops()));
+			(properties) -> new Block(properties.sound(SoundType.DEEPSLATE).strength(4.5f).requiresCorrectToolForDrops()));
 
-	public static final DeferredBlock<Block> TOXENIUM_ORE = registerBlock("toxenium_ore",
-			(properties) -> new Block(properties.sound(SoundType.ANCIENT_DEBRIS).strength(35.0F, 1500.0F).requiresCorrectToolForDrops()));
+	public static final DeferredBlock<Block> PLATINE_ORE = registerBlock("platin_ore",
+			(properties) -> new Block(properties.strength(4.5f).requiresCorrectToolForDrops()));
+
+	public static final DeferredBlock<Block> DEEPSLATE_PLATIN_ORE = registerBlock("deepslate_platin_ore",
+			(properties) -> new Block(properties.sound(SoundType.DEEPSLATE).strength(5f).requiresCorrectToolForDrops()));
 
 	public static final DeferredBlock<Block> DELAYER = registerBlock("delayer",
 			(properties) -> new Delayer(properties.instabreak()));
@@ -121,6 +124,10 @@ public class ModBlocks {
 		DeferredBlock<T> toReturn = BLOCKS.registerBlock(name, function);
 		registerBlockItem(name, toReturn);
 		return toReturn;
+	}
+
+	private static <T extends Block> DeferredBlock<T> registerBlockNoItem(String name, Function<BlockBehaviour.Properties, T> function) {
+		return BLOCKS.registerBlock(name, function);
 	}
 
 	private static <T extends Block> void registerBlockItem(String name, DeferredBlock<T> block) {
