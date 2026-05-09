@@ -1,4 +1,5 @@
 .gradle/
+src/generated/resources/.cache/
 build/
 run/
 out/

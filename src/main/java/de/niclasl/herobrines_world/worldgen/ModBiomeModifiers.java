@@ -35,10 +35,7 @@ public class ModBiomeModifiers {
     public static final ResourceKey<BiomeModifier> ADD_HEROBRINE_ORE_LARGE = registerKey("add_herobrine_ore_large");
     public static final ResourceKey<BiomeModifier> ADD_HEROBRINE_ORE_BURIED = registerKey("add_herobrine_ore_buried");
 
-    public static final ResourceKey<BiomeModifier> ADD_PLATIN_ORE_SMALL = registerKey("add_platin_ore_small");
-    public static final ResourceKey<BiomeModifier> ADD_PLATIN_ORE_MEDIUM = registerKey("add_platin_ore_medium");
-    public static final ResourceKey<BiomeModifier> ADD_PLATIN_ORE_LARGE = registerKey("add_platin_ore_large");
-    public static final ResourceKey<BiomeModifier> ADD_PLATIN_ORE_BURIED = registerKey("add_platin_ore_buried");
+    public static final ResourceKey<BiomeModifier> ADD_PLATIN_ORE = registerKey("add_platin_ore");
 
     public static final ResourceKey<BiomeModifier> ADD_CURSED_STONE = registerKey("add_cursed_stone");
     public static final ResourceKey<BiomeModifier> ADD_ABYSSAL_BLOCK = registerKey("add_abyssal_block");
@@ -108,21 +105,9 @@ public class ModBiomeModifiers {
                 HolderSet.direct(placedFeatures.getOrThrow(ModPlacedFeatures.ORE_HEROBRINE_BURIED)),
                 GenerationStep.Decoration.UNDERGROUND_ORES));
 
-        context.register(ADD_PLATIN_ORE_SMALL, new BiomeModifiers.AddFeaturesBiomeModifier(
+        context.register(ADD_PLATIN_ORE, new BiomeModifiers.AddFeaturesBiomeModifier(
                 biomes.getOrThrow(ModTags.Biomes.IS_PLATIN_ORE),
                 HolderSet.direct(placedFeatures.getOrThrow(ModPlacedFeatures.ORE_PLATIN)),
-                GenerationStep.Decoration.UNDERGROUND_ORES));
-        context.register(ADD_PLATIN_ORE_MEDIUM, new BiomeModifiers.AddFeaturesBiomeModifier(
-                biomes.getOrThrow(ModTags.Biomes.IS_PLATIN_ORE),
-                HolderSet.direct(placedFeatures.getOrThrow(ModPlacedFeatures.ORE_PLATIN_MEDIUM)),
-                GenerationStep.Decoration.UNDERGROUND_ORES));
-        context.register(ADD_PLATIN_ORE_LARGE, new BiomeModifiers.AddFeaturesBiomeModifier(
-                biomes.getOrThrow(ModTags.Biomes.IS_PLATIN_ORE),
-                HolderSet.direct(placedFeatures.getOrThrow(ModPlacedFeatures.ORE_PLATIN_LARGE)),
-                GenerationStep.Decoration.UNDERGROUND_ORES));
-        context.register(ADD_PLATIN_ORE_BURIED, new BiomeModifiers.AddFeaturesBiomeModifier(
-                biomes.getOrThrow(ModTags.Biomes.IS_PLATIN_ORE),
-                HolderSet.direct(placedFeatures.getOrThrow(ModPlacedFeatures.ORE_PLATIN_BURIED)),
                 GenerationStep.Decoration.UNDERGROUND_ORES));
 
         context.register(ADD_CURSED_STONE, new BiomeModifiers.AddFeaturesBiomeModifier(

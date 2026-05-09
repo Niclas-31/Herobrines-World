@@ -34,9 +34,6 @@ public class ModPlacedFeatures {
     public static final ResourceKey<PlacedFeature> ORE_HEROBRINE_MEDIUM = registerKey("ore_herobrine_medium");
 
     public static final ResourceKey<PlacedFeature> ORE_PLATIN = registerKey("ore_platin");
-    public static final ResourceKey<PlacedFeature> ORE_PLATIN_BURIED = registerKey("ore_platin_buried");
-    public static final ResourceKey<PlacedFeature> ORE_PLATIN_LARGE = registerKey("ore_platin_large");
-    public static final ResourceKey<PlacedFeature> ORE_PLATIN_MEDIUM = registerKey("ore_platin_medium");
 
     public static final ResourceKey<PlacedFeature> CURSED_STONE_PLACED_KEY = registerKey("cursed_stone_placed");
     public static final ResourceKey<PlacedFeature> ABYSSAL_BLOCK_PLACED_KEY = registerKey("abyssal_block_placed");
