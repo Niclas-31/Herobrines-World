@@ -15,8 +15,6 @@ import org.jetbrains.annotations.NotNull;
 public record HerobrineEnchantmentEffect() implements EnchantmentEntityEffect {
     public static final MapCodec<HerobrineEnchantmentEffect> CODEC = MapCodec.unit(HerobrineEnchantmentEffect::new);
 
-    private static final int SOUL_PER_LEVEL = 100;
-
     @Override
     public void apply(@NotNull ServerLevel level,
                       int enchantmentLevel,
@@ -56,18 +54,11 @@ public record HerobrineEnchantmentEffect() implements EnchantmentEntityEffect {
     }
 
     private static boolean tryConsumeSoul(ModVariables.PlayerVariables vars, int cost) {
-        int totalSoul =
-                vars.Soul_Current +
-                        vars.Soul_Level * SOUL_PER_LEVEL;
-
-        if (totalSoul < cost) {
+        if (vars.Souls < cost) {
             return false;
         }
 
-        totalSoul -= cost;
-
-        vars.Soul_Level = totalSoul / SOUL_PER_LEVEL;
-        vars.Soul_Current = totalSoul % SOUL_PER_LEVEL;
+        vars.Souls -= cost;
 
         vars.markSyncDirty();
         return true;

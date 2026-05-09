@@ -105,18 +105,18 @@ public class ModEvents {
         }
     }
 
-    private static final int SOUL_PER_LEVEL = 100;
-
     @SubscribeEvent
     public static void onLivingDeath(LivingDeathEvent event) {
         if (!(event.getSource().getEntity() instanceof LivingEntity attacker)) return;
         if (attacker.level().isClientSide()) return;
+        if (!(attacker instanceof ServerPlayer player)) return;
 
-        ModVariables.PlayerVariables vars = attacker.getData(ModVariables.PLAYER_VARIABLES);
+        ModVariables.PlayerVariables vars = player.getData(ModVariables.PLAYER_VARIABLES);
 
-        ItemStack stack = attacker.getMainHandItem();
+        ItemStack stack = player.getMainHandItem();
+
         int level = stack.getEnchantmentLevel(
-                attacker.level().registryAccess()
+                player.level().registryAccess()
                         .lookupOrThrow(Registries.ENCHANTMENT)
                         .getOrThrow(ResourceKey.create(
                                 Registries.ENCHANTMENT,
@@ -124,16 +124,13 @@ public class ModEvents {
                         ))
         );
 
-        int soulsGain = 1;
-        if (level == 1) soulsGain = 2;
-        else if (level == 2) soulsGain = 4;
+        int soulsGain = switch (level) {
+            case 1 -> 2;
+            case 2 -> 4;
+            default -> 1;
+        };
 
-        vars.Soul_Current += soulsGain;
-
-        while (vars.Soul_Current >= SOUL_PER_LEVEL) {
-            vars.Soul_Current -= SOUL_PER_LEVEL;
-            vars.Soul_Level += 1;
-        }
+        vars.Souls += soulsGain;
 
         vars.markSyncDirty();
     }

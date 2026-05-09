@@ -1,7 +1,7 @@
 package de.niclasl.herobrines_world.registries.screen.custom;
 
 import de.niclasl.herobrines_world.network.ModVariables;
-import de.niclasl.herobrines_world.network.message.TimeGuiButton;
+import de.niclasl.herobrines_world.network.message.SyncTimesPacket;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
@@ -55,8 +55,8 @@ public class TimeScreen extends AbstractContainerScreen<TimeMenu> {
 		boolean isHide = entity.getData(ModVariables.PLAYER_VARIABLES).Hide;
 
         Button button = Button.builder(isHide ? hide : show, e -> {
-            ClientPacketDistributor.sendToServer(new TimeGuiButton(0));
-            TimeGuiButton.handleButtonAction(entity, 0);
+            ClientPacketDistributor.sendToServer(new SyncTimesPacket(0));
+            SyncTimesPacket.handleButtonAction(entity, 0);
         }).bounds(this.leftPos + 31, this.topPos + 83, 46, 20).build();
 		this.addRenderableWidget(button);
 	}

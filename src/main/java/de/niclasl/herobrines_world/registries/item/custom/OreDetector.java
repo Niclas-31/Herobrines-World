@@ -60,7 +60,7 @@ public class OreDetector extends Item {
 
 			if (!level.isClientSide()) {
 				player.displayClientMessage(
-						Component.translatable("message.ore_detector.mode", next),
+						Component.translatable("item.herobrines_world.ore_detector.mode", next),
 						true
 				);
 			}
@@ -99,7 +99,7 @@ public class OreDetector extends Item {
 			if (level.getBlockState(checkPos).is(tag)) {
 				if (player.level().isClientSide()) {
 					player.displayClientMessage(
-							Component.translatable("message.ore_detector.found", checkPos.getX(), checkPos.getY(), checkPos.getZ()),
+							Component.translatable("item.herobrines_world.ore_detector.found", checkPos.getX(), checkPos.getY(), checkPos.getZ()),
 							true
 					);
 				}
@@ -109,7 +109,7 @@ public class OreDetector extends Item {
 
 		if (!level.isClientSide()) {
 			player.displayClientMessage(
-					Component.translatable("message.ore_detector.no_found"),
+					Component.translatable("item.herobrines_world.ore_detector.no_found"),
 					true
 			);
 		}

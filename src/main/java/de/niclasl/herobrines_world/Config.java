@@ -6,7 +6,7 @@ public class Config {
     private static final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
 
     public static final ModConfigSpec.BooleanValue THREE_HEARTS = BUILDER
-            .define("threeHearts", true);
+            .define("three_hearts", true);
 
     static final ModConfigSpec SPEC = BUILDER.build();
 }

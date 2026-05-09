@@ -60,12 +60,12 @@ public class HerobrineRelicItem extends Item {
         RelicData data = stack.get(ModDataComponents.RELIC_DATA);
 
         if (data == null || data.owner() == null) {
-            player.sendSystemMessage(Component.translatable("message.relic.is_defect"));
+            player.sendSystemMessage(Component.translatable("item.herobrines_world.herobrine_relic.is_defect"));
             return InteractionResult.FAIL;
         }
 
         if (!data.owner().equals(player.getUUID())) {
-            player.sendSystemMessage(Component.translatable("message.relic.is_not_yours"));
+            player.sendSystemMessage(Component.translatable("item.herobrines_world.herobrine_relic.is_not_yours"));
             return InteractionResult.FAIL;
         }
 
@@ -82,8 +82,8 @@ public class HerobrineRelicItem extends Item {
 
                     player.sendSystemMessage(Component.translatable(
                             newMode
-                                    ? "message.boss.minion_mode.enabled"
-                                    : "message.boss.minion_mode.disabled"
+                                    ? "item.herobrines_world.herobrine_relic.minion_mode.enabled"
+                                    : "item.herobrines_world.herobrine_relic.minion_mode.disabled"
                     ));
                     return InteractionResult.SUCCESS;
                 }
@@ -94,7 +94,7 @@ public class HerobrineRelicItem extends Item {
                         value
                 );
 
-                player.sendSystemMessage(Component.translatable("message.boss.removed"));
+                player.sendSystemMessage(Component.translatable("item.herobrines_world.herobrine_relic.boss.removed"));
                 return InteractionResult.SUCCESS;
             }
 
@@ -104,7 +104,7 @@ public class HerobrineRelicItem extends Item {
         }
 
         if (ticks != 0) {
-            player.sendSystemMessage(Component.translatable("message.relic.cooldown_active", ticks));
+            player.sendSystemMessage(Component.translatable("item.herobrines_world.herobrine_relic.cooldown_active", ticks));
             return InteractionResult.FAIL;
         }
 
@@ -140,7 +140,7 @@ public class HerobrineRelicItem extends Item {
 
         this.ticks = data.cooldownTicks();
 
-        player.sendSystemMessage(Component.translatable("message.boss.spawned"));
+        player.sendSystemMessage(Component.translatable("item.herobrines_world.herobrine_relic.boss.spawned"));
 
         return InteractionResult.SUCCESS;
     }

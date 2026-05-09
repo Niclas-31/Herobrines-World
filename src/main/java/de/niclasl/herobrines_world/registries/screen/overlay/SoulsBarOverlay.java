@@ -1,5 +1,7 @@
 package de.niclasl.herobrines_world.registries.screen.overlay;
 
+import de.niclasl.herobrines_world.HerobrinesWorld;
+import de.niclasl.herobrines_world.math.SoulMath;
 import de.niclasl.herobrines_world.network.ModVariables;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderPipelines;
@@ -11,43 +13,46 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.RenderGuiEvent;
 
-import java.text.DecimalFormat;
-
 @EventBusSubscriber(Dist.CLIENT)
 public class SoulsBarOverlay {
-	@SubscribeEvent(priority = EventPriority.NORMAL)
-	public static void eventHandler(RenderGuiEvent.Pre event) {
+    private static final Identifier SOUL_BAR_BACKGROUND_SPRITE = Identifier.fromNamespaceAndPath(HerobrinesWorld.MODID, "textures/gui/sprites/hud/soul_bar_background.png");
+    private static final Identifier SOUL_BAR_PROGRESS_SPRITE = Identifier.fromNamespaceAndPath(HerobrinesWorld.MODID, "textures/gui/sprites/hud/soul_bar_progress.png");
+
+    @SubscribeEvent(priority = EventPriority.NORMAL)
+    public static void eventHandler(RenderGuiEvent.Pre event) {
         int w = event.getGuiGraphics().guiWidth();
         int h = event.getGuiGraphics().guiHeight();
 
-        Player entity = Minecraft.getInstance().player;
-        event.getGuiGraphics().blit(RenderPipelines.GUI_TEXTURED, Identifier.parse("herobrines_world:textures/gui/sprites/hud/soul_bar/seelen_bar.png"), w - 59, h - 28, 0, 0, 13, 6, 13, 6);
+        Player player = Minecraft.getInstance().player;
+        if (player == null) return;
 
-        assert entity != null;
-        int souls = entity.getData(ModVariables.PLAYER_VARIABLES).Soul_Current;
+        int souls = player.getData(ModVariables.PLAYER_VARIABLES).Souls;
 
-        souls = Math.clamp(souls, 0, 100);
+        int level = SoulMath.getLevelFromXP(souls);
+        float progress = SoulMath.getProgress(souls);
 
-        int stage = (int) Math.ceil(souls / 10.0);
+        int barWidth = 13;
+        int filled = (int)(progress * barWidth);
 
-        if (stage > 0) {
-            Identifier texture = Identifier.parse(
-                    "herobrines_world:textures/gui/sprites/hud/soul_bar/seelen_bar_"
-                            + ((stage - 1) * 10 + 1) + "-" + (stage * 10) + "_soul_points.png"
-            );
+        event.getGuiGraphics().blit(
+                RenderPipelines.GUI_TEXTURED,
+                SOUL_BAR_BACKGROUND_SPRITE,
+                w - 59, h - 28,
+                0, 0,
+                barWidth, 6,
+                barWidth, 6);
 
+        if (filled > 0) {
             event.getGuiGraphics().blit(
                     RenderPipelines.GUI_TEXTURED,
-                    texture,
+                    SOUL_BAR_PROGRESS_SPRITE,
                     w - 59, h - 28,
                     0, 0,
-                    13, 6,
-                    13, 6
+                    filled, 6,
+                    barWidth, 6
             );
         }
 
-        String level = new DecimalFormat("##").format(entity.getData(ModVariables.PLAYER_VARIABLES).Soul_Level);
-
-        event.getGuiGraphics().drawString(Minecraft.getInstance().font, level, w - 53, h - 39, -16777063, false);
+        event.getGuiGraphics().drawString(Minecraft.getInstance().font, String.valueOf(level), w - 53, h - 39, -16777063, false);
     }
 }

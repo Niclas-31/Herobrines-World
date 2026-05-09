@@ -82,8 +82,7 @@ public class ModVariables {
 
 		clone.Hide = original.Hide;
 		clone.Hearts = original.Hearts;
-		clone.Soul_Current = original.Soul_Current;
-		clone.Soul_Level = original.Soul_Level;
+		clone.Souls = original.Souls;
 
 		event.getEntity().setData(PLAYER_VARIABLES, clone);
 	}
@@ -227,16 +226,14 @@ public class ModVariables {
 		boolean _syncDirty = false;
 		public boolean Hide = false;
 		public int Hearts = 3;
-		public int Soul_Current = 0;
-		public int Soul_Level = 0;
+		public int Souls = 0;
 
 		@Override
 		public void serialize(ValueOutput output) {
 			output.putBoolean("Hide", Hide);
 
 			output.putInt("Hearts", Hearts);
-			output.putInt("Soul_Current", Soul_Current);
-			output.putInt("Soul_Level", Soul_Level);
+			output.putInt("Souls", Souls);
 		}
 
 		@Override
@@ -244,8 +241,7 @@ public class ModVariables {
 			Hide = input.getBooleanOr("Hide", false);
 			Hearts = input.getIntOr("Hearts", 0);
 
-			Soul_Current = input.getIntOr("Soul_Current", 0);
-			Soul_Level = input.getIntOr("Soul_Level", 0);
+			Souls = input.getIntOr("Souls", 0);
 		}
 
 		public void markSyncDirty() {

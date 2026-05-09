@@ -14,9 +14,21 @@ public final class PlayerState {
         data.markSyncDirty();
     }
 
+    public static void removeHearts(ServerPlayer player, int value) {
+        var data = player.getData(ModVariables.PLAYER_VARIABLES);
+        data.Hearts -= value;
+        if (data.Hearts < 0) {
+            data.Hearts = 0;
+        }
+        data.markSyncDirty();
+    }
+
     public static void addHearts(ServerPlayer player, int value) {
         var data = player.getData(ModVariables.PLAYER_VARIABLES);
         data.Hearts += value;
+        if (data.Hearts > 3) {
+            data.Hearts = 3;
+        }
         data.markSyncDirty();
     }
 }

@@ -13,7 +13,7 @@ import net.minecraft.client.gui.components.WidgetSprites;
 import net.minecraft.client.gui.components.ImageButton;
 import net.minecraft.client.gui.GuiGraphics;
 
-import de.niclasl.herobrines_world.network.message.SignalColorChangerGuiButton;
+import de.niclasl.herobrines_world.network.message.SyncSignalColorPacket;
 import org.jetbrains.annotations.NotNull;
 
 public class SignalColorChangerScreen extends AbstractContainerScreen<SignalColorChangerMenu> {
@@ -104,8 +104,8 @@ public class SignalColorChangerScreen extends AbstractContainerScreen<SignalColo
 					24, 24,
 					new WidgetSprites(texture, texture),
 					e -> {
-						ClientPacketDistributor.sendToServer(new SignalColorChangerGuiButton(buttonID, x, y, z));
-						SignalColorChangerGuiButton.handleButtonAction(entity, buttonID, x, y, z);
+						ClientPacketDistributor.sendToServer(new SyncSignalColorPacket(buttonID, x, y, z));
+						SyncSignalColorPacket.handleButtonAction(entity, buttonID, x, y, z);
 					}
 			) {
 				@Override

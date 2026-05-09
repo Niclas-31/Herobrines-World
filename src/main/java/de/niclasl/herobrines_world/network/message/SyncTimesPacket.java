@@ -16,20 +16,20 @@ import net.neoforged.neoforge.network.handling.IPayloadContext;
 import org.jetbrains.annotations.NotNull;
 
 @EventBusSubscriber
-public record TimeGuiButton(int buttonID) implements CustomPacketPayload {
+public record SyncTimesPacket(int buttonID) implements CustomPacketPayload {
 
-	public static final Type<TimeGuiButton> TYPE = new Type<>(Identifier.fromNamespaceAndPath(HerobrinesWorld.MODID, "uhr_gui_buttons"));
-	public static final StreamCodec<RegistryFriendlyByteBuf, TimeGuiButton> STREAM_CODEC = StreamCodec.of((RegistryFriendlyByteBuf buffer, TimeGuiButton message) -> {
-		buffer.writeInt(message.buttonID);
-	}, (RegistryFriendlyByteBuf buffer) -> new TimeGuiButton(buffer.readInt()));
+	public static final Type<SyncTimesPacket> TYPE = new Type<>(Identifier.fromNamespaceAndPath(HerobrinesWorld.MODID, "sync_times"));
+	public static final StreamCodec<RegistryFriendlyByteBuf, SyncTimesPacket> STREAM_CODEC = StreamCodec.of((RegistryFriendlyByteBuf buffer, SyncTimesPacket message) -> buffer.writeInt(message.buttonID), (RegistryFriendlyByteBuf buffer) -> new SyncTimesPacket(buffer.readInt()));
 	@Override
-	public @NotNull Type<TimeGuiButton> type() {
+	public @NotNull Type<SyncTimesPacket> type() {
 		return TYPE;
 	}
 
-	public static void handleData(final TimeGuiButton message, final IPayloadContext context) {
+	public static void handleData(final SyncTimesPacket message, final IPayloadContext context) {
 		if (context.flow() == PacketFlow.SERVERBOUND) {
-			context.enqueueWork(() -> handleButtonAction(context.player(), message.buttonID)).exceptionally(e -> {
+			context.enqueueWork(() ->
+					handleButtonAction(context.player(), message.buttonID)
+			).exceptionally(e -> {
 				context.connection().disconnect(Component.literal(e.getMessage()));
 				return null;
 			});
@@ -42,7 +42,7 @@ public record TimeGuiButton(int buttonID) implements CustomPacketPayload {
 				ModVariables.PlayerVariables vars = entity.getData(ModVariables.PLAYER_VARIABLES);
 				vars.Hide = true;
 				vars.markSyncDirty();
-			} else if (entity.getData(ModVariables.PLAYER_VARIABLES).Hide) {
+			} else {
 				ModVariables.PlayerVariables vars = entity.getData(ModVariables.PLAYER_VARIABLES);
 				vars.Hide = false;
 				vars.markSyncDirty();
@@ -52,6 +52,6 @@ public record TimeGuiButton(int buttonID) implements CustomPacketPayload {
 
 	@SubscribeEvent
 	public static void registerMessage(FMLCommonSetupEvent event) {
-		HerobrinesWorld.addNetworkMessage(TimeGuiButton.TYPE, TimeGuiButton.STREAM_CODEC, TimeGuiButton::handleData);
+		HerobrinesWorld.addNetworkMessage(TYPE, STREAM_CODEC, SyncTimesPacket::handleData);
 	}
 }

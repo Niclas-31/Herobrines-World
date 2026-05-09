@@ -1,7 +1,7 @@
 package de.niclasl.herobrines_world.registries.screen.custom;
 
 import de.niclasl.herobrines_world.registries.block.entity.custom.DelayerEntity;
-import de.niclasl.herobrines_world.network.message.DelayerSetTimes;
+import de.niclasl.herobrines_world.network.message.SyncDelayerTimesPacket;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.EditBox;
@@ -90,8 +90,8 @@ public class DelayerScreen extends AbstractContainerScreen<DelayerMenu> {
         int minutes = parseBox(minutesBox);
         int hours = parseBox(hoursBox);
 
-        ClientPacketDistributor.sendToServer(new DelayerSetTimes(menu.pos, ticks, seconds, minutes, hours));
-        DelayerSetTimes.handleAction(menu.player, menu.pos, ticks, seconds, minutes, hours);
+        ClientPacketDistributor.sendToServer(new SyncDelayerTimesPacket(menu.pos, ticks, seconds, minutes, hours));
+        SyncDelayerTimesPacket.handleAction(menu.player, menu.pos, ticks, seconds, minutes, hours);
     }
 
     public void addNumberLimiter(EditBox box, int min, int max) {

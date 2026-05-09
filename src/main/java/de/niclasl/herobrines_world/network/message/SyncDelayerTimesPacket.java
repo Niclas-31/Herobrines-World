@@ -19,25 +19,25 @@ import net.neoforged.neoforge.network.handling.IPayloadContext;
 import org.jetbrains.annotations.NotNull;
 
 @EventBusSubscriber
-public record DelayerSetTimes(BlockPos pos, int ticks, int seconds, int minutes, int hours) implements CustomPacketPayload {
+public record SyncDelayerTimesPacket(BlockPos pos, int ticks, int seconds, int minutes, int hours) implements CustomPacketPayload {
 
-    public static final Type<DelayerSetTimes> TYPE =
-            new Type<>(Identifier.fromNamespaceAndPath(HerobrinesWorld.MODID, "delayer_set_times"));
+    public static final Type<SyncDelayerTimesPacket> TYPE =
+            new Type<>(Identifier.fromNamespaceAndPath(HerobrinesWorld.MODID, "sync_delayer_times"));
 
-    public static final StreamCodec<RegistryFriendlyByteBuf, DelayerSetTimes> STREAM_CODEC = StreamCodec.of(
-            (RegistryFriendlyByteBuf buffer, DelayerSetTimes message) -> {
-                buffer.writeBlockPos(message.pos);
-                buffer.writeInt(message.ticks);
-                buffer.writeInt(message.seconds);
-                buffer.writeInt(message.minutes);
-                buffer.writeInt(message.hours);
+    public static final StreamCodec<RegistryFriendlyByteBuf, SyncDelayerTimesPacket> STREAM_CODEC = StreamCodec.of(
+            (RegistryFriendlyByteBuf buffer, SyncDelayerTimesPacket msg) -> {
+                buffer.writeBlockPos(msg.pos);
+                buffer.writeInt(msg.ticks);
+                buffer.writeInt(msg.seconds);
+                buffer.writeInt(msg.minutes);
+                buffer.writeInt(msg.hours);
             },
-            buffer -> new DelayerSetTimes(
-                    buffer.readBlockPos(),
-                    buffer.readInt(),
-                    buffer.readInt(),
-                    buffer.readInt(),
-                    buffer.readInt()
+            buf -> new SyncDelayerTimesPacket(
+                    buf.readBlockPos(),
+                    buf.readInt(),
+                    buf.readInt(),
+                    buf.readInt(),
+                    buf.readInt()
             )
     );
 
@@ -46,9 +46,11 @@ public record DelayerSetTimes(BlockPos pos, int ticks, int seconds, int minutes,
         return TYPE;
     }
 
-    public static void handle(DelayerSetTimes message, IPayloadContext context) {
+    public static void handle(SyncDelayerTimesPacket msg, IPayloadContext context) {
         if (context.flow() == PacketFlow.SERVERBOUND) {
-            context.enqueueWork(() -> handleAction(context.player(), message.pos, message.ticks, message.seconds, message.minutes, message.hours)).exceptionally(e -> {
+            context.enqueueWork(() ->
+                    handleAction(context.player(), msg.pos, msg.ticks, msg.seconds, msg.minutes, msg.hours)
+            ).exceptionally(e -> {
                 context.connection().disconnect(Component.literal(e.getMessage()));
                 return null;
             });
@@ -66,6 +68,6 @@ public record DelayerSetTimes(BlockPos pos, int ticks, int seconds, int minutes,
 
     @SubscribeEvent
     public static void register(FMLCommonSetupEvent event) {
-        HerobrinesWorld.addNetworkMessage(TYPE, STREAM_CODEC, DelayerSetTimes::handle);
+        HerobrinesWorld.addNetworkMessage(TYPE, STREAM_CODEC, SyncDelayerTimesPacket::handle);
     }
 }

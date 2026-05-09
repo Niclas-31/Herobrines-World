@@ -42,7 +42,7 @@ public class RuneStone extends Item {
 
 			if (hasSaved) {
 				player.displayClientMessage(
-						Component.translatable("message.rune_stone.already_saved"),
+						Component.translatable("item.herobrines_world.rune_stone.already_saved"),
 						true
 				);
 				return InteractionResult.SUCCESS;
@@ -59,7 +59,7 @@ public class RuneStone extends Item {
 			));
 
 			player.displayClientMessage(
-					Component.translatable("message.rune_stone.position_saved"),
+					Component.translatable("item.herobrines_world.rune_stone.position_saved"),
 					true
 			);
 
@@ -68,7 +68,7 @@ public class RuneStone extends Item {
 
 		if (!hasSaved) {
 			player.displayClientMessage(
-					Component.translatable("message.rune_stone.no_position_saved"),
+					Component.translatable("item.herobrines_world.rune_stone.no_position_saved"),
 					true
 			);
 			return InteractionResult.SUCCESS;

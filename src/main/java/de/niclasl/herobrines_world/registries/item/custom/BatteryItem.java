@@ -26,7 +26,7 @@ public class BatteryItem extends Item {
         int max = 1000;
 
         tooltipAdder.accept(Component.translatable(
-                "hover.herobrines_world.battery",
+                "item.herobrines_world.battery.hover",
                 current,
                 max
         ).withStyle(ChatFormatting.GREEN));

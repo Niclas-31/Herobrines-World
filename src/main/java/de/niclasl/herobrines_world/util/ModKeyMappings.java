@@ -1,6 +1,6 @@
 package de.niclasl.herobrines_world.util;
 
-import de.niclasl.herobrines_world.network.message.TimeGuiButton;
+import de.niclasl.herobrines_world.network.message.SyncTimesPacket;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.neoforged.api.distmarker.Dist;
@@ -20,9 +20,9 @@ public class ModKeyMappings {
 		public void setDown(boolean isDown) {
 			super.setDown(isDown);
 			if (isDownOld != isDown && isDown) {
-				ClientPacketDistributor.sendToServer(new TimeGuiButton(0));
+				ClientPacketDistributor.sendToServer(new SyncTimesPacket(0));
 				assert Minecraft.getInstance().player != null;
-				TimeGuiButton.handleButtonAction(Minecraft.getInstance().player, 0);
+				SyncTimesPacket.handleButtonAction(Minecraft.getInstance().player, 0);
 			}
 			isDownOld = isDown;
 		}

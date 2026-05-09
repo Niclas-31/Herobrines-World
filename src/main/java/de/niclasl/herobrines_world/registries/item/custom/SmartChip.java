@@ -28,6 +28,6 @@ public class SmartChip extends Item {
         Integer machineUpgradeLevelComponent = stack.get(ModDataComponents.MACHINE_UPGRADE_LEVEL.get());
         int machineUpgradeLevel = machineUpgradeLevelComponent != null ? machineUpgradeLevelComponent : 0;
 
-        tooltipAdder.accept(Component.translatable("hover.herobrines_world.smart_chip", machineUpgradeLevel));
+        tooltipAdder.accept(Component.translatable("item.herobrines_world.smart_chip.hover", machineUpgradeLevel));
     }
 }

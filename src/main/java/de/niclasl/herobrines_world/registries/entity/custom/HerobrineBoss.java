@@ -293,7 +293,7 @@ public class HerobrineBoss extends Monster {
 
 			WorldState.setHerobrineDead(level(), true);
 			world.markSyncDirty();
-			player.sendSystemMessage(Component.translatable("message.you_have_defeated_herobrine"));
+			player.sendSystemMessage(Component.translatable("entity.herobrines_world.herobrine_boss.defeated"));
 		}
 	}
 

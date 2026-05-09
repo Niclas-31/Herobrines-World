@@ -32,11 +32,11 @@ public class FrozenHeart extends Item {
 		} else {
 			if (entity.getMainHandItem().getItem() == ModItems.FROZEN_HEART.get() && entity.getData(ModVariables.PLAYER_VARIABLES).Hearts == 3 && Config.THREE_HEARTS.getAsBoolean()) {
 				if (entity instanceof Player player && !player.level().isClientSide())
-					player.displayClientMessage(Component.translatable("message.not_more_hearts"), true);
+					player.displayClientMessage(Component.translatable("item.herobrines_world.frozen_heart.not_more_hearts"), true);
 			} else {
 				if (entity.getMainHandItem().getItem() == ModItems.FROZEN_HEART.get() && !Config.THREE_HEARTS.getAsBoolean()) {
 					if (entity instanceof Player player && !player.level().isClientSide())
-						player.displayClientMessage(Component.translatable("message.config_deactivate"), true);
+						player.displayClientMessage(Component.translatable("herobrines_world.configuration.three_hearts.disabled"), true);
 				}
 			}
 		}

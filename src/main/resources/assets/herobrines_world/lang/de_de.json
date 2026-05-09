@@ -37,22 +37,9 @@
   "block.herobrines_world.platin_ore": "Platinerz",
   "block.herobrines_world.deepslate_platin_ore": "Tiefenschiefer-Platinerz",
 
-  "message.not_more_hearts": "§4Du kannst keine weiteren Herzen haben!",
-  "message.config_deactivate": "§4Konfiguration: Drei Herzen ist nicht aktiviert!",
-  "message.boss.spawned": "Dein Boss wurde gespawnt.",
-  "message.boss.removed": "Dein Boss wurde entfernt.",
-  "message.relic.is_not_yours": "§4Dieses Relikt gehört dir nicht.",
-  "message.relic.is_defect": "§cDieses Relikt ist beschädigt.",
-  "message.you_have_defeated_herobrine": "Du hast Herobrine besiegt!",
-  "message.boss.minion_mode.enabled": "Minion-Modus: Aktiviert",
-  "message.boss.minion_mode.disabled": "Minion-Modus: Deaktiviert",
-  "message.relic.cooldown_active": "Abklingzeit ist aktiviert! Übrige Abklingzeit: %s",
-  "message.rune_stone.position_saved": "§2Position wurde erfolgreich im Item gespeichert!",
-  "message.rune_stone.already_saved": "§4Auf diesem Item wurde bereits eine Position gespeichert!",
-  "message.rune_stone.no_position_saved": "§4Es wurde noch keine Position gespeichert.",
-  "message.ore_detector.no_found": "§cKein Erz in Reichweite gefunden",
-  "message.ore_detector.found": "§aErz gefunden bei X: %s §aY: %s §aZ: %s",
-  "message.ore_detector.mode": "§eModus: %s",
+  "commands.souls.query.levels": "%s hat Seelenstufe %s",
+  "commands.souls.query.points": "%s hat %s Seelenpunkte",
+  "commands.three_hearts.query": "%s hat %s Herzen",
   
   "item.herobrines_world.ash": "Asche",
   "item.herobrines_world.ash_ingot": "Aschebarren",
@@ -117,6 +104,22 @@
 
   "item.herobrines_world.herobrine_relic.bound_on": "Dieses Relikt ist verbunden mit: %s",
   "item.herobrines_world.herobrine_relic.unbound": "Dieses Relikt ist an niemanden gebunden.",
+  "item.herobrines_world.herobrine_relic.boss.spawned": "Dein Boss wurde gespawnt.",
+  "item.herobrines_world.herobrine_relic.boss.removed": "Dein Boss wurde entfernt.",
+  "item.herobrines_world.herobrine_relic.is_not_yours": "§4Dieses Relikt gehört dir nicht.",
+  "item.herobrines_world.herobrine_relic.is_defect": "§cDieses Relikt ist beschädigt.",
+  "item.herobrines_world.herobrine_relic.minion_mode.enabled": "Minion-Modus: Aktiviert",
+  "item.herobrines_world.herobrine_relic.minion_mode.disabled": "Minion-Modus: Deaktiviert",
+  "item.herobrines_world.herobrine_relic.cooldown_active": "Abklingzeit ist aktiviert! Übrige Abklingzeit: %s",
+  "item.herobrines_world.frozen_heart.not_more_hearts": "§4Du kannst keine weiteren Herzen haben!",
+  "item.herobrines_world.rune_stone.position_saved": "§2Position wurde erfolgreich im Item gespeichert!",
+  "item.herobrines_world.rune_stone.already_saved": "§4Auf diesem Item wurde bereits eine Position gespeichert!",
+  "item.herobrines_world.rune_stone.no_position_saved": "§4Es wurde noch keine Position gespeichert.",
+  "item.herobrines_world.ore_detector.no_found": "§cKein Erz in Reichweite gefunden",
+  "item.herobrines_world.ore_detector.found": "§aErz gefunden bei X: %s §aY: %s §aZ: %s",
+  "item.herobrines_world.ore_detector.mode": "§eModus: %s",
+  "item.herobrines_world.smart_chip.hover": "Maschinen Upgrade Level: %s",
+  "item.herobrines_world.battery.hover": "Energie: %s/%s",
 
   "item.minecraft.splash_potion.effect.good_herobrine_omen": "Wurftrank des guten Herobrine-Omens",
   "item.minecraft.tipped_arrow.effect.good_herobrine_omen": "Pfeil des guten Herobrine-Omens",
@@ -161,6 +164,8 @@
   "entity.herobrines_world.statue_entity_303": "Statue Entity 303",
   "entity.herobrines_world.entity_303": "Entity 303",
 
+  "entity.herobrines_world.herobrine_boss.defeated": "Du hast Herobrine besiegt!",
+
   "effect.herobrines_world.radio_active": "Radioaktiv",
   "effect.herobrines_world.good_herobrine_effect": "Guter Herobrine",
   "effect.herobrines_world.bad_herobrine_effect": "Böser Herobrine",
@@ -180,8 +185,6 @@
   "advancements.herobrines_world.mine_herobrine_diamond.title": "Herobrine-Diamanten!",
   "advancements.herobrines_world.mine_herobrine_diamond.descr": "Sammle Herobrine-Diamanten",
 
-  "herobrines_world.configuration.threeHearts": "Drei Herzen",
-  
-  "hover.herobrines_world.smart_chip": "Maschinen Upgrade Level: %s",
-  "hover.herobrines_world.battery": "Energie: %s/%s"
+  "herobrines_world.configuration.three_hearts": "Drei Herzen",
+  "herobrines_world.configuration.three_hearts.disabled": "§4Konfiguration: Drei Herzen ist deaktiviert!"
 }
