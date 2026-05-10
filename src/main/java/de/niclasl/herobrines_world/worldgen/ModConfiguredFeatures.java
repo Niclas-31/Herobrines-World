@@ -75,7 +75,7 @@ public class ModConfiguredFeatures {
         register(context, ORE_HEROBRINE_LARGE, Feature.ORE, new OreConfiguration(overworldHerobrineOres, 12, 0.7F));
         register(context, ORE_HEROBRINE_BURIED, Feature.ORE, new OreConfiguration(overworldHerobrineOres, 8, 1.0F));
 
-        register(context, ORE_PLATIN, Feature.ORE, new OreConfiguration(overworldPlatinOres, 3));
+        register(context, ORE_PLATIN, Feature.ORE, new OreConfiguration(overworldPlatinOres, 10));
 
         register(context, CURSED_STONE_KEY, Feature.ORE, new OreConfiguration(overworldCursedStone, 7));
         register(context, ABYSSAL_BLOCK_KEY, Feature.ORE, new OreConfiguration(overworldAbyssalBlock, 10));

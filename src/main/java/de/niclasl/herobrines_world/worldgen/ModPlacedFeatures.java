@@ -72,7 +72,7 @@ public class ModPlacedFeatures {
                 ModOrePlacement.commonOrePlacement(2, HeightRangePlacement.triangle(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(-4))));
 
         register(context, ORE_PLATIN, configuredFeatures.getOrThrow(ModConfiguredFeatures.ORE_PLATIN),
-                ModOrePlacement.commonOrePlacement(4, HeightRangePlacement.triangle(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(0))));
+                ModOrePlacement.commonOrePlacement(7, HeightRangePlacement.triangle(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(0))));
 
         register(context, CURSED_STONE_PLACED_KEY, configuredFeatures.getOrThrow(ModConfiguredFeatures.CURSED_STONE_KEY),
                 ModOrePlacement.commonOrePlacement(12, HeightRangePlacement.uniform(VerticalAnchor.absolute(-32), VerticalAnchor.absolute(128))));
