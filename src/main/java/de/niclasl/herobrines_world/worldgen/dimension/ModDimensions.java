@@ -60,6 +60,7 @@ public class ModDimensions {
                 .set(EnvironmentAttributes.RESPAWN_ANCHOR_WORKS, false)
                 .set(EnvironmentAttributes.NETHER_PORTAL_SPAWNS_PIGLINS, true)
                 .set(EnvironmentAttributes.AMBIENT_SOUNDS, AmbientSounds.LEGACY_CAVE_SETTINGS)
+                .set(EnvironmentAttributes.PIGLINS_ZOMBIFY, false)
                 .build();
         context.register(ModDimensions.HEROBRINE_TYPE,
                 new DimensionType(

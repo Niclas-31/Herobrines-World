@@ -1,8 +1,0 @@
-{
-    "parent": "block/cube_bottom_top",
-    "textures": {
-        "bottom": "herobrines_world:block/auto_farmer_bottom",
-        "side": "herobrines_world:block/auto_farmer_placer_side_on",
-        "top": "herobrines_world:block/auto_farmer_top"
-    }
-}

@@ -40,11 +40,11 @@ public class OreDetector extends Item {
 	}
 
 	private String getMode(ItemStack stack) {
-		return stack.getOrDefault(ModDataComponents.ORE_DATA, "coal");
+		return stack.getOrDefault(ModDataComponents.ORE_MODE, "coal");
 	}
 
 	private void setMode(ItemStack stack, String mode) {
-		stack.set(ModDataComponents.ORE_DATA, mode);
+		stack.set(ModDataComponents.ORE_MODE, mode);
 	}
 
 	@Override

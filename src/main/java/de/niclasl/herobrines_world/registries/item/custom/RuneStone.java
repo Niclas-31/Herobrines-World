@@ -58,6 +58,8 @@ public class RuneStone extends Item {
 					player.getXRot()
 			));
 
+			System.out.println(player.level().dimension());
+
 			player.displayClientMessage(
 					Component.translatable("item.herobrines_world.rune_stone.position_saved"),
 					true

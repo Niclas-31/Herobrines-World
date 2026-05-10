@@ -3,6 +3,7 @@ package de.niclasl.herobrines_world.registries.block.custom;
 import com.mojang.serialization.MapCodec;
 import de.niclasl.herobrines_world.registries.block.entity.ModBlockEntities;
 import de.niclasl.herobrines_world.registries.block.entity.custom.BatteryChargerBlockEntity;
+import de.niclasl.herobrines_world.registries.item.ModItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
@@ -104,8 +105,13 @@ public class BatteryChargerBlock extends BaseEntityBlock {
             if(player.isCrouching() && !level.isClientSide()) {
                 player.openMenu(new SimpleMenuProvider(batteryCharger, Component.translatable("block.herobrines_world.battery_charger")), pos);
                 return InteractionResult.SUCCESS;
-            } else if(!player.isCrouching() && batteryCharger.items.getFirst().isEmpty() && !stack.isEmpty()) {
-                batteryCharger.items.set(0, stack.copy());
+            } else if(
+                    !player.isCrouching()
+                            && batteryCharger.items.getFirst().isEmpty()
+                            && canInsert(stack)
+                            && !stack.isEmpty()) {
+                ItemStack inserted = stack.copyWithCount(1);
+                batteryCharger.items.set(0, inserted);
                 stack.shrink(1);
                 level.playSound(player, pos, SoundEvents.ITEM_PICKUP, SoundSource.BLOCKS, 1f, 2f);
             } else if(!player.isCrouching() && stack.isEmpty()) {
@@ -118,6 +124,10 @@ public class BatteryChargerBlock extends BaseEntityBlock {
         }
 
         return InteractionResult.SUCCESS;
+    }
+
+    private boolean canInsert(ItemStack stack) {
+        return stack.is(ModItems.BATTERY.get());
     }
 
     @Override

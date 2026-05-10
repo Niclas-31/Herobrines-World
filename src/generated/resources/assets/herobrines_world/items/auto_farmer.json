@@ -1,0 +1,34 @@
+{
+  "model": {
+    "type": "minecraft:select",
+    "block_state_property": "farmer_mode",
+    "cases": [
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "herobrines_world:block/auto_farmer_breaker"
+        },
+        "when": "breaker"
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "herobrines_world:block/auto_farmer_placer"
+        },
+        "when": "placer"
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "herobrines_world:block/auto_farmer_both"
+        },
+        "when": "both"
+      }
+    ],
+    "fallback": {
+      "type": "minecraft:model",
+      "model": "herobrines_world:block/auto_farmer_breaker"
+    },
+    "property": "minecraft:block_state"
+  }
+}

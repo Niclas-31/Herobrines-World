@@ -26,8 +26,8 @@ public class ModDataComponents {
             "relic_data",
             builder -> builder.persistent(RelicData.CODEC));
 
-    public static final DeferredHolder<DataComponentType<?>, DataComponentType<String>> ORE_DATA = register(
-            "ore_data",
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<String>> ORE_MODE = register(
+            "ore_mode",
             builder -> builder.persistent(Codec.STRING));
 
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<RuneData>> RUNE_DATA = register(

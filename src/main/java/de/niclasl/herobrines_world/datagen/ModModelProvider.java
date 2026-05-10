@@ -3,14 +3,18 @@ package de.niclasl.herobrines_world.datagen;
 import com.google.common.collect.ImmutableMap;
 import de.niclasl.herobrines_world.HerobrinesWorld;
 import de.niclasl.herobrines_world.registries.block.ModBlocks;
+import de.niclasl.herobrines_world.registries.block.custom.AutoFarmerBlock;
+import de.niclasl.herobrines_world.registries.block.custom.Signal;
+import de.niclasl.herobrines_world.registries.block.properties.ColorProperty;
+import de.niclasl.herobrines_world.registries.block.properties.FarmerMode;
 import de.niclasl.herobrines_world.registries.item.ModItems;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.client.data.models.ModelProvider;
-import net.minecraft.client.data.models.model.ModelTemplates;
-import net.minecraft.client.data.models.model.TextureMapping;
-import net.minecraft.client.data.models.model.TextureSlot;
-import net.minecraft.client.data.models.model.TexturedModel;
+import net.minecraft.client.data.models.blockstates.MultiVariantGenerator;
+import net.minecraft.client.data.models.blockstates.PropertyDispatch;
+import net.minecraft.client.data.models.model.*;
+import net.minecraft.client.renderer.item.ItemModel;
 import net.minecraft.core.Holder;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.Identifier;
@@ -18,6 +22,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import org.jspecify.annotations.NonNull;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Stream;
 
@@ -62,6 +67,8 @@ public class ModModelProvider extends ModelProvider {
                 )
         );
 
+        createSignal(blockModels);
+
         blockModels.createTrivialCube(ModBlocks.ASH_BLOCK.get());
 
         family(blockModels, ModBlocks.BLUE_SANDSTONE.get())
@@ -92,6 +99,8 @@ public class ModModelProvider extends ModelProvider {
         blockModels.createTrivialCube(ModBlocks.DEEPSLATE_HEROBRINE_ORE.get());
         blockModels.createTrivialCube(ModBlocks.PLATINE_ORE.get());
         blockModels.createTrivialCube(ModBlocks.DEEPSLATE_PLATIN_ORE.get());
+
+        generateMachine(blockModels, ModBlocks.AUTO_FARMER.get());
 
         itemModels.generateFlatItem(ModItems.HEROBRINE_DIAMOND.get(), ModelTemplates.FLAT_ITEM);
         itemModels.generateFlatItem(ModItems.ASH.get(), ModelTemplates.FLAT_ITEM);
@@ -174,11 +183,157 @@ public class ModModelProvider extends ModelProvider {
         return generators.new BlockFamilyProvider(texturedmodel.getMapping()).fullBlock(block, texturedmodel.getTemplate());
     }
 
+    private TextureMapping autoFarmerTextureMapping(FarmerMode mode, boolean powered) {
+
+        String poweredSuffix = powered ? "_on" : "";
+
+        return new TextureMapping()
+
+                .put(
+                        TextureSlot.TOP,
+                        Identifier.fromNamespaceAndPath(
+                                HerobrinesWorld.MODID,
+                                "block/auto_farmer_top"
+                        )
+                )
+
+                .put(
+                        TextureSlot.BOTTOM,
+                        Identifier.fromNamespaceAndPath(
+                                HerobrinesWorld.MODID,
+                                "block/auto_farmer_bottom"
+                        )
+                )
+
+                .put(
+                        TextureSlot.SIDE,
+                        Identifier.fromNamespaceAndPath(
+                                HerobrinesWorld.MODID,
+                                "block/auto_farmer_"
+                                        + mode.getSerializedName()
+                                        + "_side"
+                                        + poweredSuffix
+                        )
+                );
+    }
+
+    private void generateMachine(
+            BlockModelGenerators bMG,
+            Block block
+    ) {
+
+        Map<FarmerMode, Identifier> offModels = new HashMap<>();
+        Map<FarmerMode, Identifier> onModels = new HashMap<>();
+        Map<FarmerMode, ItemModel.Unbaked> itemModels = new HashMap<>();
+
+        for (FarmerMode mode : FarmerMode.values()) {
+
+            String name = mode.getSerializedName();
+
+            Identifier off = bMG.createSuffixedVariant(
+                    block,
+                    "_" + name,
+                    ModelTemplates.CUBE_BOTTOM_TOP,
+                    (identifier) -> autoFarmerTextureMapping(mode, false)
+            );
+
+            Identifier on = bMG.createSuffixedVariant(
+                    block,
+                    "_" + name + "_on",
+                    ModelTemplates.CUBE_BOTTOM_TOP,
+                    (identifier) -> autoFarmerTextureMapping(mode, true)
+            );
+
+            offModels.put(mode, off);
+            onModels.put(mode, on);
+
+            itemModels.put(
+                    mode,
+                    ItemModelUtils.plainModel(off)
+            );
+        }
+
+        bMG.blockStateOutput.accept(
+                MultiVariantGenerator.dispatch(ModBlocks.AUTO_FARMER.get())
+                        .with(PropertyDispatch.initial(AutoFarmerBlock.FARMER_MODE, AutoFarmerBlock.POWERED)
+                                .generate((color, powered) -> {
+                                    Identifier model = powered
+                                            ? onModels.get(color)
+                                            : offModels.get(color);
+                                    return BlockModelGenerators.plainVariant(model);
+                                })
+                        )
+        );
+
+        bMG.itemModelOutput
+                .accept(
+                        ModBlocks.AUTO_FARMER.asItem(),
+                        ItemModelUtils.selectBlockItemProperty(
+                                AutoFarmerBlock.FARMER_MODE,
+                                ItemModelUtils.plainModel(offModels.get(FarmerMode.BREAKER)),
+                                itemModels
+                        )
+                );
+    }
+
+    private void createSignal(BlockModelGenerators bMG) {
+        Map<ColorProperty, ItemModel.Unbaked> itemModels = new HashMap<>();
+        Map<ColorProperty, Identifier> offModels = new HashMap<>();
+        Map<ColorProperty, Identifier> onModels = new HashMap<>();
+
+        for (ColorProperty color : ColorProperty.values()) {
+            offModels.put(
+                    color,
+                    bMG.createSuffixedVariant(
+                            ModBlocks.SIGNAL.get(),
+                            "_" + color.getSerializedName(),
+                            ModelTemplates.CUBE_ALL,
+                            TextureMapping::cube
+                    )
+            );
+            itemModels.put(
+                    color,
+                    ItemModelUtils.plainModel(offModels.get(color))
+            );
+            onModels.put(
+                    color,
+                    bMG.createSuffixedVariant(
+                            ModBlocks.SIGNAL.get(),
+                            "_" + color.getSerializedName() + "_on",
+                            ModelTemplates.CUBE_ALL,
+                            TextureMapping::cube
+                    )
+            );
+        }
+
+        bMG.blockStateOutput.accept(
+                MultiVariantGenerator.dispatch(ModBlocks.SIGNAL.get())
+                        .with(PropertyDispatch.initial(Signal.COLOR, Signal.LIT)
+                                .generate((color, lit) -> {
+                                    Identifier model = lit
+                                            ? onModels.get(color)
+                                            : offModels.get(color);
+                                    return BlockModelGenerators.plainVariant(model);
+                                })
+                        )
+        );
+
+        bMG.itemModelOutput
+                .accept(
+                        ModBlocks.SIGNAL.asItem(),
+                        ItemModelUtils.selectBlockItemProperty(
+                                Signal.COLOR,
+                                ItemModelUtils.plainModel(offModels.get(ColorProperty.RED)),
+                                itemModels
+                        )
+                );
+    }
+
     @Override
     protected @NonNull Stream<? extends Holder<Block>> getKnownBlocks() {
         return ModBlocks.BLOCKS.getEntries().stream().filter(x -> !x.is(ModBlocks.HEROBRINES_REALM_PORTAL)
                 && !x.is(ModBlocks.UNDERWORLD_PORTAL) && !x.is(ModBlocks.DELAYER) && !x.is(ModBlocks.LOGIC_GATE_BLOCK)
-                && !x.is(ModBlocks.BATTERY_CHARGER) && !x.is(ModBlocks.SIGNAL) && !x.is(ModBlocks.AUTO_FARMER));
+                && !x.is(ModBlocks.BATTERY_CHARGER));
     }
 
     @Override
@@ -187,8 +342,8 @@ public class ModModelProvider extends ModelProvider {
                 !x.is(ModItems.TIME_CLOCK) && !x.is(ModItems.ORE_DETECTOR)
                 && x.get() != ModBlocks.HEROBRINES_REALM_PORTAL.asItem() && x.get() != ModBlocks.UNDERWORLD_PORTAL.asItem()
                 && x.get() != ModBlocks.DELAYER.asItem() && x.get() != ModBlocks.LOGIC_GATE_BLOCK.asItem()
-                && x.get() != ModBlocks.BATTERY_CHARGER.asItem() && x.get() != ModBlocks.SIGNAL.asItem()
-                && x.get() != ModBlocks.AUTO_FARMER.asItem() && !x.is(ModItems.SMART_CHIP_MK1)
+                && x.get() != ModBlocks.BATTERY_CHARGER.asItem()
+                && !x.is(ModItems.SMART_CHIP_MK1)
                 && !x.is(ModItems.SMART_CHIP_MK2) && !x.is(ModItems.SMART_CHIP_CASE)
                 && !x.is(ModItems.SMART_CHIP_MK3));
     }
