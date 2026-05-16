@@ -146,14 +146,14 @@ public class HerobrineRelicItem extends Item {
     }
 
     @Override
-    public boolean onDroppedByPlayer(@NotNull ItemStack stack, @NotNull Player player) {
+    public boolean onDroppedByPlayer(@NonNull ItemStack stack, @NotNull Player player) {
         player.getInventory().placeItemBackInInventory(stack);
         return false;
     }
 
     @SuppressWarnings("deprecation")
     @Override
-    public void appendHoverText(@NotNull ItemStack stack,
+    public void appendHoverText(ItemStack stack,
                                 @NotNull TooltipContext context,
                                 @NotNull TooltipDisplay tooltipDisplay,
                                 @NotNull Consumer<Component> tooltipAdder,

@@ -3,7 +3,7 @@ package de.niclasl.herobrines_world.registries.item;
 import de.niclasl.herobrines_world.HerobrinesWorld;
 import de.niclasl.herobrines_world.registries.block.ModBlocks;
 import de.niclasl.herobrines_world.registries.block.custom.AutoFarmerBlock;
-import de.niclasl.herobrines_world.registries.block.custom.Signal;
+import de.niclasl.herobrines_world.registries.block.custom.SignalBlock;
 import de.niclasl.herobrines_world.registries.block.properties.ColorProperty;
 import de.niclasl.herobrines_world.registries.block.properties.FarmerMode;
 import net.minecraft.core.registries.Registries;
@@ -49,7 +49,7 @@ public class ModCreativeModeTabs {
 							.title(Component.translatable("item_group.herobrines_world.herobrine_colored_blocks"))
 							.displayItems((parameters, tabData) -> {
 								for (ColorProperty color : ColorProperty.values()) {
-									tabData.accept(Signal.setModeOnStack(new ItemStack(ModBlocks.SIGNAL.get()), color));
+									tabData.accept(SignalBlock.setModeOnStack(new ItemStack(ModBlocks.SIGNAL.get()), color));
 								}
 							}).build());
 
@@ -97,7 +97,7 @@ public class ModCreativeModeTabs {
 							.title(Component.translatable("item_group.herobrines_world.herobrine_redstone_blocks"))
 							.displayItems((parameters, tabData) -> {
 								for (ColorProperty color : ColorProperty.values()) {
-									tabData.accept(Signal.setModeOnStack(new ItemStack(ModBlocks.SIGNAL), color));
+									tabData.accept(SignalBlock.setModeOnStack(new ItemStack(ModBlocks.SIGNAL), color));
 								}
 								tabData.accept(ModBlocks.DELAYER);
 								tabData.accept(ModBlocks.LOGIC_GATE_BLOCK);
@@ -106,10 +106,11 @@ public class ModCreativeModeTabs {
 								}
 								tabData.accept(ModItems.BATTERY);
 								tabData.accept(ModBlocks.BATTERY_CHARGER);
-								tabData.accept(ModItems.SMART_CHIP_MK1.get());
-								tabData.accept(ModItems.SMART_CHIP_MK2.get());
-								tabData.accept(ModItems.SMART_CHIP_MK3.get());
+								tabData.accept(ModItems.SMART_CHIP);
 								tabData.accept(ModItems.SMART_CHIP_CASE);
+								tabData.accept(ModBlocks.STORAGE_CONTROLLER);
+								tabData.accept(ModItems.KEY_CARD);
+								tabData.accept(ModBlocks.CARD_READER);
 							}).build());
 
 	public static final Supplier<CreativeModeTab> HEROBRINE_TOOLS_AND_UTILITIES =
@@ -137,7 +138,6 @@ public class ModCreativeModeTabs {
 								tabData.accept(ModItems.PLATIN_PICKAXE);
 								tabData.accept(ModItems.PLATIN_AXE);
 								tabData.accept(ModItems.PLATIN_HOE);
-								tabData.accept(ModItems.TIME_CLOCK);
 								tabData.accept(ModItems.HEROBRINES_REALM);
 								tabData.accept(ModItems.UNDERWORLD);
 							}).build());

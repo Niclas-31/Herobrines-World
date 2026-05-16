@@ -3,7 +3,6 @@ package de.niclasl.herobrines_world.network.message;
 import de.niclasl.herobrines_world.HerobrinesWorld;
 import de.niclasl.herobrines_world.network.ModVariables;
 import net.minecraft.network.RegistryFriendlyByteBuf;
-import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.PacketFlow;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
@@ -29,10 +28,7 @@ public record SyncTimesPacket(int buttonID) implements CustomPacketPayload {
 		if (context.flow() == PacketFlow.SERVERBOUND) {
 			context.enqueueWork(() ->
 					handleButtonAction(context.player(), message.buttonID)
-			).exceptionally(e -> {
-				context.connection().disconnect(Component.literal(e.getMessage()));
-				return null;
-			});
+			);
 		}
 	}
 

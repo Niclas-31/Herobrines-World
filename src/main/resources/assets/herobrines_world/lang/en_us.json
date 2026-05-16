@@ -1,9 +1,4 @@
 {
-  "gui.herobrines_world.clock_gui.label_clock": "Date & Time",
-  "gui.herobrines_world.clock_gui.button_hide": "Hide",
-  "gui.herobrines_world.clock_gui.button_show": "Show",
-  "gui.herobrines_world.clock_gui.label_time": "Time:",
-  "gui.herobrines_world.clock_gui.label_date": "Date:",
   "gui.herobrines_world.delayer.button.save": "Save",
 
   "block.herobrines_world.blue_sandstone_slab": "Blue Sandstone Slab",
@@ -36,10 +31,14 @@
   "block.herobrines_world.battery_charger": "Battery Charger",
   "block.herobrines_world.platin_ore": "Platin Ore",
   "block.herobrines_world.deepslate_platin_ore": "Deepslate Platin Ore",
+  "block.herobrines_world.storage_controller": "Storage Controller",
+  "block.herobrines_world.card_reader": "Card Reader",
 
   "commands.souls.query.levels": "%s has %s soul levels",
   "commands.souls.query.points": "%s has %s soul points",
   "commands.three_hearts.query": "%s Hearts: %s",
+
+  "key.herobrines_world.toggle_overlay": "Toggle Time Overlay",
   
   "item.herobrines_world.ash": "Ash",
   "item.herobrines_world.ash_ingot": "Ash Ingot",
@@ -60,7 +59,6 @@
   "item.herobrines_world.platin_helmet": "Platin Helmet",
   "item.herobrines_world.platin_leggings": "Platin Leggings",
   "item.herobrines_world.platin_boots": "Platin Boots",
-  "item.herobrines_world.time_clock": "Time Clock",
   "item.herobrines_world.rune_stone": "Rune Stone",
   "item.herobrines_world.nature_sword": "Nature Sword",
   "item.herobrines_world.fire_sword": "Fire Sword",
@@ -97,10 +95,9 @@
   "item.herobrines_world.herobrine_boss_spawn_egg": "Herobrine Boss Spawn Egg",
   "item.herobrines_world.herobrine_relic": "Herobrine Relic",
   "item.herobrines_world.battery": "Battery",
-  "item.herobrines_world.smart_chip_mk1": "Smart Chip MK1",
-  "item.herobrines_world.smart_chip_mk2": "Smart Chip MK2",
-  "item.herobrines_world.smart_chip_mk3": "Smart Chip MK3",
+  "item.herobrines_world.smart_chip": "Smart Chip",
   "item.herobrines_world.smart_chip_case": "Smart Chip Case",
+  "item.herobrines_world.key_card": "Key Card",
 
   "item.herobrines_world.herobrine_relic.bound_on": "This Relic is associated with: %s",
   "item.herobrines_world.herobrine_relic.unbound": "This Relic is not bound to anyone.",
@@ -118,8 +115,9 @@
   "item.herobrines_world.ore_detector.no_found": "§cNo ore found in range",
   "item.herobrines_world.ore_detector.found": "§aFound ore at X: %s §aY: %s §aZ: %s",
   "item.herobrines_world.ore_detector.mode": "§eMode: %s",
-  "item.herobrines_world.smart_chip.hover": "Machine Upgrade Level: %s",
   "item.herobrines_world.battery.hover": "Energy: %s/%s",
+  "item.herobrines_world.key_card.owner": "Owner: %s",
+  "item.herobrines_world.key_card.level": "Level: %s",
 
   "item.minecraft.splash_potion.effect.good_herobrine_omen": "Splash Potion of Good Herobrine Omen",
   "item.minecraft.tipped_arrow.effect.good_herobrine_omen": "Arrow of Good Herobrine Omen",
@@ -186,5 +184,9 @@
   "advancements.herobrines_world.mine_herobrine_diamond.descr": "Acquire herobrine diamonds",
 
   "herobrines_world.configuration.three_hearts": "Three Hearts",
+  "herobrines_world.configuration.three_hearts.tooltip": "Enables or disables three hearts.",
+  "herobrines_world.configuration.section.herobrines.world.common.toml.title": "General Settings",
+  "herobrines_world.configuration.title": "Herobrines World Configuration",
+  "herobrines_world.configuration.section.herobrines.world.common.toml": "General",
   "herobrines_world.configuration.three_hearts.disabled": "§4Configuration: Three Hearts is disabled!"
 }

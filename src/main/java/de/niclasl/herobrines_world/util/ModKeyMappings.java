@@ -13,7 +13,7 @@ import org.lwjgl.glfw.GLFW;
 
 @EventBusSubscriber(Dist.CLIENT)
 public class ModKeyMappings {
-	public static final KeyMapping TOGGLE_CLOCK = new KeyMapping("key.herobrines_world.toggle_clock", GLFW.GLFW_KEY_K, KeyMapping.Category.GAMEPLAY) {
+	public static final KeyMapping TOGGLE_OVERLAY = new KeyMapping("key.herobrines_world.toggle_overlay", GLFW.GLFW_KEY_K, KeyMapping.Category.GAMEPLAY) {
 		private boolean isDownOld = false;
 
 		@Override
@@ -30,13 +30,13 @@ public class ModKeyMappings {
 
 	@SubscribeEvent
 	public static void registerKeyMappings(RegisterKeyMappingsEvent event) {
-		event.register(TOGGLE_CLOCK);
+		event.register(TOGGLE_OVERLAY);
 	}
 
 	@SubscribeEvent
 	public static void onClientTick(ClientTickEvent.Post event) {
 		if (Minecraft.getInstance().screen == null) {
-			TOGGLE_CLOCK.consumeClick();
+			TOGGLE_OVERLAY.consumeClick();
 		}
 	}
 }

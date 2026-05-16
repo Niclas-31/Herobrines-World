@@ -33,9 +33,11 @@ public class HerobrinesWorldClient {
     @SubscribeEvent
     public static void registerScreens(RegisterMenuScreensEvent event) {
         event.register(ModMenuTypes.DELAYER.get(), DelayerScreen::new);
-        event.register(ModMenuTypes.TIME.get(), TimeScreen::new);
         event.register(ModMenuTypes.SIGNAL_COLOR_CHANGER.get(), SignalColorChangerScreen::new);
         event.register(ModMenuTypes.AUTO_FARMER.get(), AutoFarmerScreen::new);
         event.register(ModMenuTypes.BATTERY_CHARGER.get(), BatteryChargerScreen::new);
+        event.register(ModMenuTypes.SMART_CHIP.get(), SmartChipScreen::new);
+        event.register(ModMenuTypes.STORAGE_CONTROLLER.get(), StorageControllerScreen::new);
+        event.register(ModMenuTypes.CARD_READER.get(), CardReaderScreen::new);
     }
 }

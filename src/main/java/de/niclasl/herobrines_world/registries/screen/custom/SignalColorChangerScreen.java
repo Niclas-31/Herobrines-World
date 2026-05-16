@@ -22,10 +22,12 @@ public class SignalColorChangerScreen extends AbstractContainerScreen<SignalColo
 
     public SignalColorChangerScreen(SignalColorChangerMenu container, Inventory inventory, Component text) {
 		super(container, inventory, text);
+
         this.x = container.x;
 		this.y = container.y;
 		this.z = container.z;
 		this.entity = container.entity;
+
 		this.imageWidth = 176;
 		this.imageHeight = 166;
 	}

@@ -1,6 +1,6 @@
 package de.niclasl.herobrines_world.registries.screen.custom;
 
-import de.niclasl.herobrines_world.registries.block.entity.custom.DelayerEntity;
+import de.niclasl.herobrines_world.registries.block.entity.custom.DelayerBlockEntity;
 import de.niclasl.herobrines_world.network.message.SyncDelayerTimesPacket;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
@@ -16,6 +16,7 @@ public class DelayerScreen extends AbstractContainerScreen<DelayerMenu> {
 
     public DelayerScreen(DelayerMenu menu, Inventory playerInv, Component title) {
         super(menu, playerInv, title);
+
         this.imageWidth = 176;
         this.imageHeight = 166;
     }
@@ -40,7 +41,7 @@ public class DelayerScreen extends AbstractContainerScreen<DelayerMenu> {
         minutesBox = new EditBox(this.font, startX + 2 * (boxWidth + spacing), yBoxes, boxWidth, 20, Component.literal("Minutes"));
         hoursBox = new EditBox(this.font, startX + 3 * (boxWidth + spacing), yBoxes, boxWidth, 20, Component.literal("Hours"));
 
-        DelayerEntity e = menu.getEntity();
+        DelayerBlockEntity e = menu.getEntity();
 
         ticksBox.setValue(String.valueOf(e.getTicks()));
         secondsBox.setValue(String.valueOf(e.getSeconds()));
@@ -125,7 +126,6 @@ public class DelayerScreen extends AbstractContainerScreen<DelayerMenu> {
         }
         return true;
     }
-
 
     private int parseBox(EditBox box) {
         try {

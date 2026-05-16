@@ -1,6 +1,6 @@
 package de.niclasl.herobrines_world.registries.screen.custom;
 
-import de.niclasl.herobrines_world.registries.block.entity.custom.DelayerEntity;
+import de.niclasl.herobrines_world.registries.block.entity.custom.DelayerBlockEntity;
 import de.niclasl.herobrines_world.registries.screen.ModMenuTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
@@ -39,9 +39,9 @@ public class DelayerMenu extends AbstractContainerMenu {
         return true;
     }
 
-    public DelayerEntity getEntity() {
+    public DelayerBlockEntity getEntity() {
         BlockEntity be = level.getBlockEntity(pos);
-        if (!(be instanceof DelayerEntity delayer)) {
+        if (!(be instanceof DelayerBlockEntity delayer)) {
             throw new IllegalStateException("DelayerEntity not found at " + pos);
         }
         return delayer;

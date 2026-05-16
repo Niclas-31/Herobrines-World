@@ -14,9 +14,9 @@ public class ModBlockEntities {
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES =
             DeferredRegister.create(BuiltInRegistries.BLOCK_ENTITY_TYPE, HerobrinesWorld.MODID);
 
-    public static final Supplier<BlockEntityType<DelayerEntity>> DELAYER =
+    public static final Supplier<BlockEntityType<DelayerBlockEntity>> DELAYER =
             BLOCK_ENTITIES.register("delayer", () -> new BlockEntityType<>(
-                    DelayerEntity::new, ModBlocks.DELAYER.get()));
+                    DelayerBlockEntity::new, ModBlocks.DELAYER.get()));
 
     public static final Supplier<BlockEntityType<LogicGateBlockEntity>> LOGIC_GATE_BLOCK =
             BLOCK_ENTITIES.register("logic_gate_block", () -> new BlockEntityType<>(
@@ -29,6 +29,14 @@ public class ModBlockEntities {
     public static final Supplier<BlockEntityType<BatteryChargerBlockEntity>> BATTERY_CHARGER =
             BLOCK_ENTITIES.register("battery_charger", () -> new BlockEntityType<>(
                     BatteryChargerBlockEntity::new, ModBlocks.BATTERY_CHARGER.get()));
+
+    public static final Supplier<BlockEntityType<StorageControllerBlockEntity>> STORAGE_CONTROLLER =
+            BLOCK_ENTITIES.register("storage_controller",  () -> new BlockEntityType<>(
+                    StorageControllerBlockEntity::new, ModBlocks.STORAGE_CONTROLLER.get()));
+
+    public static final Supplier<BlockEntityType<CardReaderBlockEntity>> CARD_READER =
+            BLOCK_ENTITIES.register("card_reader", () -> new BlockEntityType<>(
+                    CardReaderBlockEntity::new, ModBlocks.CARD_READER.get()));
 
     public static void register(IEventBus eventBus) {
         BLOCK_ENTITIES.register(eventBus);

@@ -3,7 +3,6 @@ package de.niclasl.herobrines_world.network.message;
 import de.niclasl.herobrines_world.HerobrinesWorld;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.RegistryFriendlyByteBuf;
-import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.PacketFlow;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
@@ -55,10 +54,7 @@ public record SyncSignalColorPacket(int buttonID, int x, int y, int z) implement
 		if (context.flow() == PacketFlow.SERVERBOUND) {
 			context.enqueueWork(() ->
 					handleButtonAction(context.player(), message.buttonID, message.x, message.y, message.z)
-			).exceptionally(e -> {
-				context.connection().disconnect(Component.literal(e.getMessage()));
-				return null;
-			});
+			);
 		}
 	}
 

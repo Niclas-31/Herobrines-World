@@ -62,6 +62,8 @@ public class ModEntities {
 	public static void init(RegisterSpawnPlacementsEvent event) {
 		Niclasl.init(event);
 		ChristmasNiclasl.init(event);
+		GoodHerobrine.init(event);
+		BadHerobrine.init(event);
 	}
 
 	@SubscribeEvent

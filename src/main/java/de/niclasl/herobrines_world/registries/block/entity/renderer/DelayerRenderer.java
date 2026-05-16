@@ -2,8 +2,8 @@ package de.niclasl.herobrines_world.registries.block.entity.renderer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
-import de.niclasl.herobrines_world.registries.block.custom.Delayer;
-import de.niclasl.herobrines_world.registries.block.entity.custom.DelayerEntity;
+import de.niclasl.herobrines_world.registries.block.custom.DelayerBlock;
+import de.niclasl.herobrines_world.registries.block.entity.custom.DelayerBlockEntity;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.SubmitNodeCollector;
@@ -18,7 +18,7 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class DelayerRenderer implements BlockEntityRenderer<DelayerEntity, DelayerRenderState> {
+public class DelayerRenderer implements BlockEntityRenderer<DelayerBlockEntity, DelayerRenderState> {
 
     private final Font font;
 
@@ -32,11 +32,11 @@ public class DelayerRenderer implements BlockEntityRenderer<DelayerEntity, Delay
     }
 
     @Override
-    public void extractRenderState(@NotNull DelayerEntity entity, @NotNull DelayerRenderState state, float partialTick,
+    public void extractRenderState(@NotNull DelayerBlockEntity entity, @NotNull DelayerRenderState state, float partialTick,
                                    @NotNull Vec3 cameraPosition, @Nullable ModelFeatureRenderer.CrumblingOverlay breakProgress) {
         BlockEntityRenderer.super.extractRenderState(entity, state, partialTick, cameraPosition, breakProgress);
 
-        state.facing = entity.getBlockState().getValue(Delayer.FACING);
+        state.facing = entity.getBlockState().getValue(DelayerBlock.FACING);
         state.rotation = switch (state.facing) {
             case NORTH -> 0f;
             case WEST -> 90f;

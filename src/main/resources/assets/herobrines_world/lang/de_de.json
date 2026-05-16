@@ -1,9 +1,4 @@
 {
-  "gui.herobrines_world.clock_gui.label_clock": "Datum & Uhrzeit",
-  "gui.herobrines_world.clock_gui.button_hide": "Ausblenden",
-  "gui.herobrines_world.clock_gui.button_show": "Einblenden",
-  "gui.herobrines_world.clock_gui.label_time": "Zeit:",
-  "gui.herobrines_world.clock_gui.label_date": "Datum:",
   "gui.herobrines_world.delayer.button.save": "Speichern",
 
   "block.herobrines_world.blue_sandstone_slab": "Blaue Sandsteinstufe",
@@ -31,15 +26,19 @@
   "block.herobrines_world.green_ore": "Grüneserz",
   "block.herobrines_world.deepslate_green_ore": "Tiefenschiefer-Grüneserz",
   "block.herobrines_world.delayer": "Verzögerer",
-  "block.herobrines_world.logic_gate_block": "Logikgatter-Block",
+  "block.herobrines_world.logic_gate_block": "Logikgatter Block",
   "block.herobrines_world.auto_farmer": "Automatische Farm",
-  "block.herobrines_world.battery_charger": "Batterie-Ladegerät",
+  "block.herobrines_world.battery_charger": "Batterie Ladegerät",
   "block.herobrines_world.platin_ore": "Platinerz",
   "block.herobrines_world.deepslate_platin_ore": "Tiefenschiefer-Platinerz",
+  "block.herobrines_world.storage_controller": "Lager Controller",
+  "block.herobrines_world.card_reader": "Karten Lesegerät",
 
   "commands.souls.query.levels": "%s hat Seelenstufe %s",
   "commands.souls.query.points": "%s hat %s Seelenpunkte",
   "commands.three_hearts.query": "%s hat %s Herzen",
+  
+  "key.herobrines_world.toggle_overlay": "Zeiteinblendung umschalten",
   
   "item.herobrines_world.ash": "Asche",
   "item.herobrines_world.ash_ingot": "Aschebarren",
@@ -60,7 +59,6 @@
   "item.herobrines_world.platin_helmet": "Platinhelm",
   "item.herobrines_world.platin_leggings": "Platinbeinschutz",
   "item.herobrines_world.platin_boots": "Platinstiefel",
-  "item.herobrines_world.time_clock": "Zeit-Uhr",
   "item.herobrines_world.rune_stone": "Runenstein",
   "item.herobrines_world.nature_sword": "Naturschwert",
   "item.herobrines_world.fire_sword": "Feuerschwert",
@@ -97,10 +95,9 @@
   "item.herobrines_world.herobrine_boss_spawn_egg": "Herobrine-Boss-Spawn-Ei",
   "item.herobrines_world.herobrine_relic": "Herobrine Relikt",
   "item.herobrines_world.battery": "Batterie",
-  "item.herobrines_world.smart_chip_mk1": "Smart Chip MK1",
-  "item.herobrines_world.smart_chip_mk2": "Smart Chip MK2",
-  "item.herobrines_world.smart_chip_mk3": "Smart Chip MK3",
+  "item.herobrines_world.smart_chip": "Smart Chip",
   "item.herobrines_world.smart_chip_case": "Smart Chip Gehäuse",
+  "item.herobrines_world.key_card": "Schlüsselkarte",
 
   "item.herobrines_world.herobrine_relic.bound_on": "Dieses Relikt ist verbunden mit: %s",
   "item.herobrines_world.herobrine_relic.unbound": "Dieses Relikt ist an niemanden gebunden.",
@@ -118,8 +115,9 @@
   "item.herobrines_world.ore_detector.no_found": "§cKein Erz in Reichweite gefunden",
   "item.herobrines_world.ore_detector.found": "§aErz gefunden bei X: %s §aY: %s §aZ: %s",
   "item.herobrines_world.ore_detector.mode": "§eModus: %s",
-  "item.herobrines_world.smart_chip.hover": "Maschinen Upgrade Level: %s",
   "item.herobrines_world.battery.hover": "Energie: %s/%s",
+  "item.herobrines_world.key_card.owner": "Eigentümer: %s",
+  "item.herobrines_world.key_card.level": "Level: %s",
 
   "item.minecraft.splash_potion.effect.good_herobrine_omen": "Wurftrank des guten Herobrine-Omens",
   "item.minecraft.tipped_arrow.effect.good_herobrine_omen": "Pfeil des guten Herobrine-Omens",
@@ -186,5 +184,9 @@
   "advancements.herobrines_world.mine_herobrine_diamond.descr": "Sammle Herobrine-Diamanten",
 
   "herobrines_world.configuration.three_hearts": "Drei Herzen",
+  "herobrines_world.configuration.three_hearts.tooltip": "Aktiviert oder Deaktiviert drei Herzen.",
+  "herobrines_world.configuration.section.herobrines.world.common.toml.title": "Allgemeine Einstellungen",
+  "herobrines_world.configuration.title": "Herobrines World Konfiguration",
+  "herobrines_world.configuration.section.herobrines.world.common.toml": "Allgemein",
   "herobrines_world.configuration.three_hearts.disabled": "§4Konfiguration: Drei Herzen ist deaktiviert!"
 }

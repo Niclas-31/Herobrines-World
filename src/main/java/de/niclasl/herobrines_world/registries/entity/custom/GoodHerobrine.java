@@ -1,5 +1,6 @@
 package de.niclasl.herobrines_world.registries.entity.custom;
 
+import de.niclasl.herobrines_world.registries.entity.ModEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
@@ -19,8 +20,10 @@ import net.minecraft.world.entity.projectile.throwableitemprojectile.AbstractThr
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.NeoForgeMod;
+import net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent;
 import org.jetbrains.annotations.NotNull;
 
 public class GoodHerobrine extends PathfinderMob {
@@ -115,6 +118,14 @@ public class GoodHerobrine extends PathfinderMob {
 	public void aiStep() {
 		super.aiStep();
 		this.setNoGravity(true);
+	}
+
+	public static void init(RegisterSpawnPlacementsEvent event) {
+		event.register(ModEntities.GOOD_HEROBRINE.get(), SpawnPlacementTypes.ON_GROUND,
+				Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+				(entityType, level, reason,
+				 pos, random) -> true,
+				RegisterSpawnPlacementsEvent.Operation.REPLACE);
 	}
 
 	public static AttributeSupplier.Builder createAttributes() {

@@ -1,0 +1,34 @@
+{
+  "variants": {
+    "facing=east,powered=false": {
+      "model": "herobrines_world:block/storage_controller",
+      "y": 270
+    },
+    "facing=east,powered=true": {
+      "model": "herobrines_world:block/storage_controller_on",
+      "y": 270
+    },
+    "facing=north,powered=false": {
+      "model": "herobrines_world:block/storage_controller",
+      "y": 180
+    },
+    "facing=north,powered=true": {
+      "model": "herobrines_world:block/storage_controller_on",
+      "y": 180
+    },
+    "facing=south,powered=false": {
+      "model": "herobrines_world:block/storage_controller"
+    },
+    "facing=south,powered=true": {
+      "model": "herobrines_world:block/storage_controller_on"
+    },
+    "facing=west,powered=false": {
+      "model": "herobrines_world:block/storage_controller",
+      "y": 90
+    },
+    "facing=west,powered=true": {
+      "model": "herobrines_world:block/storage_controller_on",
+      "y": 90
+    }
+  }
+}

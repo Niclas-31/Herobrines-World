@@ -2,7 +2,7 @@ package de.niclasl.herobrines_world.registries.block.entity.renderer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
-import de.niclasl.herobrines_world.registries.block.custom.Delayer;
+import de.niclasl.herobrines_world.registries.block.custom.DelayerBlock;
 import de.niclasl.herobrines_world.registries.block.entity.custom.LogicGateBlockEntity;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.renderer.LightTexture;
@@ -38,7 +38,7 @@ public class LogicGateBlockEntityRenderer implements BlockEntityRenderer<LogicGa
                                    @Nullable ModelFeatureRenderer.CrumblingOverlay breakProgress) {
         BlockEntityRenderer.super.extractRenderState(entity, state, partialTick, cameraPosition, breakProgress);
 
-        state.facing = entity.getBlockState().getValue(Delayer.FACING);
+        state.facing = entity.getBlockState().getValue(DelayerBlock.FACING);
         state.rotation = switch (state.facing) {
             case NORTH -> 0f;
             case WEST -> 90f;

@@ -50,6 +50,8 @@ public class ModBlockLootTableProvider extends BlockLootSubProvider {
         dropSelf(ModBlocks.LOGIC_GATE_BLOCK.get());
         dropSelf(ModBlocks.AUTO_FARMER.get());
         dropSelf(ModBlocks.BATTERY_CHARGER.get());
+        dropSelf(ModBlocks.STORAGE_CONTROLLER.get());
+        dropSelf(ModBlocks.CARD_READER.get());
     }
 
     @Override

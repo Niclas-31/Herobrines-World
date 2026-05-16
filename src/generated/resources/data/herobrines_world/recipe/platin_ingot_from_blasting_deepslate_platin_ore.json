@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "cookingtime": 100,
+  "experience": 0.8,
+  "group": "platin",
+  "ingredient": "herobrines_world:deepslate_platin_ore",
+  "result": {
+    "count": 1,
+    "id": "herobrines_world:platin_ingot"
+  }
+}

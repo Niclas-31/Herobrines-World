@@ -18,9 +18,13 @@ public class ModDataComponents {
             "energy",
             builder -> builder.persistent(Codec.INT));
 
-    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> MACHINE_UPGRADE_LEVEL = register(
-            "machine_upgrade_level",
-            builder -> builder.persistent(Codec.INT));
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<SmartChipData.Transfer>> TRANSFER = register(
+            "transfer",
+            builder -> builder.persistent(SmartChipData.Transfer.CODEC));
+
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<SmartChipData.Access>> ACCESS = register(
+            "access",
+            builder -> builder.persistent(SmartChipData.Access.CODEC));
 
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<RelicData>> RELIC_DATA = register(
             "relic_data",
@@ -33,6 +37,11 @@ public class ModDataComponents {
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<RuneData>> RUNE_DATA = register(
             "rune_data",
             builder -> builder.persistent(RuneData.CODEC));
+
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<KeyCardData>> KEY_CARD_DATA = register(
+            "key_card_data",
+            builder -> builder.persistent(KeyCardData.CODEC)
+    );
 
     private static <T> DeferredHolder<DataComponentType<?>, DataComponentType<T>> register(String name,
                                                                                            UnaryOperator<DataComponentType.Builder<T>> builderOperator) {

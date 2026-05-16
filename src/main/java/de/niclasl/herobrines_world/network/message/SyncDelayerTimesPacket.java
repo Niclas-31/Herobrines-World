@@ -1,10 +1,9 @@
 package de.niclasl.herobrines_world.network.message;
 
 import de.niclasl.herobrines_world.HerobrinesWorld;
-import de.niclasl.herobrines_world.registries.block.entity.custom.DelayerEntity;
+import de.niclasl.herobrines_world.registries.block.entity.custom.DelayerBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.RegistryFriendlyByteBuf;
-import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.PacketFlow;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
@@ -50,17 +49,14 @@ public record SyncDelayerTimesPacket(BlockPos pos, int ticks, int seconds, int m
         if (context.flow() == PacketFlow.SERVERBOUND) {
             context.enqueueWork(() ->
                     handleAction(context.player(), msg.pos, msg.ticks, msg.seconds, msg.minutes, msg.hours)
-            ).exceptionally(e -> {
-                context.connection().disconnect(Component.literal(e.getMessage()));
-                return null;
-            });
+            );
         }
     }
 
     public static void handleAction(Player player, BlockPos pos, int ticks, int seconds, int minutes, int hours) {
         Level world = player.level();
         BlockEntity be = world.getBlockEntity(pos);
-        if (be instanceof DelayerEntity delayer) {
+        if (be instanceof DelayerBlockEntity delayer) {
             delayer.setTimes(ticks, seconds, minutes, hours);
             delayer.setChanged();
         }

@@ -1,10 +1,15 @@
 package de.niclasl.herobrines_world.registries.block.entity.custom;
 
+import de.niclasl.herobrines_world.network.transfer.ItemTransferSystem;
+import de.niclasl.herobrines_world.network.transfer.resolver.RemoteInventoryResolver;
+import de.niclasl.herobrines_world.network.transfer.wrapper.AutoFarmerWrapper;
+import de.niclasl.herobrines_world.network.transfer.wrapper.IInventoryWrapper;
 import de.niclasl.herobrines_world.registries.block.custom.AutoFarmerBlock;
 import de.niclasl.herobrines_world.registries.block.entity.ModBlockEntities;
 import de.niclasl.herobrines_world.registries.block.properties.FarmerMode;
+import de.niclasl.herobrines_world.registries.components.ModDataComponents;
+import de.niclasl.herobrines_world.registries.components.SmartChipData;
 import de.niclasl.herobrines_world.registries.item.custom.BatteryItem;
-import de.niclasl.herobrines_world.registries.item.custom.SmartChip;
 import de.niclasl.herobrines_world.registries.screen.custom.AutoFarmerMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
@@ -36,9 +41,9 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class AutoFarmerBlockEntity extends BlockEntity implements Container, MenuProvider {
+    private static final int KEEP_AMOUNT = 64;
 
     private NonNullList<ItemStack> items = NonNullList.withSize(29, ItemStack.EMPTY);
-    private static final int RADIUS = 4;
     private int cleanupTimer = 0;
     private int ticks = 0;
 
@@ -131,125 +136,125 @@ public class AutoFarmerBlockEntity extends BlockEntity implements Container, Men
     }
 
     public static void tick(Level level, BlockPos pos, BlockState state, AutoFarmerBlockEntity be) {
-        if (level.isClientSide()) return;
+        if (!(level instanceof ServerLevel serverLevel)) return;
 
-        boolean hasEnergy = false;
-        Integer hasSmartChip = 0;
+        ItemStack chipStack = be.items.get(28);
+        SmartChipData.Transfer chip = chipStack.get(ModDataComponents.TRANSFER);
 
-        ItemStack chip = be.items.get(28);
-        if (chip.getItem() instanceof SmartChip smartChip) {
-            hasSmartChip = smartChip.getMachineUpgradeLevel(chip) ;
-        }
-
-        if (chip.isEmpty()) {
+        if (chip == null) {
             level.setBlock(pos, state.setValue(AutoFarmerBlock.POWERED, false), 3);
             return;
         }
 
+        int range = chip.range();
+        int speed = chip.speed();
+
         ItemStack battery = be.items.get(27);
-        if (battery.getItem() instanceof BatteryItem batteryItem) {
-            hasEnergy = batteryItem.getEnergy(battery) > 0;
-        }
+
+        boolean hasEnergy = battery.getItem() instanceof BatteryItem b &&
+                b.getEnergy(battery) > 0;
 
         if (state.getValue(AutoFarmerBlock.POWERED) != hasEnergy) {
             level.setBlock(pos, state.setValue(AutoFarmerBlock.POWERED, hasEnergy), 3);
         }
 
-        int ticks;
-        int interval;
-        int amount;
+        if (!hasEnergy) return;
 
-        if (hasSmartChip <= 0) {
-            ticks = 1200;
-            interval = 1500;
-            amount = 100;
-        } else if (hasSmartChip == 1) {
-            ticks = 1200;
-            interval = 1500;
-            amount = 100;
-        } else if (hasSmartChip == 2) {
-            ticks = 50;
-            interval = 3000;
-            amount = 50;
-        } else if (hasSmartChip == 3) {
-            ticks = 20;
-            interval = 6000;
-            amount = 1;
-        } else {
-            ticks = 20;
-            interval = 6000;
-            amount = 1;
-        }
+        int interval = switch (speed) {
+            case 1 -> 3000;
+            case 2 -> 6000;
+            default -> 1500;
+        };
 
-        if (hasEnergy) {
-            if (hasSmartChip <= 0) {
-                if (level.getGameTime() % ticks == 0) {
-                    be.doWork(state);
-                }
-            } else if (hasSmartChip == 1) {
-                if (level.getGameTime() % ticks == 0) {
-                    be.doWork(state);
-                }
-            } else if (hasSmartChip == 2) {
-                if (level.getGameTime() % ticks == 0) {
-                    be.doWork(state);
-                }
-            } else if (hasSmartChip == 3) {
-                if (level.getGameTime() % ticks == 0) {
-                    be.doWork(state);
-                }
-            } else {
-                if (level.getGameTime() % ticks == 0) {
-                    be.doWork(state);
+        int workDelay = switch (speed) {
+            case 1 -> 50;
+            case 2 -> 20;
+            default -> 1200;
+        };
+
+        if (level.getGameTime() % workDelay == 0) {
+            switch (be.getMode()) {
+                case BREAKER -> be.breakCrops(range);
+                case PLACER -> be.placeCrops(range);
+                case BOTH -> {
+                    be.breakCrops(range);
+                    be.placeCrops(range);
                 }
             }
         }
 
-        if (hasEnergy) {
-            be.cleanupTimer++;
+        be.ticks++;
 
-            if (be.cleanupTimer >= ticks) {
-                be.cleanupSeeds();
-                be.cleanupTimer = 0;
-            }
+        if (be.ticks >= interval) {
+            be.useEnergyOfBattery();
+            be.ticks = 0;
         }
 
-        if (hasEnergy) {
-            be.ticks++;
+        be.cleanupTimer++;
 
-            if (hasSmartChip <= 0) {
-                if (be.ticks >= interval) {
-                    be.useEnergyOfBattery(amount);
-                    be.ticks = 0;
-                }
-            } else if (hasSmartChip == 1) {
-                if (be.ticks >= interval) {
-                    be.useEnergyOfBattery(amount);
-                    be.ticks = 0;
-                }
-            } else if (hasSmartChip == 2) {
-                if (be.ticks >= interval) {
-                    be.useEnergyOfBattery(amount);
-                    be.ticks = 0;
-                }
-            } else if (hasSmartChip == 3) {
-                if (be.ticks >= interval) {
-                    be.useEnergyOfBattery(amount);
-                    be.ticks = 0;
-                }
-            } else {
-                if (be.ticks >= interval) {
-                    be.useEnergyOfBattery(amount);
-                    be.ticks = 0;
-                }
-            }
+        if (be.cleanupTimer >= workDelay) {
+            be.transferAndFilter(serverLevel, chip);
+            be.cleanupTimer = 0;
         }
     }
 
-    private void useEnergyOfBattery(int amount) {
+    private void transferAndFilter(ServerLevel level, SmartChipData.Transfer chip) {
+
+        IInventoryWrapper source = new AutoFarmerWrapper(this.items);
+
+        IInventoryWrapper target = RemoteInventoryResolver.resolve(
+                level,
+                chip.pos(),
+                chip.dim()
+        );
+
+        ItemTransferSystem.tick(
+                source,
+                target,
+                chip.mode(),
+                27
+        );
+
+        applyBufferRules(target);
+    }
+
+    private void applyBufferRules(IInventoryWrapper target) {
+
+        for (int i = 0; i < items.size(); i++) {
+
+            ItemStack stack = items.get(i);
+            if (stack.isEmpty()) continue;
+
+            if (stack.is(Items.POISONOUS_POTATO)) {
+                items.set(i, ItemStack.EMPTY);
+                continue;
+            }
+
+            if (isCropOrSeed(stack)) {
+
+                if (stack.getCount() > KEEP_AMOUNT) {
+
+                    int excess = stack.getCount() - KEEP_AMOUNT;
+
+                    ItemStack toMove = stack.copy();
+                    toMove.setCount(excess);
+
+                    ItemStack remaining = insertInto(target, toMove);
+
+                    int moved = excess - remaining.getCount();
+
+                    stack.shrink(moved);
+                }
+            }
+        }
+
+        setChanged();
+    }
+
+    private void useEnergyOfBattery() {
         ItemStack stack = items.get(27);
         if (stack.getItem() instanceof BatteryItem item) {
-            item.consumeEnergy(stack, amount);
+            item.consumeEnergy(stack, 10);
             setChanged();
         }
     }
@@ -262,65 +267,51 @@ public class AutoFarmerBlockEntity extends BlockEntity implements Container, Men
         }
     }
 
-    private void cleanupSeeds() {
-        boolean keptNormalSeeds = false;
-        boolean keptBeetrootSeeds = false;
+    private boolean isCropOrSeed(ItemStack stack) {
 
-        for (int i = 0; i < items.size(); i++) {
-            ItemStack stack = items.get(i);
-
-            if (stack.isEmpty()) continue;
-
-            if (stack.getItem() == Items.POISONOUS_POTATO) {
-                items.set(i, ItemStack.EMPTY);
-                continue;
-            }
-
-            if (stack.getItem() == Items.BEETROOT_SEEDS) {
-                if (!keptBeetrootSeeds) {
-                    if (stack.getCount() > stack.getMaxStackSize()) {
-                        stack.setCount(stack.getMaxStackSize());
-                    }
-                    keptBeetrootSeeds = true;
-                } else {
-                    items.set(i, ItemStack.EMPTY);
-                }
-                continue;
-            }
-
-            if (isSeed(stack)) {
-                if (!keptNormalSeeds) {
-                    if (stack.getCount() > stack.getMaxStackSize()) {
-                        stack.setCount(stack.getMaxStackSize());
-                    }
-                    keptNormalSeeds = true;
-                } else {
-                    items.set(i, ItemStack.EMPTY);
-                }
-            }
-        }
-
-        setChanged();
+        return stack.is(Items.WHEAT_SEEDS)
+                || stack.is(Items.BEETROOT_SEEDS)
+                || stack.is(Items.CARROT)
+                || stack.is(Items.POTATO);
     }
 
-    private boolean isSeed(ItemStack stack) {
-        if (stack.getItem() == Items.CARROT || stack.getItem() == Items.POTATO) {
-            return false;
+    private static ItemStack insertInto(IInventoryWrapper target, ItemStack stack) {
+
+        for (int slot = 0; slot < target.size(); slot++) {
+
+            ItemStack existing = target.get(slot);
+
+            if (existing.isEmpty()) {
+                target.set(slot, stack);
+                return ItemStack.EMPTY;
+            }
+
+            if (ItemStack.isSameItemSameComponents(existing, stack)) {
+
+                int max = existing.getMaxStackSize();
+                int space = max - existing.getCount();
+
+                if (space <= 0) continue;
+
+                int move = Math.min(space, stack.getCount());
+
+                existing.grow(move);
+                stack.shrink(move);
+
+                if (stack.isEmpty()) return ItemStack.EMPTY;
+            }
         }
 
-        if (stack.getItem() instanceof BlockItem blockItem) {
-            return blockItem.getBlock() instanceof CropBlock;
-        }
-        return false;
+        return stack;
     }
 
-    private void breakCrops() {
+    private void breakCrops(int range) {
         if (level == null || level.isClientSide()) return;
 
         BlockPos origin = this.getBlockPos();
 
-        for (int x = -RADIUS; x <= RADIUS; x++) {
-            for (int z = -RADIUS; z <= RADIUS; z++) {
+        for (int x = -range; x <= range; x++) {
+            for (int z = -range; z <= range; z++) {
                 BlockPos target = origin.offset(x, 0, z);
                 BlockState state = level.getBlockState(target);
 
@@ -340,13 +331,13 @@ public class AutoFarmerBlockEntity extends BlockEntity implements Container, Men
         }
     }
 
-    private void placeCrops() {
+    private void placeCrops(int range) {
         if (level == null || level.isClientSide()) return;
 
         BlockPos origin = this.getBlockPos();
 
-        for (int x = -RADIUS; x <= RADIUS; x++) {
-            for (int z = -RADIUS; z <= RADIUS; z++) {
+        for (int x = -range; x <= range; x++) {
+            for (int z = -range; z <= range; z++) {
                 BlockPos target = origin.offset(x, 0, z);
                 BlockState state = level.getBlockState(target);
 
@@ -393,19 +384,6 @@ public class AutoFarmerBlockEntity extends BlockEntity implements Container, Men
                 setChanged();
 
                 if (stack.isEmpty()) return;
-            }
-        }
-    }
-
-    private void doWork(BlockState state) {
-        if (!state.getValue(AutoFarmerBlock.POWERED)) return;
-
-        switch (getMode()) {
-            case BREAKER -> breakCrops();
-            case PLACER -> placeCrops();
-            case BOTH -> {
-                breakCrops();
-                placeCrops();
             }
         }
     }

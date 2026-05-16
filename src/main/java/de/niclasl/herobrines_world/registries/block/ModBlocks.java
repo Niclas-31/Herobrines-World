@@ -28,7 +28,7 @@ public class ModBlocks {
 			(properties) -> new Block(properties.sound(SoundType.WOOD).strength(10f, 30f).requiresCorrectToolForDrops()));
 
 	public static final DeferredBlock<Block> SIGNAL = registerBlock("signal",
-			(properties) -> new Signal(properties.mapColor(MapColor.TERRACOTTA_ORANGE).lightLevel(litBlockEmission()).strength(0.3F).sound(SoundType.GLASS).isValidSpawn((blockState, blockGetter, blockPos, entityType) -> ModBlocks.always())));
+			(properties) -> new SignalBlock(properties.mapColor(MapColor.TERRACOTTA_ORANGE).lightLevel(litBlockEmission()).strength(0.3F).sound(SoundType.GLASS).isValidSpawn((blockState, blockGetter, blockPos, entityType) -> ModBlocks.always())));
 
 	public static final DeferredBlock<Block> ASH_BLOCK = registerBlock("ash_block",
 			(properties) -> new ColoredFallingBlock(new ColorRGBA(14406560), properties.sound(SoundType.SAND).strength(1f, 10f)));
@@ -109,7 +109,7 @@ public class ModBlocks {
 			(properties) -> new Block(properties.sound(SoundType.DEEPSLATE).strength(5f).requiresCorrectToolForDrops()));
 
 	public static final DeferredBlock<Block> DELAYER = registerBlock("delayer",
-			(properties) -> new Delayer(properties.instabreak()));
+			(properties) -> new DelayerBlock(properties.instabreak()));
 
 	public static final DeferredBlock<Block> LOGIC_GATE_BLOCK = registerBlock("logic_gate_block",
 			(properties) -> new LogicGateBlock(properties.instabreak()));
@@ -119,6 +119,12 @@ public class ModBlocks {
 
 	public static final DeferredBlock<Block> BATTERY_CHARGER = registerBlock("battery_charger",
 			(properties) -> new BatteryChargerBlock(properties.strength(20f).requiresCorrectToolForDrops()));
+
+	public static final DeferredBlock<Block> STORAGE_CONTROLLER = registerBlock("storage_controller",
+			(properties) -> new StorageControllerBlock(properties.strength(3f).requiresCorrectToolForDrops()));
+
+	public static final DeferredBlock<Block> CARD_READER = registerBlock("card_reader",
+			(properties) -> new CardReaderBlock(properties.strength(6f).requiresCorrectToolForDrops()));
 
 	private static <T extends Block> DeferredBlock<T> registerBlock(String name, Function<BlockBehaviour.Properties, T> function) {
 		DeferredBlock<T> toReturn = BLOCKS.registerBlock(name, function);

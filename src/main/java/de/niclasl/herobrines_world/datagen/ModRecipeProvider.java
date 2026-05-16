@@ -45,6 +45,8 @@ public class ModRecipeProvider extends RecipeProvider {
         List<ItemLike> HEROBRINE_SMELTABLES = List.of(ModBlocks.HEROBRINE_ORE,
                 ModBlocks.DEEPSLATE_HEROBRINE_ORE);
         List<ItemLike> SMOOTH_SMELTABLES = List.of(ModBlocks.BLUE_SANDSTONE);
+        List<ItemLike> PLATIN_SMELTABLES = List.of(ModBlocks.PLATINE_ORE,
+                ModBlocks.DEEPSLATE_PLATIN_ORE);
 
         oreSmelting(output, ASH_SMELTABLES, RecipeCategory.MISC, ModItems.ASH_INGOT.get(), 0.25f, "ash");
         oreBlasting(output, ASH_SMELTABLES, ModItems.ASH_INGOT.get(), 0.25f, "ash");
@@ -394,15 +396,8 @@ public class ModRecipeProvider extends RecipeProvider {
                 .define('T', Items.STONE_SLAB)
                 .unlockedBy("has_stone_slab", has(Items.STONE_SLAB)).save(output);
 
-        shaped(RecipeCategory.MISC, ModItems.TIME_CLOCK)
-                .pattern(" G ")
-                .pattern("GCG")
-                .pattern(" G ")
-                .define('G', Items.GOLD_INGOT)
-                .define('C', Items.CLOCK)
-                .unlockedBy("has_clock", has(Items.CLOCK)).save(output);
-
-        // platin
+        oreSmelting(output, PLATIN_SMELTABLES, RecipeCategory.MISC, ModItems.PLATIN_INGOT.get(), 0.8f, "platin");
+        oreBlasting(output, PLATIN_SMELTABLES, ModItems.PLATIN_INGOT.get(), 0.8f, "platin");
 
         shaped(RecipeCategory.TOOLS, ModItems.UNDERWORLD.get())
                 .pattern(" A ")
@@ -431,37 +426,13 @@ public class ModRecipeProvider extends RecipeProvider {
                 .define('P', ModItems.PLATIN_INGOT.get())
                 .unlockedBy("has_platin", has(ModItems.PLATIN_INGOT)).save(output);
 
-        shaped(RecipeCategory.REDSTONE, ModItems.SMART_CHIP_MK1.get())
+        shaped(RecipeCategory.REDSTONE, ModItems.SMART_CHIP.get())
                 .pattern("PGP")
                 .pattern("GCG")
                 .pattern("PGP")
                 .define('P', ModItems.PLATIN_INGOT.get())
                 .define('G', Items.GOLD_INGOT)
                 .define('C', ModItems.SMART_CHIP_CASE.get())
-                .group("smart_chip")
-                .unlockedBy("has_platin", has(ModItems.PLATIN_INGOT)).save(output);
-
-        shaped(RecipeCategory.REDSTONE, ModItems.SMART_CHIP_MK2.get())
-                .group("smart_chip")
-                .pattern("RPD")
-                .pattern("PCP")
-                .pattern("DPR")
-                .define('R', Items.REDSTONE)
-                .define('P', ModItems.PLATIN_INGOT.get())
-                .define('C', ModItems.SMART_CHIP_MK1.get())
-                .define('D', Items.DIAMOND)
-                .unlockedBy("has_platin", has(ModItems.PLATIN_INGOT)).save(output);
-
-        shaped(RecipeCategory.REDSTONE, ModItems.SMART_CHIP_MK3)
-                .group("smart_chip")
-                .pattern("IED")
-                .pattern("PCP")
-                .pattern("DEI")
-                .define('I', Items.NETHERITE_INGOT)
-                .define('E', Items.EMERALD)
-                .define('P', ModItems.PLATIN_INGOT.get())
-                .define('C', ModItems.SMART_CHIP_MK2.get())
-                .define('D', Items.DIAMOND)
                 .unlockedBy("has_platin", has(ModItems.PLATIN_INGOT)).save(output);
 
         shaped(RecipeCategory.REDSTONE, ModItems.BATTERY.get())
@@ -471,6 +442,32 @@ public class ModRecipeProvider extends RecipeProvider {
                 .define('I', Items.IRON_INGOT)
                 .define('R', Items.REDSTONE)
                 .define('C', Items.COPPER_INGOT)
+                .unlockedBy("has_redstone", has(Items.REDSTONE)).save(output);
+
+        shaped(RecipeCategory.REDSTONE, ModBlocks.STORAGE_CONTROLLER.get())
+                .pattern("IRI")
+                .pattern("RCR")
+                .pattern("IRI")
+                .define('I', Items.IRON_INGOT)
+                .define('R', Items.REDSTONE)
+                .define('C', Items.CHEST)
+                .unlockedBy("has_redstone", has(Items.REDSTONE)).save(output);
+
+        shaped(RecipeCategory.REDSTONE, ModBlocks.CARD_READER.get())
+                .pattern("IRI")
+                .pattern("QCQ")
+                .pattern("III")
+                .define('I', Items.IRON_INGOT)
+                .define('R', Items.REDSTONE)
+                .define('Q', Items.QUARTZ)
+                .define('C', ModItems.KEY_CARD.get())
+                .unlockedBy("has_redstone", has(Items.REDSTONE))
+                .unlockedBy("has_key_card", has(ModItems.KEY_CARD)).save(output);
+
+        shapeless(RecipeCategory.REDSTONE, ModItems.KEY_CARD.get())
+                .requires(Items.PAPER)
+                .requires(Items.REDSTONE)
+                .requires(Items.IRON_NUGGET)
                 .unlockedBy("has_redstone", has(Items.REDSTONE)).save(output);
     }
 

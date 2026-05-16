@@ -1,26 +1,15 @@
 package de.niclasl.herobrines_world.registries.item;
 
+import de.niclasl.herobrines_world.HerobrinesWorld;
 import de.niclasl.herobrines_world.registries.components.ModDataComponents;
 import de.niclasl.herobrines_world.registries.entity.ModEntities;
 import de.niclasl.herobrines_world.registries.item.custom.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.equipment.ArmorType;
 import net.neoforged.bus.api.IEventBus;
-import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.DeferredItem;
-import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
-import net.neoforged.neoforge.capabilities.Capabilities;
-import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.neoforge.registries.DeferredRegister;
 
-import de.niclasl.herobrines_world.HerobrinesWorld;
-import net.neoforged.neoforge.transfer.ResourceHandler;
-import net.neoforged.neoforge.transfer.item.ItemResource;
-import net.neoforged.neoforge.transfer.transaction.TransactionContext;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
-@EventBusSubscriber
 public class ModItems {
 	public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(HerobrinesWorld.MODID);
 
@@ -252,10 +241,6 @@ public class ModItems {
 			(properties) -> new Item(properties.humanoidArmor(ModArmorMaterials.PLATIN_ARMOR_MATERIAL,
 					ArmorType.BOOTS)));
 
-	public static final DeferredItem<Item> TIME_CLOCK = ITEMS.registerItem(
-			"time_clock",
-			(properties) -> new TimeClock(properties.rarity(Rarity.EPIC).stacksTo(1)));
-
 	public static final DeferredItem<Item> HEROBRINES_REALM = ITEMS.registerItem(
 			"herobrines_realm",
 			(properties) -> new HerobrinesRealm(properties.stacksTo(1).rarity(Rarity.RARE)
@@ -283,22 +268,9 @@ public class ModItems {
 			(properties) -> new BatteryItem(properties.rarity(Rarity.EPIC).stacksTo(1)
 					.component(ModDataComponents.ENERGY.get(), 0)));
 
-	public static final DeferredItem<Item> SMART_CHIP_MK1 = ITEMS.registerItem(
-			"smart_chip_mk1",
-			(properties) -> new SmartChip(properties.rarity(Rarity.EPIC).stacksTo(1)
-					.component(ModDataComponents.MACHINE_UPGRADE_LEVEL.get(), 1))
-	);
-
-	public static final DeferredItem<Item> SMART_CHIP_MK2 = ITEMS.registerItem(
-			"smart_chip_mk2",
-			(properties) -> new SmartChip(properties.rarity(Rarity.EPIC).stacksTo(1)
-					.component(ModDataComponents.MACHINE_UPGRADE_LEVEL.get(), 2))
-	);
-
-	public static final DeferredItem<Item> SMART_CHIP_MK3 = ITEMS.registerItem(
-			"smart_chip_mk3",
-			(properties) -> new SmartChip(properties.rarity(Rarity.EPIC).stacksTo(1)
-					.component(ModDataComponents.MACHINE_UPGRADE_LEVEL.get(), 3))
+	public static final DeferredItem<Item> SMART_CHIP = ITEMS.registerItem(
+			"smart_chip",
+			(properties) -> new SmartChip(properties.rarity(Rarity.EPIC).stacksTo(1))
 	);
 
 	public static final DeferredItem<Item> SMART_CHIP_CASE = ITEMS.registerItem(
@@ -311,43 +283,12 @@ public class ModItems {
 			(properties) -> new Item(properties.rarity(Rarity.RARE))
 	);
 
+	public static final DeferredItem<Item> KEY_CARD = ITEMS.registerItem(
+			"key_card",
+			(properties) -> new KeyCard(properties.rarity(Rarity.EPIC).stacksTo(1))
+	);
+
 	public static void register(IEventBus eventBus) {
 		ITEMS.register(eventBus);
-	}
-
-	@SubscribeEvent
-	public static void registerCapabilities(RegisterCapabilitiesEvent event) {
-		event.registerItem(
-				Capabilities.Item.ITEM,
-				(stack, access) -> new ResourceHandler<>() {
-					@Override
-					public int size() { return 0; }
-
-					@Override
-					public @Nullable ItemResource getResource(int i) { return null; }
-
-					@Override
-					public long getAmountAsLong(int i) { return 0; }
-
-					@Override
-					public long getCapacityAsLong(int i, @NotNull ItemResource resource) { return 0; }
-
-					@Override
-					public boolean isValid(int i, @NotNull ItemResource resource) {
-						return stack.getItem() != ModItems.TIME_CLOCK.get();
-					}
-
-					@Override
-					public int insert(int i, @NotNull ItemResource resource, int amount, @NotNull TransactionContext context) {
-						return 0;
-					}
-
-					@Override
-					public int extract(int i, @NotNull ItemResource resource, int amount, @NotNull TransactionContext context) {
-						return 0;
-					}
-				},
-				ModItems.TIME_CLOCK.get()
-		);
 	}
 }

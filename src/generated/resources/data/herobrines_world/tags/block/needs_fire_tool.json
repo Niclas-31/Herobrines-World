@@ -1,3 +1,6 @@
 {
-  "values": []
+  "values": [
+    "herobrines_world:storage_controller",
+    "herobrines_world:card_reader"
+  ]
 }
