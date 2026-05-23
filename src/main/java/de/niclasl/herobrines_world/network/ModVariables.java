@@ -3,9 +3,7 @@ package de.niclasl.herobrines_world.network;
 import de.niclasl.herobrines_world.HerobrinesWorld;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.RegistryFriendlyByteBuf;
-import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.network.protocol.PacketFlow;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
@@ -22,7 +20,6 @@ import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.attachment.AttachmentType;
 import net.neoforged.neoforge.common.util.ValueIOSerializable;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
@@ -40,12 +37,6 @@ import java.util.function.Supplier;
 public class ModVariables {
 	public static final DeferredRegister<AttachmentType<?>> ATTACHMENT_TYPES = DeferredRegister.create(NeoForgeRegistries.Keys.ATTACHMENT_TYPES, HerobrinesWorld.MODID);
 	public static final Supplier<AttachmentType<PlayerVariables>> PLAYER_VARIABLES = ATTACHMENT_TYPES.register("player_variables", () -> AttachmentType.serializable(PlayerVariables::new).build());
-
-	@SubscribeEvent
-	public static void init(FMLCommonSetupEvent event) {
-		HerobrinesWorld.addNetworkMessage(SavedDataSyncMessage.TYPE, SavedDataSyncMessage.STREAM_CODEC, SavedDataSyncMessage::handleData);
-		HerobrinesWorld.addNetworkMessage(PlayerVariablesSyncMessage.TYPE, PlayerVariablesSyncMessage.STREAM_CODEC, PlayerVariablesSyncMessage::handleData);
-	}
 
 	@SubscribeEvent
 	public static void onPlayerLoggedInSync(PlayerEvent.PlayerLoggedInEvent event) {
@@ -83,6 +74,8 @@ public class ModVariables {
 		clone.Hide = original.Hide;
 		clone.Hearts = original.Hearts;
 		clone.Souls = original.Souls;
+		clone.Prestige = original.Prestige;
+		clone.ThreeHearts = original.ThreeHearts;
 
 		event.getEntity().setData(PLAYER_VARIABLES, clone);
 	}
@@ -153,14 +146,11 @@ public class ModVariables {
 			return instance;
 		}, instance -> instance.save(new CompoundTag())));
 		boolean _syncDirty = false;
-		public boolean ThreeHearts = false;
 
 		public void read(CompoundTag nbt) {
-			ThreeHearts = nbt.getBooleanOr("ThreeHearts", false);
 		}
 
 		public CompoundTag save(CompoundTag nbt) {
-			nbt.putBoolean("ThreeHearts", ThreeHearts);
 			return nbt;
 		}
 
@@ -207,16 +197,13 @@ public class ModVariables {
 			return TYPE;
 		}
 
-		public static void handleData(final SavedDataSyncMessage message, final IPayloadContext context) {
-			if (context.flow() == PacketFlow.CLIENTBOUND && message.data != null) {
+		public static void handle(final SavedDataSyncMessage message, final IPayloadContext context) {
+			if (message.data != null) {
 				context.enqueueWork(() -> {
 					if (message.dataType == 0)
 						MapVariables.clientSide.read(((MapVariables) message.data).save(new CompoundTag()));
 					else
 						WorldVariables.clientSide.read(((WorldVariables) message.data).save(new CompoundTag()));
-				}).exceptionally(e -> {
-					context.connection().disconnect(Component.literal(e.getMessage()));
-					return null;
 				});
 			}
 		}
@@ -227,6 +214,8 @@ public class ModVariables {
 		public boolean Hide = false;
 		public int Hearts = 3;
 		public int Souls = 0;
+		public int Prestige = 0;
+		public boolean ThreeHearts = true;
 
 		@Override
 		public void serialize(ValueOutput output) {
@@ -234,18 +223,25 @@ public class ModVariables {
 
 			output.putInt("Hearts", Hearts);
 			output.putInt("Souls", Souls);
+			output.putInt("Prestige", Prestige);
+
+			output.putBoolean("ThreeHearts", ThreeHearts);
 		}
 
 		@Override
 		public void deserialize(ValueInput input) {
 			Hide = input.getBooleanOr("Hide", false);
-			Hearts = input.getIntOr("Hearts", 0);
 
+			Hearts = input.getIntOr("Hearts", 0);
 			Souls = input.getIntOr("Souls", 0);
+			Prestige = input.getIntOr("Prestige", 0);
+
+			ThreeHearts = input.getBooleanOr("ThreeHearts", true);
 		}
 
-		public void markSyncDirty() {
+		public void markSyncDirty(ServerPlayer player) {
 			_syncDirty = true;
+			PacketDistributor.sendToPlayer(player, new PlayerVariablesSyncMessage(player.getData(PLAYER_VARIABLES)));
 		}
 	}
 
@@ -268,15 +264,12 @@ public class ModVariables {
 			return TYPE;
 		}
 
-		public static void handleData(final PlayerVariablesSyncMessage message, final IPayloadContext context) {
-			if (context.flow() == PacketFlow.CLIENTBOUND && message.data != null) {
+		public static void handle(final PlayerVariablesSyncMessage message, final IPayloadContext context) {
+			if (message.data != null) {
 				context.enqueueWork(() -> {
 					TagValueOutput output = TagValueOutput.createWithContext(ProblemReporter.DISCARDING, context.player().registryAccess());
 					message.data.serialize(output);
 					context.player().getData(PLAYER_VARIABLES).deserialize(TagValueInput.create(ProblemReporter.DISCARDING, context.player().registryAccess(), output.buildResult()));
-				}).exceptionally(e -> {
-					context.connection().disconnect(Component.literal(e.getMessage()));
-					return null;
 				});
 			}
 		}

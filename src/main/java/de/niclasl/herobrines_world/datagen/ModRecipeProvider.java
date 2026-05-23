@@ -469,6 +469,24 @@ public class ModRecipeProvider extends RecipeProvider {
                 .requires(Items.REDSTONE)
                 .requires(Items.IRON_NUGGET)
                 .unlockedBy("has_redstone", has(Items.REDSTONE)).save(output);
+
+        shaped(RecipeCategory.REDSTONE, ModBlocks.BATTERY_CHARGER.get())
+                .pattern("IRI")
+                .pattern("ICI")
+                .pattern("IRI")
+                .define('I', Items.IRON_BLOCK)
+                .define('R', Items.REDSTONE_BLOCK)
+                .define('C', Items.COPPER_BLOCK)
+                .unlockedBy("has_redstone", has(Items.REDSTONE)).save(output);
+
+        shaped(RecipeCategory.REDSTONE, ModBlocks.SIGNAL.get())
+                .pattern(" R ")
+                .pattern("RLR")
+                .pattern(" Q ")
+                .define('R', Items.REDSTONE)
+                .define('L', Items.REDSTONE_LAMP)
+                .define('Q', Items.QUARTZ)
+                .unlockedBy("has_redstone", has(Items.REDSTONE)).save(output);
     }
 
     protected void oreSmelting(RecipeOutput recipeOutput, List<ItemLike> pIngredients, RecipeCategory pCategory, ItemLike pResult,

@@ -1,6 +1,6 @@
 package de.niclasl.herobrines_world.util;
 
-import de.niclasl.herobrines_world.network.message.SyncTimesPacket;
+import de.niclasl.herobrines_world.network.message.SyncHidePacket;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.neoforged.api.distmarker.Dist;
@@ -20,9 +20,7 @@ public class ModKeyMappings {
 		public void setDown(boolean isDown) {
 			super.setDown(isDown);
 			if (isDownOld != isDown && isDown) {
-				ClientPacketDistributor.sendToServer(new SyncTimesPacket(0));
-				assert Minecraft.getInstance().player != null;
-				SyncTimesPacket.handleButtonAction(Minecraft.getInstance().player, 0);
+				ClientPacketDistributor.sendToServer(new SyncHidePacket(0));
 			}
 			isDownOld = isDown;
 		}

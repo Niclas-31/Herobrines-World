@@ -1,8 +1,5 @@
 package de.niclasl.herobrines_world.registries.entity.custom;
 
-import de.niclasl.herobrines_world.registries.entity.ModEntities;
-import net.minecraft.core.BlockPos;
-import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -21,13 +18,9 @@ import net.minecraft.world.entity.projectile.arrow.AbstractArrow;
 import net.minecraft.world.entity.projectile.throwableitemprojectile.AbstractThrownPotion;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.NeoForgeMod;
-import net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.Calendar;
 
 public class ChristmasNiclasl extends Monster {
 	public ChristmasNiclasl(EntityType<ChristmasNiclasl> type, Level world) {
@@ -97,19 +90,6 @@ public class ChristmasNiclasl extends Monster {
 	@Override
 	public boolean ignoreExplosion(@NotNull Explosion explosion) {
 		return true;
-	}
-
-	public static void init(RegisterSpawnPlacementsEvent event) {
-		event.register(ModEntities.CHRISTMAS_NICLASL.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, (entityType, world, reason, pos, random) -> {
-			int x = pos.getX();
-			int y = pos.getY();
-			int z = pos.getZ();
-			if (world.getBiome(BlockPos.containing(x, y, z)).is(Identifier.parse("herobrines_world:frozen_forest"))) {
-				return true;
-			}
-			return world.getBiome(BlockPos.containing(x, y, z)).is(Identifier.parse("herobrines_world:fire_land")) && Calendar.getInstance().get(Calendar.MONTH) == Calendar.DECEMBER
-					&& (Calendar.getInstance().get(Calendar.DAY_OF_MONTH) == 24 || Calendar.getInstance().get(Calendar.DAY_OF_MONTH) == 25 || Calendar.getInstance().get(Calendar.DAY_OF_MONTH) == 26);
-		}, RegisterSpawnPlacementsEvent.Operation.REPLACE);
 	}
 
 	public static AttributeSupplier.Builder createAttributes() {

@@ -1,28 +1,37 @@
 package de.niclasl.herobrines_world.event;
 
 import de.niclasl.herobrines_world.HerobrinesWorld;
-import de.niclasl.herobrines_world.registries.entity.custom.HerobrineBoss;
+import de.niclasl.herobrines_world.math.PrestigeRewards;
+import de.niclasl.herobrines_world.math.SoulGain;
+import de.niclasl.herobrines_world.math.SoulMath;
 import de.niclasl.herobrines_world.network.ModVariables;
+import de.niclasl.herobrines_world.network.manager.PlayerProgressManager;
+import de.niclasl.herobrines_world.registries.block.ModBlocks;
 import de.niclasl.herobrines_world.registries.potion.ModPotions;
 import de.niclasl.herobrines_world.registries.villager.ModVillagers;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.npc.villager.VillagerTrades;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionBrewing;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.item.trading.ItemCost;
 import net.minecraft.world.item.trading.MerchantOffer;
+import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.block.Blocks;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.brewing.RegisterBrewingRecipesEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
+import net.neoforged.neoforge.event.entity.player.PlayerEvent;
+import net.neoforged.neoforge.event.level.BlockEvent;
 import net.neoforged.neoforge.event.village.VillagerTradesEvent;
 
 import java.util.List;
@@ -107,38 +116,113 @@ public class ModEvents {
 
     @SubscribeEvent
     public static void onLivingDeath(LivingDeathEvent event) {
-        if (!(event.getSource().getEntity() instanceof LivingEntity attacker)) return;
-        if (attacker.level().isClientSide()) return;
-        if (!(attacker instanceof ServerPlayer player)) return;
+
+        Entity source = event.getSource().getEntity();
+
+        if (!(source instanceof ServerPlayer player)) return;
+        if (player.level().isClientSide()) return;
 
         ModVariables.PlayerVariables vars = player.getData(ModVariables.PLAYER_VARIABLES);
 
         ItemStack stack = player.getMainHandItem();
 
-        int level = stack.getEnchantmentLevel(
+        int enchantLevel = stack.getEnchantmentLevel(
                 player.level().registryAccess()
                         .lookupOrThrow(Registries.ENCHANTMENT)
                         .getOrThrow(ResourceKey.create(
                                 Registries.ENCHANTMENT,
-                                Identifier.parse("herobrines_world:more_souls")
+                                Identifier.fromNamespaceAndPath(
+                                        HerobrinesWorld.MODID,
+                                        "more_souls"
+                                )
                         ))
         );
 
-        int soulsGain = switch (level) {
+        int baseGain = switch (enchantLevel) {
             case 1 -> 2;
             case 2 -> 4;
             default -> 1;
         };
 
-        vars.Souls += soulsGain;
+        int playerLevel = SoulMath.getLevelFromXP(vars.Souls);
 
-        vars.markSyncDirty();
+        int soulsGain = SoulGain.getSoulGain(baseGain, playerLevel);
+
+        float prestigeBonus = PrestigeRewards.getSoulBonus(vars.Prestige);
+
+        soulsGain = Math.max(
+                1,
+                Math.round(soulsGain * prestigeBonus)
+        );
+
+        int maxSouls = SoulMath.getTotalForLevel(SoulMath.HARD_CAP);
+
+        int newSouls = vars.Souls + soulsGain;
+
+        if (newSouls >= maxSouls) {
+
+            vars.Prestige++;
+
+            vars.Souls = newSouls - maxSouls;
+
+        } else {
+            vars.Souls = newSouls;
+        }
+
+        vars.Souls = Math.max(0, vars.Souls);
+
+        vars.markSyncDirty(player);
+    }
+
+    @SubscribeEvent
+    public static void onBlockDestroy(BlockEvent.BreakEvent event) {
+        Player player = event.getPlayer();
+
+        if (player.level() instanceof ServerLevel level) {
+            PlayerProgressManager.get(level).addProgress(event.getPlayer().getUUID(), 1);
+        }
+    }
+
+   @SubscribeEvent
+    public static void onCraft(PlayerEvent.ItemCraftedEvent event) {
+        Player player = event.getEntity();
+
+        if (!(player.level() instanceof ServerLevel level)) return;
+
+        ItemStack crafted = event.getCrafting();
+
+        if (crafted.isEmpty()) {
+            return;
+        }
+
+       if (crafted.is(ModBlocks.AUTO_FARMER.asItem())) {
+           PlayerProgressManager.get(level).addProgress(player.getUUID(), 100);
+           return;
+       }
+
+       if (crafted.is(ModBlocks.BATTERY_CHARGER.asItem())) {
+           PlayerProgressManager.get(level).addProgress(player.getUUID(), 150);
+           return;
+       }
+
+        PlayerProgressManager.get(level).addProgress(player.getUUID(), 5);
     }
 
     @SubscribeEvent
     public static void onEntityDeath(LivingDeathEvent event) {
-        if (event.getSource().getEntity() instanceof ServerPlayer player) {
-            HerobrineBoss.onOwnerDeath(player);
+        if (!(event.getEntity() instanceof ServerPlayer player)) return;
+
+        ModVariables.PlayerVariables vars = player.getData(ModVariables.PLAYER_VARIABLES);
+
+        if (player.level().getLevelData().isHardcore()) return;
+
+        if (!vars.ThreeHearts) return;
+
+        vars.Hearts = Math.max(0, vars.Hearts - 1);
+        vars.markSyncDirty(player);
+
+        if (vars.Hearts <= 0) {
+            player.setGameMode(GameType.SPECTATOR);
         }
     }
 }

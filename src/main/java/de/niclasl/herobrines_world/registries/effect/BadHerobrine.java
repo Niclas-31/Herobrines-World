@@ -14,8 +14,8 @@ import de.niclasl.herobrines_world.HerobrinesWorld;
 import java.util.Objects;
 
 public class BadHerobrine extends MobEffect {
-	public BadHerobrine(MobEffectCategory category, int color) {
-		super(category, color);
+	public BadHerobrine(MobEffectCategory category) {
+		super(category, -16777216);
 
 		this.withSoundOnAdded(Objects.requireNonNull(BuiltInRegistries.SOUND_EVENT.getValue(Identifier.parse("entity.ender_eye.launch"))));
 		this.addAttributeModifier(Attributes.ARMOR, Identifier.fromNamespaceAndPath(HerobrinesWorld.MODID, "effect.bad_herobrine_effect_0"), -0.5, AttributeModifier.Operation.ADD_VALUE);

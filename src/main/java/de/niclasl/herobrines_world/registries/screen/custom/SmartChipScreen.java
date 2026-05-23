@@ -1,6 +1,6 @@
 package de.niclasl.herobrines_world.registries.screen.custom;
 
-import de.niclasl.herobrines_world.network.message.SaveChipPacket;
+import de.niclasl.herobrines_world.network.message.SyncChipPacket;
 import de.niclasl.herobrines_world.network.safety.AccessMode;
 import de.niclasl.herobrines_world.network.transfer.TransferMode;
 import net.minecraft.client.gui.GuiGraphics;
@@ -33,17 +33,14 @@ public class SmartChipScreen extends AbstractContainerScreen<SmartChipMenu> {
     private static final int START_Y = 35;
     private static final int LINE_HEIGHT = 25;
 
-    // Transfer
     private TransferMode transferMode;
     private int range;
     private int speed;
 
-    // Access
     private AccessMode accessMode;
     private UUID owner;
     private int level;
 
-    // Buttons
     private Button modeButton;
     private EditBox rangeBox;
     private EditBox speedBox;
@@ -68,7 +65,6 @@ public class SmartChipScreen extends AbstractContainerScreen<SmartChipMenu> {
     }
 
     private void loadData() {
-
         var transfer = menu.getTransferData();
 
         transferMode = transfer.mode();
@@ -83,7 +79,6 @@ public class SmartChipScreen extends AbstractContainerScreen<SmartChipMenu> {
     }
 
     private void rebuildTab() {
-
         clearWidgets();
 
         int half = imageWidth / 2;
@@ -115,7 +110,6 @@ public class SmartChipScreen extends AbstractContainerScreen<SmartChipMenu> {
     }
 
     private void buildTransferTab() {
-
         modeButton = addRenderableWidget(Button.builder(
                 Component.literal("Mode: " + transferMode),
                 b -> {
@@ -175,7 +169,6 @@ public class SmartChipScreen extends AbstractContainerScreen<SmartChipMenu> {
     }
 
     private void buildAccessTab() {
-
         accessButton = addRenderableWidget(Button.builder(
                 Component.literal("Access: " + accessMode),
                 b -> {
@@ -240,7 +233,6 @@ public class SmartChipScreen extends AbstractContainerScreen<SmartChipMenu> {
     }
 
     private void saveCurrentInputs() {
-
         if (ownerBox != null) {
             owner = parseOwner();
         }
@@ -289,29 +281,22 @@ public class SmartChipScreen extends AbstractContainerScreen<SmartChipMenu> {
     }
 
     private void updateTransferButtons() {
-
         modeButton.setMessage(Component.literal("Mode: " + transferMode));
     }
 
     private void updateAccessButtons() {
-
         accessButton.setMessage(Component.literal("Access: " + accessMode));
     }
 
     private void saveTransfer() {
         saveAll();
-
-        System.out.println("Saved TRANSFER");
     }
 
     private void saveAccess() {
         saveAll();
-
-        System.out.println("Saved ACCESS");
     }
 
     private void saveAll() {
-
         int parsedRange = range;
         int parsedSpeed = speed;
         int parsedLevel = level;
@@ -341,7 +326,7 @@ public class SmartChipScreen extends AbstractContainerScreen<SmartChipMenu> {
         owner = parsedOwner;
 
         ClientPacketDistributor.sendToServer(
-                new SaveChipPacket(
+                new SyncChipPacket(
                         transferMode,
                         parsedRange,
                         parsedSpeed,
@@ -365,7 +350,6 @@ public class SmartChipScreen extends AbstractContainerScreen<SmartChipMenu> {
     }
 
     private TransferMode nextMode(TransferMode mode) {
-
         return switch (mode) {
 
             case INSERT -> TransferMode.EXTRACT;
@@ -377,7 +361,6 @@ public class SmartChipScreen extends AbstractContainerScreen<SmartChipMenu> {
     }
 
     private AccessMode nextAccess(AccessMode level) {
-
         return switch (level) {
 
             case PUBLIC -> AccessMode.PRIVATE;
@@ -415,7 +398,6 @@ public class SmartChipScreen extends AbstractContainerScreen<SmartChipMenu> {
 
     @Override
     protected void renderLabels(@NonNull GuiGraphics graphics, int mouseX, int mouseY) {
-
         graphics.drawString(
                 font,
                 title,

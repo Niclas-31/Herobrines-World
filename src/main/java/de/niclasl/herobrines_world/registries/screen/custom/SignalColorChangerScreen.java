@@ -1,24 +1,20 @@
 package de.niclasl.herobrines_world.registries.screen.custom;
 
 import de.niclasl.herobrines_world.HerobrinesWorld;
-import net.neoforged.neoforge.client.network.ClientPacketDistributor;
-
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.resources.Identifier;
-import net.minecraft.network.chat.Component;
-import net.minecraft.client.renderer.RenderPipelines;
-import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
-import net.minecraft.client.gui.components.WidgetSprites;
-import net.minecraft.client.gui.components.ImageButton;
+import de.niclasl.herobrines_world.network.message.SyncColorPacket;
 import net.minecraft.client.gui.GuiGraphics;
-
-import de.niclasl.herobrines_world.network.message.SyncSignalColorPacket;
+import net.minecraft.client.gui.components.ImageButton;
+import net.minecraft.client.gui.components.WidgetSprites;
+import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.renderer.RenderPipelines;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.entity.player.Inventory;
+import net.neoforged.neoforge.client.network.ClientPacketDistributor;
 import org.jetbrains.annotations.NotNull;
 
 public class SignalColorChangerScreen extends AbstractContainerScreen<SignalColorChangerMenu> {
     private final int x, y, z;
-	private final Player entity;
 
     public SignalColorChangerScreen(SignalColorChangerMenu container, Inventory inventory, Component text) {
 		super(container, inventory, text);
@@ -26,7 +22,6 @@ public class SignalColorChangerScreen extends AbstractContainerScreen<SignalColo
         this.x = container.x;
 		this.y = container.y;
 		this.z = container.z;
-		this.entity = container.entity;
 
 		this.imageWidth = 176;
 		this.imageHeight = 166;
@@ -105,10 +100,7 @@ public class SignalColorChangerScreen extends AbstractContainerScreen<SignalColo
 					posY,
 					24, 24,
 					new WidgetSprites(texture, texture),
-					e -> {
-						ClientPacketDistributor.sendToServer(new SyncSignalColorPacket(buttonID, x, y, z));
-						SyncSignalColorPacket.handleButtonAction(entity, buttonID, x, y, z);
-					}
+					e -> ClientPacketDistributor.sendToServer(new SyncColorPacket(buttonID, x, y, z))
 			) {
 				@Override
 				public void renderContents(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {

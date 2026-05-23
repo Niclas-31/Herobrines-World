@@ -12,8 +12,8 @@ import net.minecraft.resources.Identifier;
 import de.niclasl.herobrines_world.HerobrinesWorld;
 
 public class GoodHerobrine extends MobEffect {
-	public GoodHerobrine(MobEffectCategory category, int color) {
-		super(category, color);
+	public GoodHerobrine(MobEffectCategory category) {
+		super(category, -3407872);
 
 		this.withSoundOnAdded(SoundEvents.BOTTLE_EMPTY);
 		this.addAttributeModifier(Attributes.ARMOR, Identifier.fromNamespaceAndPath(HerobrinesWorld.MODID, "effect.good_herobrine_effect_0"), 0.5, AttributeModifier.Operation.ADD_VALUE);

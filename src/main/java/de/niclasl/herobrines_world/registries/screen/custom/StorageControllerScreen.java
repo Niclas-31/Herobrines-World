@@ -9,8 +9,7 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Inventory;
 import org.jspecify.annotations.NonNull;
 
-public class StorageControllerScreen
-        extends AbstractContainerScreen<StorageControllerMenu> {
+public class StorageControllerScreen extends AbstractContainerScreen<StorageControllerMenu> {
 
     private static final Identifier TEXTURE =
             Identifier.fromNamespaceAndPath(

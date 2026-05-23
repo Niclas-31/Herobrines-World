@@ -2,6 +2,7 @@ package de.niclasl.herobrines_world.registries.enchantment.custom;
 
 import com.mojang.serialization.MapCodec;
 import de.niclasl.herobrines_world.network.ModVariables;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
@@ -24,43 +25,51 @@ public record HerobrineEnchantmentEffect() implements EnchantmentEntityEffect {
 
         Entity attacker = item.owner();
 
-        if (attacker instanceof ServerPlayer player) {
-            ModVariables.PlayerVariables vars = player.getData(ModVariables.PLAYER_VARIABLES);
+        if (!(attacker instanceof ServerPlayer player)) {
+            return;
+        }
 
-            if (enchantmentLevel == 1) {
-                if (tryConsumeSoul(vars, 5)) {
-                    EntityType.LIGHTNING_BOLT.spawn(level, entity.getOnPos(), EntitySpawnReason.TRIGGERED);
-                }
-            } else if (enchantmentLevel == 2) {
-                if (tryConsumeSoul(vars, 10)) {
-                    EntityType.LIGHTNING_BOLT.spawn(level, entity.getOnPos(), EntitySpawnReason.TRIGGERED);
-                    EntityType.LIGHTNING_BOLT.spawn(level, entity.getOnPos(), EntitySpawnReason.TRIGGERED);
-                }
-            } else if (enchantmentLevel == 3) {
-                if (tryConsumeSoul(vars, 15)) {
-                    EntityType.LIGHTNING_BOLT.spawn(level, entity.getOnPos(), EntitySpawnReason.TRIGGERED);
-                    EntityType.LIGHTNING_BOLT.spawn(level, entity.getOnPos(), EntitySpawnReason.TRIGGERED);
-                    EntityType.LIGHTNING_BOLT.spawn(level, entity.getOnPos(), EntitySpawnReason.TRIGGERED);
-                }
-            } else if (enchantmentLevel == 4) {
-                if (tryConsumeSoul(vars, 20)) {
-                    EntityType.LIGHTNING_BOLT.spawn(level, entity.getOnPos(), EntitySpawnReason.TRIGGERED);
-                    EntityType.LIGHTNING_BOLT.spawn(level, entity.getOnPos(), EntitySpawnReason.TRIGGERED);
-                    EntityType.LIGHTNING_BOLT.spawn(level, entity.getOnPos(), EntitySpawnReason.TRIGGERED);
-                    EntityType.LIGHTNING_BOLT.spawn(level, entity.getOnPos(), EntitySpawnReason.TRIGGERED);
-                }
-            }
+        ModVariables.PlayerVariables vars =
+                player.getData(ModVariables.PLAYER_VARIABLES);
+
+        int cost = switch (enchantmentLevel) {
+            case 2 -> 2;
+            case 3 -> 3;
+            case 4 -> 4;
+            default -> 1;
+        };
+
+        if (!tryConsumeSoul(player, vars, cost)) {
+            return;
+        }
+
+        for (int i = 0; i < enchantmentLevel; i++) {
+
+            EntityType.LIGHTNING_BOLT.spawn(
+                    level,
+                    entity.getOnPos(),
+                    EntitySpawnReason.TRIGGERED
+            );
         }
     }
 
-    private static boolean tryConsumeSoul(ModVariables.PlayerVariables vars, int cost) {
+    private static boolean tryConsumeSoul(ServerPlayer player,
+                                          ModVariables.PlayerVariables vars,
+                                          int cost) {
+
         if (vars.Souls < cost) {
+
+            player.sendSystemMessage(
+                    Component.literal("§cNot enough Souls!")
+            );
+
             return false;
         }
 
         vars.Souls -= cost;
 
-        vars.markSyncDirty();
+        vars.markSyncDirty(player);
+
         return true;
     }
 

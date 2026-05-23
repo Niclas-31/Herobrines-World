@@ -15,6 +15,7 @@ import java.util.Calendar;
 
 @EventBusSubscriber(Dist.CLIENT)
 public class DateOverlay {
+
 	@SubscribeEvent(priority = EventPriority.NORMAL)
 	public static void eventHandler(RenderGuiEvent.Pre event) {
 		Player entity = Minecraft.getInstance().player;

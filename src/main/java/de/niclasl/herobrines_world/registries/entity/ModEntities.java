@@ -12,7 +12,6 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
-import net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.function.Supplier;
@@ -57,14 +56,6 @@ public class ModEntities {
 	public static final Supplier<EntityType<ChristmasNiclasl>> CHRISTMAS_NICLASL =
 			ENTITY_TYPES.register("christmas_niclasl", () -> EntityType.Builder.of(ChristmasNiclasl::new, MobCategory.MONSTER)
 					.sized(0.6f, 1.8f).setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(3).build(CHRISTMAS_NICLASL_KEY));
-
-	@SubscribeEvent
-	public static void init(RegisterSpawnPlacementsEvent event) {
-		Niclasl.init(event);
-		ChristmasNiclasl.init(event);
-		GoodHerobrine.init(event);
-		BadHerobrine.init(event);
-	}
 
 	@SubscribeEvent
 	public static void registerAttributes(EntityAttributeCreationEvent event) {

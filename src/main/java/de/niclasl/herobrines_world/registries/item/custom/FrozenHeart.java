@@ -1,14 +1,13 @@
 package de.niclasl.herobrines_world.registries.item.custom;
 
 import de.niclasl.herobrines_world.Config;
-import de.niclasl.herobrines_world.registries.item.ModItems;
 import de.niclasl.herobrines_world.network.ModVariables;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
@@ -18,29 +17,54 @@ public class FrozenHeart extends Item {
 	}
 
 	@Override
-	public @NotNull InteractionResult use(@NotNull Level world, @NotNull Player entity, @NotNull InteractionHand hand) {
+	public @NotNull InteractionResult use(@NotNull Level level, @NotNull Player player, @NotNull InteractionHand hand) {
+
 		if (hand != InteractionHand.MAIN_HAND) return InteractionResult.PASS;
 
-		if (entity.getMainHandItem().getItem() == ModItems.FROZEN_HEART.get() && entity.getData(ModVariables.PLAYER_VARIABLES).Hearts < 3 && Config.THREE_HEARTS.getAsBoolean()) {
-			if (entity instanceof Player player) {
-				ItemStack storekeeper = new ItemStack(ModItems.FROZEN_HEART.get());
-				player.getInventory().clearOrCountMatchingItems(p -> storekeeper.getItem() == p.getItem(), 1, player.inventoryMenu.getCraftSlots());
+		ModVariables.PlayerVariables vars = player.getData(ModVariables.PLAYER_VARIABLES);
+
+		if (!(player instanceof ServerPlayer serverPlayer)) return InteractionResult.PASS;
+
+		if (!isThreeHeartsEnabled(serverPlayer)) {
+			if (!level.isClientSide()) {
+				player.displayClientMessage(
+						Component.translatable("herobrines_world.configuration.three_hearts.disabled"),
+						true
+				);
 			}
-			ModVariables.PlayerVariables vars = entity.getData(ModVariables.PLAYER_VARIABLES);
-			vars.Hearts = entity.getData(ModVariables.PLAYER_VARIABLES).Hearts + 1;
-			vars.markSyncDirty();
-		} else {
-			if (entity.getMainHandItem().getItem() == ModItems.FROZEN_HEART.get() && entity.getData(ModVariables.PLAYER_VARIABLES).Hearts == 3 && Config.THREE_HEARTS.getAsBoolean()) {
-				if (entity instanceof Player player && !player.level().isClientSide())
-					player.displayClientMessage(Component.translatable("item.herobrines_world.frozen_heart.not_more_hearts"), true);
-			} else {
-				if (entity.getMainHandItem().getItem() == ModItems.FROZEN_HEART.get() && !Config.THREE_HEARTS.getAsBoolean()) {
-					if (entity instanceof Player player && !player.level().isClientSide())
-						player.displayClientMessage(Component.translatable("herobrines_world.configuration.three_hearts.disabled"), true);
-				}
+			return InteractionResult.SUCCESS;
+		}
+
+		if (vars.Hearts >= 3) {
+			if (!level.isClientSide()) {
+				player.displayClientMessage(
+						Component.translatable("item.herobrines_world.frozen_heart.not_more_hearts"),
+						true
+				);
 			}
+			return InteractionResult.SUCCESS;
+		}
+
+		player.getItemInHand(hand).shrink(1);
+
+		vars.Hearts = Math.min(3, vars.Hearts + 1);
+
+		if (player instanceof ServerPlayer sp) {
+			vars.markSyncDirty(sp);
 		}
 
 		return InteractionResult.SUCCESS;
+	}
+
+	private static boolean isThreeHeartsEnabled(ServerPlayer player) {
+		ModVariables.PlayerVariables vars = player.getData(ModVariables.PLAYER_VARIABLES);
+
+		if (player.level().getLevelData().isHardcore()) return false;
+
+        if (player.level().getServer().isDedicatedServer()) {
+			return vars.ThreeHearts;
+		}
+
+		return Config.THREE_HEARTS.getAsBoolean() && vars.ThreeHearts;
 	}
 }

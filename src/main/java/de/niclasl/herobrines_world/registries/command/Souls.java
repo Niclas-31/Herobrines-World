@@ -13,7 +13,8 @@ import net.minecraft.server.level.ServerPlayer;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.RegisterCommandsEvent;
-import net.neoforged.neoforge.network.PacketDistributor;
+
+import java.util.function.Consumer;
 
 @EventBusSubscriber
 public class Souls {
@@ -62,6 +63,38 @@ public class Souls {
 										)
 								)
 						)
+						.then(Commands.literal("prestige")
+								.executes(ctx -> {
+									ServerPlayer player = ctx.getSource().getPlayerOrException();
+
+									ModVariables.PlayerVariables vars = vars(player);
+
+									if (!SoulMath.canPrestige(vars.Souls)) {
+
+										ctx.getSource().sendFailure(
+												Component.literal(
+														"You need max level to prestige!"
+												)
+										);
+
+										return 0;
+									}
+
+									vars.Prestige++;
+									vars.Souls = 0;
+
+									vars.markSyncDirty(player);
+
+									ctx.getSource().sendSuccess(
+											() -> Component.literal(
+													"Prestiged to " + vars.Prestige
+											),
+											false
+									);
+
+									return 1;
+								})
+						)
 						.then(Commands.literal("query")
 								.then(Commands.argument("targets", EntityArgument.players())
 										.then(Commands.literal("points")
@@ -92,46 +125,53 @@ public class Souls {
 	}
 
 	private static void addSouls(ServerPlayer player, int amount) {
+
 		ModVariables.PlayerVariables vars = vars(player);
 
-		vars.Souls = SoulMath.addXP(vars.Souls, amount);
-		sync(player);
+		int max = SoulMath.getTotalForLevel(SoulMath.HARD_CAP);
+
+		vars.Souls = Math.min(vars.Souls + amount, max);
+
+		vars.markSyncDirty(player);
 	}
 
 	private static void setSouls(ServerPlayer player, int amount) {
 		ModVariables.PlayerVariables vars = vars(player);
 
-		vars.Souls = Math.max(0, amount);
-		sync(player);
+		int max = SoulMath.getTotalForLevel(SoulMath.HARD_CAP);
+
+		vars.Souls = Math.clamp(amount, 0, max);
+
+		vars.markSyncDirty(player);
 	}
 
 	private static void addLevels(ServerPlayer player, int amount) {
 		ModVariables.PlayerVariables vars = vars(player);
 
 		int level = SoulMath.getLevelFromXP(vars.Souls);
-		setLevel(vars, level + amount);
 
-		sync(player);
+		int newLevel = Math.min(level + amount, SoulMath.HARD_CAP);
+
+		setLevel(vars, newLevel);
+
+		vars.markSyncDirty(player);
 	}
 
 	private static void setLevels(ServerPlayer player, int level) {
 		ModVariables.PlayerVariables vars = vars(player);
+
+		level = Math.clamp(level, 0, SoulMath.HARD_CAP);
+
 		setLevel(vars, level);
-		sync(player);
+
+		vars.markSyncDirty(player);
 	}
 
 	private static ModVariables.PlayerVariables vars(ServerPlayer player) {
 		return player.getData(ModVariables.PLAYER_VARIABLES);
 	}
 
-	private static void sync(ServerPlayer player) {
-		PacketDistributor.sendToPlayer(
-				player,
-				new ModVariables.PlayerVariablesSyncMessage(vars(player))
-		);
-	}
-
-	private static void forPlayers(CommandContext<CommandSourceStack> ctx, java.util.function.Consumer<ServerPlayer> action)
+	private static void forPlayers(CommandContext<CommandSourceStack> ctx, Consumer<ServerPlayer> action)
 			throws CommandSyntaxException {
 		EntityArgument.getPlayers(ctx, "targets").forEach(action);
 	}
@@ -141,6 +181,9 @@ public class Souls {
 	}
 
 	private static void setLevel(ModVariables.PlayerVariables vars, int targetLevel) {
+
+		targetLevel = Math.clamp(targetLevel, 0, SoulMath.HARD_CAP);
+
 		vars.Souls = SoulMath.getTotalForLevel(targetLevel);
 	}
 }

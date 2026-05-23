@@ -1,7 +1,6 @@
 package de.niclasl.herobrines_world.registries.entity.custom;
 
 import de.niclasl.herobrines_world.network.ModVariables;
-import de.niclasl.herobrines_world.network.WorldState;
 import de.niclasl.herobrines_world.registries.components.ModDataComponents;
 import de.niclasl.herobrines_world.registries.components.RelicData;
 import de.niclasl.herobrines_world.registries.entity.ModEntities;
@@ -39,6 +38,7 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.scores.Team;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
+import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -280,7 +280,7 @@ public class HerobrineBoss extends Monster {
 
 		ModVariables.WorldVariables world = ModVariables.WorldVariables.get(level());
 
-		if (source.getEntity() instanceof ServerPlayer player && !WorldState.isHerobrineDead(level())) {
+		if (source.getEntity() instanceof ServerPlayer player && !world.isHerobrineDead) {
 			ItemStack relicStack = new ItemStack(ModItems.HEROBRINE_RELIC.get());
 
 			relicStack.set(ModDataComponents.RELIC_DATA, new RelicData(
@@ -291,7 +291,7 @@ public class HerobrineBoss extends Monster {
 			));
 			player.addItem(relicStack);
 
-			WorldState.setHerobrineDead(level(), true);
+			world.isHerobrineDead = true;
 			world.markSyncDirty();
 			player.sendSystemMessage(Component.translatable("entity.herobrines_world.herobrine_boss.defeated"));
 		}
@@ -354,6 +354,7 @@ public class HerobrineBoss extends Monster {
 				.add(Attributes.FLYING_SPEED, 0.3);
 	}
 
+	@Deprecated(since = "1.7.1", forRemoval = true)
 	public static void onOwnerDeath(ServerPlayer player) {
 		removeOwnerAndTargets(player.getUUID());
 	}
@@ -418,6 +419,7 @@ public class HerobrineBoss extends Monster {
 
 	public static void register() {
 		NeoForge.EVENT_BUS.addListener(HerobrineBoss::onLivingHurt);
+		NeoForge.EVENT_BUS.addListener(HerobrineBoss::removeOwnerAndTarget);
 	}
 
 	private static void onLivingHurt(LivingDamageEvent.Pre event) {
@@ -438,6 +440,14 @@ public class HerobrineBoss extends Monster {
 		}
 	}
 
+	public static void removeOwnerAndTarget(LivingDeathEvent event) {
+		if (event.getSource().getEntity() instanceof ServerPlayer player) {
+			UUID owner = player.getUUID();
+			ownerTargets.remove(owner);
+		}
+	}
+
+	@Deprecated(since = "1.7.1", forRemoval = true)
 	public static void removeOwnerAndTargets(UUID owner) {
 		if (owner == null) return;
 		ownerTargets.remove(owner);
