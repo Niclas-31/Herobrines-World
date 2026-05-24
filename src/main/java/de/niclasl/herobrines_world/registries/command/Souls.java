@@ -5,6 +5,8 @@ import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import de.niclasl.herobrines_world.math.SoulMath;
 import de.niclasl.herobrines_world.network.ModVariables;
+import de.niclasl.herobrines_world.network.message.SyncLeaderboardPacket;
+import de.niclasl.herobrines_world.network.message.entry.LeaderboardEntry;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.commands.arguments.EntityArgument;
@@ -13,7 +15,11 @@ import net.minecraft.server.level.ServerPlayer;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.RegisterCommandsEvent;
+import net.neoforged.neoforge.network.PacketDistributor;
 
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 import java.util.function.Consumer;
 
 @EventBusSubscriber
@@ -120,6 +126,32 @@ public class Souls {
 													return 1;
 												}))
 								)
+						)
+						.then(Commands.literal("leaderboard")
+								.executes(ctx -> {
+									CommandSourceStack source = ctx.getSource();
+
+									if (!(source.getEntity() instanceof ServerPlayer player)) {
+										return 0;
+									}
+
+									List<ServerPlayer> players = source.getServer().getPlayerList().getPlayers();
+
+									List<LeaderboardEntry> entries = new ArrayList<>();
+
+									for (ServerPlayer p : players) {
+
+										int value = vars(p).Souls;
+
+										entries.add(new LeaderboardEntry(p.getGameProfile().name(), value));
+									}
+
+									entries.sort(Comparator.comparingInt(LeaderboardEntry::value).reversed());
+
+									PacketDistributor.sendToPlayer(player, new SyncLeaderboardPacket(entries, false));
+
+									return 1;
+								})
 						)
 		);
 	}

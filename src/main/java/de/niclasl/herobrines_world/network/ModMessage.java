@@ -14,7 +14,16 @@ public class ModMessage {
         registrar.playToServer(SyncColorPacket.TYPE, SyncColorPacket.STREAM_CODEC, SyncColorPacket::handle);
         registrar.playToServer(SyncTimePacket.TYPE, SyncTimePacket.STREAM_CODEC, SyncTimePacket::handle);
         registrar.playToServer(SyncChipPacket.TYPE, SyncChipPacket.STREAM_CODEC, SyncChipPacket::handle);
+        registrar.playToServer(
+                RequestRewardsScreenPacket.TYPE,
+                RequestRewardsScreenPacket.STREAM_CODEC,
+                RequestRewardsScreenPacket::handle
+        );
+
+        registrar.playToServer(ClaimRewardsPacket.TYPE, ClaimRewardsPacket.STREAM_CODEC, ClaimRewardsPacket::handle);
         registrar.playToClient(SyncLeaderboardPacket.TYPE, SyncLeaderboardPacket.STREAM_CODEC, SyncLeaderboardPacket::handle);
+        registrar.playToClient(OpenRewardScreenPacket.TYPE, OpenRewardScreenPacket.STREAM_CODEC, OpenRewardScreenPacket::handle);
+
         registrar.playToClient(
                 ModVariables.SavedDataSyncMessage.TYPE,
                 ModVariables.SavedDataSyncMessage.STREAM_CODEC,

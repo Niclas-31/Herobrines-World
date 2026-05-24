@@ -1,7 +1,9 @@
 package de.niclasl.herobrines_world.network;
 
 import de.niclasl.herobrines_world.HerobrinesWorld;
+import de.niclasl.herobrines_world.network.message.entry.LeaderboardEntry;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
@@ -30,6 +32,8 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.function.Supplier;
 
@@ -42,6 +46,16 @@ public class ModVariables {
 	public static void onPlayerLoggedInSync(PlayerEvent.PlayerLoggedInEvent event) {
 		if (event.getEntity() instanceof ServerPlayer player) {
 			syncPlayer(player);
+
+			ServerLevel level = player.level();
+
+			PacketDistributor.sendToPlayer(
+					player,
+					new SavedDataSyncMessage(
+							1,
+							WorldVariables.get(level)
+					)
+			);
 		}
 	}
 
@@ -112,13 +126,57 @@ public class ModVariables {
 		}, instance -> instance.save(new CompoundTag())));
 		boolean _syncDirty = false;
 		public boolean isHerobrineDead;
+		public long seasonStart;
+		public long seasonEnd;
+		public long nextSeasonStart;
+		public long nextSeasonEnd;
+		public boolean seasonEndedHandled;
+		public List<LeaderboardEntry> frozenLeaderboard;
 
 		public void read(CompoundTag nbt) {
 			isHerobrineDead = nbt.getBooleanOr("HerobrineDead", false);
+			seasonStart = nbt.getLongOr("seasonStart", 0);
+			seasonEnd = nbt.getLongOr("seasonEnd", 0);
+			nextSeasonStart = nbt.getLongOr("nextSeasonStart", 0);
+			nextSeasonEnd = nbt.getLongOr("nextSeasonEnd", 0);
+			seasonEndedHandled = nbt.getBooleanOr("seasonEndedHandled", false);
+			frozenLeaderboard = new ArrayList<>();
+
+			ListTag list = nbt.getListOrEmpty("frozenLeaderboard");
+
+			for (int i = 0; i < list.size(); i++) {
+
+				CompoundTag e = list.getCompoundOrEmpty(i);
+
+				frozenLeaderboard.add(
+						new LeaderboardEntry(
+								e.getStringOr("name", ""),
+								e.getIntOr("value", 0)
+						)
+				);
+			}
 		}
 
 		public CompoundTag save(CompoundTag nbt) {
 			nbt.putBoolean("HerobrineDead", isHerobrineDead);
+			nbt.putLong("seasonStart", seasonStart);
+			nbt.putLong("seasonEnd", seasonEnd);
+			nbt.putLong("nextSeasonStart", nextSeasonStart);
+			nbt.putLong("nextSeasonEnd", nextSeasonEnd);
+			nbt.putBoolean("seasonEndedHandled", seasonEndedHandled);
+			ListTag list = new ListTag();
+
+			for (LeaderboardEntry e : frozenLeaderboard) {
+
+				CompoundTag tag = new CompoundTag();
+
+				tag.putString("name", e.playerName());
+				tag.putInt("value", e.value());
+
+				list.add(tag);
+			}
+
+			nbt.put("frozenLeaderboard", list);
 			return nbt;
 		}
 
@@ -130,12 +188,12 @@ public class ModVariables {
 		static WorldVariables clientSide = new WorldVariables();
 
 		public static WorldVariables get(LevelAccessor world) {
+
 			if (world instanceof ServerLevel level) {
-				ServerLevel overworld = level.getServer().overworld();
-				return overworld.getDataStorage().computeIfAbsent(WorldVariables.TYPE);
-			} else {
-				return clientSide;
+				return level.getDataStorage().computeIfAbsent(WorldVariables.TYPE);
 			}
+
+			return clientSide;
 		}
 	}
 

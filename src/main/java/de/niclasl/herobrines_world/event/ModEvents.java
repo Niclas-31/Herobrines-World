@@ -1,12 +1,10 @@
 package de.niclasl.herobrines_world.event;
 
 import de.niclasl.herobrines_world.HerobrinesWorld;
-import de.niclasl.herobrines_world.math.PrestigeRewards;
+import de.niclasl.herobrines_world.core.manager.SeasonManager;
 import de.niclasl.herobrines_world.math.SoulGain;
 import de.niclasl.herobrines_world.math.SoulMath;
 import de.niclasl.herobrines_world.network.ModVariables;
-import de.niclasl.herobrines_world.network.manager.PlayerProgressManager;
-import de.niclasl.herobrines_world.registries.block.ModBlocks;
 import de.niclasl.herobrines_world.registries.potion.ModPotions;
 import de.niclasl.herobrines_world.registries.villager.ModVillagers;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
@@ -17,7 +15,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.npc.villager.VillagerTrades;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionBrewing;
@@ -30,8 +27,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.brewing.RegisterBrewingRecipesEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
-import net.neoforged.neoforge.event.entity.player.PlayerEvent;
-import net.neoforged.neoforge.event.level.BlockEvent;
+import net.neoforged.neoforge.event.level.LevelEvent;
 import net.neoforged.neoforge.event.village.VillagerTradesEvent;
 
 import java.util.List;
@@ -115,6 +111,14 @@ public class ModEvents {
     }
 
     @SubscribeEvent
+    public static void onWorldLoad(LevelEvent.Load event) {
+
+        if (!(event.getLevel() instanceof ServerLevel level)) return;
+
+        SeasonManager.initialize(level);
+    }
+
+    @SubscribeEvent
     public static void onLivingDeath(LivingDeathEvent event) {
 
         Entity source = event.getSource().getEntity();
@@ -148,7 +152,7 @@ public class ModEvents {
 
         int soulsGain = SoulGain.getSoulGain(baseGain, playerLevel);
 
-        float prestigeBonus = PrestigeRewards.getSoulBonus(vars.Prestige);
+        float prestigeBonus = SoulMath.getSoulBonus(vars.Prestige);
 
         soulsGain = Math.max(
                 1,
@@ -172,40 +176,6 @@ public class ModEvents {
         vars.Souls = Math.max(0, vars.Souls);
 
         vars.markSyncDirty(player);
-    }
-
-    @SubscribeEvent
-    public static void onBlockDestroy(BlockEvent.BreakEvent event) {
-        Player player = event.getPlayer();
-
-        if (player.level() instanceof ServerLevel level) {
-            PlayerProgressManager.get(level).addProgress(event.getPlayer().getUUID(), 1);
-        }
-    }
-
-   @SubscribeEvent
-    public static void onCraft(PlayerEvent.ItemCraftedEvent event) {
-        Player player = event.getEntity();
-
-        if (!(player.level() instanceof ServerLevel level)) return;
-
-        ItemStack crafted = event.getCrafting();
-
-        if (crafted.isEmpty()) {
-            return;
-        }
-
-       if (crafted.is(ModBlocks.AUTO_FARMER.asItem())) {
-           PlayerProgressManager.get(level).addProgress(player.getUUID(), 100);
-           return;
-       }
-
-       if (crafted.is(ModBlocks.BATTERY_CHARGER.asItem())) {
-           PlayerProgressManager.get(level).addProgress(player.getUUID(), 150);
-           return;
-       }
-
-        PlayerProgressManager.get(level).addProgress(player.getUUID(), 5);
     }
 
     @SubscribeEvent

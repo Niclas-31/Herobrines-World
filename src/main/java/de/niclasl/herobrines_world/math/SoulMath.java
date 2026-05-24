@@ -59,15 +59,20 @@ public class SoulMath {
         return (float)(xp - current) / (float)(next - current);
     }
 
+    public static float getSoulBonus(int prestige) {
+
+        if (prestige >= 50) return 3.0f;
+        if (prestige >= 25) return 2.5f;
+        if (prestige >= 15) return 2.0f;
+        if (prestige >= 10) return 1.75f;
+        if (prestige >= 5) return 1.5f;
+        if (prestige >= 3) return 1.25f;
+        if (prestige >= 1) return 1.1f;
+
+        return 1.0f;
+    }
+
     public static boolean canPrestige(int xp) {
         return getLevelFromXP(xp) >= HARD_CAP;
-    }
-
-    public static boolean isSoftCap(int level) {
-        return level >= SOFT_CAP;
-    }
-
-    public static boolean isHardCap(int level) {
-        return level >= HARD_CAP;
     }
 }
