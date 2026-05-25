@@ -1,7 +1,7 @@
 package de.niclasl.herobrines_world.datagen.tags;
 
 import de.niclasl.herobrines_world.HerobrinesWorld;
-import de.niclasl.herobrines_world.registries.villager.ModVillagers;
+import de.niclasl.herobrines_world.common.registries.villager.ModVillagers;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.PoiTypeTagsProvider;

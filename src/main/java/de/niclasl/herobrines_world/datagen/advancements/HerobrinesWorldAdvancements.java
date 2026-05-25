@@ -1,9 +1,9 @@
 package de.niclasl.herobrines_world.datagen.advancements;
 
 import de.niclasl.herobrines_world.HerobrinesWorld;
-import de.niclasl.herobrines_world.registries.block.ModBlocks;
-import de.niclasl.herobrines_world.registries.item.ModItems;
-import de.niclasl.herobrines_world.worldgen.dimension.ModDimensions;
+import de.niclasl.herobrines_world.common.registries.block.ModBlocks;
+import de.niclasl.herobrines_world.common.registries.item.ModItems;
+import de.niclasl.herobrines_world.common.worldgen.dimension.ModDimensions;
 import net.minecraft.advancements.Advancement.Builder;
 import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.advancements.AdvancementType;

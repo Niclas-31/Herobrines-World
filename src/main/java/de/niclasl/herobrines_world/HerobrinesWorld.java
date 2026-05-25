@@ -1,7 +1,7 @@
 package de.niclasl.herobrines_world;
 
-import de.niclasl.herobrines_world.network.ModMessage;
-import de.niclasl.herobrines_world.registries.ModRegistries;
+import de.niclasl.herobrines_world.common.network.ModMessage;
+import de.niclasl.herobrines_world.common.registries.ModRegistries;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;

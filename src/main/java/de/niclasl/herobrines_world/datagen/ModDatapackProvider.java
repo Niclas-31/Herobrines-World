@@ -1,15 +1,16 @@
 package de.niclasl.herobrines_world.datagen;
 
 import de.niclasl.herobrines_world.HerobrinesWorld;
-import de.niclasl.herobrines_world.registries.enchantment.ModEnchantments;
-import de.niclasl.herobrines_world.worldgen.ModBiomeModifiers;
-import de.niclasl.herobrines_world.worldgen.ModConfiguredFeatures;
-import de.niclasl.herobrines_world.worldgen.ModPlacedFeatures;
-import de.niclasl.herobrines_world.worldgen.biome.data.ModBiomeData;
-import de.niclasl.herobrines_world.worldgen.dimension.ModDimensions;
-import de.niclasl.herobrines_world.worldgen.dimension.noise.data.ModNoiseData;
-import de.niclasl.herobrines_world.worldgen.dimension.noise.generator.ModNoiseGeneratorSettings;
-import de.niclasl.herobrines_world.worldgen.structure.ModStructures;
+import de.niclasl.herobrines_world.common.registries.enchantment.ModEnchantments;
+import de.niclasl.herobrines_world.common.worldgen.ModBiomeModifiers;
+import de.niclasl.herobrines_world.common.worldgen.ModConfiguredFeatures;
+import de.niclasl.herobrines_world.common.worldgen.ModPlacedFeatures;
+import de.niclasl.herobrines_world.common.worldgen.biome.data.ModBiomeData;
+import de.niclasl.herobrines_world.common.worldgen.dimension.ModDimensions;
+import de.niclasl.herobrines_world.common.worldgen.dimension.noise.data.ModNoiseData;
+import de.niclasl.herobrines_world.common.worldgen.dimension.noise.generator.ModNoiseGeneratorSettings;
+import de.niclasl.herobrines_world.common.worldgen.structure.ModStructureSets;
+import de.niclasl.herobrines_world.common.worldgen.structure.ModStructures;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;
@@ -26,6 +27,7 @@ public class ModDatapackProvider extends DatapackBuiltinEntriesProvider {
             .add(Registries.CONFIGURED_FEATURE, ModConfiguredFeatures::bootstrap)
             .add(Registries.PLACED_FEATURE, ModPlacedFeatures::bootstrap)
             .add(Registries.STRUCTURE, ModStructures::bootstrap)
+            .add(Registries.STRUCTURE_SET, ModStructureSets::bootstrap)
             .add(Registries.BIOME, ModBiomeData::bootstrap)
             .add(Registries.NOISE, ModNoiseData::bootstrap)
             .add(Registries.NOISE_SETTINGS, ModNoiseGeneratorSettings::bootstrap)

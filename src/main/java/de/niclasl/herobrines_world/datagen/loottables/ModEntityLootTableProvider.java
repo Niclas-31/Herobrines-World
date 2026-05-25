@@ -1,7 +1,7 @@
 package de.niclasl.herobrines_world.datagen.loottables;
 
-import de.niclasl.herobrines_world.registries.entity.ModEntities;
-import de.niclasl.herobrines_world.registries.item.ModItems;
+import de.niclasl.herobrines_world.common.registries.entity.ModEntities;
+import de.niclasl.herobrines_world.common.registries.item.ModItems;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.loot.EntityLootSubProvider;
 import net.minecraft.world.entity.EntityType;
