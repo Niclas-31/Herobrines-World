@@ -1,4 +1,4 @@
-package de.niclasl.herobrines_world.math;
+package de.niclasl.herobrines_world.core.engine;
 
 import de.niclasl.herobrines_world.network.message.entry.RewardEntry;
 

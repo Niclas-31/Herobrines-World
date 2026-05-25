@@ -1,7 +1,7 @@
 package de.niclasl.herobrines_world.core.generator;
 
 import de.niclasl.herobrines_world.core.storage.SeasonRewardStorage;
-import de.niclasl.herobrines_world.math.RewardEngine;
+import de.niclasl.herobrines_world.core.engine.RewardEngine;
 import de.niclasl.herobrines_world.network.ModVariables;
 import de.niclasl.herobrines_world.network.message.entry.LeaderboardEntry;
 import de.niclasl.herobrines_world.network.message.entry.RewardEntry;
