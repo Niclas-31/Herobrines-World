@@ -30,9 +30,9 @@ public class ClientHandler {
             return;
         }
 
-        if (!packet.rewardsClaimed()) {
+        if (!SeasonManager.isSeasonActive(level) && !packet.rewardsClaimed()) {
             mc.setScreen(new SoulLeaderboardScreen(world.frozenLeaderboard));
-        } else {
+        } else if (!SeasonManager.isSeasonActive(level) && packet.rewardsClaimed()) {
             mc.setScreen(new SeasonBreakScreen());
         }
     }

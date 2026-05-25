@@ -125,13 +125,13 @@ public class ModVariables {
 			return instance;
 		}, instance -> instance.save(new CompoundTag())));
 		boolean _syncDirty = false;
-		public boolean isHerobrineDead;
-		public long seasonStart;
-		public long seasonEnd;
-		public long nextSeasonStart;
-		public long nextSeasonEnd;
-		public boolean seasonEndedHandled;
-		public List<LeaderboardEntry> frozenLeaderboard;
+		public boolean isHerobrineDead = false;
+		public long seasonStart = 0;
+		public long seasonEnd = 0;
+		public long nextSeasonStart = 0;
+		public long nextSeasonEnd = 0;
+		public boolean seasonEndedHandled = false;
+		public List<LeaderboardEntry> frozenLeaderboard = new ArrayList<>();
 
 		public void read(CompoundTag nbt) {
 			isHerobrineDead = nbt.getBooleanOr("HerobrineDead", false);
