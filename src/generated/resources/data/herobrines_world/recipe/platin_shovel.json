@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "P": "herobrines_world:platin_ingot",
+    "S": "minecraft:stick"
+  },
+  "pattern": [
+    "P",
+    "S",
+    "S"
+  ],
+  "result": {
+    "count": 1,
+    "id": "herobrines_world:platin_shovel"
+  }
+}

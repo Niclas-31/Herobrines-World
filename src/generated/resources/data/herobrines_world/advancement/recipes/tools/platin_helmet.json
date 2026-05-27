@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_platin": {
+      "conditions": {
+        "items": [
+          {
+            "items": "herobrines_world:platin_ingot"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "herobrines_world:platin_helmet"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_platin"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "herobrines_world:platin_helmet"
+    ]
+  }
+}

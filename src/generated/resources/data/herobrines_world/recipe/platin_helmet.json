@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "P": "herobrines_world:platin_ingot"
+  },
+  "pattern": [
+    "PPP",
+    "P P"
+  ],
+  "result": {
+    "count": 1,
+    "id": "herobrines_world:platin_helmet"
+  }
+}

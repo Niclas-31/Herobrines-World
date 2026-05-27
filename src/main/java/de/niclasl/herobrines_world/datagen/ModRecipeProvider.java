@@ -399,6 +399,72 @@ public class ModRecipeProvider extends RecipeProvider {
         oreSmelting(output, PLATIN_SMELTABLES, RecipeCategory.MISC, ModItems.PLATIN_INGOT.get(), 0.8f, "platin");
         oreBlasting(output, PLATIN_SMELTABLES, ModItems.PLATIN_INGOT.get(), 0.8f, "platin");
 
+        shaped(RecipeCategory.TOOLS, ModItems.PLATIN_AXE.get())
+                .pattern("PP")
+                .pattern("PS")
+                .pattern(" S")
+                .define('S', Items.STICK)
+                .define('P', ModItems.PLATIN_INGOT.get())
+                .unlockedBy("has_platin", has(ModItems.PLATIN_INGOT)).save(output);
+
+        shaped(RecipeCategory.TOOLS, ModItems.PLATIN_BOOTS.get())
+                .pattern("P P")
+                .pattern("P P")
+                .define('P', ModItems.PLATIN_INGOT.get())
+                .unlockedBy("has_platin", has(ModItems.PLATIN_INGOT)).save(output);
+
+        shaped(RecipeCategory.TOOLS, ModItems.PLATIN_CHESTPLATE.get())
+                .pattern("P P")
+                .pattern("PPP")
+                .pattern("PPP")
+                .define('P', ModItems.PLATIN_INGOT.get())
+                .unlockedBy("has_platin", has(ModItems.PLATIN_INGOT)).save(output);
+
+        shaped(RecipeCategory.TOOLS, ModItems.PLATIN_HELMET.get())
+                .pattern("PPP")
+                .pattern("P P")
+                .define('P', ModItems.PLATIN_INGOT.get())
+                .unlockedBy("has_platin", has(ModItems.PLATIN_INGOT)).save(output);
+
+        shaped(RecipeCategory.TOOLS, ModItems.PLATIN_HOE.get())
+                .pattern("PP")
+                .pattern(" S")
+                .pattern(" S")
+                .define('S', Items.STICK)
+                .define('P', ModItems.PLATIN_INGOT.get())
+                .unlockedBy("has_platin", has(ModItems.PLATIN_INGOT)).save(output);
+
+        shaped(RecipeCategory.TOOLS, ModItems.PLATIN_LEGGINGS.get())
+                .pattern("PPP")
+                .pattern("P P")
+                .pattern("P P")
+                .define('P', ModItems.PLATIN_INGOT.get())
+                .unlockedBy("has_platin", has(ModItems.PLATIN_INGOT)).save(output);
+
+        shaped(RecipeCategory.TOOLS, ModItems.PLATIN_PICKAXE.get())
+                .pattern("PPP")
+                .pattern(" S ")
+                .pattern(" S ")
+                .define('S', Items.STICK)
+                .define('P', ModItems.PLATIN_INGOT.get())
+                .unlockedBy("has_platin", has(ModItems.PLATIN_INGOT)).save(output);
+
+        shaped(RecipeCategory.TOOLS, ModItems.PLATIN_SHOVEL.get())
+                .pattern("P")
+                .pattern("S")
+                .pattern("S")
+                .define('S', Items.STICK)
+                .define('P', ModItems.PLATIN_INGOT.get())
+                .unlockedBy("has_platin", has(ModItems.PLATIN_INGOT)).save(output);
+
+        shaped(RecipeCategory.TOOLS, ModItems.PLATIN_SWORD.get())
+                .pattern("P")
+                .pattern("P")
+                .pattern("S")
+                .define('S', Items.STICK)
+                .define('P', ModItems.PLATIN_INGOT.get())
+                .unlockedBy("has_platin", has(ModItems.PLATIN_INGOT)).save(output);
+
         shaped(RecipeCategory.TOOLS, ModItems.UNDERWORLD.get())
                 .pattern(" A ")
                 .pattern("AFA")
@@ -487,6 +553,14 @@ public class ModRecipeProvider extends RecipeProvider {
                 .define('L', Items.REDSTONE_LAMP)
                 .define('Q', Items.QUARTZ)
                 .unlockedBy("has_redstone", has(Items.REDSTONE)).save(output);
+
+        shaped(RecipeCategory.MISC, ModBlocks.LUMBERJACK_TABLE.get())
+                .pattern("LLL")
+                .pattern("LCL")
+                .pattern("LLL")
+                .define('L', Items.OAK_LOG)
+                .define('C', Items.CRAFTING_TABLE)
+                .unlockedBy("has_crafting_table", has(Items.CRAFTING_TABLE)).save(output);
     }
 
     protected void oreSmelting(RecipeOutput recipeOutput, List<ItemLike> pIngredients, RecipeCategory pCategory, ItemLike pResult,
