@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "herobrines_world:item/waypoint_compass_15"
+  }
+}
