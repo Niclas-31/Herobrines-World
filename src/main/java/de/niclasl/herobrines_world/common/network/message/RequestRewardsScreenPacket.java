@@ -28,7 +28,7 @@ public record RequestRewardsScreenPacket() implements CustomPacketPayload {
         return TYPE;
     }
 
-    public static void handle(RequestRewardsScreenPacket packet, IPayloadContext ctx) {
+    public static void handle(RequestRewardsScreenPacket msg, IPayloadContext ctx) {
         ctx.enqueueWork(() -> {
 
             ServerPlayer player = (ServerPlayer) ctx.player();

@@ -32,7 +32,7 @@ public class SoulLeaderboardScreen extends Screen {
     private final Identifier ICON_REWARDS = Identifier.fromNamespaceAndPath(HerobrinesWorld.MODID, "textures/gui/sprites/widget/reward_icon.png");
 
     public SoulLeaderboardScreen(List<LeaderboardEntry> entries) {
-        super(Component.literal("Soul Leaderboard"));
+        super(Component.translatable("gui.herobrines_world.soul_leaderboard.title"));
 
         this.entries = new ArrayList<>(entries);
 
@@ -69,16 +69,23 @@ public class SoulLeaderboardScreen extends Screen {
         int headerY = 50;
         int entryStartY = 70;
 
-        gui.drawCenteredString(this.font, "§5§lSoul Leaderboard", centerX, titleY, 0xFFFFFFFF);
+        String season_ends = Component.translatable(
+                "gui.herobrines_world.soul_leaderboard.season_ends_in",
+                getRemainingTime()).getString();
 
-        gui.drawCenteredString(this.font, "Season ends in: " + getRemainingTime(), centerX, titleY + 12, 0xFFFFFFFF);
+        String rankString = Component.translatable("gui.herobrines_world.soul_leaderboard.rank").getString();
+        String player = Component.translatable("gui.herobrines_world.soul_leaderboard.player").getString();
+        String souls = Component.translatable("gui.herobrines_world.soul_leaderboard.souls").getString();
+        String levels = Component.translatable("gui.herobrines_world.soul_leaderboard.levels").getString();
+
+        gui.drawCenteredString(this.font, season_ends, centerX, titleY + 12, 0xFFFFFFFF);
 
         gui.fill(startX - 5, headerY - 4, startX + tableWidth, headerY + 12, 0x88000000);
 
-        gui.drawString(this.font, "Rank", startX, headerY, 0xFFCCCCCC);
-        gui.drawString(this.font, "Player", startX + 60, headerY, 0xFFCCCCCC);
-        gui.drawString(this.font, "Souls", startX + 180, headerY, 0xFFCCCCCC);
-        gui.drawString(this.font, "Levels", startX + 240, headerY, 0xFFCCCCCC);
+        gui.drawString(this.font, rankString, startX, headerY, 0xFFCCCCCC);
+        gui.drawString(this.font, player, startX + 60, headerY, 0xFFCCCCCC);
+        gui.drawString(this.font, souls, startX + 180, headerY, 0xFFCCCCCC);
+        gui.drawString(this.font, levels, startX + 240, headerY, 0xFFCCCCCC);
 
         gui.fill(startX, headerY + 14, startX + tableWidth - 5, headerY + 15, 0xFF444444);
 
@@ -121,8 +128,10 @@ public class SoulLeaderboardScreen extends Screen {
 
         long remaining = SeasonManager.getSeasonEnd(level) - System.currentTimeMillis();
 
+        String ended = Component.translatable("gui.herobrines_world.soul_leaderboard.ended").getString();
+
         if (remaining <= 0) {
-            return "Season Ended";
+            return ended;
         }
 
         long seconds = remaining / 1000;

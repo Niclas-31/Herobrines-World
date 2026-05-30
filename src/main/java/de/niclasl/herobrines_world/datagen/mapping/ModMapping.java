@@ -8,15 +8,22 @@ import de.niclasl.herobrines_world.common.registries.block.custom.StorageControl
 import de.niclasl.herobrines_world.common.registries.block.properties.ColorProperty;
 import de.niclasl.herobrines_world.common.registries.block.properties.FarmerMode;
 import net.minecraft.client.data.models.BlockModelGenerators;
+import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.client.data.models.MultiVariant;
 import net.minecraft.client.data.models.blockstates.MultiVariantGenerator;
 import net.minecraft.client.data.models.blockstates.PropertyDispatch;
 import net.minecraft.client.data.models.model.*;
 import net.minecraft.client.renderer.item.ItemModel;
+import net.minecraft.client.renderer.item.RangeSelectItemModel;
+import net.minecraft.client.renderer.item.properties.numeric.CompassAngle;
+import net.minecraft.client.renderer.item.properties.numeric.CompassAngleState;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.resources.Identifier;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ModMapping {
@@ -193,6 +200,19 @@ public class ModMapping {
                                 SignalBlock.COLOR,
                                 ItemModelUtils.plainModel(offModels.get(ColorProperty.RED)),
                                 itemModels
+                        )
+                );
+    }
+
+    public static void generateStandardCompassItem(ItemModelGenerators iMG, Item item) {
+        List<RangeSelectItemModel.Entry> list = iMG.createCompassModels(item);
+        iMG.itemModelOutput
+                .accept(
+                        item,
+                        ItemModelUtils.conditional(
+                                ItemModelUtils.hasComponent(DataComponents.LODESTONE_TRACKER),
+                                ItemModelUtils.rangeSelect(new CompassAngle(true, CompassAngleState.CompassTarget.LODESTONE), 32.0F, list),
+                                ItemModelUtils.rangeSelect(new CompassAngle(true, CompassAngleState.CompassTarget.NONE), 32.0F, list)
                         )
                 );
     }

@@ -13,17 +13,17 @@ import org.jetbrains.annotations.NotNull;
 public record SyncHidePacket(int buttonID) implements CustomPacketPayload {
 
 	public static final Type<SyncHidePacket> TYPE = new Type<>(Identifier.fromNamespaceAndPath(HerobrinesWorld.MODID, "sync_hide"));
-	public static final StreamCodec<RegistryFriendlyByteBuf, SyncHidePacket> STREAM_CODEC = StreamCodec.of((RegistryFriendlyByteBuf buffer, SyncHidePacket message) -> buffer.writeInt(message.buttonID), (RegistryFriendlyByteBuf buffer) -> new SyncHidePacket(buffer.readInt()));
+	public static final StreamCodec<RegistryFriendlyByteBuf, SyncHidePacket> STREAM_CODEC = StreamCodec.of((RegistryFriendlyByteBuf buffer, SyncHidePacket msg) -> buffer.writeInt(msg.buttonID), (RegistryFriendlyByteBuf buffer) -> new SyncHidePacket(buffer.readInt()));
 	@Override
 	public @NotNull Type<SyncHidePacket> type() {
 		return TYPE;
 	}
 
-	public static void handle(final SyncHidePacket message, final IPayloadContext context) {
-		context.enqueueWork(() -> {
-			if (message.buttonID != 0) return;
+	public static void handle(SyncHidePacket msg, IPayloadContext ctx) {
+		ctx.enqueueWork(() -> {
+			if (msg.buttonID != 0) return;
 
-			var player = context.player();
+			var player = ctx.player();
 
 			var vars = player.getData(ModVariables.PLAYER_VARIABLES);
 

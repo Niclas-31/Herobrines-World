@@ -26,7 +26,7 @@ public class RewardScreen extends Screen {
     private static final int VISIBLE_ENTRIES = 10;
 
     public RewardScreen(List<RewardEntry> rewards) {
-        super(Component.literal("Season Rewards"));
+        super(Component.translatable("gui.herobrines_world.rewards.title"));
 
         this.rewards = rewards;
     }
@@ -38,7 +38,10 @@ public class RewardScreen extends Screen {
         int centerX = this.width / 2;
 
         Button claimAll = addRenderableWidget(
-                Button.builder(Component.literal("Claim All"), b -> claimAll())
+                Button.builder(
+                        Component.translatable("gui.herobrines_world.rewards.claim_all"),
+                                b -> claimAll()
+                        )
                         .pos(centerX + 155, this.height - 40)
                         .size(60, 20)
                         .build()
@@ -59,7 +62,7 @@ public class RewardScreen extends Screen {
         int titleY = 20;
         int entryStartY = 70;
 
-        gui.drawCenteredString(this.font, "§5§lSeason Rewards", centerX, titleY, 0xFFFFFF);
+        gui.drawCenteredString(this.font, this.title, centerX, titleY, 0xFFFFFF);
 
         int startIndex = scrollOffset;
         int endIndex = Math.min(rewards.size(), startIndex + VISIBLE_ENTRIES);

@@ -118,10 +118,6 @@ public class SeasonRewardStorage extends SavedData {
         setDirty();
     }
 
-    public boolean hasClaimed(UUID uuid) {
-        return claimed.contains(uuid);
-    }
-
     public void resetSeason() {
         rewardsByPlayer.clear();
         claimed.clear();

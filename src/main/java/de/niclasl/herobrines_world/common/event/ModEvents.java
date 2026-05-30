@@ -1,16 +1,15 @@
 package de.niclasl.herobrines_world.common.event;
 
 import de.niclasl.herobrines_world.HerobrinesWorld;
+import de.niclasl.herobrines_world.common.network.ModVariables;
+import de.niclasl.herobrines_world.common.registries.enchantment.ModEnchantments;
+import de.niclasl.herobrines_world.common.registries.potion.ModPotions;
+import de.niclasl.herobrines_world.common.registries.villager.ModVillagers;
 import de.niclasl.herobrines_world.common.season.SeasonManager;
 import de.niclasl.herobrines_world.common.util.math.SoulGain;
 import de.niclasl.herobrines_world.common.util.math.SoulMath;
-import de.niclasl.herobrines_world.common.network.ModVariables;
-import de.niclasl.herobrines_world.common.registries.potion.ModPotions;
-import de.niclasl.herobrines_world.common.registries.villager.ModVillagers;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.Identifier;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
@@ -132,13 +131,7 @@ public class ModEvents {
         int enchantLevel = stack.getEnchantmentLevel(
                 player.level().registryAccess()
                         .lookupOrThrow(Registries.ENCHANTMENT)
-                        .getOrThrow(ResourceKey.create(
-                                Registries.ENCHANTMENT,
-                                Identifier.fromNamespaceAndPath(
-                                        HerobrinesWorld.MODID,
-                                        "more_souls"
-                                )
-                        ))
+                        .getOrThrow(ModEnchantments.MORE_SOULS)
         );
 
         int baseGain = switch (enchantLevel) {

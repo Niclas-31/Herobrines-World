@@ -29,7 +29,7 @@ public record ClaimRewardsPacket() implements CustomPacketPayload {
         return TYPE;
     }
 
-    public static void handle(ClaimRewardsPacket packet, IPayloadContext ctx) {
+    public static void handle(ClaimRewardsPacket msg, IPayloadContext ctx) {
         ctx.enqueueWork(() -> {
 
             ServerPlayer player = (ServerPlayer) ctx.player();

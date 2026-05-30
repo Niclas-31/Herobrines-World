@@ -40,9 +40,9 @@ public record SyncTimePacket(BlockPos pos, int ticks, int seconds, int minutes, 
         return TYPE;
     }
 
-    public static void handle(SyncTimePacket msg, IPayloadContext context) {
-        context.enqueueWork(() -> {
-            ServerPlayer player = (ServerPlayer) context.player();
+    public static void handle(SyncTimePacket msg, IPayloadContext ctx) {
+        ctx.enqueueWork(() -> {
+            ServerPlayer player = (ServerPlayer) ctx.player();
             ServerLevel world = player.level();
             BlockEntity be = world.getBlockEntity(msg.pos);
             if (be instanceof DelayerBlockEntity delayer) {

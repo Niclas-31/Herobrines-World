@@ -20,9 +20,12 @@ public class SeasonBreakScreen extends Screen {
 
         int centerX = width / 2;
 
+        String season_ended = Component.translatable("gui.herobrines_world.season_break.season_ended").getString();
+        String next_season_start = Component.translatable("gui.herobrines_world.season_break.next_season_start").getString();
+
         gui.drawCenteredString(
                 font,
-                "§6§lSEASON ENDED",
+                season_ended,
                 centerX,
                 40,
                 0xFFFFFFFF
@@ -30,7 +33,7 @@ public class SeasonBreakScreen extends Screen {
 
         gui.drawCenteredString(
                 font,
-                "Next Season starts in:",
+                next_season_start,
                 centerX,
                 80,
                 0xFFCCCCCC
@@ -53,8 +56,10 @@ public class SeasonBreakScreen extends Screen {
         long nextSeasonStart = SeasonManager.getNextSeasonStart(level);
         long remaining = nextSeasonStart - System.currentTimeMillis();
 
+        String starting = Component.translatable("gui.herobrines_world.season_break.starting").getString();
+
         if (remaining <= 0) {
-            return "Starting...";
+            return starting;
         }
 
         long seconds = remaining / 1000;

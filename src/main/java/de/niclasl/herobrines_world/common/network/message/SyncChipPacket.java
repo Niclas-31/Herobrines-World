@@ -62,9 +62,9 @@ public record SyncChipPacket(TransferMode mode, int range, int speed, AccessMode
         return TYPE;
     }
 
-    public static void handle(SyncChipPacket msg, IPayloadContext context) {
-        context.enqueueWork(() -> {
-            ServerPlayer player = (ServerPlayer) context.player();
+    public static void handle(SyncChipPacket msg, IPayloadContext ctx) {
+        ctx.enqueueWork(() -> {
+            ServerPlayer player = (ServerPlayer) ctx.player();
 
             ItemStack stack = player.getMainHandItem();
 

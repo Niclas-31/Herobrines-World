@@ -354,11 +354,6 @@ public class HerobrineBoss extends Monster {
 				.add(Attributes.FLYING_SPEED, 0.3);
 	}
 
-	@Deprecated(since = "1.7.1", forRemoval = true)
-	public static void onOwnerDeath(ServerPlayer player) {
-		removeOwnerAndTargets(player.getUUID());
-	}
-
 	@Override
 	public boolean hurtServer(@NotNull ServerLevel level, @NotNull DamageSource source, float amount) {
 		if (source.is(DamageTypes.FALL)
@@ -445,11 +440,5 @@ public class HerobrineBoss extends Monster {
 			UUID owner = player.getUUID();
 			ownerTargets.remove(owner);
 		}
-	}
-
-	@Deprecated(since = "1.7.1", forRemoval = true)
-	public static void removeOwnerAndTargets(UUID owner) {
-		if (owner == null) return;
-		ownerTargets.remove(owner);
 	}
 }

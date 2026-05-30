@@ -17,6 +17,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.EnumSet;
 
+@Deprecated(since = "1.7.2", forRemoval = true)
 public class RuneStone extends Item {
 
 	public RuneStone(Properties properties) {

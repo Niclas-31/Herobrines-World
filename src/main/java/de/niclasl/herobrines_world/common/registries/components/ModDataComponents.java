@@ -8,6 +8,7 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
+import java.util.List;
 import java.util.function.UnaryOperator;
 
 public class ModDataComponents {
@@ -37,6 +38,10 @@ public class ModDataComponents {
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<RuneData>> RUNE_DATA = register(
             "rune_data",
             builder -> builder.persistent(RuneData.CODEC));
+
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<List<SavedWaypoint>>> WAYPOINTS = register(
+            "waypoint",
+            builder -> builder.persistent(Codec.list(SavedWaypoint.CODEC)));
 
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<KeyCardData>> KEY_CARD_DATA = register(
             "key_card_data",

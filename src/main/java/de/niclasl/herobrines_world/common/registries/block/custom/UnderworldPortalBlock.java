@@ -2,7 +2,6 @@ package de.niclasl.herobrines_world.common.registries.block.custom;
 
 import com.mojang.logging.LogUtils;
 import com.mojang.serialization.MapCodec;
-import de.niclasl.herobrines_world.common.teleport.HerobrinesRealmPortalShape;
 import de.niclasl.herobrines_world.common.teleport.HerobrinesRealmTeleporter;
 import de.niclasl.herobrines_world.common.teleport.UnderworldPortalShape;
 import de.niclasl.herobrines_world.common.worldgen.dimension.ModDimensions;
@@ -119,7 +118,7 @@ public class UnderworldPortalBlock extends Block implements Portal {
 		Direction.Axis direction$axis = direction.getAxis();
 		Direction.Axis direction$axis1 = state.getValue(AXIS);
 		boolean flag = direction$axis1 != direction$axis && direction$axis.isHorizontal();
-		return !flag && !neighborState.is(this) && !HerobrinesRealmPortalShape.findAnyShape(reader, pos, direction$axis1).isComplete()
+		return !flag && !neighborState.is(this) && UnderworldPortalShape.findAnyShape(reader, pos, direction$axis1).isComplete()
 				? Blocks.AIR.defaultBlockState()
 				: super.updateShape(state, reader, access, pos, direction, neighborPos, neighborState, source);
 	}
@@ -233,7 +232,7 @@ public class UnderworldPortalBlock extends Block implements Portal {
 		double d4 = 0.5 + offset.z();
 		boolean flag = direction$axis == Direction.Axis.X;
 		Vec3 vec3 = new Vec3(blockpos.getX() + (flag ? d2 : d4), blockpos.getY() + d3, blockpos.getZ() + (flag ? d4 : d2));
-		Vec3 vec31 = HerobrinesRealmPortalShape.findCollisionFreePosition(vec3, level, entity, entitydimensions);
+		Vec3 vec31 = UnderworldPortalShape.findCollisionFreePosition(vec3, level, entity, entitydimensions);
 		return new TeleportTransition(level, vec31, Vec3.ZERO, i, 0.0F, Relative.union(Relative.DELTA, Relative.ROTATION), postTeleportTransition);
 	}
 

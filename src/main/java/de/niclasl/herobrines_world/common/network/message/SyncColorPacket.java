@@ -44,11 +44,11 @@ public record SyncColorPacket(int buttonID, int x, int y, int z) implements Cust
 		return TYPE;
 	}
 
-	public static void handle(final SyncColorPacket msg, final IPayloadContext context) {
-		context.enqueueWork(() -> {
+	public static void handle(final SyncColorPacket msg, final IPayloadContext ctx) {
+		ctx.enqueueWork(() -> {
 			if (msg.buttonID < 0 || msg.buttonID >= COLORS.length) return;
 
-			Level level = context.player().level();
+			Level level = ctx.player().level();
 			BlockPos pos = new BlockPos(msg.x, msg.y, msg.z);
 
 			if (!level.hasChunkAt(pos)) return;

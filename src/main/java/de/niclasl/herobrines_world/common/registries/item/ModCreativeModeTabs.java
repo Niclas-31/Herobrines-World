@@ -140,6 +140,7 @@ public class ModCreativeModeTabs {
 								tabData.accept(ModItems.PLATIN_HOE);
 								tabData.accept(ModItems.HEROBRINES_REALM);
 								tabData.accept(ModItems.UNDERWORLD);
+								tabData.accept(ModItems.WAYPOINT_COMPASS);
 							}).build());
 
 	public static final Supplier<CreativeModeTab> HEROBRINE_COMBAT =
@@ -188,7 +189,6 @@ public class ModCreativeModeTabs {
 								tabData.accept(ModItems.FROZEN_HEART);
 								tabData.accept(ModItems.PLATIN_INGOT);
 								tabData.accept(ModItems.GREEN_GEMSTONE);
-								tabData.accept(ModItems.RUNE_STONE);
 							}).build());
 
 	public static final Supplier<CreativeModeTab> HEROBRINE_SPAWN_EGGS =

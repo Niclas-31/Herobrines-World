@@ -6,6 +6,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.Level;
 
+@Deprecated(since = "1.7.2", forRemoval = true)
 public record RuneData(double x, double y, double z, ResourceKey<Level> dimension, boolean saved, float yaw, float pitch) {
     public static final Codec<RuneData> CODEC = RecordCodecBuilder.create(instance ->
             instance.group(

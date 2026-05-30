@@ -259,6 +259,11 @@ public class ModItems {
 			"rune_stone",
 			(properties) -> new RuneStone(properties.rarity(Rarity.RARE).stacksTo(1)));
 
+	public static final DeferredItem<Item> WAYPOINT_COMPASS = ITEMS.registerItem(
+			"waypoint_compass",
+			(properties) -> new WaypointCompass(properties.rarity(Rarity.RARE)
+					.stacksTo(1)));
+
 	public static final DeferredItem<Item> HEROBRINE_RELIC = ITEMS.registerItem(
 			"herobrine_relic",
 			(properties) -> new HerobrineRelicItem(properties.fireResistant().stacksTo(1)));

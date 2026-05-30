@@ -22,12 +22,12 @@ public record SyncLeaderboardPacket(List<LeaderboardEntry> entries, boolean rewa
             SyncLeaderboardPacket::decode
     );
 
-    private static void encode(FriendlyByteBuf buf, SyncLeaderboardPacket packet) {
-        buf.writeBoolean(packet.rewardsClaimed);
+    private static void encode(FriendlyByteBuf buf, SyncLeaderboardPacket msg) {
+        buf.writeBoolean(msg.rewardsClaimed);
 
-        buf.writeInt(packet.entries.size());
+        buf.writeInt(msg.entries.size());
 
-        for (LeaderboardEntry entry : packet.entries) {
+        for (LeaderboardEntry entry : msg.entries) {
             buf.writeUtf(entry.playerName());
             buf.writeInt(entry.value());
         }
@@ -47,9 +47,9 @@ public record SyncLeaderboardPacket(List<LeaderboardEntry> entries, boolean rewa
         return new SyncLeaderboardPacket(entries, claimed);
     }
 
-    public static void handle(SyncLeaderboardPacket packet, IPayloadContext context) {
-        if (context.flow().isClientbound()) {
-            context.enqueueWork(() -> ClientHandler.handleOpenLeaderboard(packet));
+    public static void handle(SyncLeaderboardPacket msg, IPayloadContext ctx) {
+        if (ctx.flow().isClientbound()) {
+            ctx.enqueueWork(() -> ClientHandler.handleOpenLeaderboard(msg));
         }
     }
 

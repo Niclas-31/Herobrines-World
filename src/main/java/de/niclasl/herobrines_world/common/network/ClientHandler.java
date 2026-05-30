@@ -3,7 +3,9 @@ package de.niclasl.herobrines_world.common.network;
 import de.niclasl.herobrines_world.client.screen.RewardScreen;
 import de.niclasl.herobrines_world.client.screen.SeasonBreakScreen;
 import de.niclasl.herobrines_world.client.screen.SoulLeaderboardScreen;
+import de.niclasl.herobrines_world.client.screen.WaypointScreen;
 import de.niclasl.herobrines_world.common.network.message.OpenRewardScreenPacket;
+import de.niclasl.herobrines_world.common.network.message.OpenWaypointScreenPacket;
 import de.niclasl.herobrines_world.common.network.message.SyncLeaderboardPacket;
 import de.niclasl.herobrines_world.common.season.SeasonManager;
 import net.minecraft.client.Minecraft;
@@ -38,8 +40,10 @@ public class ClientHandler {
     }
 
     public static void handleOpenReward(OpenRewardScreenPacket packet) {
-        Minecraft mc = Minecraft.getInstance();
+        Minecraft.getInstance().setScreen(new RewardScreen(packet.rewards()));
+    }
 
-        mc.setScreen(new RewardScreen(packet.rewards()));
+    public static void handleOpenWaypointScreen(OpenWaypointScreenPacket packet) {
+        Minecraft.getInstance().setScreen(new WaypointScreen(packet.waypoints()));
     }
 }

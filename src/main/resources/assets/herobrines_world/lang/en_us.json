@@ -1,5 +1,28 @@
 {
   "gui.herobrines_world.delayer.button.save": "Save",
+  "gui.herobrines_world.soul_leaderboard.title": "§5§lSoul Leaderboard",
+  "gui.herobrines_world.soul_leaderboard.season_ends_in": "Season ends in: %s",
+  "gui.herobrines_world.soul_leaderboard.rank": "Rank",
+  "gui.herobrines_world.soul_leaderboard.player": "Player",
+  "gui.herobrines_world.soul_leaderboard.souls": "Souls",
+  "gui.herobrines_world.soul_leaderboard.levels": "Levels",
+  "gui.herobrines_world.soul_leaderboard.ended": "Season Ended",
+  "gui.herobrines_world.rewards.title": "§5§lSeason Rewards",
+  "gui.herobrines_world.rewards.claim_all": "Claim All",
+  "gui.herobrines_world.season_break.season_ended": "§6§lSEASON ENDED",
+  "gui.herobrines_world.season_break.next_season_start": "Next Season starts in:",
+  "gui.herobrines_world.season_break.starting": "Starting...",
+  "gui.herobrines_world.smart_chip.transfer": "Transfer",
+  "gui.herobrines_world.smart_chip.access": "Access",
+  "gui.herobrines_world.smart_chip.transfer_mode": "Transfer Mode: %s",
+  "gui.herobrines_world.smart_chip.range": "Range",
+  "gui.herobrines_world.smart_chip.speed": "Speed",
+  "gui.herobrines_world.smart_chip.save_transfer": "Save Transfer",
+  "gui.herobrines_world.smart_chip.access_mode": "Access Mode: %s",
+  "gui.herobrines_world.smart_chip.tier": "Tier",
+  "gui.herobrines_world.smart_chip.owner_uuid": "Owner UUID",
+  "gui.herobrines_world.smart_chip.me": "Me",
+  "gui.herobrines_world.smart_chip.save_access": "Save Access",
 
   "block.herobrines_world.blue_sandstone_slab": "Blue Sandstone Slab",
   "block.herobrines_world.blue_sandstone": "Blue Sandstone",
@@ -37,6 +60,7 @@
   "commands.souls.query.levels": "%s has %s soul levels",
   "commands.souls.query.points": "%s has %s soul points",
   "commands.three_hearts.query": "%s Hearts: %s",
+  "commands.three_hearts.enabled": "Three Hearts %s",
 
   "key.herobrines_world.toggle_overlay": "Toggle Time Overlay",
   
@@ -98,6 +122,7 @@
   "item.herobrines_world.smart_chip": "Smart Chip",
   "item.herobrines_world.smart_chip_case": "Smart Chip Case",
   "item.herobrines_world.key_card": "Key Card",
+  "item.herobrines_world.waypoint_compass": "Waypoint Compass",
 
   "item.herobrines_world.herobrine_relic.bound_on": "This Relic is associated with: %s",
   "item.herobrines_world.herobrine_relic.unbound": "This Relic is not bound to anyone.",
@@ -164,7 +189,6 @@
 
   "entity.herobrines_world.herobrine_boss.defeated": "You have defeated Herobrine!",
 
-  "effect.herobrines_world.radio_active": "Radio Active",
   "effect.herobrines_world.good_herobrine_effect": "Good Herobrine",
   "effect.herobrines_world.bad_herobrine_effect": "Bad Herobrine",
 

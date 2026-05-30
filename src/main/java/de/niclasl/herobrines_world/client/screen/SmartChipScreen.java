@@ -85,7 +85,7 @@ public class SmartChipScreen extends AbstractContainerScreen<SmartChipMenu> {
         int half = imageWidth / 2;
 
         addRenderableWidget(Button.builder(
-                Component.literal("Transfer"),
+                Component.translatable("gui.herobrines_world.smart_chip.transfer"),
                 b -> {
                     saveCurrentInputs();
                     currentTab = Tab.TRANSFER;
@@ -94,7 +94,7 @@ public class SmartChipScreen extends AbstractContainerScreen<SmartChipMenu> {
         ).bounds(leftPos, topPos, half, 20).build());
 
         addRenderableWidget(Button.builder(
-                Component.literal("Access"),
+                Component.translatable("gui.herobrines_world.smart_chip.access"),
                 b -> {
                     saveCurrentInputs();
                     currentTab = Tab.ACCESS;
@@ -112,7 +112,7 @@ public class SmartChipScreen extends AbstractContainerScreen<SmartChipMenu> {
 
     private void buildTransferTab() {
         modeButton = addRenderableWidget(Button.builder(
-                Component.literal("Mode: " + transferMode),
+                Component.translatable("gui.herobrines_world.smart_chip.transfer_mode", transferMode),
                 b -> {
                     transferMode = nextMode(transferMode);
                     updateTransferButtons();
@@ -130,7 +130,7 @@ public class SmartChipScreen extends AbstractContainerScreen<SmartChipMenu> {
                 row(1),
                 80,
                 20,
-                Component.literal("Range")
+                Component.translatable("gui.herobrines_world.smart_chip.range")
         );
 
         rangeBox.setValue(String.valueOf(range));
@@ -152,7 +152,7 @@ public class SmartChipScreen extends AbstractContainerScreen<SmartChipMenu> {
                 row(2),
                 80,
                 20,
-                Component.literal("Speed")
+                Component.translatable("gui.herobrines_world.smart_chip.speed")
         );
 
         speedBox.setValue(String.valueOf(speed));
@@ -164,14 +164,14 @@ public class SmartChipScreen extends AbstractContainerScreen<SmartChipMenu> {
         ).bounds(leftPos + 120, row(2), 20, 20).build());
 
         addRenderableWidget(Button.builder(
-                Component.literal("Save Transfer"),
+                Component.translatable("gui.herobrines_world.smart_chip.save_transfer"),
                 b -> saveTransfer()
         ).bounds(leftPos + 10, row(4), 160, 20).build());
     }
 
     private void buildAccessTab() {
         accessButton = addRenderableWidget(Button.builder(
-                Component.literal("Access: " + accessMode),
+                Component.translatable("gui.herobrines_world.smart_chip.access_mode", accessMode),
                 b -> {
                     accessMode = nextAccess(accessMode);
                     updateAccessButtons();
@@ -189,7 +189,7 @@ public class SmartChipScreen extends AbstractContainerScreen<SmartChipMenu> {
                 row(1),
                 80,
                 20,
-                Component.literal("Tier")
+                Component.translatable("gui.herobrines_world.smart_chip.tier")
         );
 
         tierBox.setValue(String.valueOf(level));
@@ -206,7 +206,7 @@ public class SmartChipScreen extends AbstractContainerScreen<SmartChipMenu> {
                 row(2),
                 120,
                 20,
-                Component.literal("Owner UUID")
+                Component.translatable("gui.herobrines_world.smart_chip.owner_uuid")
         );
 
         ownerBox.setMaxLength(36);
@@ -218,7 +218,7 @@ public class SmartChipScreen extends AbstractContainerScreen<SmartChipMenu> {
         addRenderableWidget(ownerBox);
 
         addRenderableWidget(Button.builder(
-                Component.literal("Me"),
+                Component.translatable("gui.herobrines_world.smart_chip.me"),
                 b -> {
                     if (minecraft.player != null) {
                         owner = minecraft.player.getUUID();
@@ -228,7 +228,7 @@ public class SmartChipScreen extends AbstractContainerScreen<SmartChipMenu> {
         ).bounds(leftPos + 135, row(2), 40, 20).build());
 
         addRenderableWidget(Button.builder(
-                Component.literal("Save Access"),
+                Component.translatable("gui.herobrines_world.smart_chip.save_access"),
                 b -> saveAccess()
         ).bounds(leftPos + 10, row(4), 160, 20).build());
     }

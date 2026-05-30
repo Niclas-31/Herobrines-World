@@ -2,9 +2,9 @@ package de.niclasl.herobrines_world.datagen;
 
 import com.google.common.collect.ImmutableMap;
 import de.niclasl.herobrines_world.HerobrinesWorld;
-import de.niclasl.herobrines_world.datagen.mapping.ModMapping;
 import de.niclasl.herobrines_world.common.registries.block.ModBlocks;
 import de.niclasl.herobrines_world.common.registries.item.ModItems;
+import de.niclasl.herobrines_world.datagen.mapping.ModMapping;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.client.data.models.ModelProvider;
@@ -125,6 +125,7 @@ public class ModModelProvider extends ModelProvider {
         itemModels.generateFlatItem(ModItems.UNDERWORLD.get(), ModelTemplates.FLAT_ITEM);
         itemModels.generateFlatItem(ModItems.GREEN_GEMSTONE.get(), ModelTemplates.FLAT_ITEM);
         itemModels.generateFlatItem(ModItems.RUNE_STONE.get(), ModelTemplates.FLAT_ITEM);
+        ModMapping.generateStandardCompassItem(itemModels, ModItems.WAYPOINT_COMPASS.get());
         itemModels.generateFlatItem(ModItems.HEROBRINE_RELIC.get(), ModelTemplates.FLAT_ITEM);
         // battery
         // Smart Chip & Case

@@ -23,10 +23,10 @@ public record OpenRewardScreenPacket(List<RewardEntry> rewards) implements Custo
             OpenRewardScreenPacket::decode
     );
 
-    private static void encode(FriendlyByteBuf buf, OpenRewardScreenPacket packet) {
-        buf.writeInt(packet.rewards.size());
+    private static void encode(FriendlyByteBuf buf, OpenRewardScreenPacket msg) {
+        buf.writeInt(msg.rewards.size());
 
-        for (RewardEntry reward : packet.rewards) {
+        for (RewardEntry reward : msg.rewards) {
             buf.writeUtf(reward.name());
             buf.writeInt(reward.amount());
         }
@@ -49,9 +49,9 @@ public record OpenRewardScreenPacket(List<RewardEntry> rewards) implements Custo
         return TYPE;
     }
 
-    public static void handle(OpenRewardScreenPacket packet, IPayloadContext ctx) {
+    public static void handle(OpenRewardScreenPacket msg, IPayloadContext ctx) {
         if (ctx.flow().isClientbound()) {
-            ctx.enqueueWork(() -> ClientHandler.handleOpenReward(packet));
+            ctx.enqueueWork(() -> ClientHandler.handleOpenReward(msg));
         }
     }
 }

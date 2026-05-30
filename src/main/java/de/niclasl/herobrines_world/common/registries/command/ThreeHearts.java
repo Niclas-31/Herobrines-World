@@ -217,7 +217,7 @@ public class ThreeHearts {
 		vars.markSyncDirty(player);
 
 		player.displayClientMessage(
-				Component.literal("Three Hearts " + (enabled ? "enabled" : "disabled")),
+				Component.translatable("commands.three_hearts.enabled", enabled ? "enabled" : "disabled"),
 				true
 		);
 	}
