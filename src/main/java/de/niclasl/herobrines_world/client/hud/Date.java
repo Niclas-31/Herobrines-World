@@ -1,4 +1,4 @@
-package de.niclasl.herobrines_world.client.overlay;
+package de.niclasl.herobrines_world.client.hud;
 
 import de.niclasl.herobrines_world.common.network.ModVariables;
 import net.neoforged.neoforge.client.event.RenderGuiEvent;
@@ -14,7 +14,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 @EventBusSubscriber(Dist.CLIENT)
-public class DateOverlay {
+public class Date {
 
 	@SubscribeEvent(priority = EventPriority.NORMAL)
 	public static void eventHandler(RenderGuiEvent.Pre event) {

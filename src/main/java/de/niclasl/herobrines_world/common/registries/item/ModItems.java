@@ -262,7 +262,7 @@ public class ModItems {
 	public static final DeferredItem<Item> WAYPOINT_COMPASS = ITEMS.registerItem(
 			"waypoint_compass",
 			(properties) -> new WaypointCompass(properties.rarity(Rarity.RARE)
-					.stacksTo(1)));
+					.stacksTo(1).component(ModDataComponents.SELECTED_WAYPOINT, 0)));
 
 	public static final DeferredItem<Item> HEROBRINE_RELIC = ITEMS.registerItem(
 			"herobrine_relic",

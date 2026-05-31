@@ -1,4 +1,4 @@
-package de.niclasl.herobrines_world.client.overlay;
+package de.niclasl.herobrines_world.client.hud;
 
 import de.niclasl.herobrines_world.common.network.ModVariables;
 import net.minecraft.client.Minecraft;
@@ -17,7 +17,7 @@ import net.neoforged.neoforge.client.event.RenderGuiEvent;
 import java.util.Objects;
 
 @EventBusSubscriber(Dist.CLIENT)
-public class ThreeHeartsOverlay {
+public class ThreeHearts {
 
 	@SubscribeEvent(priority = EventPriority.NORMAL)
 	public static void eventHandler(RenderGuiEvent.Pre event) {

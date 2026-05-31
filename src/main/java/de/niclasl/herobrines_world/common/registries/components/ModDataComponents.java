@@ -43,6 +43,10 @@ public class ModDataComponents {
             "waypoint",
             builder -> builder.persistent(Codec.list(SavedWaypoint.CODEC)));
 
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> SELECTED_WAYPOINT = register(
+            "selected_waypoint",
+            builder -> builder.persistent(Codec.INT));
+
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<KeyCardData>> KEY_CARD_DATA = register(
             "key_card_data",
             builder -> builder.persistent(KeyCardData.CODEC)

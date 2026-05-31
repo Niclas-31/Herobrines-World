@@ -1,4 +1,4 @@
-package de.niclasl.herobrines_world.client.overlay;
+package de.niclasl.herobrines_world.client.hud;
 
 import de.niclasl.herobrines_world.HerobrinesWorld;
 import de.niclasl.herobrines_world.common.util.math.SoulMath;
@@ -14,7 +14,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.RenderGuiEvent;
 
 @EventBusSubscriber(Dist.CLIENT)
-public class SoulsBarOverlay {
+public class SoulsBar {
     private static final Identifier SOUL_BAR_BACKGROUND_SPRITE = Identifier.fromNamespaceAndPath(HerobrinesWorld.MODID, "textures/gui/sprites/hud/soul_bar_background.png");
     private static final Identifier SOUL_BAR_PROGRESS_SPRITE = Identifier.fromNamespaceAndPath(HerobrinesWorld.MODID, "textures/gui/sprites/hud/soul_bar_progress.png");
 
