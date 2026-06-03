@@ -239,7 +239,7 @@
       ],
       "property": "minecraft:compass",
       "scale": 32.0,
-      "target": "none"
+      "target": "spawn"
     },
     "on_true": {
       "type": "minecraft:range_dispatch",

@@ -212,7 +212,7 @@ public class ModMapping {
                         ItemModelUtils.conditional(
                                 ItemModelUtils.hasComponent(DataComponents.LODESTONE_TRACKER),
                                 ItemModelUtils.rangeSelect(new CompassAngle(true, CompassAngleState.CompassTarget.LODESTONE), 32.0F, list),
-                                ItemModelUtils.rangeSelect(new CompassAngle(true, CompassAngleState.CompassTarget.NONE), 32.0F, list)
+                                ItemModelUtils.rangeSelect(new CompassAngle(true, CompassAngleState.CompassTarget.SPAWN), 32.0F, list)
                         )
                 );
     }
