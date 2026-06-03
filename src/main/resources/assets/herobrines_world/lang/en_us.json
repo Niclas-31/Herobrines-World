@@ -150,6 +150,7 @@
   "item.herobrines_world.battery.hover": "Energy: %s/%s",
   "item.herobrines_world.key_card.owner": "Owner: %s",
   "item.herobrines_world.key_card.level": "Level: %s",
+  "item.herobrines_world.waypoint_compass.waypoint_saved": "Waypoint saved!",
 
   "item.minecraft.splash_potion.effect.good_herobrine_omen": "Splash Potion of Good Herobrine Omen",
   "item.minecraft.tipped_arrow.effect.good_herobrine_omen": "Arrow of Good Herobrine Omen",
