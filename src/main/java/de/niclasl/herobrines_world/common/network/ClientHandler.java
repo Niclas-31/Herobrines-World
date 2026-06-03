@@ -44,6 +44,6 @@ public class ClientHandler {
     }
 
     public static void handleOpenWaypointScreen(OpenWaypointScreenPacket packet) {
-        Minecraft.getInstance().setScreen(new WaypointScreen(packet.waypoints()));
+        Minecraft.getInstance().setScreen(new WaypointScreen(packet.stack()));
     }
 }

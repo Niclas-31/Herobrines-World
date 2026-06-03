@@ -45,7 +45,7 @@ public class CardReaderBlock extends BaseEntityBlock {
     @Override
     public @NotNull BlockState getStateForPlacement(BlockPlaceContext context) {
         return this.defaultBlockState()
-                .setValue(FACING, context.getHorizontalDirection().getOpposite())
+                .setValue(FACING, context.getHorizontalDirection())
                 .setValue(ACCESS_GRANTED, false);
     }
 

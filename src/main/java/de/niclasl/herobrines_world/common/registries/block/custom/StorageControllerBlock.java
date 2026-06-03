@@ -53,7 +53,7 @@ public class StorageControllerBlock extends BaseEntityBlock {
     @Override
     public @NotNull BlockState getStateForPlacement(BlockPlaceContext context) {
         return this.defaultBlockState()
-                .setValue(FACING, context.getHorizontalDirection().getOpposite())
+                .setValue(FACING, context.getHorizontalDirection())
                 .setValue(POWERED, false);
     }
 

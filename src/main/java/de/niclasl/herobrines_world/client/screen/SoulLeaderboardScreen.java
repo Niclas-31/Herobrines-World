@@ -29,7 +29,7 @@ public class SoulLeaderboardScreen extends Screen {
     private static final int ENTRY_HEIGHT = 18;
     private static final int VISIBLE_ENTRIES = 10;
 
-    private final Identifier ICON_REWARDS = Identifier.fromNamespaceAndPath(HerobrinesWorld.MODID, "textures/gui/sprites/widget/reward_icon.png");
+    private final Identifier ICON_REWARDS = Identifier.fromNamespaceAndPath(HerobrinesWorld.MODID, "textures/gui/sprites/icon/reward.png");
 
     public SoulLeaderboardScreen(List<LeaderboardEntry> entries) {
         super(Component.translatable("gui.herobrines_world.soul_leaderboard.title"));

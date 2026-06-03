@@ -30,7 +30,6 @@ public class ItemTransferSystem {
 
             case INSERT -> insert(source, target, maxSlot);
             case EXTRACT -> extract(source, target, maxSlot);
-            case BALANCE -> balance(source, target, maxSlot);
         }
     }
 
@@ -78,40 +77,6 @@ public class ItemTransferSystem {
 
             if (original.isEmpty()) {
                 target.set(i, ItemStack.EMPTY);
-            }
-        }
-    }
-
-    private static void balance(IInventoryWrapper a, IInventoryWrapper b, int maxSlot) {
-        for (int i = 0; i < maxSlot; i++) {
-
-            ItemStack original = a.get(i);
-
-            if (original.isEmpty()) continue;
-
-            int totalA = count(a, original, maxSlot);
-            int totalB = count(b, original, maxSlot);
-
-            int total = totalA + totalB;
-
-            int desired = total / 2;
-
-            if (totalA <= desired) continue;
-
-            int transferAmount = totalA - desired;
-
-            ItemStack transferStack = original.copyWithCount(transferAmount);
-
-            ItemStack remaining = insertInto(b, transferStack);
-
-            int moved = transferAmount - remaining.getCount();
-
-            if (moved > 0) {
-                original.shrink(moved);
-            }
-
-            if (original.isEmpty()) {
-                a.set(i, ItemStack.EMPTY);
             }
         }
     }
@@ -165,21 +130,6 @@ public class ItemTransferSystem {
         }
 
         return stack;
-    }
-
-    private static int count(IInventoryWrapper inventory, ItemStack match, int maxSlot) {
-        int count = 0;
-
-        for (int slot = 0; slot < maxSlot; slot++) {
-
-            ItemStack stack = inventory.get(slot);
-
-            if (ItemStack.isSameItemSameComponents(stack, match)) {
-                count += stack.getCount();
-            }
-        }
-
-        return count;
     }
 
     public static IInventoryWrapper getWrapper(Level level, BlockPos pos, ItemStack filter) {

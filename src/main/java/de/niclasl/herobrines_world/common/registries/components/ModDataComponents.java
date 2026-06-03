@@ -2,6 +2,7 @@ package de.niclasl.herobrines_world.common.registries.components;
 
 import com.mojang.serialization.Codec;
 import de.niclasl.herobrines_world.HerobrinesWorld;
+import net.minecraft.core.UUIDUtil;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;
 import net.neoforged.bus.api.IEventBus;
@@ -9,6 +10,7 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.function.UnaryOperator;
 
 public class ModDataComponents {
@@ -43,9 +45,9 @@ public class ModDataComponents {
             "waypoint",
             builder -> builder.persistent(Codec.list(SavedWaypoint.CODEC)));
 
-    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> SELECTED_WAYPOINT = register(
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<UUID>> SELECTED_WAYPOINT = register(
             "selected_waypoint",
-            builder -> builder.persistent(Codec.INT));
+            builder -> builder.persistent(UUIDUtil.CODEC));
 
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<KeyCardData>> KEY_CARD_DATA = register(
             "key_card_data",

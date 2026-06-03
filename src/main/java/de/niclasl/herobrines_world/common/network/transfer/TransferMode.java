@@ -4,8 +4,7 @@ import com.mojang.serialization.Codec;
 
 public enum TransferMode {
     INSERT("Insert"),
-    EXTRACT("Extract"),
-    BALANCE("Balance");
+    EXTRACT("Extract");
 
     private final String displayName;
 

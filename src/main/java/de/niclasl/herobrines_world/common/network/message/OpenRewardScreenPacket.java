@@ -1,9 +1,9 @@
 package de.niclasl.herobrines_world.common.network.message;
 
 import de.niclasl.herobrines_world.HerobrinesWorld;
-import de.niclasl.herobrines_world.common.network.ClientHandler;
 import de.niclasl.herobrines_world.common.leaderbaord.RewardEntry;
-import net.minecraft.network.FriendlyByteBuf;
+import de.niclasl.herobrines_world.common.network.ClientHandler;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.Identifier;
@@ -18,12 +18,12 @@ public record OpenRewardScreenPacket(List<RewardEntry> rewards) implements Custo
     public static final Type<OpenRewardScreenPacket> TYPE =
             new Type<>(Identifier.fromNamespaceAndPath(HerobrinesWorld.MODID, "open_reward_screen"));
 
-    public static final StreamCodec<FriendlyByteBuf, OpenRewardScreenPacket> STREAM_CODEC = StreamCodec.of(
+    public static final StreamCodec<RegistryFriendlyByteBuf, OpenRewardScreenPacket> STREAM_CODEC = StreamCodec.of(
             OpenRewardScreenPacket::encode,
             OpenRewardScreenPacket::decode
     );
 
-    private static void encode(FriendlyByteBuf buf, OpenRewardScreenPacket msg) {
+    private static void encode(RegistryFriendlyByteBuf buf, OpenRewardScreenPacket msg) {
         buf.writeInt(msg.rewards.size());
 
         for (RewardEntry reward : msg.rewards) {
@@ -32,7 +32,7 @@ public record OpenRewardScreenPacket(List<RewardEntry> rewards) implements Custo
         }
     }
 
-    private static OpenRewardScreenPacket decode(FriendlyByteBuf buf) {
+    private static OpenRewardScreenPacket decode(RegistryFriendlyByteBuf buf) {
         int size = buf.readInt();
 
         List<RewardEntry> rewards = new ArrayList<>();

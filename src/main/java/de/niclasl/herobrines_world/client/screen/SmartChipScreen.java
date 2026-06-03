@@ -112,7 +112,11 @@ public class SmartChipScreen extends AbstractContainerScreen<SmartChipMenu> {
 
     private void buildTransferTab() {
         modeButton = addRenderableWidget(Button.builder(
-                Component.translatable("gui.herobrines_world.smart_chip.transfer_mode", transferMode),
+                Component.translatable("gui.herobrines_world.smart_chip.transfer_mode",
+                        Component.translatable(
+                                "gui.herobrines_world.smart_chip.transfer_mode." +
+                                        transferMode.name().toLowerCase()
+                        )),
                 b -> {
                     transferMode = nextMode(transferMode);
                     updateTransferButtons();
@@ -130,7 +134,7 @@ public class SmartChipScreen extends AbstractContainerScreen<SmartChipMenu> {
                 row(1),
                 80,
                 20,
-                Component.translatable("gui.herobrines_world.smart_chip.range")
+                Component.literal("Range")
         );
 
         rangeBox.setValue(String.valueOf(range));
@@ -152,7 +156,7 @@ public class SmartChipScreen extends AbstractContainerScreen<SmartChipMenu> {
                 row(2),
                 80,
                 20,
-                Component.translatable("gui.herobrines_world.smart_chip.speed")
+                Component.literal("Speed")
         );
 
         speedBox.setValue(String.valueOf(speed));
@@ -171,7 +175,11 @@ public class SmartChipScreen extends AbstractContainerScreen<SmartChipMenu> {
 
     private void buildAccessTab() {
         accessButton = addRenderableWidget(Button.builder(
-                Component.translatable("gui.herobrines_world.smart_chip.access_mode", accessMode),
+                Component.translatable("gui.herobrines_world.smart_chip.access_mode",
+                        Component.translatable(
+                                "gui.herobrines_world.smart_chip.access_mode." +
+                                        accessMode.name().toLowerCase()
+                        )),
                 b -> {
                     accessMode = nextAccess(accessMode);
                     updateAccessButtons();
@@ -189,7 +197,7 @@ public class SmartChipScreen extends AbstractContainerScreen<SmartChipMenu> {
                 row(1),
                 80,
                 20,
-                Component.translatable("gui.herobrines_world.smart_chip.tier")
+                Component.literal("Tier")
         );
 
         tierBox.setValue(String.valueOf(level));
@@ -206,7 +214,7 @@ public class SmartChipScreen extends AbstractContainerScreen<SmartChipMenu> {
                 row(2),
                 120,
                 20,
-                Component.translatable("gui.herobrines_world.smart_chip.owner_uuid")
+                Component.literal("Owner UUID")
         );
 
         ownerBox.setMaxLength(36);
@@ -282,11 +290,21 @@ public class SmartChipScreen extends AbstractContainerScreen<SmartChipMenu> {
     }
 
     private void updateTransferButtons() {
-        modeButton.setMessage(Component.literal("Mode: " + transferMode));
+        modeButton.setMessage(Component.translatable(
+                "gui.herobrines_world.smart_chip.transfer_mode",
+                Component.translatable(
+                        "gui.herobrines_world.smart_chip.transfer_mode." +
+                                transferMode.name().toLowerCase()
+                )));
     }
 
     private void updateAccessButtons() {
-        accessButton.setMessage(Component.literal("Access: " + accessMode));
+        accessButton.setMessage(Component.translatable(
+                "gui.herobrines_world.smart_chip.access_mode",
+                Component.translatable(
+                        "gui.herobrines_world.smart_chip.access_mode." +
+                                accessMode.name().toLowerCase()
+                )));
     }
 
     private void saveTransfer() {
@@ -355,9 +373,7 @@ public class SmartChipScreen extends AbstractContainerScreen<SmartChipMenu> {
 
             case INSERT -> TransferMode.EXTRACT;
 
-            case EXTRACT -> TransferMode.BALANCE;
-
-            case BALANCE -> TransferMode.INSERT;
+            case EXTRACT -> TransferMode.INSERT;
         };
     }
 

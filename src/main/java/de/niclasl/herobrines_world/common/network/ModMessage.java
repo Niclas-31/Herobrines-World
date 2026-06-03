@@ -1,8 +1,6 @@
 package de.niclasl.herobrines_world.common.network;
 
 import de.niclasl.herobrines_world.HerobrinesWorld;
-import de.niclasl.herobrines_world.common.network.message.OpenRewardScreenPacket;
-import de.niclasl.herobrines_world.common.network.message.SyncLeaderboardPacket;
 import de.niclasl.herobrines_world.common.network.message.*;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.network.registration.PayloadRegistrar;
@@ -41,6 +39,26 @@ public class ModMessage {
                 ClaimRewardsPacket.TYPE,
                 ClaimRewardsPacket.STREAM_CODEC,
                 ClaimRewardsPacket::handle
+        );
+        registrar.playToServer(
+                SyncWaypointCompass.TYPE,
+                SyncWaypointCompass.STREAM_CODEC,
+                SyncWaypointCompass::handle
+        );
+        registrar.playToServer(
+                RenameWaypointPacket.TYPE,
+                RenameWaypointPacket.STREAM_CODEC,
+                RenameWaypointPacket::handle
+        );
+        registrar.playToServer(
+                DeleteWaypointPacket.TYPE,
+                DeleteWaypointPacket.STREAM_CODEC,
+                DeleteWaypointPacket::handle
+        );
+        registrar.playToServer(
+                DeselectWaypointPacket.TYPE,
+                DeselectWaypointPacket.STREAM_CODEC,
+                DeselectWaypointPacket::handle
         );
 
         registrar.playToClient(
