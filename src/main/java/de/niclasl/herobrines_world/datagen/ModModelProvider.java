@@ -124,7 +124,6 @@ public class ModModelProvider extends ModelProvider {
         itemModels.generateFlatItem(ModItems.HEROBRINES_REALM.get(), ModelTemplates.FLAT_ITEM);
         itemModels.generateFlatItem(ModItems.UNDERWORLD.get(), ModelTemplates.FLAT_ITEM);
         itemModels.generateFlatItem(ModItems.GREEN_GEMSTONE.get(), ModelTemplates.FLAT_ITEM);
-        itemModels.generateFlatItem(ModItems.RUNE_STONE.get(), ModelTemplates.FLAT_ITEM);
         ModMapping.generateStandardCompassItem(itemModels, ModItems.WAYPOINT_COMPASS.get());
         itemModels.generateFlatItem(ModItems.HEROBRINE_RELIC.get(), ModelTemplates.FLAT_ITEM);
         // battery

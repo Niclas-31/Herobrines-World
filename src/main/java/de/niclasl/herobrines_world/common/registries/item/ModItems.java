@@ -255,10 +255,6 @@ public class ModItems {
 			"green_gemstone",
 			(properties) -> new Item(properties.rarity(Rarity.RARE)));
 
-	public static final DeferredItem<Item> RUNE_STONE = ITEMS.registerItem(
-			"rune_stone",
-			(properties) -> new RuneStone(properties.rarity(Rarity.RARE).stacksTo(1)));
-
 	public static final DeferredItem<Item> WAYPOINT_COMPASS = ITEMS.registerItem(
 			"waypoint_compass",
 			(properties) -> new WaypointCompass(properties.rarity(Rarity.RARE)
