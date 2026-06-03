@@ -1,6 +1,5 @@
 {
   "gui.herobrines_world.delayer.button.save": "Speichern",
-  "gui.herobrines_world.soul_leaderboard.title": "§5§lSoul Bestenliste",
   "gui.herobrines_world.soul_leaderboard.season_ends_in": "Die Saison endet in: %s",
   "gui.herobrines_world.soul_leaderboard.rank": "Rang",
   "gui.herobrines_world.soul_leaderboard.player": "Spieler",
@@ -8,7 +7,6 @@
   "gui.herobrines_world.soul_leaderboard.levels": "Stufen",
   "gui.herobrines_world.soul_leaderboard.ended": "Saison beendet",
   "gui.herobrines_world.soul_leaderboard.rewards": "Belohnungen",
-  "gui.herobrines_world.rewards.title": "§5§lSaison Belohnungen",
   "gui.herobrines_world.rewards.claim_all": "Alles Beanspruchen",
   "gui.herobrines_world.season_break.season_ended": "§6§lSAISON BEENDET",
   "gui.herobrines_world.season_break.next_season_start": "Die nächste Saison beginnt in:",
