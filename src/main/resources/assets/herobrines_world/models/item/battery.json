@@ -7,29 +7,29 @@
 	},
 	"elements": [
 		{
-			"from": [4, 0, 4],
-			"to": [12, 8, 12],
-			"rotation": {"angle": 0, "axis": "y", "origin": [4, 0, 4]},
+			"from": [7, 0, 7],
+			"to": [9, 6, 9],
+			"rotation": {"angle": 0, "axis": "y", "origin": [10, 0, 10]},
 			"faces": {
-				"north": {"uv": [0, 0, 3, 3], "texture": "#0"},
-				"east": {"uv": [0, 0, 3, 3], "texture": "#0"},
-				"south": {"uv": [0, 0, 3, 3], "texture": "#0"},
-				"west": {"uv": [0, 0, 3, 3], "texture": "#0"},
-				"up": {"uv": [3, 9, 0, 6], "texture": "#0"},
-				"down": {"uv": [9, 0, 6, 3], "texture": "#0"}
+				"north": {"uv": [0, 0, 2, 6], "texture": "#0"},
+				"east": {"uv": [0, 0, 2, 6], "texture": "#0"},
+				"south": {"uv": [0, 0, 2, 6], "texture": "#0"},
+				"west": {"uv": [0, 0, 2, 6], "texture": "#0"},
+				"up": {"uv": [4, 2, 2, 0], "texture": "#0"},
+				"down": {"uv": [4, 0, 2, 2], "texture": "#0"}
 			}
 		},
 		{
-			"from": [7.25, 7.25, 7.25],
-			"to": [8.75, 8.75, 8.75],
-			"rotation": {"angle": 0, "axis": "y", "origin": [7, 7, 7]},
+			"from": [7.5, 5.5, 7.5],
+			"to": [8.5, 6.5, 8.5],
+			"rotation": {"angle": 0, "axis": "y", "origin": [7, 6, 8]},
 			"faces": {
-				"north": {"uv": [8, 15, 10, 16], "texture": "#1"},
-				"east": {"uv": [0, 15, 2, 16], "texture": "#1"},
-				"south": {"uv": [14, 15, 16, 16], "texture": "#1"},
-				"west": {"uv": [2, 0, 4, 1], "texture": "#1"},
-				"up": {"uv": [14, 0, 16, 2], "texture": "#1"},
-				"down": {"uv": [0, 0, 2, 2], "texture": "#1"}
+				"north": {"uv": [0, 0, 0, 0], "texture": "#1"},
+				"east": {"uv": [0, 0, 0, 0], "texture": "#1"},
+				"south": {"uv": [0, 0, 0, 0], "texture": "#1"},
+				"west": {"uv": [0, 0, 0, 0], "texture": "#1"},
+				"up": {"uv": [0, 0, 0, 0], "texture": "#1"},
+				"down": {"uv": [0, 0, 0, 0], "texture": "#1"}
 			}
 		}
 	],
@@ -57,15 +57,14 @@
 			"scale": [0.5, 0.5, 0.5]
 		},
 		"gui": {
-			"translation": [0, 4, 0]
+			"translation": [0, 4.75, 0]
 		},
 		"head": {
 			"rotation": [0, -180, 0],
 			"translation": [0, 13, 7]
 		},
 		"fixed": {
-			"rotation": [0, -180, 0],
-			"translation": [0, 4, 0]
+			"rotation": [0, -180, 0]
 		},
 		"on_shelf": {
 			"rotation": [0, -180, 0]
