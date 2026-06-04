@@ -148,7 +148,7 @@ public class BatteryChargerBlockEntity extends BlockEntity implements Container,
     }
 
     private boolean isItemValid(int slot, ItemStack stack) {
-        return slot == SLOT_BATTERY_1 || slot == SLOT_BATTERY_2 && stack.getItem() instanceof BatteryItem;
+        return (slot == SLOT_BATTERY_1 || slot == SLOT_BATTERY_2) && stack.getItem() instanceof BatteryItem;
     }
 
     @Override

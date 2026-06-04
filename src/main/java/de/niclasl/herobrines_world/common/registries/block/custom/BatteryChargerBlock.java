@@ -62,12 +62,12 @@ public class BatteryChargerBlock extends BaseEntityBlock {
 
     private static VoxelShape getShape() {
         return Shapes.or(
-                Block.box(4, 6, 0,12, 7, 3),
-                Block.box(4, 12, 0, 12, 13, 2),
-                Block.box(4, 7, 0, 12, 12, 1),
-                Block.box(11, 7, 1, 12, 12, 2),
-                Block.box(4, 7, 1, 5, 12, 2),
-                Block.box(7, 7, 1, 9, 12, 2)
+                Block.box(4, 6, 13, 12, 7, 16),
+                Block.box(4, 12, 14, 12, 13, 16),
+                Block.box(4, 7, 15, 12, 12, 16),
+                Block.box(11, 7, 14, 12, 12, 15),
+                Block.box(4, 7, 14, 5, 12, 15),
+                Block.box(7, 7, 14, 9, 12, 15)
         );
     }
 
@@ -116,33 +116,89 @@ public class BatteryChargerBlock extends BaseEntityBlock {
     }
 
     @Override
-    protected @NonNull InteractionResult useItemOn(@NonNull ItemStack stack, @NonNull BlockState state,
-                                                   @NonNull Level level, @NonNull BlockPos pos,
-                                                   @NonNull Player player, @NonNull InteractionHand hand,
-                                                   @NonNull BlockHitResult hitResult) {
-        if(level.getBlockEntity(pos) instanceof BatteryChargerBlockEntity batteryCharger) {
-            if(player.isCrouching() && !level.isClientSide()) {
-                player.openMenu(new SimpleMenuProvider(batteryCharger, Component.translatable("block.herobrines_world.battery_charger")), pos);
-                return InteractionResult.SUCCESS;
-            } else if(
-                    !player.isCrouching()
-                            && batteryCharger.items.getFirst().isEmpty()
-                            && canInsert(stack)
-                            && !stack.isEmpty()) {
+    protected @NotNull InteractionResult useItemOn(@NotNull ItemStack stack,
+                                                   @NotNull BlockState state,
+                                                   @NotNull Level level,
+                                                   @NotNull BlockPos pos,
+                                                   @NotNull Player player,
+                                                   @NotNull InteractionHand hand,
+                                                   @NotNull BlockHitResult hitResult) {
+
+        if (!(level.getBlockEntity(pos) instanceof BatteryChargerBlockEntity batteryCharger)) {
+            return InteractionResult.PASS;
+        }
+
+        if (player.isCrouching()) {
+            if (!level.isClientSide()) {
+                player.openMenu(
+                        new SimpleMenuProvider(
+                                batteryCharger,
+                                Component.translatable("block.herobrines_world.battery_charger")
+                        ),
+                        pos
+                );
+            }
+            return InteractionResult.SUCCESS;
+        }
+
+        if (!stack.isEmpty() && canInsert(stack)) {
+
+            int slot = -1;
+
+            if (batteryCharger.items.get(0).isEmpty()) {
+                slot = 0;
+            } else if (batteryCharger.items.get(1).isEmpty()) {
+                slot = 1;
+            }
+
+            if (slot != -1) {
                 ItemStack inserted = stack.copyWithCount(1);
-                batteryCharger.items.set(0, inserted);
+                batteryCharger.items.set(slot, inserted);
                 stack.shrink(1);
-                level.playSound(player, pos, SoundEvents.ITEM_PICKUP, SoundSource.BLOCKS, 1f, 2f);
-            } else if(!player.isCrouching() && stack.isEmpty()) {
-                ItemStack stackOnBatteryCharger = batteryCharger.items.getFirst();
-                player.setItemInHand(InteractionHand.MAIN_HAND, stackOnBatteryCharger);
-                batteryCharger.items.set(0, ItemStack.EMPTY);
-                batteryCharger.clearContent();
-                level.playSound(player, pos, SoundEvents.ITEM_PICKUP, SoundSource.BLOCKS, 1f, 1f);
+
+                level.playSound(
+                        player,
+                        pos,
+                        SoundEvents.ITEM_PICKUP,
+                        SoundSource.BLOCKS,
+                        1f,
+                        2f
+                );
+
+                return InteractionResult.SUCCESS;
             }
         }
 
-        return InteractionResult.SUCCESS;
+        if (stack.isEmpty()) {
+
+            int slot = -1;
+
+            if (!batteryCharger.items.get(1).isEmpty()) {
+                slot = 1;
+            } else if (!batteryCharger.items.get(0).isEmpty()) {
+                slot = 0;
+            }
+
+            if (slot != -1) {
+                ItemStack taken = batteryCharger.items.get(slot);
+
+                player.setItemInHand(hand, taken);
+                batteryCharger.items.set(slot, ItemStack.EMPTY);
+
+                level.playSound(
+                        player,
+                        pos,
+                        SoundEvents.ITEM_PICKUP,
+                        SoundSource.BLOCKS,
+                        1f,
+                        1f
+                );
+
+                return InteractionResult.SUCCESS;
+            }
+        }
+
+        return InteractionResult.PASS;
     }
 
     private boolean canInsert(ItemStack stack) {
