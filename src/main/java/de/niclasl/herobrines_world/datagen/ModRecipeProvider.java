@@ -562,7 +562,7 @@ public class ModRecipeProvider extends RecipeProvider {
                 .define('C', Items.CRAFTING_TABLE)
                 .unlockedBy("has_crafting_table", has(Items.CRAFTING_TABLE)).save(output);
 
-        shaped(RecipeCategory.MISC, ModItems.WAYPOINT_COMPASS.get())
+        shaped(RecipeCategory.TOOLS, ModItems.WAYPOINT_COMPASS.get())
                 .pattern(" G ")
                 .pattern("GCG")
                 .pattern(" G ")
