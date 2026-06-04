@@ -1,9 +1,9 @@
 package de.niclasl.herobrines_world.client.screen;
 
-import de.niclasl.herobrines_world.common.registries.menu.SmartChipMenu;
 import de.niclasl.herobrines_world.common.network.message.SyncChipPacket;
 import de.niclasl.herobrines_world.common.network.safety.AccessMode;
 import de.niclasl.herobrines_world.common.network.transfer.TransferMode;
+import de.niclasl.herobrines_world.common.registries.menu.SmartChipMenu;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.EditBox;
@@ -11,6 +11,8 @@ import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 import net.neoforged.neoforge.client.network.ClientPacketDistributor;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.jspecify.annotations.NonNull;
 
 import java.util.UUID;
@@ -23,16 +25,6 @@ public class SmartChipScreen extends AbstractContainerScreen<SmartChipMenu> {
     }
 
     private Tab currentTab = Tab.TRANSFER;
-
-    private static final int MIN_RANGE = 1;
-    private static final int MAX_RANGE = 64;
-    private static final int MIN_SPEED = 0;
-    private static final int MAX_SPEED = 2;
-    private static final int MIN_ACCESS_TIER = 0;
-    private static final int MAX_ACCESS_TIER = 10;
-
-    private static final int START_Y = 35;
-    private static final int LINE_HEIGHT = 25;
 
     private TransferMode transferMode;
     private int range;
@@ -82,7 +74,7 @@ public class SmartChipScreen extends AbstractContainerScreen<SmartChipMenu> {
     private void rebuildTab() {
         clearWidgets();
 
-        int half = imageWidth / 2;
+        int half = this.imageWidth / 2;
 
         addRenderableWidget(Button.builder(
                 Component.translatable("gui.herobrines_world.smart_chip.transfer"),
@@ -91,7 +83,7 @@ public class SmartChipScreen extends AbstractContainerScreen<SmartChipMenu> {
                     currentTab = Tab.TRANSFER;
                     rebuildTab();
                 }
-        ).bounds(leftPos, topPos, half, 20).build());
+        ).bounds(this.leftPos, topPos, half, 20).build());
 
         addRenderableWidget(Button.builder(
                 Component.translatable("gui.herobrines_world.smart_chip.access"),
@@ -100,7 +92,7 @@ public class SmartChipScreen extends AbstractContainerScreen<SmartChipMenu> {
                     currentTab = Tab.ACCESS;
                     rebuildTab();
                 }
-        ).bounds(leftPos + half, topPos, half, 20).build());
+        ).bounds(this.leftPos + half, topPos, half, 20).build());
 
         switch (currentTab) {
 
@@ -114,115 +106,60 @@ public class SmartChipScreen extends AbstractContainerScreen<SmartChipMenu> {
         modeButton = addRenderableWidget(Button.builder(
                 Component.translatable("gui.herobrines_world.smart_chip.transfer_mode",
                         Component.translatable(
-                                "gui.herobrines_world.smart_chip.transfer_mode." +
-                                        transferMode.name().toLowerCase()
-                        )),
+                                "gui.herobrines_world.smart_chip.transfer_mode." + transferMode.name().toLowerCase())),
                 b -> {
                     transferMode = nextMode(transferMode);
                     updateTransferButtons();
                 }
-        ).bounds(leftPos + 10, row(0), 160, 20).build());
+        ).bounds(this.leftPos + 10, row(0), 160, 20).build());
 
-        addRenderableWidget(Button.builder(
-                Component.literal("-"),
-                b -> adjustBox(rangeBox, -1, MAX_RANGE)
-        ).bounds(leftPos + 10, row(1), 20, 20).build());
-
-        rangeBox = new EditBox(
-                font,
-                leftPos + 35,
-                row(1),
-                80,
-                20,
-                Component.literal("Range")
-        );
-
+        addRenderableWidget(Button.builder(Component.literal("-"), b -> adjustBox(rangeBox, -1, 16))
+                .bounds(this.leftPos + 10, row(1), 20, 20).build());
+        rangeBox = new EditBox(this.font, this.leftPos + 35, row(1), 80, 20, Component.literal("Range"));
         rangeBox.setValue(String.valueOf(range));
+        addNumberLimiter(rangeBox, 4, 16);
         addRenderableWidget(rangeBox);
+        addRenderableWidget(Button.builder(Component.literal("+"), b -> adjustBox(rangeBox, 1, 16))
+                .bounds(this.leftPos + 120, row(1), 20, 20).build());
 
-        addRenderableWidget(Button.builder(
-                Component.literal("+"),
-                b -> adjustBox(rangeBox, 1, MAX_RANGE)
-        ).bounds(leftPos + 120, row(1), 20, 20).build());
-
-        addRenderableWidget(Button.builder(
-                Component.literal("-"),
-                b -> adjustBox(speedBox, -1, MAX_SPEED)
-        ).bounds(leftPos + 10, row(2), 20, 20).build());
-
-        speedBox = new EditBox(
-                font,
-                leftPos + 35,
-                row(2),
-                80,
-                20,
-                Component.literal("Speed")
-        );
-
+        addRenderableWidget(Button.builder(Component.literal("-"), b -> adjustBox(speedBox, -1, 2))
+                .bounds(this.leftPos + 10, row(2), 20, 20).build());
+        speedBox = new EditBox(this.font, this.leftPos + 35, row(2), 80, 20, Component.literal("Speed"));
         speedBox.setValue(String.valueOf(speed));
+        addNumberLimiter(speedBox, 0, 2);
         addRenderableWidget(speedBox);
+        addRenderableWidget(Button.builder(Component.literal("+"), b -> adjustBox(speedBox, 1, 2))
+                .bounds(this.leftPos + 120, row(2), 20, 20).build());
 
-        addRenderableWidget(Button.builder(
-                Component.literal("+"),
-                b -> adjustBox(speedBox, 1, MAX_SPEED)
-        ).bounds(leftPos + 120, row(2), 20, 20).build());
-
-        addRenderableWidget(Button.builder(
-                Component.translatable("gui.herobrines_world.smart_chip.save_transfer"),
-                b -> saveTransfer()
-        ).bounds(leftPos + 10, row(4), 160, 20).build());
+        addRenderableWidget(Button.builder(Component.translatable("gui.herobrines_world.smart_chip.save_transfer"), b -> saveTransfer())
+                .bounds(this.leftPos + 10, row(4), 160, 20).build());
     }
 
     private void buildAccessTab() {
         accessButton = addRenderableWidget(Button.builder(
                 Component.translatable("gui.herobrines_world.smart_chip.access_mode",
                         Component.translatable(
-                                "gui.herobrines_world.smart_chip.access_mode." +
-                                        accessMode.name().toLowerCase()
+                                "gui.herobrines_world.smart_chip.access_mode." + accessMode.name().toLowerCase()
                         )),
                 b -> {
                     accessMode = nextAccess(accessMode);
                     updateAccessButtons();
                 }
-        ).bounds(leftPos + 10, row(0), 160, 20).build());
+        ).bounds(this.leftPos + 10, row(0), 160, 20).build());
 
-        addRenderableWidget(Button.builder(
-                Component.literal("-"),
-                b -> adjustBox(tierBox, -1, MAX_ACCESS_TIER)
-        ).bounds(leftPos + 10, row(1), 20, 20).build());
-
-        tierBox = new EditBox(
-                font,
-                leftPos + 35,
-                row(1),
-                80,
-                20,
-                Component.literal("Tier")
-        );
-
+        addRenderableWidget(Button.builder(Component.literal("-"), b -> adjustBox(tierBox, -1, 10))
+                .bounds(this.leftPos + 10, row(1), 20, 20).build());
+        tierBox = new EditBox(this.font, this.leftPos + 35, row(1), 80, 20, Component.literal("Tier"));
         tierBox.setValue(String.valueOf(level));
+        addNumberLimiter(tierBox, 0, 10);
         addRenderableWidget(tierBox);
+        addRenderableWidget(Button.builder(Component.literal("+"), b -> adjustBox(tierBox, 1, 10))
+                .bounds(this.leftPos + 120, row(1), 20, 20).build());
 
-        addRenderableWidget(Button.builder(
-                Component.literal("+"),
-                b -> adjustBox(tierBox, 1, MAX_ACCESS_TIER)
-        ).bounds(leftPos + 120, row(1), 20, 20).build());
-
-        ownerBox = new EditBox(
-                font,
-                leftPos + 10,
-                row(2),
-                120,
-                20,
-                Component.literal("Owner UUID")
-        );
-
+        ownerBox = new EditBox(this.font, this.leftPos + 10, row(2), 120, 20, Component.literal("Owner UUID"));
         ownerBox.setMaxLength(36);
-
         ownerBox.setValue(owner == null ? "" : owner.toString());
-
         ownerBox.setFilter(this::isValidUuidInput);
-
         addRenderableWidget(ownerBox);
 
         addRenderableWidget(Button.builder(
@@ -235,128 +172,67 @@ public class SmartChipScreen extends AbstractContainerScreen<SmartChipMenu> {
                 }
         ).bounds(leftPos + 135, row(2), 40, 20).build());
 
-        addRenderableWidget(Button.builder(
-                Component.translatable("gui.herobrines_world.smart_chip.save_access"),
-                b -> saveAccess()
-        ).bounds(leftPos + 10, row(4), 160, 20).build());
-    }
-
-    private void saveCurrentInputs() {
-        if (ownerBox != null) {
-            owner = parseOwner();
-        }
-
-        if (tierBox != null) {
-            level = parse(tierBox.getValue(),
-                    MIN_ACCESS_TIER,
-                    MAX_ACCESS_TIER);
-        }
-
-        if (rangeBox != null) {
-            range = parse(rangeBox.getValue(),
-                    MIN_RANGE,
-                    MAX_RANGE);
-        }
-
-        if (speedBox != null) {
-            speed = parse(speedBox.getValue(),
-                    MIN_SPEED,
-                    MAX_SPEED);
-        }
-    }
-
-    private int parse(String text, int min, int max) {
-        try {
-            return Math.clamp(Integer.parseInt(text), min, max);
-        } catch (NumberFormatException e) {
-            return min;
-        }
-    }
-
-    private UUID parseOwner() {
-        String value = ownerBox.getValue();
-
-        assert minecraft.player != null;
-
-        if (value.isBlank()) {
-            return minecraft.player.getUUID();
-        }
-
-        try {
-            return UUID.fromString(value.trim());
-        } catch (IllegalArgumentException e) {
-            return minecraft.player.getUUID();
-        }
-    }
-
-    private void updateTransferButtons() {
-        modeButton.setMessage(Component.translatable(
-                "gui.herobrines_world.smart_chip.transfer_mode",
-                Component.translatable(
-                        "gui.herobrines_world.smart_chip.transfer_mode." +
-                                transferMode.name().toLowerCase()
-                )));
-    }
-
-    private void updateAccessButtons() {
-        accessButton.setMessage(Component.translatable(
-                "gui.herobrines_world.smart_chip.access_mode",
-                Component.translatable(
-                        "gui.herobrines_world.smart_chip.access_mode." +
-                                accessMode.name().toLowerCase()
-                )));
-    }
-
-    private void saveTransfer() {
-        saveAll();
-    }
-
-    private void saveAccess() {
-        saveAll();
+        addRenderableWidget(Button.builder(Component.translatable("gui.herobrines_world.smart_chip.save_access"), b -> saveAccess())
+                .bounds(leftPos + 10, row(4), 160, 20).build());
     }
 
     private void saveAll() {
-        int parsedRange = range;
-        int parsedSpeed = speed;
-        int parsedLevel = level;
-        UUID parsedOwner = owner;
+        int range = parseBox(rangeBox);
+        int speed = parseBox(speedBox);
+        int accessTier = parseBox(tierBox);
+        UUID owner = parseBoxOwner(ownerBox);
 
-        if (rangeBox != null) {
-            parsedRange = parse(rangeBox.getValue(), MIN_RANGE, MAX_RANGE);
-        }
-
-        if (speedBox != null) {
-            parsedSpeed = parse(speedBox.getValue(), MIN_SPEED, MAX_SPEED);
-        }
-
-        if (tierBox != null) {
-            parsedLevel = parse(tierBox.getValue(),
-                    MIN_ACCESS_TIER,
-                    MAX_ACCESS_TIER);
-        }
-
-        if (ownerBox != null) {
-            parsedOwner = parseOwner();
-        }
-
-        range = parsedRange;
-        speed = parsedSpeed;
-        level = parsedLevel;
-        owner = parsedOwner;
-
-        ClientPacketDistributor.sendToServer(
-                new SyncChipPacket(
-                        transferMode,
-                        parsedRange,
-                        parsedSpeed,
-                        accessMode,
-                        parsedOwner,
-                        parsedLevel
-                )
-        );
+        ClientPacketDistributor.sendToServer(new SyncChipPacket(transferMode, range, speed, accessMode, owner, accessTier));
     }
 
-    private void adjustBox(EditBox box, int delta, int max) {
+    public void addNumberLimiter(@NotNull EditBox box, int min, int max) {
+        box.setFilter(this::onlyDigits);
+
+        box.setResponder(input -> {
+            if (input.isEmpty()) return;
+
+            int value = Integer.parseInt(input);
+
+            if (value < min) {
+                if (!box.getValue().equals(String.valueOf(min))) {
+                    box.setValue(String.valueOf(min));
+                }
+                return;
+            }
+
+            if (value > max) {
+                if (!box.getValue().equals(String.valueOf(max))) {
+                    box.setValue(String.valueOf(max));
+                }
+            }
+        });
+    }
+
+    private boolean onlyDigits(@NotNull String s) {
+        if (s.isEmpty()) return true;
+        for (int i = 0; i < s.length(); i++) {
+            if (!Character.isDigit(s.charAt(i))) return false;
+        }
+        return true;
+    }
+
+    private int parseBox(@NotNull EditBox box) {
+        try {
+            return Integer.parseInt(box.getValue());
+        } catch (NumberFormatException e) {
+            return 0;
+        }
+    }
+
+    private @Nullable UUID parseBoxOwner(EditBox box) {
+        try {
+            return UUID.fromString(box.getValue());
+        } catch (IllegalArgumentException e) {
+            return null;
+        }
+    }
+
+    private void adjustBox(@NotNull EditBox box, int delta, int max) {
         try {
             int value = Integer.parseInt(box.getValue());
             value += delta;
@@ -368,45 +244,71 @@ public class SmartChipScreen extends AbstractContainerScreen<SmartChipMenu> {
         }
     }
 
-    private TransferMode nextMode(TransferMode mode) {
+    private void saveCurrentInputs() {
+        if (ownerBox != null) {
+            owner = parseBoxOwner(ownerBox);
+        }
+
+        if (tierBox != null) {
+            level = parseBox(tierBox);
+        }
+
+        if (rangeBox != null) {
+            range = parseBox(rangeBox);
+        }
+
+        if (speedBox != null) {
+            speed = parseBox(speedBox);
+        }
+    }
+
+    private void updateTransferButtons() {
+        modeButton.setMessage(Component.translatable(
+                "gui.herobrines_world.smart_chip.transfer_mode",
+                Component.translatable(
+                        "gui.herobrines_world.smart_chip.transfer_mode." + transferMode.name().toLowerCase()
+                )));
+    }
+
+    private void updateAccessButtons() {
+        accessButton.setMessage(Component.translatable(
+                "gui.herobrines_world.smart_chip.access_mode",
+                Component.translatable(
+                        "gui.herobrines_world.smart_chip.access_mode." + accessMode.name().toLowerCase()
+                )));
+    }
+
+    private void saveTransfer() {
+        saveAll();
+    }
+
+    private void saveAccess() {
+        saveAll();
+    }
+
+    private TransferMode nextMode(@NotNull TransferMode mode) {
         return switch (mode) {
-
             case INSERT -> TransferMode.EXTRACT;
-
             case EXTRACT -> TransferMode.INSERT;
         };
     }
 
-    private AccessMode nextAccess(AccessMode level) {
+    private AccessMode nextAccess(@NotNull AccessMode level) {
         return switch (level) {
-
             case PUBLIC -> AccessMode.PRIVATE;
-
             case PRIVATE -> AccessMode.TRUSTED;
-
             case TRUSTED -> AccessMode.OWNER_ONLY;
-
             case OWNER_ONLY -> AccessMode.PUBLIC;
         };
     }
 
-    private boolean isValidUuidInput(String text) {
+    private boolean isValidUuidInput(@NotNull String text) {
         return text.length() <= 36 &&
                 text.matches("[0-9a-fA-F\\-]*");
     }
 
     private int row(int index) {
-        return topPos + START_Y + (index * LINE_HEIGHT);
-    }
-
-    @Override
-    public void render(@NonNull GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
-
-        renderBackground(graphics, mouseX, mouseY, partialTick);
-
-        super.render(graphics, mouseX, mouseY, partialTick);
-
-        renderTooltip(graphics, mouseX, mouseY);
+        return this.topPos + 35 + (index * 25);
     }
 
     @Override
@@ -414,14 +316,12 @@ public class SmartChipScreen extends AbstractContainerScreen<SmartChipMenu> {
     }
 
     @Override
+    public void render(@NonNull GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
+        this.renderBackground(graphics, mouseX, mouseY, partialTick);
+        super.render(graphics, mouseX, mouseY, partialTick);
+    }
+
+    @Override
     protected void renderLabels(@NonNull GuiGraphics graphics, int mouseX, int mouseY) {
-        graphics.drawString(
-                font,
-                title,
-                8,
-                6,
-                0xFFFFFF,
-                false
-        );
     }
 }

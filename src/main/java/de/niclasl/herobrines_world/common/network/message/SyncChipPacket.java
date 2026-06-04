@@ -17,7 +17,7 @@ import org.jspecify.annotations.NonNull;
 
 import java.util.UUID;
 
-public record SyncChipPacket(TransferMode mode, int range, int speed, AccessMode accessLevel, UUID owner, int accessTier) implements CustomPacketPayload {
+public record SyncChipPacket(TransferMode transferMode, int range, int speed, AccessMode accessMode, UUID owner, int accessTier) implements CustomPacketPayload {
 
     public static final Type<SyncChipPacket> TYPE =
             new Type<>(Identifier.fromNamespaceAndPath(HerobrinesWorld.MODID, "sync_chip"));
@@ -25,10 +25,10 @@ public record SyncChipPacket(TransferMode mode, int range, int speed, AccessMode
     public static final StreamCodec<RegistryFriendlyByteBuf, SyncChipPacket> STREAM_CODEC =
             StreamCodec.of(
                     (buf, msg) -> {
-                        buf.writeInt(msg.mode().ordinal());
+                        buf.writeInt(msg.transferMode().ordinal());
                         buf.writeInt(msg.range());
                         buf.writeInt(msg.speed());
-                        buf.writeInt(msg.accessLevel().ordinal());
+                        buf.writeInt(msg.accessMode().ordinal());
                         buf.writeBoolean(msg.owner() != null);
                         if (msg.owner() != null) {
                             buf.writeUUID(msg.owner());
@@ -86,14 +86,14 @@ public record SyncChipPacket(TransferMode mode, int range, int speed, AccessMode
                             oldTransfer.pos(),
                             oldTransfer.dim(),
                             msg.speed(),
-                            msg.mode()
+                            msg.transferMode()
                     )
             );
 
             stack.set(ModDataComponents.ACCESS.get(),
                     new SmartChipData.Access(
                             owner,
-                            msg.accessLevel(),
+                            msg.accessMode(),
                             msg.accessTier()
                     )
             );
