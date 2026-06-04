@@ -46,22 +46,6 @@
           ],
           "name": "herobrines_world:ash_ingot",
           "weight": 2
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "add": false,
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 2.0,
-                "min": 1.0
-              },
-              "function": "minecraft:set_count"
-            }
-          ],
-          "name": "herobrines_world:ash",
-          "weight": 2
         }
       ],
       "rolls": {

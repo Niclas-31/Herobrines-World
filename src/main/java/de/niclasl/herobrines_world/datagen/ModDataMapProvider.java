@@ -1,11 +1,9 @@
 package de.niclasl.herobrines_world.datagen;
 
 import de.niclasl.herobrines_world.common.registries.entity.ModEntities;
-import de.niclasl.herobrines_world.common.registries.item.ModItems;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.neoforged.neoforge.common.data.DataMapProvider;
-import net.neoforged.neoforge.registries.datamaps.builtin.FurnaceFuel;
 import net.neoforged.neoforge.registries.datamaps.builtin.MonsterRoomMob;
 import net.neoforged.neoforge.registries.datamaps.builtin.NeoForgeDataMaps;
 import org.jetbrains.annotations.NotNull;
@@ -20,9 +18,6 @@ public class ModDataMapProvider extends DataMapProvider {
 
     @Override
     protected void gather(HolderLookup.@NotNull Provider provider) {
-        this.builder(NeoForgeDataMaps.FURNACE_FUELS)
-                .add(ModItems.ASH.getId(), new FurnaceFuel(5000), false);
-
         this.builder(NeoForgeDataMaps.MONSTER_ROOM_MOBS)
                 .add(ModEntities.BAD_HEROBRINE_KEY, new MonsterRoomMob(100), false);
     }

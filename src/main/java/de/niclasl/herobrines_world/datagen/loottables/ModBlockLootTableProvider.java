@@ -39,8 +39,8 @@ public class ModBlockLootTableProvider extends BlockLootSubProvider {
         add(ModBlocks.DEEPSLATE_FROZEN_HEART_ORE.get(), block -> createOreDrop(block, ModItems.FROZEN_HEART.get()));
         add(ModBlocks.GREEN_ORE.get(), block -> createOreDrop(block, ModItems.GREEN_GEMSTONE.get()));
         add(ModBlocks.DEEPSLATE_GREEN_ORE.get(), block -> createOreDrop(block, ModItems.GREEN_GEMSTONE.get()));
-        add(ModBlocks.ASH_ORE.get(), block -> createOreDrop(block, ModItems.ASH.get()));
-        add(ModBlocks.DEEPSLATE_ASH_ORE.get(), block -> createOreDrop(block, ModItems.ASH.get()));
+        add(ModBlocks.ASH_ORE.get(), block -> createOreDrop(block, ModItems.ASH_INGOT.get()));
+        add(ModBlocks.DEEPSLATE_ASH_ORE.get(), block -> createOreDrop(block, ModItems.ASH_INGOT.get()));
         add(ModBlocks.HEROBRINE_ORE.get(), block -> createOreDrop(block, ModItems.HEROBRINE_DIAMOND.get()));
         add(ModBlocks.DEEPSLATE_HEROBRINE_ORE.get(), block -> createOreDrop(block, ModItems.HEROBRINE_DIAMOND.get()));
         add(ModBlocks.PLATINE_ORE.get(), block -> createOreDrop(block, ModItems.PLATIN_INGOT.get()));

@@ -184,7 +184,6 @@ public class ModCreativeModeTabs {
 							.title(Component.translatable("item_group.herobrines_world.herobrine_ingredients"))
 							.displayItems((parameters, tabData) -> {
 								tabData.accept(ModItems.HEROBRINE_DIAMOND);
-								tabData.accept(ModItems.ASH);
 								tabData.accept(ModItems.ASH_INGOT);
 								tabData.accept(ModItems.FROZEN_HEART);
 								tabData.accept(ModItems.PLATIN_INGOT);

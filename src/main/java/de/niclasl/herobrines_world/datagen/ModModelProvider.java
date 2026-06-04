@@ -74,7 +74,6 @@ public class ModModelProvider extends ModelProvider {
         ModMapping.createCardReader(blockModels);
 
         itemModels.generateFlatItem(ModItems.HEROBRINE_DIAMOND.get(), ModelTemplates.FLAT_ITEM);
-        itemModels.generateFlatItem(ModItems.ASH.get(), ModelTemplates.FLAT_ITEM);
         itemModels.generateFlatItem(ModItems.ASH_INGOT.get(), ModelTemplates.FLAT_ITEM);
         itemModels.generateFlatItem(ModItems.ASH_PICKAXE.get(), ModelTemplates.FLAT_HANDHELD_ITEM);
         itemModels.generateFlatItem(ModItems.FROZEN_HEART.get(), ModelTemplates.FLAT_ITEM);

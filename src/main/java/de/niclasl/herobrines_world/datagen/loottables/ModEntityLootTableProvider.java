@@ -35,9 +35,6 @@ public class ModEntityLootTableProvider extends EntityLootSubProvider {
                         .add(LootItem.lootTableItem(ModItems.ASH_INGOT)
                                 .setWeight(2)
                                 .apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 2))))
-                        .add(LootItem.lootTableItem(ModItems.ASH)
-                                .setWeight(2)
-                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 2))))
                 ));
 
         this.add(ModEntities.GOOD_HEROBRINE.get(), new LootTable.Builder()

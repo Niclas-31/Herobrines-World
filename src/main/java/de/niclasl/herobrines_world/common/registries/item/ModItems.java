@@ -17,10 +17,6 @@ public class ModItems {
 			"herobrine_diamond",
 			(properties) -> new Item(properties.rarity(Rarity.EPIC)));
 
-	public static final DeferredItem<Item> ASH = ITEMS.registerItem(
-			"ash",
-			(properties) -> new Item(properties.rarity(Rarity.UNCOMMON).fireResistant()));
-
 	public static final DeferredItem<Item> ASH_INGOT = ITEMS.registerItem(
 			"ash_ingot",
 			(properties) -> new Item(properties.rarity(Rarity.UNCOMMON).fireResistant()));
