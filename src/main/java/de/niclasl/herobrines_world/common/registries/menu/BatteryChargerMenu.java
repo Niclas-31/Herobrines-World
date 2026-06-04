@@ -24,7 +24,14 @@ public class BatteryChargerMenu extends AbstractContainerMenu {
 
         this.entity = (BatteryChargerBlockEntity) blockEntity;
 
-        this.addSlot(new Slot(entity, 0, 80, 36) {
+        this.addSlot(new Slot(entity, 0, 62, 36) {
+            @Override
+            public boolean mayPlace(@NotNull ItemStack stack) {
+                return stack.getItem() instanceof BatteryItem;
+            }
+        });
+
+        this.addSlot(new Slot(entity, 1, 98, 36) {
             @Override
             public boolean mayPlace(@NotNull ItemStack stack) {
                 return stack.getItem() instanceof BatteryItem;
@@ -55,27 +62,32 @@ public class BatteryChargerMenu extends AbstractContainerMenu {
 
     @Override
     public @NotNull ItemStack quickMoveStack(@NotNull Player player, int index) {
-        ItemStack result;
         Slot slot = this.slots.get(index);
 
-        if (!slot.hasItem()) return ItemStack.EMPTY;
+        if (!slot.hasItem()) {
+            return ItemStack.EMPTY;
+        }
 
         ItemStack stack = slot.getItem();
-        result = stack.copy();
+        ItemStack result = stack.copy();
 
-        int batterySlotIndex = 0;
-        int playerStart = 1;
+        int batteryStart = 0;
+        int batteryEnd = 2;
+
+        int playerStart = 2;
         int playerEnd = this.slots.size();
 
-        if (index == batterySlotIndex) {
+        if (index < batteryEnd) {
             if (!this.moveItemStackTo(stack, playerStart, playerEnd, true)) {
                 return ItemStack.EMPTY;
             }
         } else {
             if (stack.getItem() instanceof BatteryItem) {
-                if (!this.moveItemStackTo(stack, batterySlotIndex, batterySlotIndex + 1, false)) {
+                if (!this.moveItemStackTo(stack, batteryStart, batteryEnd, false)) {
                     return ItemStack.EMPTY;
                 }
+            } else {
+                return ItemStack.EMPTY;
             }
         }
 

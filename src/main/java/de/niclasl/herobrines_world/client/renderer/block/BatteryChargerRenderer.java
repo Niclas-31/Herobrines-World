@@ -18,6 +18,7 @@ import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
 
 public class BatteryChargerRenderer implements BlockEntityRenderer<BatteryChargerBlockEntity, BatteryChargerRenderState> {
     private final ItemModelResolver itemModelResolver;
@@ -38,35 +39,77 @@ public class BatteryChargerRenderer implements BlockEntityRenderer<BatteryCharge
 
         renderState.lightPosition = blockEntity.getBlockPos();
         renderState.blockEntityLevel = blockEntity.getLevel();
+        renderState.facing = blockEntity.getBlockState().getValue(BatteryChargerBlock.FACING);
 
-        itemModelResolver.updateForTopItem(renderState.itemStackRenderState,
+        itemModelResolver.updateForTopItem(renderState.itemStackRenderState1,
                 blockEntity.items.getFirst(), ItemDisplayContext.FIXED, blockEntity.getLevel(), null, 0);
+        itemModelResolver.updateForTopItem(renderState.itemStackRenderState2,
+                blockEntity.items.getLast(), ItemDisplayContext.FIXED, blockEntity.getLevel(), null, 0);
     }
 
     @Override
-    public void submit(@NotNull BatteryChargerRenderState renderState, PoseStack poseStack,
+    public void submit(@NotNull BatteryChargerRenderState renderState, @NonNull PoseStack poseStack,
                        @NotNull SubmitNodeCollector submitNodeCollector, @NotNull CameraRenderState cameraRenderState) {
-        poseStack.pushPose();
+        float posX1 = 1f;
+        float posZ1 = 1f;
 
-        float x = 1f;
-        float y = 0.31f;
-        float z = 1f;
+        float y = 0.82f;
 
-        if (renderState.blockEntityLevel != null && renderState.lightPosition != null) {
-            BatteryChargerBlockEntity be = (BatteryChargerBlockEntity) renderState.blockEntityLevel.getBlockEntity(renderState.lightPosition);
-            if (be != null) {
-                switch (be.getBlockState().getValue(BatteryChargerBlock.FACING)) {
-                    case NORTH -> { x = 0.5f; z = 0.31f; }
-                    case SOUTH -> { x = 0.5f; z = 0.69f; }
-                    case EAST  -> { x = 0.69f; z = 0.5f; }
-                    case WEST  -> { x = 0.31f; z = 0.5f; }
-                }
+        float posX2 = 1f;
+        float posZ2 = 1f;
+
+        switch (renderState.facing) {
+            case NORTH -> {
+                posX1 = 0.375f;
+                posZ1 = 0.9f;
+
+                posX2 = 0.625f;
+                posZ2 = 0.9f;
+            }
+            case SOUTH -> {
+                posX1 = 0.625f;
+                posZ1 = 0.1f;
+
+                posX2 = 0.375f;
+                posZ2 = 0.1f;
+            }
+            case EAST  -> {
+                posX1 = 0.1f;
+                posZ1 = 0.375f;
+
+                posX2 = 0.1f;
+                posZ2 = 0.625f;
+            }
+            case WEST  -> {
+                posX1 = 0.9f;
+                posZ1 = 0.625f;
+
+                posX2 = 0.9f;
+                posZ2 = 0.375f;
             }
         }
 
-        poseStack.translate(x, y, z);
+        poseStack.pushPose();
 
-        renderState.itemStackRenderState.submit(
+        poseStack.translate(posX2, y, posZ2);
+        poseStack.scale(1f, 0.75f, 1f);
+
+        renderState.itemStackRenderState1.submit(
+                poseStack,
+                submitNodeCollector,
+                getLightLevel(renderState.blockEntityLevel, renderState.lightPosition),
+                OverlayTexture.NO_OVERLAY,
+                0
+        );
+
+        poseStack.popPose();
+
+        poseStack.pushPose();
+
+        poseStack.translate(posX1, y, posZ1);
+        poseStack.scale(1f, 0.75f, 1f);
+
+        renderState.itemStackRenderState2.submit(
                 poseStack,
                 submitNodeCollector,
                 getLightLevel(renderState.blockEntityLevel, renderState.lightPosition),

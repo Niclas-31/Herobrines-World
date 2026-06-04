@@ -27,8 +27,9 @@ import org.jetbrains.annotations.Nullable;
 
 public class BatteryChargerBlockEntity extends BlockEntity implements Container, MenuProvider {
 
-    private static final int SLOT_BATTERY = 0;
-    private static final int SLOT_COUNT = 1;
+    private static final int SLOT_BATTERY_1 = 0;
+    private static final int SLOT_BATTERY_2 = 1;
+    private static final int SLOT_COUNT = 2;
 
     public NonNullList<ItemStack> items = NonNullList.withSize(SLOT_COUNT, ItemStack.EMPTY);
 
@@ -69,10 +70,18 @@ public class BatteryChargerBlockEntity extends BlockEntity implements Container,
             if (be.tickCounter >= 200) {
                 be.tickCounter = 0;
 
-                ItemStack stack = be.items.get(SLOT_BATTERY);
+                ItemStack stack1 = be.items.get(SLOT_BATTERY_1);
+                ItemStack stack2 = be.items.get(SLOT_BATTERY_2);
 
-                if (!stack.isEmpty() && stack.getItem() instanceof BatteryItem battery) {
-                    battery.addEnergy(stack, 100);
+                if (!stack1.isEmpty() && stack1.getItem() instanceof BatteryItem battery) {
+                    battery.addEnergy(stack1, 100);
+
+                    be.setChanged();
+                    be.sync();
+                }
+
+                if (!stack2.isEmpty() && stack2.getItem() instanceof BatteryItem battery) {
+                    battery.addEnergy(stack2, 100);
 
                     be.setChanged();
                     be.sync();
@@ -139,7 +148,7 @@ public class BatteryChargerBlockEntity extends BlockEntity implements Container,
     }
 
     private boolean isItemValid(int slot, ItemStack stack) {
-        return slot == SLOT_BATTERY && stack.getItem() instanceof BatteryItem;
+        return slot == SLOT_BATTERY_1 || slot == SLOT_BATTERY_2 && stack.getItem() instanceof BatteryItem;
     }
 
     @Override

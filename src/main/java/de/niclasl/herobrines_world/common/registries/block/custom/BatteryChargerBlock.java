@@ -1,14 +1,15 @@
 package de.niclasl.herobrines_world.common.registries.block.custom;
 
 import com.mojang.serialization.MapCodec;
-import de.niclasl.herobrines_world.common.registries.block.entity.ModBlockEntities;
 import de.niclasl.herobrines_world.common.registries.block.entity.BatteryChargerBlockEntity;
+import de.niclasl.herobrines_world.common.registries.block.entity.ModBlockEntities;
 import de.niclasl.herobrines_world.common.registries.item.ModItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.SimpleMenuProvider;
@@ -17,9 +18,11 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -37,40 +40,18 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.jspecify.annotations.NonNull;
 
+import java.util.Map;
+
 public class BatteryChargerBlock extends BaseEntityBlock {
-
     public static final MapCodec<BatteryChargerBlock> CODEC = simpleCodec(BatteryChargerBlock::new);
-
-    public static final VoxelShape SOUTH_SHAPE = Shapes.or(
-            Block.box(3, 0, 9, 13, 1, 16),
-            Block.box(3, 9, 10, 13, 10, 16),
-            Block.box(3, 1, 15, 13, 9, 16),
-            Block.box(3, 10, 11, 13, 11, 16)
-    );
-
-    public static final VoxelShape NORTH_SHAPE = Shapes.or(
-            Block.box(3, 0, 0, 13, 1, 7),
-            Block.box(3, 9, 0, 13, 10, 6),
-            Block.box(3, 1, 0, 13, 9, 1),
-            Block.box(3, 10, 0, 13, 11, 5)
-    );
-
-    public static final VoxelShape WEST_SHAPE = Shapes.or(
-            Block.box(0, 0, 3, 7, 1, 13),
-            Block.box(0, 9, 3, 6, 10, 13),
-            Block.box(0, 1, 3, 1, 9, 13),
-            Block.box(0, 10, 3, 5, 11, 13)
-    );
-
-    public static final VoxelShape EAST_SHAPE = Shapes.or(
-            Block.box(9, 0, 3, 16, 1, 13),
-            Block.box(10, 9, 3, 16, 10, 13),
-            Block.box(15, 1, 3, 16, 9, 13),
-            Block.box(11, 10, 3, 16, 11, 13)
-    );
-
-    public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
     public static final EnumProperty<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
+    public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
+    private static final Map<Direction, VoxelShape> SHAPES = Shapes.rotateHorizontal(Block.box(4, 6, 13,12, 7, 16));
+
+    @Override
+    protected @NotNull MapCodec<BatteryChargerBlock> codec() {
+        return CODEC;
+    }
 
     public BatteryChargerBlock(Properties properties) {
         super(properties);
@@ -80,20 +61,47 @@ public class BatteryChargerBlock extends BaseEntityBlock {
     }
 
     @Override
-    public @NotNull BlockState getStateForPlacement(BlockPlaceContext context) {
-        return this.defaultBlockState()
-                .setValue(FACING, context.getHorizontalDirection().getOpposite())
-                .setValue(POWERED, false);
+    protected @NotNull VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter level,
+                                           @NotNull BlockPos pos, @NotNull CollisionContext context) {
+        return SHAPES.get(state.getValue(FACING));
+    }
+
+    protected boolean canSurvive(BlockState state, @NonNull LevelReader level, @NonNull BlockPos pos) {
+        return canSurvive(level, pos, state.getValue(FACING));
+    }
+
+    public static boolean canSurvive(LevelReader level, BlockPos pos, Direction facing) {
+        BlockPos blockpos = pos.relative(facing.getOpposite());
+        BlockState blockstate = level.getBlockState(blockpos);
+        return blockstate.isFaceSturdy(level, blockpos, facing);
     }
 
     @Override
-    protected @NotNull MapCodec<BatteryChargerBlock> codec() {
-        return CODEC;
+    public @Nullable BlockState getStateForPlacement(BlockPlaceContext context) {
+        BlockState blockstate = this.defaultBlockState();
+        LevelReader levelreader = context.getLevel();
+        BlockPos blockpos = context.getClickedPos();
+        Direction[] adirection = context.getNearestLookingDirections();
+
+        for(Direction direction : adirection) {
+            if (direction.getAxis().isHorizontal()) {
+                Direction direction1 = direction.getOpposite();
+                blockstate = blockstate.setValue(FACING, direction1);
+                if (blockstate.canSurvive(levelreader, blockpos)) {
+                    return blockstate;
+                }
+            }
+        }
+
+        return null;
     }
 
     @Override
-    public @NotNull RenderShape getRenderShape(@NotNull BlockState state) {
-        return RenderShape.MODEL;
+    protected @NonNull BlockState updateShape(@NotNull BlockState state, @NonNull LevelReader reader,
+                                              @NonNull ScheduledTickAccess tick, @NonNull BlockPos pos,
+                                              @NotNull Direction direction, @NonNull BlockPos neighborPos, @NonNull BlockState neighborState,
+                                              @NonNull RandomSource randomSource) {
+        return direction.getOpposite() == state.getValue(FACING) && !state.canSurvive(reader, pos) ? Blocks.AIR.defaultBlockState() : state;
     }
 
     @Override
@@ -131,34 +139,35 @@ public class BatteryChargerBlock extends BaseEntityBlock {
     }
 
     @Override
-    protected @NotNull VoxelShape getShape(@NotNull BlockState state,
-                                           @NotNull BlockGetter level,
-                                           @NotNull BlockPos pos,
-                                           @NotNull CollisionContext context) {
-
-        return switch (state.getValue(FACING)) {
-            case SOUTH -> SOUTH_SHAPE;
-            case EAST  -> EAST_SHAPE;
-            case WEST  -> WEST_SHAPE;
-            default -> NORTH_SHAPE;
-        };
-    }
-
-    @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(POWERED, FACING);
     }
 
     @Override
-    protected void neighborChanged(@NotNull BlockState state, @NotNull Level level,
-                                   @NotNull BlockPos pos, @NotNull Block neighborBlock,
-                                   @Nullable Orientation orientation, boolean movedByPiston) {
-        if (level.isClientSide()) return;
+    protected void neighborChanged(BlockState state,
+                                   Level level,
+                                   BlockPos pos,
+                                   @NonNull Block neighborBlock,
+                                   @Nullable Orientation orientation,
+                                   boolean movedByPiston) {
 
         Direction facing = state.getValue(FACING);
-        BlockPos backPos = pos.relative(facing);
 
-        boolean powered = level.getSignal(backPos, facing) > 0;
+        BlockPos supportPos = pos.relative(facing.getOpposite());
+        BlockState supportState = level.getBlockState(supportPos);
+
+        if (!supportState.isFaceSturdy(
+                level,
+                supportPos,
+                facing.getOpposite())) {
+
+            level.destroyBlock(pos, true);
+            return;
+        }
+
+        if (level.isClientSide()) return;
+
+        boolean powered = level.getSignal(supportPos, facing) > 0;
 
         if (powered != state.getValue(POWERED)) {
             level.setBlock(pos, state.setValue(POWERED, powered), Block.UPDATE_ALL);
