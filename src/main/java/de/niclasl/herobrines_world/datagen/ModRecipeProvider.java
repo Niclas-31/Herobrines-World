@@ -555,12 +555,20 @@ public class ModRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_redstone", has(Items.REDSTONE)).save(output);
 
         shaped(RecipeCategory.MISC, ModBlocks.LUMBERJACK_TABLE.get())
-                .pattern("LLL")
+                .pattern(" L ")
                 .pattern("LCL")
-                .pattern("LLL")
+                .pattern(" L ")
                 .define('L', Items.OAK_LOG)
                 .define('C', Items.CRAFTING_TABLE)
                 .unlockedBy("has_crafting_table", has(Items.CRAFTING_TABLE)).save(output);
+
+        shaped(RecipeCategory.MISC, ModItems.WAYPOINT_COMPASS.get())
+                .pattern(" G ")
+                .pattern("GCG")
+                .pattern(" G ")
+                .define('G', Items.GOLD_INGOT)
+                .define('C', Items.COMPASS)
+                .unlockedBy("has_gold", has(Items.GOLD_INGOT)).save(output);
     }
 
     protected void oreSmelting(RecipeOutput recipeOutput, List<ItemLike> pIngredients, RecipeCategory pCategory, ItemLike pResult,

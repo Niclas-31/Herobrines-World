@@ -6,9 +6,9 @@
     "L": "minecraft:oak_log"
   },
   "pattern": [
-    "LLL",
+    " L ",
     "LCL",
-    "LLL"
+    " L "
   ],
   "result": {
     "count": 1,
