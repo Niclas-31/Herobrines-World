@@ -1,7 +1,5 @@
 package de.niclasl.herobrines_world.common.registries.item.custom;
 
-import de.niclasl.herobrines_world.common.registries.block.ModBlocks;
-import de.niclasl.herobrines_world.common.registries.item.ModItems;
 import de.niclasl.herobrines_world.common.registries.item.ModToolTiers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -21,17 +19,52 @@ public class AshPickaxe extends Item {
 	}
 
 	@Override
-	public boolean mineBlock(@NotNull ItemStack itemstack, @NotNull Level world, @NotNull BlockState blockstate, @NotNull BlockPos pos, @NotNull LivingEntity entity) {
-		boolean retval = super.mineBlock(itemstack, world, blockstate, pos, entity);
+	public boolean mineBlock(@NotNull ItemStack itemstack,
+	                         @NotNull Level world,
+	                         @NotNull BlockState blockstate,
+	                         @NotNull BlockPos pos,
+	                         @NotNull LivingEntity entity) {
+		ItemStack result = getSmeltedDrop(blockstate);
 
-		if ((world.getBlockState(BlockPos.containing(pos.getX(), pos.getY(), pos.getZ()))).getBlock() == ModBlocks.ASH_ORE.get() || (world.getBlockState(BlockPos.containing(pos.getX(), pos.getY(), pos.getZ()))).getBlock() == ModBlocks.DEEPSLATE_ASH_ORE.get()) {
-			world.setBlock(BlockPos.containing(pos.getX(), pos.getY(), pos.getZ()), Blocks.AIR.defaultBlockState(), 3);
-			if (world instanceof ServerLevel level) {
-				ItemEntity entityToSpawn = new ItemEntity(level, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(ModItems.ASH_INGOT.get()));
-				entityToSpawn.setPickUpDelay(10);
-				level.addFreshEntity(entityToSpawn);
-			}
+		if (!result.isEmpty() && world instanceof ServerLevel serverLevel) {
+			world.setBlock(pos, Blocks.AIR.defaultBlockState(), 3);
+
+			ItemEntity entityToSpawn =
+					new ItemEntity(serverLevel,
+							pos.getX(),
+							pos.getY(),
+							pos.getZ(),
+							result);
+
+			entityToSpawn.setPickUpDelay(10);
+			serverLevel.addFreshEntity(entityToSpawn);
 		}
-		return retval;
+
+        return false;
+    }
+
+	private static ItemStack getSmeltedDrop(BlockState state) {
+		if (state.is(Blocks.IRON_ORE) || state.is(Blocks.DEEPSLATE_IRON_ORE))
+			return new ItemStack(net.minecraft.world.item.Items.IRON_INGOT);
+
+		if (state.is(Blocks.GOLD_ORE) || state.is(Blocks.DEEPSLATE_GOLD_ORE))
+			return new ItemStack(net.minecraft.world.item.Items.GOLD_INGOT);
+
+		if (state.is(Blocks.COPPER_ORE) || state.is(Blocks.DEEPSLATE_COPPER_ORE))
+			return new ItemStack(net.minecraft.world.item.Items.COPPER_INGOT);
+
+		if (state.is(Blocks.NETHER_GOLD_ORE))
+			return new ItemStack(net.minecraft.world.item.Items.GOLD_NUGGET, 6);
+
+		if (state.is(Blocks.STONE))
+			return new ItemStack(Blocks.STONE);
+
+		if (state.is(Blocks.GLOWSTONE))
+			return new ItemStack(Blocks.GLOWSTONE);
+
+		if (state.is(Blocks.SEA_LANTERN))
+			return new ItemStack(Blocks.SEA_LANTERN);
+
+		return ItemStack.EMPTY;
 	}
 }
