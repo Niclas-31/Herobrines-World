@@ -96,7 +96,6 @@ public class DelayerScreen extends AbstractContainerScreen<DelayerMenu> {
     }
 
     public void addNumberLimiter(EditBox box, int min, int max) {
-
         box.setFilter(this::onlyDigits);
 
         box.setResponder(input -> {
@@ -159,6 +158,5 @@ public class DelayerScreen extends AbstractContainerScreen<DelayerMenu> {
 
     @Override
     protected void renderLabels(@NotNull GuiGraphics guiGraphics, int mouseX, int mouseY) {
-
     }
 }

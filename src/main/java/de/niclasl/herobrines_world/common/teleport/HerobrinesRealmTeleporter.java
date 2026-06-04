@@ -1,34 +1,32 @@
 package de.niclasl.herobrines_world.common.teleport;
 
-import de.niclasl.herobrines_world.common.registries.block.ModBlocks;
-import net.minecraft.util.BlockUtil;
-import net.neoforged.neoforge.registries.RegisterEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.bus.api.SubscribeEvent;
-
-import net.minecraft.world.level.levelgen.Heightmap;
-import net.minecraft.world.level.border.WorldBorder;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.NetherPortalBlock;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.entity.ai.village.poi.PoiType;
-import net.minecraft.world.entity.ai.village.poi.PoiRecord;
-import net.minecraft.world.entity.ai.village.poi.PoiManager;
-import net.minecraft.util.Mth;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.resources.Identifier;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.core.Vec3i;
-import net.minecraft.core.Holder;
-import net.minecraft.core.Direction;
-import net.minecraft.core.BlockPos;
-
-import java.util.Optional;
-import java.util.Comparator;
-
 import com.google.common.collect.ImmutableSet;
+import de.niclasl.herobrines_world.common.registries.block.ModBlocks;
+import de.niclasl.herobrines_world.common.registries.block.custom.HerobrinesRealmPortalBlock;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
+import net.minecraft.core.Vec3i;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.Identifier;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.BlockUtil;
+import net.minecraft.util.Mth;
+import net.minecraft.world.entity.ai.village.poi.PoiManager;
+import net.minecraft.world.entity.ai.village.poi.PoiRecord;
+import net.minecraft.world.entity.ai.village.poi.PoiType;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.border.WorldBorder;
+import net.minecraft.world.level.levelgen.Heightmap;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.registries.RegisterEvent;
+
+import java.util.Comparator;
+import java.util.Optional;
 
 @EventBusSubscriber
 public class HerobrinesRealmTeleporter {
@@ -129,7 +127,7 @@ public class HerobrinesRealmTeleporter {
                 }
             }
         }
-        BlockState blockstate = ModBlocks.HEROBRINES_REALM_PORTAL.get().defaultBlockState().setValue(NetherPortalBlock.AXIS, axis);
+        BlockState blockstate = ModBlocks.HEROBRINES_REALM_PORTAL.get().defaultBlockState().setValue(HerobrinesRealmPortalBlock.AXIS, axis);
         for (int k2 = 0; k2 < 2; k2++) {
             for (int l2 = 0; l2 < 3; l2++) {
                 mutableBlockPos.setWithOffset(blockpos, k2 * direction.getStepX(), l2, k2 * direction.getStepZ());

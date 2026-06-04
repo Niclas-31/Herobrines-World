@@ -2,8 +2,8 @@ package de.niclasl.herobrines_world.common.registries.block.custom;
 
 import com.mojang.logging.LogUtils;
 import com.mojang.serialization.MapCodec;
-import de.niclasl.herobrines_world.common.teleport.HerobrinesRealmTeleporter;
 import de.niclasl.herobrines_world.common.teleport.UnderworldPortalShape;
+import de.niclasl.herobrines_world.common.teleport.UnderworldTeleporter;
 import de.niclasl.herobrines_world.common.worldgen.dimension.ModDimensions;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -118,7 +118,7 @@ public class UnderworldPortalBlock extends Block implements Portal {
 		Direction.Axis direction$axis = direction.getAxis();
 		Direction.Axis direction$axis1 = state.getValue(AXIS);
 		boolean flag = direction$axis1 != direction$axis && direction$axis.isHorizontal();
-		return !flag && !neighborState.is(this) && UnderworldPortalShape.findAnyShape(reader, pos, direction$axis1).isComplete()
+		return !flag && !neighborState.is(this) && !UnderworldPortalShape.findAnyShape(reader, pos, direction$axis1).isComplete()
 				? Blocks.AIR.defaultBlockState()
 				: super.updateShape(state, reader, access, pos, direction, neighborPos, neighborState, source);
 	}
@@ -143,7 +143,7 @@ public class UnderworldPortalBlock extends Block implements Portal {
 	}
 
 	@Override
-	public @org.jspecify.annotations.Nullable TeleportTransition getPortalDestination(ServerLevel level, @NonNull Entity entity, @NonNull BlockPos pos) {
+	public @Nullable TeleportTransition getPortalDestination(ServerLevel level, @NonNull Entity entity, @NonNull BlockPos pos) {
 		ResourceKey<Level> resourcekey = level.dimension() == ModDimensions.UNDERWORLD ? Level.OVERWORLD : ModDimensions.UNDERWORLD;
 		ServerLevel serverlevel = level.getServer().getLevel(resourcekey);
 		if (serverlevel == null) {
@@ -160,7 +160,7 @@ public class UnderworldPortalBlock extends Block implements Portal {
 	private @Nullable TeleportTransition getExitPortal(
 			ServerLevel level, Entity entity, BlockPos pos, BlockPos exitPos, boolean isNether, WorldBorder worldBorder
 	) {
-		HerobrinesRealmTeleporter teleporter = new HerobrinesRealmTeleporter(level);
+		UnderworldTeleporter teleporter = new UnderworldTeleporter(level);
 
 		Optional<BlockPos> optional = teleporter.findClosestPortalPosition(exitPos, isNether, worldBorder);
 		BlockUtil.FoundRectangle blockutil$foundrectangle;
