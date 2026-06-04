@@ -46,7 +46,7 @@ public class BatteryChargerBlock extends BaseEntityBlock {
     public static final MapCodec<BatteryChargerBlock> CODEC = simpleCodec(BatteryChargerBlock::new);
     public static final EnumProperty<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
-    private static final Map<Direction, VoxelShape> SHAPES = Shapes.rotateHorizontal(Block.box(4, 6, 13,12, 7, 16));
+    private static final Map<Direction, VoxelShape> SHAPES = Shapes.rotateHorizontal(getShape());
 
     @Override
     protected @NotNull MapCodec<BatteryChargerBlock> codec() {
@@ -58,6 +58,17 @@ public class BatteryChargerBlock extends BaseEntityBlock {
         this.registerDefaultState(this.stateDefinition.any()
                 .setValue(FACING, Direction.NORTH)
                 .setValue(POWERED, false));
+    }
+
+    private static VoxelShape getShape() {
+        return Shapes.or(
+                Block.box(4, 6, 0,12, 7, 3),
+                Block.box(4, 12, 0, 12, 13, 2),
+                Block.box(4, 7, 0, 12, 12, 1),
+                Block.box(11, 7, 1, 12, 12, 2),
+                Block.box(4, 7, 1, 5, 12, 2),
+                Block.box(7, 7, 1, 9, 12, 2)
+        );
     }
 
     @Override
