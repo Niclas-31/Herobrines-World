@@ -1,6 +1,5 @@
 package de.niclasl.herobrines_world.common.registries.item.custom;
 
-import de.niclasl.herobrines_world.common.registries.item.ModToolTiers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
@@ -15,7 +14,7 @@ import org.jetbrains.annotations.NotNull;
 public class AshPickaxe extends Item {
 
 	public AshPickaxe(Item.Properties properties) {
-		super(properties.pickaxe(ModToolTiers.TOOL_MATERIAL, 3f, -3f).fireResistant());
+		super(properties);
 	}
 
 	@Override
@@ -38,6 +37,9 @@ public class AshPickaxe extends Item {
 
 			entityToSpawn.setPickUpDelay(10);
 			serverLevel.addFreshEntity(entityToSpawn);
+
+			itemstack.hurtAndBreak(1, entity, entity.getEquipmentSlotForItem(itemstack));
+			return true;
 		}
 
         return false;
@@ -58,12 +60,6 @@ public class AshPickaxe extends Item {
 
 		if (state.is(Blocks.STONE))
 			return new ItemStack(Blocks.STONE);
-
-		if (state.is(Blocks.GLOWSTONE))
-			return new ItemStack(Blocks.GLOWSTONE);
-
-		if (state.is(Blocks.SEA_LANTERN))
-			return new ItemStack(Blocks.SEA_LANTERN);
 
 		return ItemStack.EMPTY;
 	}

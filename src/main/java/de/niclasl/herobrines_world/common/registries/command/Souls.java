@@ -30,7 +30,7 @@ public class Souls {
 
 		event.getDispatcher().register(
 				Commands.literal("souls")
-						.requires(Commands.hasPermission(Commands.LEVEL_OWNERS))
+						.requires(Commands.hasPermission(Commands.LEVEL_GAMEMASTERS))
 						.then(Commands.literal("add")
 								.then(Commands.argument("targets", EntityArgument.players())
 										.then(Commands.argument("amount", IntegerArgumentType.integer())

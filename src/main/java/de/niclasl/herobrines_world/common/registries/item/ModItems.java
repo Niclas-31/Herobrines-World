@@ -23,7 +23,7 @@ public class ModItems {
 
 	public static final DeferredItem<Item> ASH_PICKAXE = ITEMS.registerItem(
 			"ash_pickaxe",
-			AshPickaxe::new);
+			(properties) -> new AshPickaxe(properties.pickaxe(ModToolTiers.ASH, 3f, -3f).fireResistant()));
 
 	public static final DeferredItem<Item> FROZEN_HEART = ITEMS.registerItem(
 			"frozen_heart",

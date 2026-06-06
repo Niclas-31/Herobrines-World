@@ -40,9 +40,9 @@ public class ModToolTiers {
             ModTags.Items.PLATIN_TOOL_MATERIALS
     );
 
-    public static final ToolMaterial TOOL_MATERIAL = new ToolMaterial(
+    public static final ToolMaterial ASH = new ToolMaterial(
             ModTags.Blocks.INCORRECT_FOR_ASH_TOOL,
-            500,
+            200,
             6.0f,
             2.0F,
             15,

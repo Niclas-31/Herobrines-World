@@ -38,6 +38,8 @@ public class ModRecipeProvider extends RecipeProvider {
 
     @Override
     protected void buildRecipes() {
+        List<ItemLike> ASH_SMELTABLES = List.of(ModBlocks.ASH_ORE,
+                ModBlocks.DEEPSLATE_ASH_ORE);
         List<ItemLike> GREEN_SMELTABLES = List.of(ModBlocks.GREEN_ORE,
                 ModBlocks.DEEPSLATE_GREEN_ORE);
         List<ItemLike> HEROBRINE_SMELTABLES = List.of(ModBlocks.HEROBRINE_ORE,
@@ -45,6 +47,9 @@ public class ModRecipeProvider extends RecipeProvider {
         List<ItemLike> SMOOTH_SMELTABLES = List.of(ModBlocks.BLUE_SANDSTONE);
         List<ItemLike> PLATIN_SMELTABLES = List.of(ModBlocks.PLATINE_ORE,
                 ModBlocks.DEEPSLATE_PLATIN_ORE);
+
+        oreSmelting(output, ASH_SMELTABLES, RecipeCategory.MISC, ModItems.ASH_INGOT.get(), 0.25f, "ash");
+        oreBlasting(output, ASH_SMELTABLES, ModItems.ASH_INGOT.get(), 0.25f, "ash");
 
         shaped(RecipeCategory.TOOLS, ModItems.ASH_PICKAXE.get())
                 .pattern("aaa")
