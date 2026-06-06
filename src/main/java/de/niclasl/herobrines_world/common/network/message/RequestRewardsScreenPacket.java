@@ -1,6 +1,7 @@
 package de.niclasl.herobrines_world.common.network.message;
 
 import de.niclasl.herobrines_world.HerobrinesWorld;
+import de.niclasl.herobrines_world.common.leaderbaord.season.SeasonManager;
 import de.niclasl.herobrines_world.common.leaderbaord.season.SeasonRewardStorage;
 import de.niclasl.herobrines_world.common.leaderbaord.RewardEntry;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -34,9 +35,16 @@ public record RequestRewardsScreenPacket() implements CustomPacketPayload {
             ServerPlayer player = (ServerPlayer) ctx.player();
             ServerLevel level = player.level();
 
-            SeasonRewardStorage storage = SeasonRewardStorage.get(level);
+            SeasonRewardStorage storage =
+                    SeasonRewardStorage.get(level);
 
-            List<RewardEntry> rewards = storage.getRewards(player.getUUID());
+            List<RewardEntry> rewards;
+
+            if (SeasonManager.isSeasonActive(level)) {
+                rewards = SeasonManager.getPreviewRewards(player, level);
+            } else {
+                rewards = storage.getRewards(player.getUUID());
+            }
 
             PacketDistributor.sendToPlayer(player, new OpenRewardScreenPacket(rewards));
         });

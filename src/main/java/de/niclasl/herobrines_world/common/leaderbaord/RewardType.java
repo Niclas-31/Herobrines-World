@@ -1,4 +1,6 @@
 package de.niclasl.herobrines_world.common.leaderbaord;
 
-public record RewardEntry(RewardType type, int amount) {
+public enum RewardType {
+    SOULS,
+    XP,
 }

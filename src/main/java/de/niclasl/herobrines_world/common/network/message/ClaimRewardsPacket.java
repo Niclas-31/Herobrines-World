@@ -10,6 +10,7 @@ import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.neoforged.neoforge.network.PacketDistributor;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 import org.jspecify.annotations.NonNull;
 
@@ -35,7 +36,8 @@ public record ClaimRewardsPacket() implements CustomPacketPayload {
             ServerPlayer player = (ServerPlayer) ctx.player();
             ServerLevel level = player.level();
 
-            SeasonRewardStorage storage = SeasonRewardStorage.get(level);
+            SeasonRewardStorage storage =
+                    SeasonRewardStorage.get(level);
 
             UUID uuid = player.getUUID();
 
@@ -43,18 +45,25 @@ public record ClaimRewardsPacket() implements CustomPacketPayload {
 
             List<RewardEntry> rewards = storage.getRewards(uuid);
 
+            if (rewards == null || rewards.isEmpty()) return;
+
+            var data = player.getData(ModVariables.PLAYER_VARIABLES);
+
             for (RewardEntry r : rewards) {
-                switch (r.name()) {
-                    case "Souls" -> {
-                        var vars = player.getData(ModVariables.PLAYER_VARIABLES);
-                        vars.Souls += r.amount();
-                        vars.markSyncDirty(player);
+                switch (r.type()) {
+                    case SOULS -> {
+                        data.Souls += r.amount();
+                        data.markSyncDirty(player);
                     }
-                    case "XP" -> player.giveExperiencePoints(r.amount());
+                    case XP -> player.giveExperiencePoints(r.amount());
                 }
             }
 
             storage.markClaimed(uuid);
+            PacketDistributor.sendToPlayer(
+                    player,
+                    new SyncClaimStatePacket(storage.getClaimed())
+            );
         });
     }
 }

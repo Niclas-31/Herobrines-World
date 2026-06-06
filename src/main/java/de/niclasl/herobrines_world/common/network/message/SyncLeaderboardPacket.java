@@ -13,7 +13,7 @@ import org.jspecify.annotations.NonNull;
 import java.util.ArrayList;
 import java.util.List;
 
-public record SyncLeaderboardPacket(List<LeaderboardEntry> entries, boolean rewardsClaimed) implements CustomPacketPayload {
+public record SyncLeaderboardPacket(List<LeaderboardEntry> entries) implements CustomPacketPayload {
     public static final Type<SyncLeaderboardPacket> TYPE =
             new Type<>(Identifier.fromNamespaceAndPath(HerobrinesWorld.MODID, "sync_leaderboard"));
 
@@ -23,28 +23,25 @@ public record SyncLeaderboardPacket(List<LeaderboardEntry> entries, boolean rewa
     );
 
     private static void encode(FriendlyByteBuf buf, SyncLeaderboardPacket msg) {
-        buf.writeBoolean(msg.rewardsClaimed);
-
         buf.writeInt(msg.entries.size());
 
         for (LeaderboardEntry entry : msg.entries) {
-            buf.writeUtf(entry.playerName());
+            buf.writeUUID(entry.uuid());
+            buf.writeUtf(entry.name());
             buf.writeInt(entry.value());
         }
     }
 
     private static SyncLeaderboardPacket decode(FriendlyByteBuf buf) {
-        boolean claimed = buf.readBoolean();
-
         int size = buf.readInt();
 
         List<LeaderboardEntry> entries = new ArrayList<>();
 
         for (int i = 0; i < size; i++) {
-            entries.add(new LeaderboardEntry(buf.readUtf(), buf.readInt()));
+            entries.add(new LeaderboardEntry(buf.readUUID(), buf.readUtf(), buf.readInt()));
         }
 
-        return new SyncLeaderboardPacket(entries, claimed);
+        return new SyncLeaderboardPacket(entries);
     }
 
     public static void handle(SyncLeaderboardPacket msg, IPayloadContext ctx) {

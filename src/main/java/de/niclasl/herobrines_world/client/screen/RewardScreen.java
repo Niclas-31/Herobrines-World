@@ -1,8 +1,8 @@
 package de.niclasl.herobrines_world.client.screen;
 
+import de.niclasl.herobrines_world.common.leaderbaord.RewardEntry;
 import de.niclasl.herobrines_world.common.leaderbaord.season.SeasonManager;
 import de.niclasl.herobrines_world.common.network.message.ClaimRewardsPacket;
-import de.niclasl.herobrines_world.common.leaderbaord.RewardEntry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
@@ -76,7 +76,7 @@ public class RewardScreen extends Screen {
             gui.fill(startX - 5, y - 2, startX + tableWidth, y + 12, 0x33000000);
 
             gui.drawString(this.font,
-                    r.name() + " x" + r.amount(),
+                    r.type().name() + " x" + r.amount(),
                     startX,
                     y,
                     0xFF00FFAA

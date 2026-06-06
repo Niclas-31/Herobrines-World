@@ -1,11 +1,14 @@
 package de.niclasl.herobrines_world.common.leaderbaord.season;
 
 import de.niclasl.herobrines_world.common.leaderbaord.RewardEntry;
+import de.niclasl.herobrines_world.common.leaderbaord.RewardType;
+import de.niclasl.herobrines_world.common.network.message.SyncClaimStatePacket;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.saveddata.SavedData;
 import net.minecraft.world.level.saveddata.SavedDataType;
+import net.neoforged.neoforge.network.PacketDistributor;
 
 import java.util.*;
 
@@ -54,8 +57,18 @@ public class SeasonRewardStorage extends SavedData {
             for (int j = 0; j < rList.size(); j++) {
                 CompoundTag r = rList.getCompoundOrEmpty(j);
 
+                Optional<String> opt = tag.getString("name");
+
+                if (opt.isEmpty()) {
+                    continue;
+                }
+
+                String name = opt.get();
+
+                RewardType type = RewardType.valueOf(name);
+
                 rewards.add(new RewardEntry(
-                        r.getStringOr("name", ""),
+                        type,
                         r.getIntOr("amount", 0)
                 ));
             }
@@ -86,7 +99,7 @@ public class SeasonRewardStorage extends SavedData {
             for (RewardEntry r : entry.getValue()) {
 
                 CompoundTag rTag = new CompoundTag();
-                rTag.putString("name", r.name());
+                rTag.putString("name", r.type().name());
                 rTag.putInt("amount", r.amount());
 
                 rewardsList.add(rTag);
@@ -122,5 +135,13 @@ public class SeasonRewardStorage extends SavedData {
         rewardsByPlayer.clear();
         claimed.clear();
         setDirty();
+
+        PacketDistributor.sendToAllPlayers(
+                new SyncClaimStatePacket(getClaimed())
+        );
+    }
+
+    public Set<UUID> getClaimed() {
+        return claimed;
     }
 }

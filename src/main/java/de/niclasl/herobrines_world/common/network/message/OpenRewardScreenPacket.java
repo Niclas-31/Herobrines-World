@@ -2,6 +2,7 @@ package de.niclasl.herobrines_world.common.network.message;
 
 import de.niclasl.herobrines_world.HerobrinesWorld;
 import de.niclasl.herobrines_world.common.leaderbaord.RewardEntry;
+import de.niclasl.herobrines_world.common.leaderbaord.RewardType;
 import de.niclasl.herobrines_world.common.network.ClientHandler;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
@@ -27,7 +28,7 @@ public record OpenRewardScreenPacket(List<RewardEntry> rewards) implements Custo
         buf.writeInt(msg.rewards.size());
 
         for (RewardEntry reward : msg.rewards) {
-            buf.writeUtf(reward.name());
+            buf.writeEnum(reward.type());
             buf.writeInt(reward.amount());
         }
     }
@@ -38,7 +39,7 @@ public record OpenRewardScreenPacket(List<RewardEntry> rewards) implements Custo
         List<RewardEntry> rewards = new ArrayList<>();
 
         for (int i = 0; i < size; i++) {
-            rewards.add(new RewardEntry(buf.readUtf(), buf.readInt()));
+            rewards.add(new RewardEntry(buf.readEnum(RewardType.class), buf.readInt()));
         }
 
         return new OpenRewardScreenPacket(rewards);

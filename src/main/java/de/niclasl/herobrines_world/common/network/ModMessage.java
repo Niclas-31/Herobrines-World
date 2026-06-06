@@ -86,5 +86,10 @@ public class ModMessage {
                 ModVariables.PlayerVariablesSyncMessage.STREAM_CODEC,
                 ModVariables.PlayerVariablesSyncMessage::handle
         );
+        registrar.playToClient(
+                SyncClaimStatePacket.TYPE,
+                SyncClaimStatePacket.STREAM_CODEC,
+                SyncClaimStatePacket::handleSyncClaimState
+        );
     }
 }

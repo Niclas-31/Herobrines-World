@@ -35,6 +35,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 import java.util.function.Supplier;
 
 @EventBusSubscriber
@@ -90,6 +91,7 @@ public class ModVariables {
 		clone.Souls = original.Souls;
 		clone.Prestige = original.Prestige;
 		clone.ThreeHearts = original.ThreeHearts;
+		clone.rank = original.rank;
 
 		event.getEntity().setData(PLAYER_VARIABLES, clone);
 	}
@@ -150,6 +152,7 @@ public class ModVariables {
 
 				frozenLeaderboard.add(
 						new LeaderboardEntry(
+								UUID.fromString(e.getStringOr("uuid", "")),
 								e.getStringOr("name", ""),
 								e.getIntOr("value", 0)
 						)
@@ -170,7 +173,8 @@ public class ModVariables {
 
 				CompoundTag tag = new CompoundTag();
 
-				tag.putString("name", e.playerName());
+				tag.putString("uuid", e.uuid().toString());
+				tag.putString("name", e.name());
 				tag.putInt("value", e.value());
 
 				list.add(tag);
@@ -188,7 +192,6 @@ public class ModVariables {
 		static WorldVariables clientSide = new WorldVariables();
 
 		public static WorldVariables get(LevelAccessor world) {
-
 			if (world instanceof ServerLevel level) {
 				return level.getDataStorage().computeIfAbsent(WorldVariables.TYPE);
 			}
@@ -274,6 +277,7 @@ public class ModVariables {
 		public int Souls = 0;
 		public int Prestige = 0;
 		public boolean ThreeHearts = true;
+		public int rank;
 
 		@Override
 		public void serialize(ValueOutput output) {
@@ -284,6 +288,7 @@ public class ModVariables {
 			output.putInt("Prestige", Prestige);
 
 			output.putBoolean("ThreeHearts", ThreeHearts);
+			output.putInt("rank", rank);
 		}
 
 		@Override
@@ -295,6 +300,7 @@ public class ModVariables {
 			Prestige = input.getIntOr("Prestige", 0);
 
 			ThreeHearts = input.getBooleanOr("ThreeHearts", true);
+			rank = input.getIntOr("rank", 0);
 		}
 
 		public void markSyncDirty(ServerPlayer player) {
