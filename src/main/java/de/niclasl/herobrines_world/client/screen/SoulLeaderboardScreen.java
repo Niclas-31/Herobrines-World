@@ -3,7 +3,7 @@ package de.niclasl.herobrines_world.client.screen;
 import de.niclasl.herobrines_world.HerobrinesWorld;
 import de.niclasl.herobrines_world.common.leaderbaord.LeaderboardEntry;
 import de.niclasl.herobrines_world.common.network.message.RequestRewardsScreenPacket;
-import de.niclasl.herobrines_world.common.season.SeasonManager;
+import de.niclasl.herobrines_world.common.leaderbaord.season.SeasonManager;
 import de.niclasl.herobrines_world.common.util.math.SoulMath;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;

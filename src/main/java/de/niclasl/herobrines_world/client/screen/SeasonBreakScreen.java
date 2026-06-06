@@ -1,6 +1,6 @@
 package de.niclasl.herobrines_world.client.screen;
 
-import de.niclasl.herobrines_world.common.season.SeasonManager;
+import de.niclasl.herobrines_world.common.leaderbaord.season.SeasonManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;

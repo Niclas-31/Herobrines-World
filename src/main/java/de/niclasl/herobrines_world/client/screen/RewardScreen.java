@@ -1,6 +1,6 @@
 package de.niclasl.herobrines_world.client.screen;
 
-import de.niclasl.herobrines_world.common.season.SeasonManager;
+import de.niclasl.herobrines_world.common.leaderbaord.season.SeasonManager;
 import de.niclasl.herobrines_world.common.network.message.ClaimRewardsPacket;
 import de.niclasl.herobrines_world.common.leaderbaord.RewardEntry;
 import net.minecraft.client.Minecraft;

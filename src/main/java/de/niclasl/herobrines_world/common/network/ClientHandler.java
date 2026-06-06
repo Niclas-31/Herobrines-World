@@ -7,7 +7,7 @@ import de.niclasl.herobrines_world.client.screen.WaypointScreen;
 import de.niclasl.herobrines_world.common.network.message.OpenRewardScreenPacket;
 import de.niclasl.herobrines_world.common.network.message.OpenWaypointScreenPacket;
 import de.niclasl.herobrines_world.common.network.message.SyncLeaderboardPacket;
-import de.niclasl.herobrines_world.common.season.SeasonManager;
+import de.niclasl.herobrines_world.common.leaderbaord.season.SeasonManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.level.Level;
 import net.neoforged.api.distmarker.Dist;

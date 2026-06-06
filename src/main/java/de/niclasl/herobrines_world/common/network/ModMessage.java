@@ -2,6 +2,7 @@ package de.niclasl.herobrines_world.common.network;
 
 import de.niclasl.herobrines_world.HerobrinesWorld;
 import de.niclasl.herobrines_world.common.network.message.*;
+import de.niclasl.herobrines_world.common.save_data.AdminCoreData;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 
@@ -85,6 +86,11 @@ public class ModMessage {
                 ModVariables.PlayerVariablesSyncMessage.TYPE,
                 ModVariables.PlayerVariablesSyncMessage.STREAM_CODEC,
                 ModVariables.PlayerVariablesSyncMessage::handle
+        );
+        registrar.playToClient(
+                AdminCoreData.AdminCoreDataSyncMessage.TYPE,
+                AdminCoreData.AdminCoreDataSyncMessage.STREAM_CODEC,
+                AdminCoreData.AdminCoreDataSyncMessage::handle
         );
     }
 }

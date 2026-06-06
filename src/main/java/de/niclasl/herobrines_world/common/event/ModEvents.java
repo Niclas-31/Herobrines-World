@@ -5,7 +5,7 @@ import de.niclasl.herobrines_world.common.network.ModVariables;
 import de.niclasl.herobrines_world.common.registries.enchantment.ModEnchantments;
 import de.niclasl.herobrines_world.common.registries.potion.ModPotions;
 import de.niclasl.herobrines_world.common.registries.villager.ModVillagers;
-import de.niclasl.herobrines_world.common.season.SeasonManager;
+import de.niclasl.herobrines_world.common.leaderbaord.season.SeasonManager;
 import de.niclasl.herobrines_world.common.util.math.SoulGain;
 import de.niclasl.herobrines_world.common.util.math.SoulMath;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;

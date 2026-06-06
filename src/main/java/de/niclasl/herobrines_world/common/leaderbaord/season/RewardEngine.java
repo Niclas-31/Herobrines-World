@@ -1,4 +1,4 @@
-package de.niclasl.herobrines_world.common.season;
+package de.niclasl.herobrines_world.common.leaderbaord.season;
 
 import de.niclasl.herobrines_world.common.leaderbaord.RewardEntry;
 
