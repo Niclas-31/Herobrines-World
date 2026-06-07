@@ -30,7 +30,7 @@ public class SoulLeaderboardScreen extends Screen {
     private static final int ENTRY_HEIGHT = 18;
     private static final int VISIBLE_ENTRIES = 10;
 
-    private final Identifier REWARDS = Identifier.fromNamespaceAndPath(HerobrinesWorld.MODID, "textures/gui/sprites/icon/reward.png");
+    private final Identifier REWARDS = Identifier.fromNamespaceAndPath(HerobrinesWorld.MODID, "icon/rewards");
 
     public SoulLeaderboardScreen(List<LeaderboardEntry> entries) {
         super(Component.literal("Soul Leaderboard"));

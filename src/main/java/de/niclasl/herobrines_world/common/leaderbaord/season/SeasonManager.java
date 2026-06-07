@@ -23,13 +23,12 @@ public class SeasonManager {
         long now = System.currentTimeMillis();
 
         long seasonDuration = 30L * 24 * 60 * 60 * 1000;
-        long seasonDuration2 = 2L * 60  * 1000;
 
         data.seasonStart = 0;
         data.seasonEnd = 0;
 
         data.nextSeasonStart = now + 10000;
-        data.nextSeasonEnd = data.nextSeasonStart + seasonDuration2;
+        data.nextSeasonEnd = data.nextSeasonStart + seasonDuration;
 
         data.markSyncDirty();
     }
@@ -40,13 +39,12 @@ public class SeasonManager {
 
         long now = System.currentTimeMillis();
         long seasonDuration = 30L * 24 * 60 * 60 * 1000;
-        long seasonDuration2 = 2L * 60  * 1000;
         long offseason = 2L * 24 * 60 * 60 * 1000;
 
         if (data.seasonStart == 0 && now >= data.nextSeasonStart) {
 
             data.seasonStart = now;
-            data.seasonEnd = now + seasonDuration2;
+            data.seasonEnd = now + seasonDuration;
 
             SeasonRewardStorage storage =
                     SeasonRewardStorage.get(level);
@@ -72,7 +70,7 @@ public class SeasonManager {
             SeasonRewardGenerator.generate(level, storage);
 
             data.nextSeasonStart = now + offseason;
-            data.nextSeasonEnd = data.nextSeasonStart + seasonDuration2;
+            data.nextSeasonEnd = data.nextSeasonStart + seasonDuration;
 
             data.markSyncDirty();
         }
@@ -80,7 +78,7 @@ public class SeasonManager {
         if (data.seasonEndedHandled && now >= data.nextSeasonStart) {
 
             data.seasonStart = now;
-            data.seasonEnd = now + seasonDuration2;
+            data.seasonEnd = now + seasonDuration;
 
             SeasonRewardStorage storage =
                     SeasonRewardStorage.get(level);
