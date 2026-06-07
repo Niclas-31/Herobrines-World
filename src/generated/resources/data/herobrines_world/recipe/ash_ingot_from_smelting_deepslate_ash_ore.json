@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 200,
+  "experience": 0.25,
+  "group": "ash",
+  "ingredient": "herobrines_world:deepslate_ash_ore",
+  "result": {
+    "count": 1,
+    "id": "herobrines_world:ash_ingot"
+  }
+}

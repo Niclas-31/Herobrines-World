@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "cookingtime": 100,
+  "experience": 0.25,
+  "group": "ash",
+  "ingredient": "herobrines_world:ash_ore",
+  "result": {
+    "count": 1,
+    "id": "herobrines_world:ash_ingot"
+  }
+}
