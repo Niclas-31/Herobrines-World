@@ -87,7 +87,7 @@ public class ModItemTagProvider extends ItemTagsProvider {
                 .add(ModItems.HEROBRINE_BOOTS.get())
                 .add(ModItems.PLATIN_BOOTS.get());
 
-        this.tag(ItemTags.TRIMMABLE_ARMOR)
+        tag(ItemTags.TRIMMABLE_ARMOR)
                 .add(ModItems.NATURE_HELMET.get())
                 .add(ModItems.NATURE_CHESTPLATE.get())
                 .add(ModItems.NATURE_LEGGINGS.get())
