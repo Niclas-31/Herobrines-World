@@ -19,7 +19,7 @@ import java.util.List;
 public record RequestRewardsScreenPacket() implements CustomPacketPayload {
 
     public static final Type<RequestRewardsScreenPacket> TYPE =
-            new Type<>(Identifier.fromNamespaceAndPath(HerobrinesWorld.MODID, "request_rewards_screen"));
+            new Type<>(Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "request_rewards_screen"));
 
     public static final StreamCodec<RegistryFriendlyByteBuf, RequestRewardsScreenPacket> STREAM_CODEC =
             StreamCodec.unit(new RequestRewardsScreenPacket());

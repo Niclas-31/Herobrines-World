@@ -40,7 +40,7 @@ public class ModModelProvider extends ModelProvider {
             .build();
 
     public ModModelProvider(PackOutput output) {
-        super(output, HerobrinesWorld.MODID);
+        super(output, HerobrinesWorld.MOD_ID);
     }
 
     @Override

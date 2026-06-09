@@ -17,8 +17,8 @@ import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.client.gui.ConfigurationScreen;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 
-@Mod(value = HerobrinesWorld.MODID, dist = Dist.CLIENT)
-@EventBusSubscriber(modid = HerobrinesWorld.MODID, value = Dist.CLIENT)
+@Mod(value = HerobrinesWorld.MOD_ID, dist = Dist.CLIENT)
+@EventBusSubscriber(modid = HerobrinesWorld.MOD_ID, value = Dist.CLIENT)
 public class HerobrinesWorldClient {
     public HerobrinesWorldClient(ModContainer container) {
         container.registerExtensionPoint(IConfigScreenFactory.class, ConfigurationScreen::new);

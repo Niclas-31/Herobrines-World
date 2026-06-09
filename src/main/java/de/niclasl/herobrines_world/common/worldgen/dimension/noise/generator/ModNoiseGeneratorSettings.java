@@ -16,10 +16,10 @@ import java.util.List;
 
 public class ModNoiseGeneratorSettings {
     public static final ResourceKey<NoiseGeneratorSettings> HEROBRINES_REALM = ResourceKey.create(
-            Registries.NOISE_SETTINGS, Identifier.fromNamespaceAndPath(HerobrinesWorld.MODID, "herobrines_realm")
+            Registries.NOISE_SETTINGS, Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "herobrines_realm")
     );
     public static final ResourceKey<NoiseGeneratorSettings> UNDERWORLD = ResourceKey.create(
-            Registries.NOISE_SETTINGS, Identifier.fromNamespaceAndPath(HerobrinesWorld.MODID, "underworld")
+            Registries.NOISE_SETTINGS, Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "underworld")
     );
 
     public static void bootstrap(BootstrapContext<NoiseGeneratorSettings> context) {

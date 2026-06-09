@@ -35,8 +35,8 @@ public class WaypointScreen extends Screen {
     private EditBox renameBox;
     private Button saveButton;
 
-    private final Identifier EDIT = Identifier.fromNamespaceAndPath(HerobrinesWorld.MODID, "icon/edit");
-    private final Identifier TRASH = Identifier.fromNamespaceAndPath(HerobrinesWorld.MODID, "icon/trash");
+    private final Identifier EDIT = Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "icon/edit");
+    private final Identifier TRASH = Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "icon/trash");
 
     public WaypointScreen(ItemStack stack) {
         super(Component.translatable("gui.herobrines_world.waypoint.title"));

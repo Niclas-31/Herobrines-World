@@ -7,9 +7,9 @@ import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
 
-@Mod(HerobrinesWorld.MODID)
+@Mod(HerobrinesWorld.MOD_ID)
 public class HerobrinesWorld {
-	public static final String MODID = "herobrines_world";
+	public static final String MOD_ID = "herobrines_world";
 
     public HerobrinesWorld(IEventBus modEventBus, ModContainer modContainer) {
 		modEventBus.addListener(ModMessage::register);

@@ -20,7 +20,7 @@ import java.util.UUID;
 public record ClaimRewardsPacket() implements CustomPacketPayload {
 
     public static final Type<ClaimRewardsPacket> TYPE =
-            new Type<>(Identifier.fromNamespaceAndPath(HerobrinesWorld.MODID, "claim_rewards"));
+            new Type<>(Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "claim_rewards"));
 
     public static final StreamCodec<RegistryFriendlyByteBuf, ClaimRewardsPacket> STREAM_CODEC =
             StreamCodec.unit(new ClaimRewardsPacket());

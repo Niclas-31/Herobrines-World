@@ -93,7 +93,7 @@ public class OreDetector extends Item {
 
 			String mode = getMode(stack);
 
-			Identifier tagId = Identifier.fromNamespaceAndPath(HerobrinesWorld.MODID, "ores/" + mode);
+			Identifier tagId = Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "ores/" + mode);
 			TagKey<Block> tag = BlockTags.create(tagId);
 
 			if (level.getBlockState(checkPos).is(tag)) {

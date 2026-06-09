@@ -28,7 +28,7 @@ public class HerobrinesWorldAdvancements implements AdvancementSubProvider {
                         ModBlocks.CURSED_STONE,
                         Component.translatable("advancements.herobrines_world.root.title"),
                         Component.translatable("advancements.herobrines_world.root.descr"),
-                        Identifier.fromNamespaceAndPath(HerobrinesWorld.MODID, "gui/advancements/backgrounds/herobrines_world"),
+                        Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "gui/advancements/backgrounds/herobrines_world"),
                         AdvancementType.TASK,
                         false,
                         false,

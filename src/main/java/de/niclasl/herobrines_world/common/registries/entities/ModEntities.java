@@ -19,15 +19,15 @@ import java.util.function.Supplier;
 @EventBusSubscriber
 public class ModEntities {
 	public static final DeferredRegister<EntityType<?>> ENTITY_TYPES =
-			DeferredRegister.create(BuiltInRegistries.ENTITY_TYPE, HerobrinesWorld.MODID);
+			DeferredRegister.create(BuiltInRegistries.ENTITY_TYPE, HerobrinesWorld.MOD_ID);
 
-	public static ResourceKey<EntityType<?>> HEROBRINE_BOSS_KEY = ResourceKey.create(Registries.ENTITY_TYPE, Identifier.fromNamespaceAndPath(HerobrinesWorld.MODID, "herobrine_boss"));
-	public static ResourceKey<EntityType<?>> NICLASL_KEY = ResourceKey.create(Registries.ENTITY_TYPE, Identifier.fromNamespaceAndPath(HerobrinesWorld.MODID, "niclasl"));
-	public static ResourceKey<EntityType<?>> ENTITY_303_KEY = ResourceKey.create(Registries.ENTITY_TYPE, Identifier.fromNamespaceAndPath(HerobrinesWorld.MODID, "entity_303"));
-	public static ResourceKey<EntityType<?>> STATUE_ENTITY_303_KEY = ResourceKey.create(Registries.ENTITY_TYPE, Identifier.fromNamespaceAndPath(HerobrinesWorld.MODID, "statue_entity_303"));
-	public static ResourceKey<EntityType<?>> GOOD_HEROBRINE_KEY = ResourceKey.create(Registries.ENTITY_TYPE, Identifier.fromNamespaceAndPath(HerobrinesWorld.MODID, "good_herobrine"));
-	public static ResourceKey<EntityType<?>> BAD_HEROBRINE_KEY = ResourceKey.create(Registries.ENTITY_TYPE, Identifier.fromNamespaceAndPath(HerobrinesWorld.MODID, "bad_herobrine"));
-	public static ResourceKey<EntityType<?>> CHRISTMAS_NICLASL_KEY = ResourceKey.create(Registries.ENTITY_TYPE, Identifier.fromNamespaceAndPath(HerobrinesWorld.MODID, "christmas_niclasl"));
+	public static ResourceKey<EntityType<?>> HEROBRINE_BOSS_KEY = ResourceKey.create(Registries.ENTITY_TYPE, Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "herobrine_boss"));
+	public static ResourceKey<EntityType<?>> NICLASL_KEY = ResourceKey.create(Registries.ENTITY_TYPE, Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "niclasl"));
+	public static ResourceKey<EntityType<?>> ENTITY_303_KEY = ResourceKey.create(Registries.ENTITY_TYPE, Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "entity_303"));
+	public static ResourceKey<EntityType<?>> STATUE_ENTITY_303_KEY = ResourceKey.create(Registries.ENTITY_TYPE, Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "statue_entity_303"));
+	public static ResourceKey<EntityType<?>> GOOD_HEROBRINE_KEY = ResourceKey.create(Registries.ENTITY_TYPE, Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "good_herobrine"));
+	public static ResourceKey<EntityType<?>> BAD_HEROBRINE_KEY = ResourceKey.create(Registries.ENTITY_TYPE, Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "bad_herobrine"));
+	public static ResourceKey<EntityType<?>> CHRISTMAS_NICLASL_KEY = ResourceKey.create(Registries.ENTITY_TYPE, Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "christmas_niclasl"));
 
 	public static final Supplier<EntityType<HerobrineBoss>> HEROBRINE_BOSS =
 			ENTITY_TYPES.register("herobrine_boss", () -> EntityType.Builder.of(HerobrineBoss::new, MobCategory.MONSTER)

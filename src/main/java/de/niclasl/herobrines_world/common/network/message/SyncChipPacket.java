@@ -20,42 +20,37 @@ import java.util.UUID;
 public record SyncChipPacket(TransferMode transferMode, int range, int speed, AccessMode accessMode, UUID owner, int accessTier) implements CustomPacketPayload {
 
     public static final Type<SyncChipPacket> TYPE =
-            new Type<>(Identifier.fromNamespaceAndPath(HerobrinesWorld.MODID, "sync_chip"));
+            new Type<>(Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "sync_chip"));
 
-    public static final StreamCodec<RegistryFriendlyByteBuf, SyncChipPacket> STREAM_CODEC =
-            StreamCodec.of(
-                    (buf, msg) -> {
-                        buf.writeInt(msg.transferMode().ordinal());
-                        buf.writeInt(msg.range());
-                        buf.writeInt(msg.speed());
-                        buf.writeInt(msg.accessMode().ordinal());
-                        buf.writeBoolean(msg.owner() != null);
-                        if (msg.owner() != null) {
-                            buf.writeUUID(msg.owner());
-                        }
-                        buf.writeInt(msg.accessTier());
-                    },
+    public static final StreamCodec<RegistryFriendlyByteBuf, SyncChipPacket> STREAM_CODEC = StreamCodec.of(
+            SyncChipPacket::encode,
+            SyncChipPacket::decode
+    );
 
-                    buf -> {
-                        TransferMode mode = TransferMode.values()[buf.readInt()];
-                        int range = buf.readInt();
-                        int speed = buf.readInt();
-                        AccessMode access = AccessMode.values()[buf.readInt()];
-                        UUID owner = null;
-                        if (buf.readBoolean()) {
-                            owner = buf.readUUID();
-                        }
-                        int tier = buf.readInt();
-                        return new SyncChipPacket(
-                                mode,
-                                range,
-                                speed,
-                                access,
-                                owner,
-                                tier
-                        );
-                    }
-            );
+    private static void encode(RegistryFriendlyByteBuf buf, SyncChipPacket msg) {
+        buf.writeInt(msg.transferMode().ordinal());
+        buf.writeInt(msg.range());
+        buf.writeInt(msg.speed());
+        buf.writeInt(msg.accessMode().ordinal());
+        buf.writeBoolean(msg.owner() != null);
+        if (msg.owner() != null) {
+            buf.writeUUID(msg.owner());
+        }
+        buf.writeInt(msg.accessTier());
+    }
+
+    private static SyncChipPacket decode(RegistryFriendlyByteBuf buf) {
+        TransferMode mode = TransferMode.values()[buf.readInt()];
+        int range = buf.readInt();
+        int speed = buf.readInt();
+        AccessMode access = AccessMode.values()[buf.readInt()];
+        UUID owner = null;
+        if (buf.readBoolean()) {
+            owner = buf.readUUID();
+        }
+        int tier = buf.readInt();
+        return new SyncChipPacket(mode, range, speed, access, owner, tier);
+    }
 
     @Override
     public @NonNull Type<? extends CustomPacketPayload> type() {

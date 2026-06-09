@@ -9,9 +9,9 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 
 public class ModRecipes {
     public static final DeferredRegister<RecipeSerializer<?>> SERIALIZERS =
-            DeferredRegister.create(Registries.RECIPE_SERIALIZER, HerobrinesWorld.MODID);
+            DeferredRegister.create(Registries.RECIPE_SERIALIZER, HerobrinesWorld.MOD_ID);
     public static final DeferredRegister<RecipeType<?>> TYPES =
-            DeferredRegister.create(Registries.RECIPE_TYPE, HerobrinesWorld.MODID);
+            DeferredRegister.create(Registries.RECIPE_TYPE, HerobrinesWorld.MOD_ID);
 
     public static void register(IEventBus eventBus) {
         SERIALIZERS.register(eventBus);

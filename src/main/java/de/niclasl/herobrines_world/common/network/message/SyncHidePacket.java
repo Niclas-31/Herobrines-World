@@ -12,8 +12,22 @@ import org.jetbrains.annotations.NotNull;
 
 public record SyncHidePacket(int buttonID) implements CustomPacketPayload {
 
-	public static final Type<SyncHidePacket> TYPE = new Type<>(Identifier.fromNamespaceAndPath(HerobrinesWorld.MODID, "sync_hide"));
-	public static final StreamCodec<RegistryFriendlyByteBuf, SyncHidePacket> STREAM_CODEC = StreamCodec.of((RegistryFriendlyByteBuf buffer, SyncHidePacket msg) -> buffer.writeInt(msg.buttonID), (RegistryFriendlyByteBuf buffer) -> new SyncHidePacket(buffer.readInt()));
+	public static final Type<SyncHidePacket> TYPE =
+			new Type<>(Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "sync_hide"));
+
+	public static final StreamCodec<RegistryFriendlyByteBuf, SyncHidePacket> STREAM_CODEC = StreamCodec.of(
+			SyncHidePacket::encode,
+			SyncHidePacket::decode
+	);
+
+	private static void encode(RegistryFriendlyByteBuf buf, SyncHidePacket msg) {
+		buf.writeInt(msg.buttonID);
+	}
+
+	private static SyncHidePacket decode(RegistryFriendlyByteBuf buf) {
+		return new SyncHidePacket(buf.readInt());
+	}
+
 	@Override
 	public @NotNull Type<SyncHidePacket> type() {
 		return TYPE;

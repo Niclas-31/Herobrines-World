@@ -19,7 +19,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-@EventBusSubscriber(modid = HerobrinesWorld.MODID)
+@EventBusSubscriber(modid = HerobrinesWorld.MOD_ID)
 public class DataGenerators {
 
     @SubscribeEvent

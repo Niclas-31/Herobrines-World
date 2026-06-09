@@ -13,7 +13,7 @@ import org.jetbrains.annotations.NotNull;
 public class AutoFarmerScreen extends AbstractContainerScreen<AutoFarmerMenu> {
 
     private static final Identifier TEXTURE =
-            Identifier.fromNamespaceAndPath(HerobrinesWorld.MODID, "textures/gui/container/auto_farmer.png");
+            Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "textures/gui/container/auto_farmer.png");
 
     public AutoFarmerScreen(AutoFarmerMenu menu, Inventory inventory, Component title) {
         super(menu, inventory, title);

@@ -15,7 +15,7 @@ import java.util.function.UnaryOperator;
 
 public class ModDataComponents {
     public static final DeferredRegister<DataComponentType<?>> DATA_COMPONENT_TYPES =
-            DeferredRegister.createDataComponents(Registries.DATA_COMPONENT_TYPE, HerobrinesWorld.MODID);
+            DeferredRegister.createDataComponents(Registries.DATA_COMPONENT_TYPE, HerobrinesWorld.MOD_ID);
 
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> ENERGY = register(
             "energy",

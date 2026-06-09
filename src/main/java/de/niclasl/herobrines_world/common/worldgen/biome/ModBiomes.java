@@ -16,6 +16,6 @@ public class ModBiomes {
     public static final ResourceKey<Biome> VOID_DEPTHS = register("void_depths");
 
     private static ResourceKey<Biome> register(String name) {
-        return ResourceKey.create(Registries.BIOME, Identifier.fromNamespaceAndPath(HerobrinesWorld.MODID, name));
+        return ResourceKey.create(Registries.BIOME, Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, name));
     }
 }

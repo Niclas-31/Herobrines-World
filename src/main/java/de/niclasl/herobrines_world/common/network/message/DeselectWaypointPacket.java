@@ -15,7 +15,8 @@ import org.jspecify.annotations.NonNull;
 
 public record DeselectWaypointPacket() implements CustomPacketPayload {
     public static final Type<DeselectWaypointPacket> TYPE =
-            new Type<>(Identifier.fromNamespaceAndPath(HerobrinesWorld.MODID, "deselect_waypoint_packet"));
+            new Type<>(Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "deselect_waypoint_packet"));
+
     public static final StreamCodec<RegistryFriendlyByteBuf, DeselectWaypointPacket> STREAM_CODEC =
             StreamCodec.unit(new DeselectWaypointPacket());
 

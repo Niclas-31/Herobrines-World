@@ -16,7 +16,7 @@ public class ModLootTables {
     public static final ResourceKey<LootTable> THRONE_OF_THE_UNDERWORLD = register("chests/throne_of_the_underworld");
 
     private static ResourceKey<LootTable> register(String name) {
-        return register(ResourceKey.create(Registries.LOOT_TABLE, Identifier.fromNamespaceAndPath(HerobrinesWorld.MODID, name)));
+        return register(ResourceKey.create(Registries.LOOT_TABLE, Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, name)));
     }
 
     private static ResourceKey<LootTable> register(ResourceKey<LootTable> name) {

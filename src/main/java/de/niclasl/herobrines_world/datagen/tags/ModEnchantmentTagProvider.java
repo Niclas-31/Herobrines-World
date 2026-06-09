@@ -12,7 +12,7 @@ import java.util.concurrent.CompletableFuture;
 
 public class ModEnchantmentTagProvider extends EnchantmentTagsProvider {
     public ModEnchantmentTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {
-        super(output, lookupProvider, HerobrinesWorld.MODID);
+        super(output, lookupProvider, HerobrinesWorld.MOD_ID);
     }
 
     @Override

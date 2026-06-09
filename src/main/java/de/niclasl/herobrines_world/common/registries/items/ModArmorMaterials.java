@@ -15,10 +15,10 @@ import java.util.EnumMap;
 
 public class ModArmorMaterials {
     static ResourceKey<? extends Registry<EquipmentAsset>> ROOT_ID = ResourceKey.createRegistryKey(Identifier.withDefaultNamespace("equipment_asset"));
-    public static ResourceKey<EquipmentAsset> NATURE = ResourceKey.create(ROOT_ID, Identifier.fromNamespaceAndPath(HerobrinesWorld.MODID, "nature"));
-    public static ResourceKey<EquipmentAsset> FIRE = ResourceKey.create(ROOT_ID, Identifier.fromNamespaceAndPath(HerobrinesWorld.MODID, "fire"));
-    public static ResourceKey<EquipmentAsset> HEROBRINE = ResourceKey.create(ROOT_ID, Identifier.fromNamespaceAndPath(HerobrinesWorld.MODID, "herobrine"));
-    public static ResourceKey<EquipmentAsset> PLATIN = ResourceKey.create(ROOT_ID, Identifier.fromNamespaceAndPath(HerobrinesWorld.MODID, "platin"));
+    public static ResourceKey<EquipmentAsset> NATURE = ResourceKey.create(ROOT_ID, Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "nature"));
+    public static ResourceKey<EquipmentAsset> FIRE = ResourceKey.create(ROOT_ID, Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "fire"));
+    public static ResourceKey<EquipmentAsset> HEROBRINE = ResourceKey.create(ROOT_ID, Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "herobrine"));
+    public static ResourceKey<EquipmentAsset> PLATIN = ResourceKey.create(ROOT_ID, Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "platin"));
 
     public static final ArmorMaterial NATURE_ARMOR_MATERIAL = new ArmorMaterial(150,
             Util.make(new EnumMap<>(ArmorType.class), map -> {

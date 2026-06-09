@@ -22,7 +22,7 @@ import java.util.UUID;
 
 public record SyncWaypointCompass(UUID id) implements CustomPacketPayload {
     public static final Type<SyncWaypointCompass> TYPE =
-            new Type<>(Identifier.fromNamespaceAndPath(HerobrinesWorld.MODID, "sync_waypoint_compass"));
+            new Type<>(Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "sync_waypoint_compass"));
     public static final StreamCodec<RegistryFriendlyByteBuf, SyncWaypointCompass> STREAM_CODEC =
             StreamCodec.of(
                     SyncWaypointCompass::encode,

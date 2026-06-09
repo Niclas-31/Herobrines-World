@@ -14,9 +14,9 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 
 public class ModVillagers {
     public static final DeferredRegister<PoiType> POI_TYPES =
-            DeferredRegister.create(BuiltInRegistries.POINT_OF_INTEREST_TYPE, HerobrinesWorld.MODID);
+            DeferredRegister.create(BuiltInRegistries.POINT_OF_INTEREST_TYPE, HerobrinesWorld.MOD_ID);
     public static final DeferredRegister<VillagerProfession> VILLAGER_PROFESSIONS =
-            DeferredRegister.create(BuiltInRegistries.VILLAGER_PROFESSION, HerobrinesWorld.MODID);
+            DeferredRegister.create(BuiltInRegistries.VILLAGER_PROFESSION, HerobrinesWorld.MOD_ID);
 
     public static final Holder<PoiType> LUMBER_POI = POI_TYPES.register("lumber_poi",
             () -> new PoiType(ImmutableSet.copyOf(ModBlocks.LUMBERJACK_TABLE.get().getStateDefinition().getPossibleStates()), 1, 1));

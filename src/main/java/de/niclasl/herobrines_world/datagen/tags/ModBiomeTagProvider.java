@@ -14,7 +14,7 @@ import java.util.concurrent.CompletableFuture;
 public class ModBiomeTagProvider extends BiomeTagsProvider {
 
     public ModBiomeTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> provider) {
-        super(output, provider, HerobrinesWorld.MODID);
+        super(output, provider, HerobrinesWorld.MOD_ID);
     }
 
     @Override

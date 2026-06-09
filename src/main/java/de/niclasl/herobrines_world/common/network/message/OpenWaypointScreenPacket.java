@@ -13,7 +13,7 @@ import org.jspecify.annotations.NonNull;
 public record OpenWaypointScreenPacket(ItemStack stack) implements CustomPacketPayload {
 
     public static final Type<OpenWaypointScreenPacket> TYPE =
-            new Type<>(Identifier.fromNamespaceAndPath(HerobrinesWorld.MODID, "open_waypoint_screen"));
+            new Type<>(Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "open_waypoint_screen"));
 
     public static final StreamCodec<RegistryFriendlyByteBuf, OpenWaypointScreenPacket> STREAM_CODEC =
             StreamCodec.of(

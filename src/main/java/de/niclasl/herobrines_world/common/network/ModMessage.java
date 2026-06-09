@@ -8,7 +8,7 @@ import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 public class ModMessage {
 
     public static void register(final RegisterPayloadHandlersEvent event) {
-        PayloadRegistrar registrar = event.registrar(HerobrinesWorld.MODID);
+        PayloadRegistrar registrar = event.registrar(HerobrinesWorld.MOD_ID);
 
         registrar.playToServer(
                 SyncHidePacket.TYPE,

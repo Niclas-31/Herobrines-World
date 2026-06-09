@@ -21,10 +21,7 @@ public record RenameWaypointPacket(UUID waypointId, String newName)
         implements CustomPacketPayload {
 
     public static final Type<RenameWaypointPacket> TYPE =
-            new Type<>(Identifier.fromNamespaceAndPath(
-                    HerobrinesWorld.MODID,
-                    "rename_waypoint"
-            ));
+            new Type<>(Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "rename_waypoint"));
 
     public static final StreamCodec<RegistryFriendlyByteBuf, RenameWaypointPacket> STREAM_CODEC =
             StreamCodec.of(

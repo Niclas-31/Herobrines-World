@@ -11,7 +11,7 @@ import java.util.function.Supplier;
 
 public class ModBlockEntities {
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES =
-            DeferredRegister.create(BuiltInRegistries.BLOCK_ENTITY_TYPE, HerobrinesWorld.MODID);
+            DeferredRegister.create(BuiltInRegistries.BLOCK_ENTITY_TYPE, HerobrinesWorld.MOD_ID);
 
     public static final Supplier<BlockEntityType<DelayerBlockEntity>> DELAYER =
             BLOCK_ENTITIES.register("delayer", () -> new BlockEntityType<>(

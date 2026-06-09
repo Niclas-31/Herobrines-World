@@ -11,7 +11,7 @@ import java.util.function.Supplier;
 
 public class ModStructurePieceType {
     public static final DeferredRegister<StructurePieceType> STRUCTURE_PIECES =
-            DeferredRegister.create(BuiltInRegistries.STRUCTURE_PIECE, HerobrinesWorld.MODID);
+            DeferredRegister.create(BuiltInRegistries.STRUCTURE_PIECE, HerobrinesWorld.MOD_ID);
 
     public static final Supplier<StructurePieceType> ASH_DESERT_PYRAMID_PIECE = STRUCTURE_PIECES.register(
             "ash_desert_pyramid",

@@ -56,8 +56,8 @@ public class SignalColorChangerScreen extends AbstractContainerScreen<SignalColo
 			int y = (int) lamp[1];
 			String color = (String) lamp[2];
 
-			Identifier texture = Identifier.fromNamespaceAndPath(HerobrinesWorld.MODID,
-					"textures/gui/sprites/container/signal/" + color + ".png");
+			Identifier texture = Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID,
+					"container/signal/" + color + ".png");
 
 			guiGraphics.blit(RenderPipelines.GUI_TEXTURED, texture, this.leftPos + x, this.topPos + y,
 					0, 0, 16, 16, 16, 16);
@@ -93,7 +93,7 @@ public class SignalColorChangerScreen extends AbstractContainerScreen<SignalColo
 			int posX = this.leftPos + xOffset;
 			int posY = this.topPos + yOffset;
 
-			Identifier texture = Identifier.fromNamespaceAndPath(HerobrinesWorld.MODID,
+			Identifier texture = Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID,
 					"textures/gui/sprites/container/signal/" + color + "_gui_button.png");
 
 			ImageButton button = new ImageButton(

@@ -20,15 +20,15 @@ import net.minecraft.world.item.enchantment.Enchantments;
 
 public class ModEnchantments {
     public static final ResourceKey<Enchantment> HEROBRINE = ResourceKey.create(Registries.ENCHANTMENT,
-            Identifier.fromNamespaceAndPath(HerobrinesWorld.MODID, "herobrine"));
+            Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "herobrine"));
     public static final ResourceKey<Enchantment> MORE_SOULS = ResourceKey.create(Registries.ENCHANTMENT,
-            Identifier.fromNamespaceAndPath(HerobrinesWorld.MODID, "more_souls"));
+            Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "more_souls"));
     public static final ResourceKey<Enchantment> HEART_OF_THE_FOREST = ResourceKey.create(Registries.ENCHANTMENT,
-            Identifier.fromNamespaceAndPath(HerobrinesWorld.MODID, "heart_of_the_forest"));
+            Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "heart_of_the_forest"));
     public static final ResourceKey<Enchantment> ROOTS_OF_THE_EARTH = ResourceKey.create(Registries.ENCHANTMENT,
-            Identifier.fromNamespaceAndPath(HerobrinesWorld.MODID, "roots_of_the_earth"));
+            Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "roots_of_the_earth"));
     public static final ResourceKey<Enchantment> WILDERNESS_ACUMEN =  ResourceKey.create(Registries.ENCHANTMENT,
-            Identifier.fromNamespaceAndPath(HerobrinesWorld.MODID, "wilderness_acumen"));
+            Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "wilderness_acumen"));
 
     public static void bootstrap(BootstrapContext<Enchantment> context) {
         var enchantments = context.lookup(Registries.ENCHANTMENT);

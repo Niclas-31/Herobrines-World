@@ -13,7 +13,7 @@ import net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent;
 
 import java.util.Calendar;
 
-@EventBusSubscriber(modid = HerobrinesWorld.MODID)
+@EventBusSubscriber(modid = HerobrinesWorld.MOD_ID)
 public class ModEventBusEvents {
 
     @SubscribeEvent

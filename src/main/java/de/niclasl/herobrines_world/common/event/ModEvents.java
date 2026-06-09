@@ -31,7 +31,7 @@ import net.neoforged.neoforge.event.village.VillagerTradesEvent;
 
 import java.util.List;
 
-@EventBusSubscriber(modid = HerobrinesWorld.MODID)
+@EventBusSubscriber(modid = HerobrinesWorld.MOD_ID)
 public class ModEvents {
 
     @SubscribeEvent

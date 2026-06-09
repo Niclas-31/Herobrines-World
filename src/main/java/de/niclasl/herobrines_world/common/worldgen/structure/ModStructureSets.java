@@ -16,7 +16,7 @@ public class ModStructureSets {
     public static final ResourceKey<StructureSet> ASH_DESERT_PYRAMIDS = register("ash_desert_pyramids");
 
     private static ResourceKey<StructureSet> register(String name) {
-        return ResourceKey.create(Registries.STRUCTURE_SET, Identifier.fromNamespaceAndPath(HerobrinesWorld.MODID, name));
+        return ResourceKey.create(Registries.STRUCTURE_SET, Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, name));
     }
 
     public static void bootstrap(BootstrapContext<StructureSet> context) {

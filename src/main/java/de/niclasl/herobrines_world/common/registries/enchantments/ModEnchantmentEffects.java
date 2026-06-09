@@ -15,7 +15,7 @@ import java.util.function.Supplier;
 
 public class ModEnchantmentEffects {
     public static final DeferredRegister<MapCodec<? extends EnchantmentEntityEffect>> ENTITY_ENCHANTMENT_EFFECTS =
-            DeferredRegister.create(Registries.ENCHANTMENT_ENTITY_EFFECT_TYPE, HerobrinesWorld.MODID);
+            DeferredRegister.create(Registries.ENCHANTMENT_ENTITY_EFFECT_TYPE, HerobrinesWorld.MOD_ID);
 
     public static final Supplier<MapCodec<? extends EnchantmentEntityEffect>> HEROBRINE =
             ENTITY_ENCHANTMENT_EFFECTS.register("herobrine", () -> HerobrineEnchantmentEffect.CODEC);

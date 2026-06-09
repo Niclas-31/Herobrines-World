@@ -22,7 +22,7 @@ import java.util.function.ToIntFunction;
 
 public class ModBlocks {
 	public static final DeferredRegister.Blocks BLOCKS =
-			DeferredRegister.createBlocks(HerobrinesWorld.MODID);
+			DeferredRegister.createBlocks(HerobrinesWorld.MOD_ID);
 
 	public static final DeferredBlock<Block> LUMBERJACK_TABLE = registerBlock("lumberjack_table",
 			(properties) -> new Block(properties.sound(SoundType.WOOD).strength(10f, 30f).requiresCorrectToolForDrops()));

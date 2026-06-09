@@ -20,7 +20,8 @@ import java.util.UUID;
 
 public record DeleteWaypointPacket(UUID waypointId) implements CustomPacketPayload {
     public static final Type<DeleteWaypointPacket> TYPE =
-            new Type<>(Identifier.fromNamespaceAndPath(HerobrinesWorld.MODID, "delete_waypoint"));
+            new Type<>(Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "delete_waypoint"));
+
     public static final StreamCodec<RegistryFriendlyByteBuf, DeleteWaypointPacket> STREAM_CODEC =
             StreamCodec.of(
                     DeleteWaypointPacket::encode,

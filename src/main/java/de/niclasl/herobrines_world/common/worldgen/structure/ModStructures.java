@@ -15,7 +15,7 @@ public class ModStructures {
     public static final ResourceKey<Structure> ASH_DESERT_PYRAMID = createKey("ash_desert_pyramid");
 
     private static ResourceKey<Structure> createKey(String name) {
-        return ResourceKey.create(Registries.STRUCTURE, Identifier.fromNamespaceAndPath(HerobrinesWorld.MODID, name));
+        return ResourceKey.create(Registries.STRUCTURE, Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, name));
     }
 
     public static void bootstrap(BootstrapContext<Structure> context) {

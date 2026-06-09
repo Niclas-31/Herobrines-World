@@ -15,8 +15,8 @@ import net.neoforged.neoforge.client.event.RenderGuiEvent;
 
 @EventBusSubscriber(Dist.CLIENT)
 public class SoulsBar {
-    private static final Identifier SOUL_BAR_BACKGROUND_SPRITE = Identifier.fromNamespaceAndPath(HerobrinesWorld.MODID, "textures/gui/sprites/hud/soul_bar_background.png");
-    private static final Identifier SOUL_BAR_PROGRESS_SPRITE = Identifier.fromNamespaceAndPath(HerobrinesWorld.MODID, "textures/gui/sprites/hud/soul_bar_progress.png");
+    private static final Identifier SOUL_BAR_BACKGROUND_SPRITE = Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "textures/gui/sprites/hud/soul_bar_background.png");
+    private static final Identifier SOUL_BAR_PROGRESS_SPRITE = Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "textures/gui/sprites/hud/soul_bar_progress.png");
 
     @SubscribeEvent(priority = EventPriority.NORMAL)
     public static void eventHandler(RenderGuiEvent.Pre event) {

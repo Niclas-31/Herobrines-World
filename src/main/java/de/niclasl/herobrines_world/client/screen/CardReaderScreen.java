@@ -13,7 +13,7 @@ import org.jspecify.annotations.NonNull;
 public class CardReaderScreen extends AbstractContainerScreen<CardReaderMenu> {
 
     private static final Identifier TEXTURE =
-            Identifier.fromNamespaceAndPath(HerobrinesWorld.MODID, "textures/gui/container/card_reader.png");
+            Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "textures/gui/container/card_reader.png");
 
     public CardReaderScreen(CardReaderMenu menu, Inventory inventory, Component title) {
         super(menu, inventory, title);

@@ -11,7 +11,7 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 public class ModMenuTypes {
-	public static final DeferredRegister<MenuType<?>> MENUS = DeferredRegister.create(Registries.MENU, HerobrinesWorld.MODID);
+	public static final DeferredRegister<MenuType<?>> MENUS = DeferredRegister.create(Registries.MENU, HerobrinesWorld.MOD_ID);
 
 	public static final DeferredHolder<MenuType<?>, MenuType<SignalColorChangerMenu>> SIGNAL_COLOR_CHANGER =
 			registerMenuType("signal_color_changer", SignalColorChangerMenu::new);

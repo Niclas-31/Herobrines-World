@@ -15,7 +15,7 @@ import java.util.List;
 
 public record SyncLeaderboardPacket(List<LeaderboardEntry> entries) implements CustomPacketPayload {
     public static final Type<SyncLeaderboardPacket> TYPE =
-            new Type<>(Identifier.fromNamespaceAndPath(HerobrinesWorld.MODID, "sync_leaderboard"));
+            new Type<>(Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "sync_leaderboard"));
 
     public static final StreamCodec<FriendlyByteBuf, SyncLeaderboardPacket> STREAM_CODEC = StreamCodec.of(
             SyncLeaderboardPacket::encode,

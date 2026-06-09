@@ -23,22 +23,30 @@ public record SyncColorPacket(int buttonID, int x, int y, int z) implements Cust
 			"lime", "magenta", "orange", "pink"
 	};
 
-	public static final Type<SyncColorPacket> TYPE = new Type<>(Identifier.fromNamespaceAndPath(HerobrinesWorld.MODID, "sync_color"));
+	public static final Type<SyncColorPacket> TYPE =
+			new Type<>(Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "sync_color"));
+
 	public static final StreamCodec<RegistryFriendlyByteBuf, SyncColorPacket> STREAM_CODEC =
 			StreamCodec.of(
-					(buf, msg) -> {
-						buf.writeInt(msg.buttonID);
-						buf.writeInt(msg.x);
-						buf.writeInt(msg.y);
-						buf.writeInt(msg.z);
-					},
-					buf -> new SyncColorPacket(
-							buf.readInt(),
-							buf.readInt(),
-							buf.readInt(),
-							buf.readInt()
-					)
+					SyncColorPacket::encode,
+					SyncColorPacket::decode
 			);
+
+	private static void encode(RegistryFriendlyByteBuf buf, SyncColorPacket msg) {
+		buf.writeInt(msg.buttonID);
+		buf.writeInt(msg.x);
+		buf.writeInt(msg.y);
+		buf.writeInt(msg.z);
+	}
+
+	private static SyncColorPacket decode(RegistryFriendlyByteBuf buf) {
+		int buttonID = buf.readInt();
+		int x = buf.readInt();
+		int y = buf.readInt();
+		int z = buf.readInt();
+		return new SyncColorPacket(buttonID, x, y, z);
+	}
+
 	@Override
 	public @NotNull Type<SyncColorPacket> type() {
 		return TYPE;

@@ -12,7 +12,7 @@ import java.util.concurrent.CompletableFuture;
 
 public class ModEntityTypeTagProvider extends EntityTypeTagsProvider {
     public ModEntityTypeTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> provider) {
-        super(output, provider, HerobrinesWorld.MODID);
+        super(output, provider, HerobrinesWorld.MOD_ID);
     }
 
     @Override

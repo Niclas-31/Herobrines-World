@@ -13,7 +13,7 @@ import java.util.concurrent.CompletableFuture;
 
 public class ModPoiTypeTagProvider extends PoiTypeTagsProvider {
     public ModPoiTypeTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> provider) {
-        super(output, provider, HerobrinesWorld.MODID);
+        super(output, provider, HerobrinesWorld.MOD_ID);
     }
 
     @Override

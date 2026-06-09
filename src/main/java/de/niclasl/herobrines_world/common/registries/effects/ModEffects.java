@@ -12,7 +12,7 @@ import de.niclasl.herobrines_world.HerobrinesWorld;
 
 public class ModEffects {
 	public static final DeferredRegister<MobEffect> MOB_EFFECTS =
-			DeferredRegister.create(BuiltInRegistries.MOB_EFFECT, HerobrinesWorld.MODID);
+			DeferredRegister.create(BuiltInRegistries.MOB_EFFECT, HerobrinesWorld.MOD_ID);
 
 	public static final Holder<MobEffect> GOOD_HEROBRINE_EFFECT = MOB_EFFECTS.register("good_herobrine_effect",
 			() -> new GoodHerobrine(MobEffectCategory.BENEFICIAL));

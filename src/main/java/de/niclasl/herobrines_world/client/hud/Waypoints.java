@@ -19,7 +19,7 @@ import org.joml.Vector3fc;
 import java.util.List;
 import java.util.UUID;
 
-@EventBusSubscriber(modid = HerobrinesWorld.MODID, value = Dist.CLIENT)
+@EventBusSubscriber(modid = HerobrinesWorld.MOD_ID, value = Dist.CLIENT)
 public class Waypoints {
 
     @SubscribeEvent(priority = EventPriority.NORMAL)

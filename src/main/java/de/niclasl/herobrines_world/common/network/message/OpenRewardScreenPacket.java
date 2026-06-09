@@ -17,7 +17,7 @@ import java.util.List;
 public record OpenRewardScreenPacket(List<RewardEntry> rewards) implements CustomPacketPayload {
 
     public static final Type<OpenRewardScreenPacket> TYPE =
-            new Type<>(Identifier.fromNamespaceAndPath(HerobrinesWorld.MODID, "open_reward_screen"));
+            new Type<>(Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "open_reward_screen"));
 
     public static final StreamCodec<RegistryFriendlyByteBuf, OpenRewardScreenPacket> STREAM_CODEC = StreamCodec.of(
             OpenRewardScreenPacket::encode,

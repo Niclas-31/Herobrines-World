@@ -13,7 +13,7 @@ import org.jetbrains.annotations.NotNull;
 public class BatteryChargerScreen extends AbstractContainerScreen<BatteryChargerMenu> {
 
     private static final Identifier TEXTURE =
-            Identifier.fromNamespaceAndPath(HerobrinesWorld.MODID, "textures/gui/container/battery_charger.png");
+            Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "textures/gui/container/battery_charger.png");
 
     public BatteryChargerScreen(BatteryChargerMenu menu, Inventory playerInventory, Component title) {
         super(menu, playerInventory, title);

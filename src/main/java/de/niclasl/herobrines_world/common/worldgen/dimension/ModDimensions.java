@@ -30,23 +30,23 @@ import java.util.List;
 public class ModDimensions {
     public static final ResourceKey<Level> HEROBRINE_REALM =
             ResourceKey.create(Registries.DIMENSION,
-                    Identifier.fromNamespaceAndPath(HerobrinesWorld.MODID, "herobrines_realm"));
+                    Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "herobrines_realm"));
     public static final ResourceKey<DimensionType> HEROBRINE_TYPE =
             ResourceKey.create(Registries.DIMENSION_TYPE,
-                    Identifier.fromNamespaceAndPath(HerobrinesWorld.MODID, "herobrine_type"));
+                    Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "herobrine_type"));
     public static final ResourceKey<LevelStem> HEROBRINE_REALM_STEM =
             ResourceKey.create(Registries.LEVEL_STEM,
-                    Identifier.fromNamespaceAndPath(HerobrinesWorld.MODID, "herobrines_realm"));
+                    Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "herobrines_realm"));
 
     public static final ResourceKey<Level> UNDERWORLD =
             ResourceKey.create(Registries.DIMENSION,
-                    Identifier.fromNamespaceAndPath(HerobrinesWorld.MODID, "underworld"));
+                    Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "underworld"));
     public static final ResourceKey<DimensionType> UNDERWORLD_TYPE =
             ResourceKey.create(Registries.DIMENSION_TYPE,
-                    Identifier.fromNamespaceAndPath(HerobrinesWorld.MODID, "underworld_type"));
+                    Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "underworld_type"));
     public static final ResourceKey<LevelStem> UNDERWORLD_REALM_STEM =
             ResourceKey.create(Registries.LEVEL_STEM,
-                    Identifier.fromNamespaceAndPath(HerobrinesWorld.MODID, "underworld"));
+                    Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "underworld"));
 
     public static void bootstrapType(BootstrapContext<DimensionType> context) {
         HolderGetter<Timeline> holdergetter = context.lookup(Registries.TIMELINE);

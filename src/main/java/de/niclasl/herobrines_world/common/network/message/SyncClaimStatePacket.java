@@ -17,7 +17,7 @@ import java.util.UUID;
 public record SyncClaimStatePacket(Set<UUID> claimed) implements CustomPacketPayload {
 
     public static final Type<SyncClaimStatePacket> TYPE =
-            new Type<>(Identifier.fromNamespaceAndPath(HerobrinesWorld.MODID, "sync_claim_state"));
+            new Type<>(Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "sync_claim_state"));
 
     public static final StreamCodec<FriendlyByteBuf, SyncClaimStatePacket> STREAM_CODEC =
             StreamCodec.of(SyncClaimStatePacket::encode, SyncClaimStatePacket::decode);

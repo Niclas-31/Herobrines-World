@@ -41,7 +41,7 @@ public class ModTags {
         public static final TagKey<Block> REDSTONE = createTag("ores/redstone");
 
         private static TagKey<Block> createTag(String name) {
-            return BlockTags.create(Identifier.fromNamespaceAndPath(HerobrinesWorld.MODID, name));
+            return BlockTags.create(Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, name));
         }
     }
 
@@ -58,7 +58,7 @@ public class ModTags {
         public static final TagKey<Item> ASH_TOOL_MATERIALS = createTag("ash_tool_materials");
 
         private static TagKey<Item> createTag(String name) {
-            return ItemTags.create(Identifier.fromNamespaceAndPath(HerobrinesWorld.MODID, name));
+            return ItemTags.create(Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, name));
         }
     }
 
@@ -74,7 +74,7 @@ public class ModTags {
         public static final TagKey<Biome> HAS_ASH_DESERT_PYRAMID = createTag("has_structure/ash_desert_pyramid");
 
         private static TagKey<Biome> createTag(String name) {
-            return TagKey.create(Registries.BIOME, Identifier.fromNamespaceAndPath(HerobrinesWorld.MODID, name));
+            return TagKey.create(Registries.BIOME, Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, name));
         }
     }
 }

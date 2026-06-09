@@ -10,6 +10,6 @@ public class ModNoises {
     public static final ResourceKey<NormalNoise.NoiseParameters> CHAOS = createKey("chaos");
 
     private static ResourceKey<NormalNoise.NoiseParameters> createKey(String key) {
-        return ResourceKey.create(Registries.NOISE, Identifier.fromNamespaceAndPath(HerobrinesWorld.MODID, key));
+        return ResourceKey.create(Registries.NOISE, Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, key));
     }
 }

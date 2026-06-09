@@ -3,6 +3,7 @@ package de.niclasl.herobrines_world.common.network.message;
 import de.niclasl.herobrines_world.HerobrinesWorld;
 import de.niclasl.herobrines_world.common.registries.blocks.entities.DelayerBlockEntity;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
@@ -16,24 +17,30 @@ import org.jetbrains.annotations.NotNull;
 public record SyncTimePacket(BlockPos pos, int ticks, int seconds, int minutes, int hours) implements CustomPacketPayload {
 
     public static final Type<SyncTimePacket> TYPE =
-            new Type<>(Identifier.fromNamespaceAndPath(HerobrinesWorld.MODID, "sync_time"));
+            new Type<>(Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "sync_time"));
 
     public static final StreamCodec<RegistryFriendlyByteBuf, SyncTimePacket> STREAM_CODEC = StreamCodec.of(
-            (RegistryFriendlyByteBuf buffer, SyncTimePacket msg) -> {
-                buffer.writeBlockPos(msg.pos);
-                buffer.writeInt(msg.ticks);
-                buffer.writeInt(msg.seconds);
-                buffer.writeInt(msg.minutes);
-                buffer.writeInt(msg.hours);
-            },
-            buf -> new SyncTimePacket(
-                    buf.readBlockPos(),
-                    buf.readInt(),
-                    buf.readInt(),
-                    buf.readInt(),
-                    buf.readInt()
-            )
+            SyncTimePacket::encode,
+            SyncTimePacket::decode
     );
+
+    private static void encode(RegistryFriendlyByteBuf buf, SyncTimePacket msg) {
+        buf.writeBlockPos(msg.pos);
+        buf.writeInt(msg.ticks);
+        buf.writeInt(msg.seconds);
+        buf.writeInt(msg.minutes);
+        buf.writeInt(msg.hours);
+    }
+
+    private static SyncTimePacket decode(FriendlyByteBuf buf) {
+        return new SyncTimePacket(
+                buf.readBlockPos(),
+                buf.readInt(),
+                buf.readInt(),
+                buf.readInt(),
+                buf.readInt()
+        );
+    }
 
     @Override
     public @NotNull Type<? extends CustomPacketPayload> type() {
