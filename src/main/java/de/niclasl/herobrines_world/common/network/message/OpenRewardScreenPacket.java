@@ -3,7 +3,7 @@ package de.niclasl.herobrines_world.common.network.message;
 import de.niclasl.herobrines_world.HerobrinesWorld;
 import de.niclasl.herobrines_world.common.leaderbaord.RewardEntry;
 import de.niclasl.herobrines_world.common.leaderbaord.RewardType;
-import de.niclasl.herobrines_world.common.network.ClientHandler;
+import de.niclasl.herobrines_world.client.ClientHandler;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;

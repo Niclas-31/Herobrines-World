@@ -10,6 +10,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.api.distmarker.Dist;
+import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.RenderGuiLayerEvent;
@@ -21,7 +22,7 @@ import java.util.UUID;
 @EventBusSubscriber(modid = HerobrinesWorld.MODID, value = Dist.CLIENT)
 public class Waypoints {
 
-    @SubscribeEvent
+    @SubscribeEvent(priority = EventPriority.NORMAL)
     public static void render(RenderGuiLayerEvent.Post event) {
 
         Minecraft mc = Minecraft.getInstance();

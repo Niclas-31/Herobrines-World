@@ -1,4 +1,4 @@
-package de.niclasl.herobrines_world.common.network;
+package de.niclasl.herobrines_world.client;
 
 import de.niclasl.herobrines_world.client.screen.RewardScreen;
 import de.niclasl.herobrines_world.client.screen.SeasonBreakScreen;
