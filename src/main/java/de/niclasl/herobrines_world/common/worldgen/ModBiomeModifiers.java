@@ -1,7 +1,7 @@
 package de.niclasl.herobrines_world.common.worldgen;
 
 import de.niclasl.herobrines_world.HerobrinesWorld;
-import de.niclasl.herobrines_world.common.registries.entity.ModEntities;
+import de.niclasl.herobrines_world.common.registries.entities.ModEntities;
 import de.niclasl.herobrines_world.common.worldgen.biome.ModBiomes;
 import de.niclasl.herobrines_world.common.util.ModTags;
 import net.minecraft.core.HolderSet;

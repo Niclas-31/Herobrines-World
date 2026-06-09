@@ -1,7 +1,7 @@
 package de.niclasl.herobrines_world.datagen;
 
 import de.niclasl.herobrines_world.HerobrinesWorld;
-import de.niclasl.herobrines_world.common.registries.enchantment.ModEnchantments;
+import de.niclasl.herobrines_world.common.registries.enchantments.ModEnchantments;
 import de.niclasl.herobrines_world.common.worldgen.ModBiomeModifiers;
 import de.niclasl.herobrines_world.common.worldgen.ModConfiguredFeatures;
 import de.niclasl.herobrines_world.common.worldgen.ModPlacedFeatures;

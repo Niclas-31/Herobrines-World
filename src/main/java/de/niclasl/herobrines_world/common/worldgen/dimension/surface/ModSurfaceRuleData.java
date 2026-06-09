@@ -1,7 +1,7 @@
 package de.niclasl.herobrines_world.common.worldgen.dimension.surface;
 
 import com.google.common.collect.ImmutableList;
-import de.niclasl.herobrines_world.common.registries.block.ModBlocks;
+import de.niclasl.herobrines_world.common.registries.blocks.ModBlocks;
 import de.niclasl.herobrines_world.common.worldgen.biome.ModBiomes;
 import de.niclasl.herobrines_world.common.worldgen.dimension.noise.ModNoises;
 import net.minecraft.world.level.block.Block;

@@ -5,7 +5,7 @@ import de.niclasl.herobrines_world.common.network.safety.AccessMode;
 import de.niclasl.herobrines_world.common.network.transfer.TransferMode;
 import de.niclasl.herobrines_world.common.registries.components.ModDataComponents;
 import de.niclasl.herobrines_world.common.registries.components.SmartChipData;
-import de.niclasl.herobrines_world.common.registries.item.custom.SmartChip;
+import de.niclasl.herobrines_world.common.registries.items.custom.SmartChip;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;

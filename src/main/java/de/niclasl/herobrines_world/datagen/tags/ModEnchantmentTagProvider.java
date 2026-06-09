@@ -1,7 +1,7 @@
 package de.niclasl.herobrines_world.datagen.tags;
 
 import de.niclasl.herobrines_world.HerobrinesWorld;
-import de.niclasl.herobrines_world.common.registries.enchantment.ModEnchantments;
+import de.niclasl.herobrines_world.common.registries.enchantments.ModEnchantments;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.EnchantmentTagsProvider;

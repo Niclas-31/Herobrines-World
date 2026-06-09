@@ -1,7 +1,7 @@
 package de.niclasl.herobrines_world.common.worldgen;
 
 import de.niclasl.herobrines_world.HerobrinesWorld;
-import de.niclasl.herobrines_world.common.registries.block.ModBlocks;
+import de.niclasl.herobrines_world.common.registries.blocks.ModBlocks;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.Identifier;

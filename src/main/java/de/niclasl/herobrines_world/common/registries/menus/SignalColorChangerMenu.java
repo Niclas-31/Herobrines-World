@@ -1,0 +1,40 @@
+package de.niclasl.herobrines_world.common.registries.menus;
+
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.core.BlockPos;
+
+import org.jetbrains.annotations.NotNull;
+
+public class SignalColorChangerMenu extends AbstractContainerMenu {
+	public final Level world;
+	public final Player entity;
+	public int x, y, z;
+
+	public SignalColorChangerMenu(int id, Inventory inv, BlockPos pos) {
+		super(ModMenuTypes.SIGNAL_COLOR_CHANGER.get(), id);
+		this.entity = inv.player;
+		this.world = inv.player.level();
+		this.x = pos.getX();
+		this.y = pos.getY();
+		this.z = pos.getZ();
+	}
+
+	public SignalColorChangerMenu(int id, Inventory inv, RegistryFriendlyByteBuf buf) {
+		this(id, inv, buf.readBlockPos());
+	}
+
+	@Override
+	public boolean stillValid(@NotNull Player player) {
+		return true;
+	}
+
+	@Override
+	public @NotNull ItemStack quickMoveStack(@NotNull Player playerIn, int index) {
+		return ItemStack.EMPTY;
+	}
+}

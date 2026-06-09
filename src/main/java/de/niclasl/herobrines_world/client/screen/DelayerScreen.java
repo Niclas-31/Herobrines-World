@@ -1,7 +1,7 @@
 package de.niclasl.herobrines_world.client.screen;
 
-import de.niclasl.herobrines_world.common.registries.block.entity.DelayerBlockEntity;
-import de.niclasl.herobrines_world.common.registries.menu.DelayerMenu;
+import de.niclasl.herobrines_world.common.registries.blocks.entities.DelayerBlockEntity;
+import de.niclasl.herobrines_world.common.registries.menus.DelayerMenu;
 import de.niclasl.herobrines_world.common.network.message.SyncTimePacket;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;

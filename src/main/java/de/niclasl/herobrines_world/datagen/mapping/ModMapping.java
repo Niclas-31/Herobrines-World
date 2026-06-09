@@ -1,12 +1,12 @@
 package de.niclasl.herobrines_world.datagen.mapping;
 
-import de.niclasl.herobrines_world.common.registries.block.ModBlocks;
-import de.niclasl.herobrines_world.common.registries.block.custom.AutoFarmerBlock;
-import de.niclasl.herobrines_world.common.registries.block.custom.CardReaderBlock;
-import de.niclasl.herobrines_world.common.registries.block.custom.SignalBlock;
-import de.niclasl.herobrines_world.common.registries.block.custom.StorageControllerBlock;
-import de.niclasl.herobrines_world.common.registries.block.properties.ColorProperty;
-import de.niclasl.herobrines_world.common.registries.block.properties.FarmerMode;
+import de.niclasl.herobrines_world.common.registries.blocks.ModBlocks;
+import de.niclasl.herobrines_world.common.registries.blocks.custom.AutoFarmerBlock;
+import de.niclasl.herobrines_world.common.registries.blocks.custom.CardReaderBlock;
+import de.niclasl.herobrines_world.common.registries.blocks.custom.SignalBlock;
+import de.niclasl.herobrines_world.common.registries.blocks.custom.StorageControllerBlock;
+import de.niclasl.herobrines_world.common.registries.blocks.properties.ColorProperty;
+import de.niclasl.herobrines_world.common.registries.blocks.properties.FarmerMode;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.client.data.models.MultiVariant;

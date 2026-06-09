@@ -1,7 +1,7 @@
 package de.niclasl.herobrines_world.datagen.loottables;
 
-import de.niclasl.herobrines_world.common.registries.block.ModBlocks;
-import de.niclasl.herobrines_world.common.registries.item.ModItems;
+import de.niclasl.herobrines_world.common.registries.blocks.ModBlocks;
+import de.niclasl.herobrines_world.common.registries.items.ModItems;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.loot.BlockLootSubProvider;

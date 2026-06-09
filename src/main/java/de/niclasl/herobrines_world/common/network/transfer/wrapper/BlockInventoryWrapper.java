@@ -1,6 +1,6 @@
 package de.niclasl.herobrines_world.common.network.transfer.wrapper;
 
-import de.niclasl.herobrines_world.common.registries.block.entity.StorageControllerBlockEntity;
+import de.niclasl.herobrines_world.common.registries.blocks.entities.StorageControllerBlockEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 

@@ -1,6 +1,6 @@
 package de.niclasl.herobrines_world.common.worldgen.structure.set;
 
-import de.niclasl.herobrines_world.common.registries.block.ModBlocks;
+import de.niclasl.herobrines_world.common.registries.blocks.ModBlocks;
 import de.niclasl.herobrines_world.common.util.ModLootTables;
 import de.niclasl.herobrines_world.common.worldgen.structure.ModStructurePieceType;
 import net.minecraft.core.BlockPos;

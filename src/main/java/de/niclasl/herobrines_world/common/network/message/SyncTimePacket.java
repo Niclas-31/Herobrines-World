@@ -1,7 +1,7 @@
 package de.niclasl.herobrines_world.common.network.message;
 
 import de.niclasl.herobrines_world.HerobrinesWorld;
-import de.niclasl.herobrines_world.common.registries.block.entity.DelayerBlockEntity;
+import de.niclasl.herobrines_world.common.registries.blocks.entities.DelayerBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;

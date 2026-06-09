@@ -3,7 +3,7 @@ package de.niclasl.herobrines_world.client.screen;
 import de.niclasl.herobrines_world.common.network.message.SyncChipPacket;
 import de.niclasl.herobrines_world.common.network.safety.AccessMode;
 import de.niclasl.herobrines_world.common.network.transfer.TransferMode;
-import de.niclasl.herobrines_world.common.registries.menu.SmartChipMenu;
+import de.niclasl.herobrines_world.common.registries.menus.SmartChipMenu;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.EditBox;

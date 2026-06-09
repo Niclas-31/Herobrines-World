@@ -1,8 +1,8 @@
 package de.niclasl.herobrines_world.datagen;
 
 import de.niclasl.herobrines_world.HerobrinesWorld;
-import de.niclasl.herobrines_world.common.registries.block.ModBlocks;
-import de.niclasl.herobrines_world.common.registries.item.ModItems;
+import de.niclasl.herobrines_world.common.registries.blocks.ModBlocks;
+import de.niclasl.herobrines_world.common.registries.items.ModItems;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;

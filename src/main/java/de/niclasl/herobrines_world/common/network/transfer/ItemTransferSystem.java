@@ -1,9 +1,9 @@
 package de.niclasl.herobrines_world.common.network.transfer;
 
 import de.niclasl.herobrines_world.common.network.transfer.wrapper.*;
-import de.niclasl.herobrines_world.common.registries.block.entity.AutoFarmerBlockEntity;
-import de.niclasl.herobrines_world.common.registries.block.entity.CardReaderBlockEntity;
-import de.niclasl.herobrines_world.common.registries.block.entity.StorageControllerBlockEntity;
+import de.niclasl.herobrines_world.common.registries.blocks.entities.AutoFarmerBlockEntity;
+import de.niclasl.herobrines_world.common.registries.blocks.entities.CardReaderBlockEntity;
+import de.niclasl.herobrines_world.common.registries.blocks.entities.StorageControllerBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.Container;

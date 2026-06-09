@@ -2,8 +2,8 @@ package de.niclasl.herobrines_world.client.renderer.block;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
-import de.niclasl.herobrines_world.common.registries.block.custom.DelayerBlock;
-import de.niclasl.herobrines_world.common.registries.block.entity.LogicGateBlockEntity;
+import de.niclasl.herobrines_world.common.registries.blocks.custom.DelayerBlock;
+import de.niclasl.herobrines_world.common.registries.blocks.entities.LogicGateBlockEntity;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.SubmitNodeCollector;

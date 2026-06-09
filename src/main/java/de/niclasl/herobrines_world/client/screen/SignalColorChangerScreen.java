@@ -1,7 +1,7 @@
 package de.niclasl.herobrines_world.client.screen;
 
 import de.niclasl.herobrines_world.HerobrinesWorld;
-import de.niclasl.herobrines_world.common.registries.menu.SignalColorChangerMenu;
+import de.niclasl.herobrines_world.common.registries.menus.SignalColorChangerMenu;
 import de.niclasl.herobrines_world.common.network.message.SyncColorPacket;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.ImageButton;

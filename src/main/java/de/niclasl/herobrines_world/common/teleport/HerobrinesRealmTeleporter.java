@@ -1,8 +1,8 @@
 package de.niclasl.herobrines_world.common.teleport;
 
 import com.google.common.collect.ImmutableSet;
-import de.niclasl.herobrines_world.common.registries.block.ModBlocks;
-import de.niclasl.herobrines_world.common.registries.block.custom.HerobrinesRealmPortalBlock;
+import de.niclasl.herobrines_world.common.registries.blocks.ModBlocks;
+import de.niclasl.herobrines_world.common.registries.blocks.custom.HerobrinesRealmPortalBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;

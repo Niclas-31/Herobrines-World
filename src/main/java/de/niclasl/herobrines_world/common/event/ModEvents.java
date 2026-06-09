@@ -2,9 +2,9 @@ package de.niclasl.herobrines_world.common.event;
 
 import de.niclasl.herobrines_world.HerobrinesWorld;
 import de.niclasl.herobrines_world.common.network.ModVariables;
-import de.niclasl.herobrines_world.common.registries.enchantment.ModEnchantments;
-import de.niclasl.herobrines_world.common.registries.potion.ModPotions;
-import de.niclasl.herobrines_world.common.registries.villager.ModVillagers;
+import de.niclasl.herobrines_world.common.registries.enchantments.ModEnchantments;
+import de.niclasl.herobrines_world.common.registries.potions.ModPotions;
+import de.niclasl.herobrines_world.common.registries.villagers.ModVillagers;
 import de.niclasl.herobrines_world.common.leaderbaord.season.SeasonManager;
 import de.niclasl.herobrines_world.common.util.math.SoulGain;
 import de.niclasl.herobrines_world.common.util.math.SoulMath;

@@ -1,6 +1,6 @@
 package de.niclasl.herobrines_world.client.renderer.entity;
 
-import de.niclasl.herobrines_world.common.registries.entity.custom.StatueEntity303;
+import de.niclasl.herobrines_world.common.registries.entities.custom.StatueEntity303;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;

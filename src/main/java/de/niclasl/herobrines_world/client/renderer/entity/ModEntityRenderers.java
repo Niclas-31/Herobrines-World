@@ -1,6 +1,6 @@
 package de.niclasl.herobrines_world.client.renderer.entity;
 
-import de.niclasl.herobrines_world.common.registries.entity.ModEntities;
+import de.niclasl.herobrines_world.common.registries.entities.ModEntities;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.bus.api.SubscribeEvent;

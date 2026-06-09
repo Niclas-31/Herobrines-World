@@ -3,7 +3,7 @@ package de.niclasl.herobrines_world.client.hud;
 import de.niclasl.herobrines_world.HerobrinesWorld;
 import de.niclasl.herobrines_world.common.registries.components.ModDataComponents;
 import de.niclasl.herobrines_world.common.registries.components.SavedWaypoint;
-import de.niclasl.herobrines_world.common.registries.item.ModItems;
+import de.niclasl.herobrines_world.common.registries.items.ModItems;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;

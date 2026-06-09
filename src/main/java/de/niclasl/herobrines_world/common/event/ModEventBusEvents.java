@@ -1,7 +1,7 @@
 package de.niclasl.herobrines_world.common.event;
 
 import de.niclasl.herobrines_world.HerobrinesWorld;
-import de.niclasl.herobrines_world.common.registries.entity.ModEntities;
+import de.niclasl.herobrines_world.common.registries.entities.ModEntities;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.SpawnPlacementTypes;

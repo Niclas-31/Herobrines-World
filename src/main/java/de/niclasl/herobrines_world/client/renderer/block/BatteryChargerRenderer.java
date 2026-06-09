@@ -1,8 +1,8 @@
 package de.niclasl.herobrines_world.client.renderer.block;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import de.niclasl.herobrines_world.common.registries.block.custom.BatteryChargerBlock;
-import de.niclasl.herobrines_world.common.registries.block.entity.BatteryChargerBlockEntity;
+import de.niclasl.herobrines_world.common.registries.blocks.custom.BatteryChargerBlock;
+import de.niclasl.herobrines_world.common.registries.blocks.entities.BatteryChargerBlockEntity;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;

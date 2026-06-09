@@ -2,11 +2,11 @@ package de.niclasl.herobrines_world.client;
 
 import de.niclasl.herobrines_world.HerobrinesWorld;
 import de.niclasl.herobrines_world.client.screen.*;
-import de.niclasl.herobrines_world.common.registries.block.entity.ModBlockEntities;
+import de.niclasl.herobrines_world.common.registries.blocks.entities.ModBlockEntities;
 import de.niclasl.herobrines_world.client.renderer.block.BatteryChargerRenderer;
 import de.niclasl.herobrines_world.client.renderer.block.DelayerRenderer;
 import de.niclasl.herobrines_world.client.renderer.block.LogicGateBlockEntityRenderer;
-import de.niclasl.herobrines_world.common.registries.menu.ModMenuTypes;
+import de.niclasl.herobrines_world.common.registries.menus.ModMenuTypes;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModContainer;

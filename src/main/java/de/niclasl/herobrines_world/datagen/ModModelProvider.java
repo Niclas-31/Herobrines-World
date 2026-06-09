@@ -2,9 +2,9 @@ package de.niclasl.herobrines_world.datagen;
 
 import com.google.common.collect.ImmutableMap;
 import de.niclasl.herobrines_world.HerobrinesWorld;
-import de.niclasl.herobrines_world.common.registries.block.ModBlocks;
-import de.niclasl.herobrines_world.common.registries.item.ModArmorMaterials;
-import de.niclasl.herobrines_world.common.registries.item.ModItems;
+import de.niclasl.herobrines_world.common.registries.blocks.ModBlocks;
+import de.niclasl.herobrines_world.common.registries.items.ModArmorMaterials;
+import de.niclasl.herobrines_world.common.registries.items.ModItems;
 import de.niclasl.herobrines_world.datagen.mapping.ModMapping;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;

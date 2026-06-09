@@ -1,6 +1,6 @@
 package de.niclasl.herobrines_world.datagen;
 
-import de.niclasl.herobrines_world.common.registries.entity.ModEntities;
+import de.niclasl.herobrines_world.common.registries.entities.ModEntities;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.neoforged.neoforge.common.data.DataMapProvider;

@@ -3,7 +3,7 @@ package de.niclasl.herobrines_world.common.network.message;
 import de.niclasl.herobrines_world.HerobrinesWorld;
 import de.niclasl.herobrines_world.common.registries.components.ModDataComponents;
 import de.niclasl.herobrines_world.common.registries.components.SavedWaypoint;
-import de.niclasl.herobrines_world.common.registries.item.custom.WaypointCompass;
+import de.niclasl.herobrines_world.common.registries.items.custom.WaypointCompass;
 import net.minecraft.core.GlobalPos;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.RegistryFriendlyByteBuf;
