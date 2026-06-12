@@ -12,7 +12,8 @@ import org.jspecify.annotations.NonNull;
 
 public class SmartChipMenu extends AbstractContainerMenu {
 
-    private final ItemStack chip;
+    private final Transfer transfer;
+    private final Access access;
 
     public SmartChipMenu(int id, @NonNull Inventory inv, FriendlyByteBuf buf) {
         this(id, inv.player.getMainHandItem());
@@ -20,19 +21,16 @@ public class SmartChipMenu extends AbstractContainerMenu {
 
     public SmartChipMenu(int id, ItemStack chip) {
         super(ModMenuTypes.SMART_CHIP.get(), id);
-        this.chip = chip;
-    }
-
-    private ItemStack getChip() {
-        return chip;
+        this.transfer = chip.getOrDefault(ModDataComponents.TRANSFER, Transfer.DEFAULT);
+        this.access = chip.getOrDefault(ModDataComponents.ACCESS, Access.DEFAULT);
     }
 
     public Transfer getTransferData() {
-        return getChip().getOrDefault(ModDataComponents.TRANSFER, Transfer.DEFAULT);
+        return transfer;
     }
 
     public Access getAccessData() {
-        return getChip().getOrDefault(ModDataComponents.ACCESS, Access.DEFAULT);
+        return access;
     }
 
     @Override

@@ -1,6 +1,7 @@
 package de.niclasl.herobrines_world.common.registries;
 
 import de.niclasl.herobrines_world.common.network.ModVariables;
+import de.niclasl.herobrines_world.common.network.access.AccessModeImpl;
 import de.niclasl.herobrines_world.common.network.transfer.TransferModeImpl;
 import de.niclasl.herobrines_world.common.registries.blocks.ModBlocks;
 import de.niclasl.herobrines_world.common.registries.blocks.entities.ModBlockEntities;
@@ -23,6 +24,7 @@ public class ModRegistries {
 
     public static void register(IEventBus eventBus) {
         TransferModeImpl.register();
+        AccessModeImpl.register();
 
         ModCreativeModeTabs.register(eventBus);
 

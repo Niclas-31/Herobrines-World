@@ -26,9 +26,14 @@ public class ModMessage {
                 SyncTimePacket::handle
         );
         registrar.playToServer(
-                SyncChipPacket.TYPE,
-                SyncChipPacket.STREAM_CODEC,
-                SyncChipPacket::handle
+                SyncAccessPacket.TYPE,
+                SyncAccessPacket.STREAM_CODEC,
+                SyncAccessPacket::handle
+        );
+        registrar.playToServer(
+                SyncTransferChipPacket.TYPE,
+                SyncTransferChipPacket.STREAM_CODEC,
+                SyncTransferChipPacket::handle
         );
         registrar.playToServer(
                 RequestRewardsScreenPacket.TYPE,
