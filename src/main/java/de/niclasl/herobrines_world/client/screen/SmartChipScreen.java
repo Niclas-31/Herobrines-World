@@ -1,7 +1,6 @@
 package de.niclasl.herobrines_world.client.screen;
 
-import de.niclasl.herobrines_world.common.network.message.SyncAccessPacket;
-import de.niclasl.herobrines_world.common.network.message.SyncTransferChipPacket;
+import de.niclasl.herobrines_world.common.network.message.SyncChipPacket;
 import de.niclasl.herobrines_world.common.registries.menus.SmartChipMenu;
 import de.niclasl.herobrines_world_api.api.access.AccessMode;
 import de.niclasl.herobrines_world_api.api.transfer.TransferMode;
@@ -181,6 +180,15 @@ public class SmartChipScreen extends AbstractContainerScreen<SmartChipMenu> {
                 .bounds(this.leftPos + 10, row(4), 160, 20).build());
     }
 
+    private void saveAll() {
+        int range = parseBox(rangeBox);
+        int speed = parseBox(speedBox);
+        int level = parseBox(tierBox);
+        UUID owner = parseBoxOwner(ownerBox);
+
+        ClientPacketDistributor.sendToServer(new SyncChipPacket(transferMode, range, speed, accessMode, level, owner));
+    }
+
     public void addNumberLimiter(@NotNull EditBox box, int min, int max) {
         box.setFilter(this::onlyDigits);
 
@@ -275,21 +283,11 @@ public class SmartChipScreen extends AbstractContainerScreen<SmartChipMenu> {
     }
 
     private void saveTransfer() {
-        int range = parseBox(rangeBox);
-        int speed = parseBox(speedBox);
-
-        ClientPacketDistributor.sendToServer(
-                new SyncTransferChipPacket(transferMode, range, speed)
-        );
+        saveAll();
     }
 
     private void saveAccess() {
-        int accessTier = parseBox(tierBox);
-        UUID owner = parseBoxOwner(ownerBox);
-
-        ClientPacketDistributor.sendToServer(
-                new SyncAccessPacket(accessMode, accessTier, owner)
-        );
+        saveAll();
     }
 
     private TransferMode nextMode(TransferMode current) {
