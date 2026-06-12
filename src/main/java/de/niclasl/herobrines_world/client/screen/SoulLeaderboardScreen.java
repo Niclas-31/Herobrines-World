@@ -1,8 +1,8 @@
 package de.niclasl.herobrines_world.client.screen;
 
 import de.niclasl.herobrines_world.HerobrinesWorld;
-import de.niclasl.herobrines_world.common.leaderbaord.LeaderboardEntry;
-import de.niclasl.herobrines_world.common.leaderbaord.season.SeasonManager;
+import de.niclasl.herobrines_world_api.api.leaderboard.LeaderboardEntry;
+import de.niclasl.herobrines_world.common.leaderboard.season.SeasonManager;
 import de.niclasl.herobrines_world.common.network.message.RequestRewardsScreenPacket;
 import de.niclasl.herobrines_world.common.util.math.SoulMath;
 import net.minecraft.client.Minecraft;
@@ -110,7 +110,7 @@ public class SoulLeaderboardScreen extends Screen {
             gui.fill(startX - 5, y - 2, startX + tableWidth, y + 12, 0x33000000);
 
             gui.drawString(this.font, "#" + rank, startX, y, rankColor);
-            gui.drawString(this.font, entry.name(), startX + 60, y, 0xFFFFFFFF);
+            gui.drawString(this.font, entry.playerName(), startX + 60, y, 0xFFFFFFFF);
             gui.drawString(this.font, String.valueOf(entry.value()), startX + 180, y, 0xFFFFFFFF);
             gui.drawString(this.font, String.valueOf(level), startX + 240, y, 0xFFFFFFFF);
         }

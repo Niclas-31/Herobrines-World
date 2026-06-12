@@ -1,7 +1,7 @@
 package de.niclasl.herobrines_world.common.network;
 
 import de.niclasl.herobrines_world.HerobrinesWorld;
-import de.niclasl.herobrines_world.common.leaderbaord.LeaderboardEntry;
+import de.niclasl.herobrines_world_api.api.leaderboard.LeaderboardEntry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -173,8 +173,8 @@ public class ModVariables {
 
 				CompoundTag tag = new CompoundTag();
 
-				tag.putString("uuid", e.uuid().toString());
-				tag.putString("name", e.name());
+				tag.putString("uuid", e.player().toString());
+				tag.putString("name", e.playerName());
 				tag.putInt("value", e.value());
 
 				list.add(tag);

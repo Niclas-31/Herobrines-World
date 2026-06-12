@@ -1,9 +1,10 @@
 package de.niclasl.herobrines_world.common.network.transfer.wrapper;
 
+import de.niclasl.herobrines_world_api.api.transfer.wrapper.InventoryWrapper;
 import net.minecraft.core.NonNullList;
 import net.minecraft.world.item.ItemStack;
 
-public class AutoFarmerWrapper implements IInventoryWrapper {
+public class AutoFarmerWrapper implements InventoryWrapper {
 
     private final NonNullList<ItemStack> items;
 

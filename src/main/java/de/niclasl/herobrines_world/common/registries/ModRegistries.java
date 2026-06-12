@@ -1,6 +1,7 @@
 package de.niclasl.herobrines_world.common.registries;
 
 import de.niclasl.herobrines_world.common.network.ModVariables;
+import de.niclasl.herobrines_world.common.network.transfer.TransferModeImpl;
 import de.niclasl.herobrines_world.common.registries.blocks.ModBlocks;
 import de.niclasl.herobrines_world.common.registries.blocks.entities.ModBlockEntities;
 import de.niclasl.herobrines_world.common.registries.components.ModDataComponents;
@@ -10,9 +11,9 @@ import de.niclasl.herobrines_world.common.registries.entities.ModEntities;
 import de.niclasl.herobrines_world.common.registries.entities.custom.HerobrineBoss;
 import de.niclasl.herobrines_world.common.registries.items.ModCreativeModeTabs;
 import de.niclasl.herobrines_world.common.registries.items.ModItems;
+import de.niclasl.herobrines_world.common.registries.menus.ModMenuTypes;
 import de.niclasl.herobrines_world.common.registries.potions.ModPotions;
 import de.niclasl.herobrines_world.common.registries.recipes.ModRecipes;
-import de.niclasl.herobrines_world.common.registries.menus.ModMenuTypes;
 import de.niclasl.herobrines_world.common.registries.villagers.ModVillagers;
 import de.niclasl.herobrines_world.common.worldgen.structure.ModStructurePieceType;
 import de.niclasl.herobrines_world.common.worldgen.structure.ModStructureType;
@@ -21,6 +22,8 @@ import net.neoforged.bus.api.IEventBus;
 public class ModRegistries {
 
     public static void register(IEventBus eventBus) {
+        TransferModeImpl.register();
+
         ModCreativeModeTabs.register(eventBus);
 
         ModItems.register(eventBus);

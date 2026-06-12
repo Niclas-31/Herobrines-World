@@ -1,7 +1,7 @@
 package de.niclasl.herobrines_world.common.event;
 
-import de.niclasl.herobrines_world.common.leaderbaord.season.SeasonManager;
-import de.niclasl.herobrines_world.common.leaderbaord.season.SeasonRewardStorage;
+import de.niclasl.herobrines_world.common.leaderboard.season.SeasonManager;
+import de.niclasl.herobrines_world.common.leaderboard.season.SeasonRewardStorage;
 import de.niclasl.herobrines_world.common.network.message.SyncClaimStatePacket;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;

@@ -1,10 +1,12 @@
-package de.niclasl.herobrines_world.common.leaderbaord.season;
+package de.niclasl.herobrines_world.common.leaderboard.season;
 
-import de.niclasl.herobrines_world.common.leaderbaord.RewardEntry;
-import de.niclasl.herobrines_world.common.leaderbaord.RewardType;
+import de.niclasl.herobrines_world_api.api.leaderboard.RewardEntry;
+import de.niclasl.herobrines_world_api.api.leaderboard.RewardType;
 import de.niclasl.herobrines_world.common.network.message.SyncClaimStatePacket;
+import de.niclasl.herobrines_world_api.registry.HWRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.saveddata.SavedData;
 import net.minecraft.world.level.saveddata.SavedDataType;
@@ -35,19 +37,17 @@ public class SeasonRewardStorage extends SavedData {
     }
 
     public void read(CompoundTag tag) {
+
         rewardsByPlayer.clear();
         claimed.clear();
 
         ListTag players = tag.getListOrEmpty("players");
 
         for (int i = 0; i < players.size(); i++) {
+
             CompoundTag p = players.getCompoundOrEmpty(i);
 
-            String uuidStr = p.getStringOr("uuid", "");
-            if (uuidStr.isEmpty()) continue;
-
-            UUID uuid = UUID.fromString(uuidStr);
-
+            UUID uuid = UUID.fromString(p.getStringOr("uuid", ""));
             boolean wasClaimed = p.getBooleanOr("claimed", false);
 
             List<RewardEntry> rewards = new ArrayList<>();
@@ -55,17 +55,16 @@ public class SeasonRewardStorage extends SavedData {
             ListTag rList = p.getListOrEmpty("rewards");
 
             for (int j = 0; j < rList.size(); j++) {
+
                 CompoundTag r = rList.getCompoundOrEmpty(j);
 
-                Optional<String> opt = tag.getString("name");
+                String id = r.getStringOr("type", "");
 
-                if (opt.isEmpty()) {
-                    continue;
-                }
+                RewardType type = HWRegistries.REWARD_TYPES.get(
+                        Identifier.parse(id)
+                );
 
-                String name = opt.get();
-
-                RewardType type = RewardType.valueOf(name);
+                if (type == null) continue;
 
                 rewards.add(new RewardEntry(
                         type,
@@ -99,7 +98,7 @@ public class SeasonRewardStorage extends SavedData {
             for (RewardEntry r : entry.getValue()) {
 
                 CompoundTag rTag = new CompoundTag();
-                rTag.putString("name", r.type().name());
+                rTag.putString("type", r.type().id().toString());
                 rTag.putInt("amount", r.amount());
 
                 rewardsList.add(rTag);

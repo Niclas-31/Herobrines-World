@@ -109,8 +109,6 @@ public class ModCreativeModeTabs {
 								tabData.accept(ModItems.SMART_CHIP);
 								tabData.accept(ModItems.SMART_CHIP_CASE);
 								tabData.accept(ModBlocks.STORAGE_CONTROLLER);
-								tabData.accept(ModItems.KEY_CARD);
-								tabData.accept(ModBlocks.CARD_READER);
 							}).build());
 
 	public static final Supplier<CreativeModeTab> HEROBRINE_TOOLS_AND_UTILITIES =

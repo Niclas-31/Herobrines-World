@@ -1,7 +1,7 @@
-package de.niclasl.herobrines_world.common.leaderbaord.season;
+package de.niclasl.herobrines_world.common.leaderboard.season;
 
-import de.niclasl.herobrines_world.common.leaderbaord.LeaderboardEntry;
-import de.niclasl.herobrines_world.common.leaderbaord.RewardEntry;
+import de.niclasl.herobrines_world_api.api.leaderboard.LeaderboardEntry;
+import de.niclasl.herobrines_world_api.api.leaderboard.RewardEntry;
 import de.niclasl.herobrines_world.common.network.ModVariables;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -32,7 +32,7 @@ public class SeasonRewardGenerator {
 
             ServerPlayer player = level.getServer()
                     .getPlayerList()
-                    .getPlayer(entry.uuid());
+                    .getPlayer(entry.player());
 
             if (player == null) continue;
 
@@ -41,7 +41,7 @@ public class SeasonRewardGenerator {
             List<RewardEntry> rewards =
                     RewardEngine.buildRewardsForRank(rank);
 
-            storage.setRewards(entry.uuid(), rewards);
+            storage.setRewards(entry.player(), rewards);
         }
     }
 }

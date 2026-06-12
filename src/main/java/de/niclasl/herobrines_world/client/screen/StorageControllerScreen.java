@@ -13,7 +13,7 @@ import org.jspecify.annotations.NonNull;
 public class StorageControllerScreen extends AbstractContainerScreen<StorageControllerMenu> {
 
     private static final Identifier TEXTURE =
-            Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "container/storage_controller.png");
+            Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "textures/gui/container/storage_controller.png");
 
     public StorageControllerScreen(StorageControllerMenu menu, Inventory inventory, Component title) {
         super(menu, inventory, title);

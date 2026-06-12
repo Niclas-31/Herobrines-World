@@ -25,8 +25,6 @@ public class ModMenuTypes {
 			registerMenuType("smart_chip", SmartChipMenu::new);
 	public static final DeferredHolder<MenuType<?>, MenuType<StorageControllerMenu>> STORAGE_CONTROLLER =
 			registerMenuType("storage_controller", StorageControllerMenu::new);
-	public static final DeferredHolder<MenuType<?>, MenuType<CardReaderMenu>> CARD_READER =
-			registerMenuType("card_reader", CardReaderMenu::new);
 
 	private static <T extends AbstractContainerMenu> DeferredHolder<MenuType<?>, MenuType<T>> registerMenuType(String name,
 	                                                                                                           IContainerFactory<T> factory) {

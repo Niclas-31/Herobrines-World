@@ -1,15 +1,15 @@
 package de.niclasl.herobrines_world.common.registries.blocks.entities;
 
 import de.niclasl.herobrines_world.common.network.transfer.ItemTransferSystem;
-import de.niclasl.herobrines_world.common.network.transfer.resolver.RemoteInventoryResolver;
 import de.niclasl.herobrines_world.common.network.transfer.wrapper.AutoFarmerWrapper;
-import de.niclasl.herobrines_world.common.network.transfer.wrapper.IInventoryWrapper;
 import de.niclasl.herobrines_world.common.registries.blocks.custom.AutoFarmerBlock;
 import de.niclasl.herobrines_world.common.registries.blocks.properties.FarmerMode;
 import de.niclasl.herobrines_world.common.registries.components.ModDataComponents;
-import de.niclasl.herobrines_world.common.registries.components.SmartChipData;
+import de.niclasl.herobrines_world.common.registries.components.Transfer;
 import de.niclasl.herobrines_world.common.registries.items.custom.BatteryItem;
 import de.niclasl.herobrines_world.common.registries.menus.AutoFarmerMenu;
+import de.niclasl.herobrines_world_api.api.transfer.TransferAPI;
+import de.niclasl.herobrines_world_api.api.transfer.wrapper.InventoryWrapper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
@@ -138,7 +138,7 @@ public class AutoFarmerBlockEntity extends BlockEntity implements Container, Men
         if (!(level instanceof ServerLevel serverLevel)) return;
 
         ItemStack chipStack = be.items.get(28);
-        SmartChipData.Transfer chip = chipStack.get(ModDataComponents.TRANSFER);
+        Transfer chip = chipStack.get(ModDataComponents.TRANSFER);
 
         if (chip == null) {
             level.setBlock(pos, state.setValue(AutoFarmerBlock.POWERED, false), 3);
@@ -197,27 +197,18 @@ public class AutoFarmerBlockEntity extends BlockEntity implements Container, Men
         }
     }
 
-    private void transferAndFilter(ServerLevel level, SmartChipData.Transfer chip) {
+    private void transferAndFilter(ServerLevel level, Transfer chip) {
 
-        IInventoryWrapper source = new AutoFarmerWrapper(this.items);
+        InventoryWrapper source = new AutoFarmerWrapper(this.items);
 
-        IInventoryWrapper target = RemoteInventoryResolver.resolve(
-                level,
-                chip.pos(),
-                chip.dim()
-        );
+        InventoryWrapper target = TransferAPI.resolver().resolve(level, chip.pos(), chip.dim());
 
-        ItemTransferSystem.tick(
-                source,
-                target,
-                chip.mode(),
-                27
-        );
+        ItemTransferSystem.tick(source, target, chip.mode(), 27);
 
         applyBufferRules(target);
     }
 
-    private void applyBufferRules(IInventoryWrapper target) {
+    private void applyBufferRules(InventoryWrapper target) {
 
         for (int i = 0; i < items.size(); i++) {
 
@@ -274,7 +265,7 @@ public class AutoFarmerBlockEntity extends BlockEntity implements Container, Men
                 || stack.is(Items.POTATO);
     }
 
-    private static ItemStack insertInto(IInventoryWrapper target, ItemStack stack) {
+    private static ItemStack insertInto(InventoryWrapper target, ItemStack stack) {
 
         for (int slot = 0; slot < target.size(); slot++) {
 

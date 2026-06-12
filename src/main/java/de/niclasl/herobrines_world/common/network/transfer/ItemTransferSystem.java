@@ -1,9 +1,10 @@
 package de.niclasl.herobrines_world.common.network.transfer;
 
+import de.niclasl.herobrines_world_api.api.transfer.TransferMode;
 import de.niclasl.herobrines_world.common.network.transfer.wrapper.*;
 import de.niclasl.herobrines_world.common.registries.blocks.entities.AutoFarmerBlockEntity;
-import de.niclasl.herobrines_world.common.registries.blocks.entities.CardReaderBlockEntity;
 import de.niclasl.herobrines_world.common.registries.blocks.entities.StorageControllerBlockEntity;
+import de.niclasl.herobrines_world_api.api.transfer.wrapper.InventoryWrapper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.Container;
@@ -21,19 +22,19 @@ import java.util.List;
 public class ItemTransferSystem {
 
     public static void tick(
-            IInventoryWrapper source,
-            IInventoryWrapper target,
+            InventoryWrapper source,
+            InventoryWrapper target,
             TransferMode mode,
             int maxSlot
     ) {
-        switch (mode) {
-
-            case INSERT -> insert(source, target, maxSlot);
-            case EXTRACT -> extract(source, target, maxSlot);
+        if (mode == TransferModeImpl.INSERT) {
+            insert(source, target, maxSlot);
+        } else if (mode == TransferModeImpl.EXTRACT) {
+            extract(source, target, maxSlot);
         }
     }
 
-    private static void insert(IInventoryWrapper source, IInventoryWrapper target, int maxSlot) {
+    private static void insert(InventoryWrapper source, InventoryWrapper target, int maxSlot) {
         for (int i = 0; i < maxSlot; i++) {
 
             ItemStack original = source.get(i);
@@ -58,7 +59,7 @@ public class ItemTransferSystem {
         }
     }
 
-    private static void extract(IInventoryWrapper source, IInventoryWrapper target, int maxSlot) {
+    private static void extract(InventoryWrapper source, InventoryWrapper target, int maxSlot) {
         for (int i = 0; i < maxSlot; i++) {
 
             ItemStack original = target.get(i);
@@ -81,12 +82,8 @@ public class ItemTransferSystem {
         }
     }
 
-    public static ItemStack insertInto(
-            IInventoryWrapper target,
-            ItemStack stack
-    ) {
-
-        if (target.canAccept(stack)) {
+    public static ItemStack insertInto(InventoryWrapper target, ItemStack stack) {
+        if (!target.canAccept(stack)) {
             return stack;
         }
 
@@ -132,7 +129,7 @@ public class ItemTransferSystem {
         return stack;
     }
 
-    public static IInventoryWrapper getWrapper(Level level, BlockPos pos, ItemStack filter) {
+    public static InventoryWrapper getWrapper(Level level, BlockPos pos, ItemStack filter) {
 
         BlockEntity be = level.getBlockEntity(pos);
 
@@ -145,10 +142,6 @@ public class ItemTransferSystem {
         }
 
         if (be instanceof BrewingStandBlockEntity) {
-            return null;
-        }
-
-        if (be instanceof CardReaderBlockEntity) {
             return null;
         }
 
@@ -167,7 +160,7 @@ public class ItemTransferSystem {
         return null;
     }
 
-    public static IInventoryWrapper getChestWrapper(Level level, BlockPos pos, ItemStack filter) {
+    public static InventoryWrapper getChestWrapper(Level level, BlockPos pos, ItemStack filter) {
 
         BlockEntity be = level.getBlockEntity(pos);
 

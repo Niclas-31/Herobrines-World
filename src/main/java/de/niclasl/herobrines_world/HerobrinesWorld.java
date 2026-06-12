@@ -1,7 +1,11 @@
 package de.niclasl.herobrines_world;
 
+import de.niclasl.herobrines_world.common.leaderboard.LeaderboardApiImpl;
+import de.niclasl.herobrines_world.common.leaderboard.LeaderboardStorage;
 import de.niclasl.herobrines_world.common.network.ModMessage;
 import de.niclasl.herobrines_world.common.registries.ModRegistries;
+import de.niclasl.herobrines_world.common.registries.ModResolverRegistries;
+import de.niclasl.herobrines_world_api.api.leaderboard.LeaderboardAPIHolder;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
@@ -13,6 +17,11 @@ public class HerobrinesWorld {
 
     public HerobrinesWorld(IEventBus modEventBus, ModContainer modContainer) {
 		modEventBus.addListener(ModMessage::register);
+
+		LeaderboardStorage storage = new LeaderboardStorage();
+		LeaderboardAPIHolder.init(new LeaderboardApiImpl(storage));
+
+		ModResolverRegistries.register();
 
 		ModRegistries.register(modEventBus);
 

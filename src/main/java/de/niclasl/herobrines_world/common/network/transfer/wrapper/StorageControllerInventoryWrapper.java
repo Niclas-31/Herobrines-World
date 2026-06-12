@@ -1,14 +1,15 @@
 package de.niclasl.herobrines_world.common.network.transfer.wrapper;
 
 import de.niclasl.herobrines_world.common.registries.blocks.entities.StorageControllerBlockEntity;
+import de.niclasl.herobrines_world_api.api.transfer.wrapper.InventoryWrapper;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
-public class BlockInventoryWrapper implements IInventoryWrapper {
+public class StorageControllerInventoryWrapper implements InventoryWrapper {
 
     private final BlockEntity be;
 
-    public BlockInventoryWrapper(BlockEntity be) {
+    public StorageControllerInventoryWrapper(BlockEntity be) {
         this.be = be;
     }
 

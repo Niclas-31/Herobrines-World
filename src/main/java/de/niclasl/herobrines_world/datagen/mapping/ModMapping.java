@@ -2,7 +2,6 @@ package de.niclasl.herobrines_world.datagen.mapping;
 
 import de.niclasl.herobrines_world.common.registries.blocks.ModBlocks;
 import de.niclasl.herobrines_world.common.registries.blocks.custom.AutoFarmerBlock;
-import de.niclasl.herobrines_world.common.registries.blocks.custom.CardReaderBlock;
 import de.niclasl.herobrines_world.common.registries.blocks.custom.SignalBlock;
 import de.niclasl.herobrines_world.common.registries.blocks.custom.StorageControllerBlock;
 import de.niclasl.herobrines_world.common.registries.blocks.properties.ColorProperty;
@@ -34,14 +33,6 @@ public class ModMapping {
                 .put(TextureSlot.TOP, TextureMapping.getBlockTexture(block, "_top"))
                 .put(TextureSlot.BOTTOM, TextureMapping.getBlockTexture(block, "_bottom"))
                 .put(TextureSlot.SIDE, TextureMapping.getBlockTexture(block, suffix));
-    }
-
-    private static TextureMapping cardReaderTextureMapping(Block block, String frontSuffix) {
-        return new TextureMapping()
-                .put(TextureSlot.FRONT, TextureMapping.getBlockTexture(block, frontSuffix))
-                .put(TextureSlot.SIDE, TextureMapping.getBlockTexture(block))
-                .put(TextureSlot.TOP, TextureMapping.getBlockTexture(block))
-                .put(TextureSlot.BOTTOM, TextureMapping.getBlockTexture(block));
     }
 
     private static TextureMapping storageControllerTextureMapping(Block block, String frontSuffix) {
@@ -79,19 +70,6 @@ public class ModMapping {
         bMG.blockStateOutput
                 .accept(
                         MultiVariantGenerator.dispatch(block).with(BlockModelGenerators.createBooleanModelDispatch(StorageControllerBlock.POWERED, multiVariant1, multiVariant)).with(BlockModelGenerators.ROTATION_HORIZONTAL_FACING_ALT)
-                );
-    }
-
-    public static void createCardReader(BlockModelGenerators bMG) {
-        Block block = ModBlocks.CARD_READER.get();
-        TextureMapping textureMapping = cardReaderTextureMapping(block, "_front");
-        TextureMapping textureMapping1 = cardReaderTextureMapping(block, "_front_on");
-        Identifier identifier = ModelTemplates.CUBE_ORIENTABLE_TOP_BOTTOM.create(block, textureMapping, bMG.modelOutput);
-        MultiVariant multivariant = BlockModelGenerators.plainVariant(identifier);
-        MultiVariant multivariant1 = BlockModelGenerators.plainVariant(ModelTemplates.CUBE_ORIENTABLE_TOP_BOTTOM.createWithSuffix(block, "_on", textureMapping1, bMG.modelOutput));
-        bMG.blockStateOutput
-                .accept(
-                        MultiVariantGenerator.dispatch(block).with(BlockModelGenerators.createBooleanModelDispatch(CardReaderBlock.ACCESS_GRANTED, multivariant1, multivariant)).with(BlockModelGenerators.ROTATION_HORIZONTAL_FACING_ALT)
                 );
     }
 

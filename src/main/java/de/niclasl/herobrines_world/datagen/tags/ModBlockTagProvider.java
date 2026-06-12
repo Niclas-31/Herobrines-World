@@ -45,8 +45,7 @@ public class ModBlockTagProvider extends BlockTagsProvider {
                 .add(ModBlocks.BATTERY_CHARGER.get())
                 .add(ModBlocks.PLATINE_ORE.get())
                 .add(ModBlocks.DEEPSLATE_PLATIN_ORE.get())
-                .add(ModBlocks.STORAGE_CONTROLLER.get())
-                .add(ModBlocks.CARD_READER.get());
+                .add(ModBlocks.STORAGE_CONTROLLER.get());
 
         tag(BlockTags.MINEABLE_WITH_SHOVEL)
                 .add(ModBlocks.ASH_BLOCK.get());
@@ -75,8 +74,7 @@ public class ModBlockTagProvider extends BlockTagsProvider {
                 .add(ModBlocks.DEEPSLATE_PLATIN_ORE.get());
         tag(ModTags.Blocks.NEEDS_ASH_TOOLS);
         tag(ModTags.Blocks.NEEDS_FIRE_TOOL)
-                .add(ModBlocks.STORAGE_CONTROLLER.get())
-                .add(ModBlocks.CARD_READER.get());
+                .add(ModBlocks.STORAGE_CONTROLLER.get());
         tag(ModTags.Blocks.NEEDS_PLATIN_TOOL);
         tag(ModTags.Blocks.NEEDS_HEROBRINE_TOOL);
 

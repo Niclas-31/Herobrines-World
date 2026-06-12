@@ -1,7 +1,7 @@
-package de.niclasl.herobrines_world.common.leaderbaord.season;
+package de.niclasl.herobrines_world.common.leaderboard.season;
 
-import de.niclasl.herobrines_world.common.leaderbaord.LeaderboardEntry;
-import de.niclasl.herobrines_world.common.leaderbaord.RewardEntry;
+import de.niclasl.herobrines_world_api.api.leaderboard.LeaderboardEntry;
+import de.niclasl.herobrines_world_api.api.leaderboard.RewardEntry;
 import de.niclasl.herobrines_world.common.network.ModVariables;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -128,7 +128,7 @@ public class SeasonManager {
 
         for (int i = 0; i < list.size(); i++) {
 
-            if (list.get(i).uuid().equals(target.getUUID())) {
+            if (list.get(i).player().equals(target.getUUID())) {
                 return i + 1;
             }
         }

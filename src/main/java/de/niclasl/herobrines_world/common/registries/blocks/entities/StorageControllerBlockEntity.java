@@ -1,11 +1,11 @@
 package de.niclasl.herobrines_world.common.registries.blocks.entities;
 
 import de.niclasl.herobrines_world.common.network.transfer.ItemTransferSystem;
-import de.niclasl.herobrines_world.common.network.transfer.node.StorageNode;
-import de.niclasl.herobrines_world.common.network.transfer.wrapper.BlockInventoryWrapper;
-import de.niclasl.herobrines_world.common.network.transfer.wrapper.IInventoryWrapper;
+import de.niclasl.herobrines_world.common.network.transfer.wrapper.StorageControllerInventoryWrapper;
 import de.niclasl.herobrines_world.common.registries.blocks.custom.StorageControllerBlock;
 import de.niclasl.herobrines_world.common.registries.menus.StorageControllerMenu;
+import de.niclasl.herobrines_world_api.api.transfer.node.StorageNode;
+import de.niclasl.herobrines_world_api.api.transfer.wrapper.InventoryWrapper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
@@ -113,7 +113,7 @@ public class StorageControllerBlockEntity extends BlockEntity implements Contain
 
             ItemStack filter = readFilter(level, pos);
 
-            IInventoryWrapper wrapper = ItemTransferSystem.getWrapper(level, pos, filter);
+            InventoryWrapper wrapper = ItemTransferSystem.getWrapper(level, pos, filter);
 
             if (wrapper == null) continue;
 
@@ -128,8 +128,8 @@ public class StorageControllerBlockEntity extends BlockEntity implements Contain
 
     private void sortItems() {
 
-        IInventoryWrapper source =
-                new BlockInventoryWrapper(this);
+        InventoryWrapper source =
+                new StorageControllerInventoryWrapper(this);
 
         for (int slot = 0; slot < source.size(); slot++) {
 
@@ -164,7 +164,7 @@ public class StorageControllerBlockEntity extends BlockEntity implements Contain
 
         for (StorageNode node : network) {
 
-            IInventoryWrapper target = node.inventory();
+            InventoryWrapper target = node.inventory();
 
             if (target == null) {
                 continue;
@@ -181,7 +181,7 @@ public class StorageControllerBlockEntity extends BlockEntity implements Contain
                 continue;
             }
 
-            if (target.canAccept(stack)) {
+            if (!target.canAccept(stack)) {
                 continue;
             }
 

@@ -1,6 +1,8 @@
 package de.niclasl.herobrines_world.client.screen;
 
-import de.niclasl.herobrines_world.common.leaderbaord.season.SeasonManager;
+import de.niclasl.herobrines_world.common.leaderboard.season.SeasonManager;
+import de.niclasl.herobrines_world_api.api.leaderboard.LeaderboardAPIHolder;
+import de.niclasl.herobrines_world_api.api.leaderboard.LeaderboardEntry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
@@ -8,10 +10,30 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.Level;
 import org.jspecify.annotations.NonNull;
 
+import java.util.List;
+
 public class SeasonBreakScreen extends Screen {
+
+    private List<LeaderboardEntry> top3 = List.of();
 
     public SeasonBreakScreen() {
         super(Component.literal("Next Season"));
+    }
+
+    @Override
+    protected void init() {
+        super.init();
+
+        loadTop3();
+    }
+
+    private void loadTop3() {
+
+        var level = Minecraft.getInstance().level;
+        if (level == null) return;
+
+        top3 = LeaderboardAPIHolder.get()
+                .getTop("default", 3);
     }
 
     @Override
@@ -22,30 +44,37 @@ public class SeasonBreakScreen extends Screen {
 
         String season_ended = Component.translatable("gui.herobrines_world.season_break.season_ended").getString();
         String next_season_start = Component.translatable("gui.herobrines_world.season_break.next_season_start").getString();
+        String top_3 = Component.translatable("gui.herobrines_world.season_break.top_3").getString();
 
-        gui.drawCenteredString(
-                font,
-                season_ended,
-                centerX,
-                40,
-                0xFFFFFFFF
-        );
+        gui.drawCenteredString(this.font, season_ended, centerX, 40, 0xFFFFFFFF);
 
-        gui.drawCenteredString(
-                font,
-                next_season_start,
-                centerX,
-                80,
-                0xFFCCCCCC
-        );
+        gui.drawCenteredString(this.font, next_season_start, centerX, 80, 0xFFCCCCCC);
 
-        gui.drawCenteredString(
-                font,
-                getRemainingTime(),
-                centerX,
-                100,
-                0xFFFFAA00
-        );
+        gui.drawCenteredString(this.font, getRemainingTime(), centerX, 100, 0xFFFFAA00);
+
+        int startY = 130;
+
+        gui.drawCenteredString(font, top_3, centerX, startY, 0xFFFFFF00);
+
+        for (int i = 0; i < top3.size(); i++) {
+
+            LeaderboardEntry entry = top3.get(i);
+
+            String text = switch (i) {
+                case 0 -> "🥇 ";
+                case 1 -> "🥈 ";
+                case 2 -> "🥉 ";
+                default -> (i + 1) + ". ";
+            } + entry.playerName() + " - " + entry.value();
+
+            gui.drawCenteredString(
+                    font,
+                    text,
+                    centerX,
+                    startY + 15 + (i * 12),
+                    0xFFFFFFFF
+            );
+        }
 
         super.render(gui, mouseX, mouseY, partialTick);
     }

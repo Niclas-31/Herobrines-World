@@ -1,4 +1,4 @@
-package de.niclasl.herobrines_world.common.leaderbaord.season.cache;
+package de.niclasl.herobrines_world.common.leaderboard.season.cache;
 
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.fml.common.EventBusSubscriber;

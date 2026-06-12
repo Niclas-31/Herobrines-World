@@ -1,7 +1,7 @@
 package de.niclasl.herobrines_world.common.network.message;
 
 import de.niclasl.herobrines_world.HerobrinesWorld;
-import de.niclasl.herobrines_world.common.leaderbaord.season.cache.ClientCache;
+import de.niclasl.herobrines_world.common.leaderboard.season.cache.ClientCache;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;

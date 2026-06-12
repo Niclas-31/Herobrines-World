@@ -12,6 +12,7 @@
   "gui.herobrines_world.season_break.season_ended": "§6§lSEASON ENDED",
   "gui.herobrines_world.season_break.next_season_start": "Next Season starts in:",
   "gui.herobrines_world.season_break.starting": "Starting...",
+  "gui.herobrines_world.season_break.top_3": "Top Players",
   "gui.herobrines_world.smart_chip.transfer": "Transfer",
   "gui.herobrines_world.smart_chip.access": "Access",
   "gui.herobrines_world.smart_chip.transfer_mode": "Transfer Mode: %s",

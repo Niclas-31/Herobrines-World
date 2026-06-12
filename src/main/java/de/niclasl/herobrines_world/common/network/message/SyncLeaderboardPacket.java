@@ -2,7 +2,7 @@ package de.niclasl.herobrines_world.common.network.message;
 
 import de.niclasl.herobrines_world.HerobrinesWorld;
 import de.niclasl.herobrines_world.client.ClientHandler;
-import de.niclasl.herobrines_world.common.leaderbaord.LeaderboardEntry;
+import de.niclasl.herobrines_world_api.api.leaderboard.LeaderboardEntry;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
@@ -12,6 +12,7 @@ import org.jspecify.annotations.NonNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public record SyncLeaderboardPacket(List<LeaderboardEntry> entries) implements CustomPacketPayload {
     public static final Type<SyncLeaderboardPacket> TYPE =
@@ -26,8 +27,8 @@ public record SyncLeaderboardPacket(List<LeaderboardEntry> entries) implements C
         buf.writeInt(msg.entries.size());
 
         for (LeaderboardEntry entry : msg.entries) {
-            buf.writeUUID(entry.uuid());
-            buf.writeUtf(entry.name());
+            buf.writeUUID(entry.player());
+            buf.writeUtf(entry.playerName());
             buf.writeInt(entry.value());
         }
     }
@@ -35,10 +36,14 @@ public record SyncLeaderboardPacket(List<LeaderboardEntry> entries) implements C
     private static SyncLeaderboardPacket decode(FriendlyByteBuf buf) {
         int size = buf.readInt();
 
+        UUID player = buf.readUUID();
+        String playerName = buf.readUtf();
+        int value = buf.readInt();
+
         List<LeaderboardEntry> entries = new ArrayList<>();
 
         for (int i = 0; i < size; i++) {
-            entries.add(new LeaderboardEntry(buf.readUUID(), buf.readUtf(), buf.readInt()));
+            entries.add(new LeaderboardEntry(player, playerName, value));
         }
 
         return new SyncLeaderboardPacket(entries);

@@ -33,10 +33,6 @@ public class ModBlockEntities {
             BLOCK_ENTITIES.register("storage_controller",  () -> new BlockEntityType<>(
                     StorageControllerBlockEntity::new, ModBlocks.STORAGE_CONTROLLER.get()));
 
-    public static final Supplier<BlockEntityType<CardReaderBlockEntity>> CARD_READER =
-            BLOCK_ENTITIES.register("card_reader", () -> new BlockEntityType<>(
-                    CardReaderBlockEntity::new, ModBlocks.CARD_READER.get()));
-
     public static void register(IEventBus eventBus) {
         BLOCK_ENTITIES.register(eventBus);
     }
