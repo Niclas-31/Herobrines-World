@@ -280,6 +280,11 @@ public class ModItems {
 			(properties) -> new Item(properties.rarity(Rarity.RARE))
 	);
 
+	public static final DeferredItem<Item> KEY_CARD = ITEMS.registerItem(
+			"key_card",
+			(properties) -> new KeyCard(properties.rarity(Rarity.EPIC).stacksTo(1))
+	);
+
 	public static void register(IEventBus eventBus) {
 		ITEMS.register(eventBus);
 	}

@@ -25,6 +25,10 @@ public class ModDataComponents {
             "transfer",
             builder -> builder.persistent(Transfer.CODEC));
 
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Access>> ACCESS = register(
+            "access",
+            builder -> builder.persistent(Access.CODEC));
+
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<RelicData>> RELIC_DATA = register(
             "relic_data",
             builder -> builder.persistent(RelicData.CODEC));

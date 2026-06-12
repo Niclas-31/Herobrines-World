@@ -552,6 +552,12 @@ public class ModRecipeProvider extends RecipeProvider {
                 .define('G', Items.GOLD_INGOT)
                 .define('C', Items.COMPASS)
                 .unlockedBy("has_gold", has(Items.GOLD_INGOT)).save(output);
+
+        shapeless(RecipeCategory.REDSTONE, ModItems.KEY_CARD.get())
+                .requires(Items.PAPER)
+                .requires(Items.REDSTONE)
+                .requires(Items.IRON_NUGGET)
+                .unlockedBy("has_redstone", has(Items.REDSTONE)).save(output);
     }
 
     protected void oreSmelting(RecipeOutput recipeOutput, List<ItemLike> pIngredients, RecipeCategory pCategory, ItemLike pResult,

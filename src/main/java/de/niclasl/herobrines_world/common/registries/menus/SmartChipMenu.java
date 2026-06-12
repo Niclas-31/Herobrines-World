@@ -1,5 +1,6 @@
 package de.niclasl.herobrines_world.common.registries.menus;
 
+import de.niclasl.herobrines_world.common.registries.components.Access;
 import de.niclasl.herobrines_world.common.registries.components.ModDataComponents;
 import de.niclasl.herobrines_world.common.registries.components.Transfer;
 import net.minecraft.network.FriendlyByteBuf;
@@ -28,6 +29,10 @@ public class SmartChipMenu extends AbstractContainerMenu {
 
     public Transfer getTransferData() {
         return getChip().getOrDefault(ModDataComponents.TRANSFER, Transfer.DEFAULT);
+    }
+
+    public Access getAccessData() {
+        return getChip().getOrDefault(ModDataComponents.ACCESS, Access.DEFAULT);
     }
 
     @Override
