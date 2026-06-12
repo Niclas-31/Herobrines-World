@@ -25,7 +25,6 @@
     "herobrines_world:battery_charger",
     "herobrines_world:platin_ore",
     "herobrines_world:deepslate_platin_ore",
-    "herobrines_world:storage_controller",
-    "herobrines_world:card_reader"
+    "herobrines_world:storage_controller"
   ]
 }

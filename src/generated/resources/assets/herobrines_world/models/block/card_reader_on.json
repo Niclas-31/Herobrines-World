@@ -1,9 +1,0 @@
-{
-  "parent": "minecraft:block/orientable_with_bottom",
-  "textures": {
-    "bottom": "herobrines_world:block/card_reader",
-    "front": "herobrines_world:block/card_reader_front_on",
-    "side": "herobrines_world:block/card_reader",
-    "top": "herobrines_world:block/card_reader"
-  }
-}
