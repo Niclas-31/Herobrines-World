@@ -20,7 +20,7 @@ public class ModKeyMappings {
 		public void setDown(boolean isDown) {
 			super.setDown(isDown);
 			if (isDownOld != isDown && isDown) {
-				ClientPacketDistributor.sendToServer(new SyncHidePacket(0));
+				ClientPacketDistributor.sendToServer(new SyncHidePacket());
 			}
 			isDownOld = isDown;
 		}

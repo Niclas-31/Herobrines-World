@@ -10,7 +10,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 import org.jetbrains.annotations.NotNull;
 
-public record SyncHidePacket(int buttonID) implements CustomPacketPayload {
+public record SyncHidePacket() implements CustomPacketPayload {
 
 	public static final Type<SyncHidePacket> TYPE =
 			new Type<>(Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "sync_hide"));
@@ -21,11 +21,10 @@ public record SyncHidePacket(int buttonID) implements CustomPacketPayload {
 	);
 
 	private static void encode(RegistryFriendlyByteBuf buf, SyncHidePacket msg) {
-		buf.writeInt(msg.buttonID);
 	}
 
 	private static SyncHidePacket decode(RegistryFriendlyByteBuf buf) {
-		return new SyncHidePacket(buf.readInt());
+		return new SyncHidePacket();
 	}
 
 	@Override
@@ -35,8 +34,6 @@ public record SyncHidePacket(int buttonID) implements CustomPacketPayload {
 
 	public static void handle(SyncHidePacket msg, IPayloadContext ctx) {
 		ctx.enqueueWork(() -> {
-			if (msg.buttonID != 0) return;
-
 			var player = ctx.player();
 
 			var vars = player.getData(ModVariables.PLAYER_VARIABLES);

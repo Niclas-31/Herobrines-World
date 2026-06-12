@@ -9,6 +9,7 @@ import net.minecraft.world.entity.player.Player;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
+import net.neoforged.neoforge.event.level.LevelEvent;
 import net.neoforged.neoforge.event.tick.LevelTickEvent;
 import net.neoforged.neoforge.network.PacketDistributor;
 
@@ -30,5 +31,12 @@ public class SeasonEvents {
         SeasonRewardStorage storage = SeasonRewardStorage.get(serverPlayer.level());
 
         PacketDistributor.sendToPlayer(serverPlayer, new SyncClaimStatePacket(storage.getClaimed()));
+    }
+
+    @SubscribeEvent
+    public static void onWorldLoad(LevelEvent.Load event) {
+        if (!(event.getLevel() instanceof ServerLevel level)) return;
+
+        SeasonManager.initialize(level);
     }
 }

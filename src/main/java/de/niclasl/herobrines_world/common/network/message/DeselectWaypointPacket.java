@@ -17,8 +17,18 @@ public record DeselectWaypointPacket() implements CustomPacketPayload {
     public static final Type<DeselectWaypointPacket> TYPE =
             new Type<>(Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "deselect_waypoint_packet"));
 
-    public static final StreamCodec<RegistryFriendlyByteBuf, DeselectWaypointPacket> STREAM_CODEC =
-            StreamCodec.unit(new DeselectWaypointPacket());
+    public static final StreamCodec<RegistryFriendlyByteBuf, DeselectWaypointPacket> STREAM_CODEC = StreamCodec.of(
+            DeselectWaypointPacket::encode,
+            DeselectWaypointPacket::decode
+    );
+
+    private static void encode(RegistryFriendlyByteBuf buf, DeselectWaypointPacket msg) {
+
+    }
+
+    private static DeselectWaypointPacket decode(RegistryFriendlyByteBuf buf) {
+        return new DeselectWaypointPacket();
+    }
 
     @Override
     public @NonNull Type<? extends CustomPacketPayload> type() {

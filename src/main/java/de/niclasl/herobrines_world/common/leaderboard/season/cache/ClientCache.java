@@ -19,8 +19,4 @@ public class ClientCache {
     public static boolean isClaimed(UUID uuid) {
         return claimed.contains(uuid);
     }
-
-    public static Set<UUID> getClaimed() {
-        return claimed;
-    }
 }

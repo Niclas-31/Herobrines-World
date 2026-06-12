@@ -5,12 +5,10 @@ import de.niclasl.herobrines_world.common.network.ModVariables;
 import de.niclasl.herobrines_world.common.registries.enchantments.ModEnchantments;
 import de.niclasl.herobrines_world.common.registries.potions.ModPotions;
 import de.niclasl.herobrines_world.common.registries.villagers.ModVillagers;
-import de.niclasl.herobrines_world.common.leaderboard.season.SeasonManager;
 import de.niclasl.herobrines_world.common.util.math.SoulGain;
 import de.niclasl.herobrines_world.common.util.math.SoulMath;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.npc.villager.VillagerTrades;
@@ -26,7 +24,6 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.brewing.RegisterBrewingRecipesEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
-import net.neoforged.neoforge.event.level.LevelEvent;
 import net.neoforged.neoforge.event.village.VillagerTradesEvent;
 
 import java.util.List;
@@ -107,13 +104,6 @@ public class ModEvents {
                     new ItemCost(Items.EMERALD, 15),
                     new ItemStack(Items.NETHERITE_AXE), 1, 25, 0.17f));
         }
-    }
-
-    @SubscribeEvent
-    public static void onWorldLoad(LevelEvent.Load event) {
-        if (!(event.getLevel() instanceof ServerLevel level)) return;
-
-        SeasonManager.initialize(level);
     }
 
     @SubscribeEvent

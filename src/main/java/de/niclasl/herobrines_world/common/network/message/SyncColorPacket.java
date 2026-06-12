@@ -59,7 +59,7 @@ public record SyncColorPacket(int buttonID, int x, int y, int z) implements Cust
 			Level level = ctx.player().level();
 			BlockPos pos = new BlockPos(msg.x, msg.y, msg.z);
 
-			if (!level.hasChunkAt(pos)) return;
+			if (!level.isLoaded(pos)) return;
 
 			BlockState state = level.getBlockState(pos);
 

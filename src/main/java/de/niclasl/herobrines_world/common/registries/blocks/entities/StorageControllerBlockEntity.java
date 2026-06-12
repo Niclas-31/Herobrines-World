@@ -145,10 +145,7 @@ public class StorageControllerBlockEntity extends BlockEntity implements Contain
             );
 
             if (!inserted) {
-                inserted = tryInsert(
-                        stack,
-                        false
-                );
+                tryInsert(stack, false);
             }
 
             if (stack.isEmpty()) {
@@ -157,11 +154,7 @@ public class StorageControllerBlockEntity extends BlockEntity implements Contain
         }
     }
 
-    private boolean tryInsert(
-            ItemStack stack,
-            boolean filteredOnly
-    ) {
-
+    private boolean tryInsert(ItemStack stack, boolean filteredOnly) {
         for (StorageNode node : network) {
 
             InventoryWrapper target = node.inventory();
@@ -170,8 +163,7 @@ public class StorageControllerBlockEntity extends BlockEntity implements Contain
                 continue;
             }
 
-            boolean filtered =
-                    !node.filter().isEmpty();
+            boolean filtered = !node.filter().isEmpty();
 
             if (filteredOnly && !filtered) {
                 continue;
