@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "C": "herobrines_world:key_card",
+    "I": "minecraft:iron_ingot",
+    "Q": "minecraft:quartz",
+    "R": "minecraft:redstone"
+  },
+  "pattern": [
+    "IRI",
+    "QCQ",
+    "III"
+  ],
+  "result": {
+    "count": 1,
+    "id": "herobrines_world:card_reader"
+  }
+}
