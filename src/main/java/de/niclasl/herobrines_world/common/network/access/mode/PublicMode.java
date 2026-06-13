@@ -13,4 +13,9 @@ public class PublicMode implements AccessMode {
     public @NonNull Identifier id() {
         return Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "public");
     }
+
+    @Override
+    public int priority() {
+        return 0;
+    }
 }

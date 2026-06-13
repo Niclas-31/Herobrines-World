@@ -13,4 +13,9 @@ public class TrustedMode implements AccessMode {
     public @NonNull Identifier id() {
         return Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "trusted");
     }
+
+    @Override
+    public int priority() {
+        return 2;
+    }
 }

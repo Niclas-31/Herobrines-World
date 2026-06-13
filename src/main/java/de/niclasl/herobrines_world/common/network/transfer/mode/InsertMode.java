@@ -11,4 +11,9 @@ public class InsertMode implements TransferMode {
     public @NonNull Identifier id() {
         return Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "insert");
     }
+
+    @Override
+    public int priority() {
+        return 0;
+    }
 }

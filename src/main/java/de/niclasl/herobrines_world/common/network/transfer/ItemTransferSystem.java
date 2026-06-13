@@ -34,50 +34,40 @@ public class ItemTransferSystem {
         }
     }
 
-    private static void insert(InventoryWrapper source, InventoryWrapper target, int maxSlot) {
+    public static void insert(InventoryWrapper source, InventoryWrapper target, int maxSlot) {
         for (int i = 0; i < maxSlot; i++) {
 
             ItemStack original = source.get(i);
-
             if (original.isEmpty()) continue;
 
-            int before = original.getCount();
+            ItemStack working = original.copy();
 
-            ItemStack moving = original.copy();
+            ItemStack remaining = insertInto(target, working);
 
-            ItemStack remaining = insertInto(target, moving);
+            int moved = original.getCount() - remaining.getCount();
 
-            int moved = before - remaining.getCount();
-
-            if (moved <= 0) continue;
-
-            original.shrink(moved);
-
-            if (original.isEmpty()) {
-                source.set(i, ItemStack.EMPTY);
+            if (moved > 0) {
+                original.shrink(moved);
+                source.set(i, original.isEmpty() ? ItemStack.EMPTY : original);
             }
         }
     }
 
-    private static void extract(InventoryWrapper source, InventoryWrapper target, int maxSlot) {
+    public static void extract(InventoryWrapper source, InventoryWrapper target, int maxSlot) {
         for (int i = 0; i < maxSlot; i++) {
 
             ItemStack original = target.get(i);
-
             if (original.isEmpty()) continue;
 
-            ItemStack moving = original.copy();
+            ItemStack working = original.copy();
 
-            ItemStack remaining = insertInto(source, moving);
+            ItemStack remaining = insertInto(source, working);
 
-            int moved = moving.getCount() - remaining.getCount();
+            int moved = original.getCount() - remaining.getCount();
 
-            if (moved <= 0) continue;
-
-            original.shrink(moved);
-
-            if (original.isEmpty()) {
-                target.set(i, ItemStack.EMPTY);
+            if (moved > 0) {
+                original.shrink(moved);
+                target.set(i, original.isEmpty() ? ItemStack.EMPTY : original);
             }
         }
     }

@@ -2,6 +2,7 @@ package de.niclasl.herobrines_world.client.screen;
 
 import de.niclasl.herobrines_world.common.network.message.SyncChipPacket;
 import de.niclasl.herobrines_world.common.registries.menus.SmartChipMenu;
+import de.niclasl.herobrines_world_api.annotation.Experimental;
 import de.niclasl.herobrines_world_api.api.access.AccessMode;
 import de.niclasl.herobrines_world_api.api.transfer.TransferMode;
 import de.niclasl.herobrines_world_api.registry.HWRegistries;
@@ -17,9 +18,11 @@ import org.jetbrains.annotations.Nullable;
 import org.jspecify.annotations.NonNull;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.UUID;
 
+@Experimental
 public class SmartChipScreen extends AbstractContainerScreen<SmartChipMenu> {
 
     private enum Tab {
@@ -99,7 +102,7 @@ public class SmartChipScreen extends AbstractContainerScreen<SmartChipMenu> {
                 }
         ).bounds(this.leftPos + half, this.topPos, half, 20).build());
 
-        access.active = false;
+        access.active = true;
 
         switch (currentTab) {
             case TRANSFER -> buildTransferTab();
@@ -136,7 +139,7 @@ public class SmartChipScreen extends AbstractContainerScreen<SmartChipMenu> {
         addRenderableWidget(Button.builder(Component.literal("+"), b -> adjustBox(speedBox, 1, 2))
                 .bounds(this.leftPos + 120, row(2), 20, 20).build());
 
-        addRenderableWidget(Button.builder(Component.translatable("gui.herobrines_world.smart_chip.save_transfer"), b -> saveTransfer())
+        addRenderableWidget(Button.builder(Component.translatable("gui.herobrines_world.smart_chip.save_transfer"), b -> saveAll())
                 .bounds(this.leftPos + 10, row(4), 160, 20).build());
     }
 
@@ -176,17 +179,15 @@ public class SmartChipScreen extends AbstractContainerScreen<SmartChipMenu> {
                 }
         ).bounds(this.leftPos + 135, row(2), 40, 20).build());
 
-        addRenderableWidget(Button.builder(Component.translatable("gui.herobrines_world.smart_chip.save_access"), b -> saveAccess())
+        addRenderableWidget(Button.builder(Component.translatable("gui.herobrines_world.smart_chip.save_access"), b -> saveAll())
                 .bounds(this.leftPos + 10, row(4), 160, 20).build());
     }
 
     private void saveAll() {
-        int range = parseBox(rangeBox);
-        int speed = parseBox(speedBox);
-        int level = parseBox(tierBox);
-        UUID owner = parseBoxOwner(ownerBox);
-
-        ClientPacketDistributor.sendToServer(new SyncChipPacket(transferMode, range, speed, accessMode, level, owner));
+        switch (currentTab) {
+            case TRANSFER -> saveTransfer();
+            case ACCESS -> saveAccess();
+        }
     }
 
     public void addNumberLimiter(@NotNull EditBox box, int min, int max) {
@@ -220,7 +221,11 @@ public class SmartChipScreen extends AbstractContainerScreen<SmartChipMenu> {
         return true;
     }
 
-    private int parseBox(@NotNull EditBox box) {
+    private int parseBox(EditBox box) {
+        if (box == null) {
+            throw new IllegalStateException("Eine EditBox wurde nicht initialisiert.");
+        }
+
         try {
             return Integer.parseInt(box.getValue());
         } catch (NumberFormatException e) {
@@ -283,17 +288,42 @@ public class SmartChipScreen extends AbstractContainerScreen<SmartChipMenu> {
     }
 
     private void saveTransfer() {
-        saveAll();
+        int range = parseBox(rangeBox);
+        int speed = parseBox(speedBox);
+
+        ClientPacketDistributor.sendToServer(
+                new SyncChipPacket(
+                        transferMode,
+                        range,
+                        speed,
+                        accessMode,
+                        level,
+                        owner
+                )
+        );
     }
 
     private void saveAccess() {
-        saveAll();
+        int level = parseBox(tierBox);
+        UUID owner = parseBoxOwner(ownerBox);
+
+        ClientPacketDistributor.sendToServer(
+                new SyncChipPacket(
+                        transferMode,
+                        range,
+                        speed,
+                        accessMode,
+                        level,
+                        owner
+                )
+        );
     }
 
     private TransferMode nextMode(TransferMode current) {
-
         List<TransferMode> modes =
                 new ArrayList<>(HWRegistries.TRANSFER_MODES.values());
+
+        modes.sort(Comparator.comparingInt(TransferMode::priority));
 
         int index = modes.indexOf(current);
 
@@ -307,6 +337,8 @@ public class SmartChipScreen extends AbstractContainerScreen<SmartChipMenu> {
     private AccessMode nextAccess(AccessMode current) {
         List<AccessMode> modes =
                 new ArrayList<>(HWRegistries.ACCESS_MODES.values());
+
+        modes.sort(Comparator.comparingInt(AccessMode::priority));
 
         int index = modes.indexOf(current);
 

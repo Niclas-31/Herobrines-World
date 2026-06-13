@@ -19,10 +19,28 @@ public class AccessModeImpl {
     public static final AccessMode OWNER_ONLY = new OwnerOnlyMode();
 
     public static void register() {
-        HWRegistries.ACCESS_MODES.put(id("public"), PUBLIC);
-        HWRegistries.ACCESS_MODES.put(id("private"), PRIVATE);
-        HWRegistries.ACCESS_MODES.put(id("trusted"), TRUSTED);
-        HWRegistries.ACCESS_MODES.put(id("owner_only"), OWNER_ONLY);
+        registerAccessMode(id("public"), PUBLIC);
+        registerAccessMode(id("private"), PRIVATE);
+        registerAccessMode(id("trusted"), TRUSTED);
+        registerAccessMode(id("owner_only"), OWNER_ONLY);
+    }
+
+    public static void registerAccessMode(Identifier id, AccessMode mode) {
+        for (AccessMode existing : HWRegistries.ACCESS_MODES.values()) {
+
+            if (existing.priority() == mode.priority()) {
+                throw new IllegalStateException(
+                        "Duplicate AccessMode priority "
+                                + mode.priority()
+                                + " between "
+                                + existing.id()
+                                + " and "
+                                + mode.id()
+                );
+            }
+        }
+
+        HWRegistries.ACCESS_MODES.put(id, mode);
     }
 
     private static Identifier id(String path) {

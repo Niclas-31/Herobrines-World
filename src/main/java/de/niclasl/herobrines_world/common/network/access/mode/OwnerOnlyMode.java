@@ -13,4 +13,9 @@ public class OwnerOnlyMode implements AccessMode {
     public @NonNull Identifier id() {
         return Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "owner_only");
     }
+
+    @Override
+    public int priority() {
+        return 3;
+    }
 }
