@@ -2,7 +2,7 @@ package de.niclasl.herobrines_world.common.registries.items.custom;
 
 import de.niclasl.herobrines_world.common.registries.blocks.entities.StorageControllerBlockEntity;
 import de.niclasl.herobrines_world.common.registries.components.ModDataComponents;
-import de.niclasl.herobrines_world.common.registries.components.Transfer;
+import de.niclasl.herobrines_world.common.registries.components.SmartChipData;
 import de.niclasl.herobrines_world.common.registries.menus.SmartChipMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -58,9 +58,9 @@ public class SmartChip extends Item {
 
         if (!(be instanceof StorageControllerBlockEntity)) return InteractionResult.FAIL;
 
-        Transfer old = stack.getOrDefault(ModDataComponents.TRANSFER.get(), Transfer.DEFAULT);
+        SmartChipData.Transfer old = stack.getOrDefault(ModDataComponents.TRANSFER.get(), SmartChipData.Transfer.DEFAULT);
 
-        Transfer updated = new Transfer(
+        SmartChipData.Transfer updated = new SmartChipData.Transfer(
                 old.range(),
                 pos,
                 dim,

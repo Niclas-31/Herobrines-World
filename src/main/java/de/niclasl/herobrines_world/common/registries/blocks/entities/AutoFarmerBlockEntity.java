@@ -5,7 +5,7 @@ import de.niclasl.herobrines_world.common.network.transfer.wrapper.AutoFarmerWra
 import de.niclasl.herobrines_world.common.registries.blocks.custom.AutoFarmerBlock;
 import de.niclasl.herobrines_world.common.registries.blocks.properties.FarmerMode;
 import de.niclasl.herobrines_world.common.registries.components.ModDataComponents;
-import de.niclasl.herobrines_world.common.registries.components.Transfer;
+import de.niclasl.herobrines_world.common.registries.components.SmartChipData;
 import de.niclasl.herobrines_world.common.registries.items.custom.BatteryItem;
 import de.niclasl.herobrines_world.common.registries.menus.AutoFarmerMenu;
 import de.niclasl.herobrines_world_api.api.transfer.TransferAPI;
@@ -138,7 +138,7 @@ public class AutoFarmerBlockEntity extends BlockEntity implements Container, Men
         if (!(level instanceof ServerLevel serverLevel)) return;
 
         ItemStack chipStack = be.items.get(28);
-        Transfer chip = chipStack.get(ModDataComponents.TRANSFER);
+        SmartChipData.Transfer chip = chipStack.get(ModDataComponents.TRANSFER);
 
         if (chip == null) {
             level.setBlock(pos, state.setValue(AutoFarmerBlock.POWERED, false), 3);
@@ -197,7 +197,7 @@ public class AutoFarmerBlockEntity extends BlockEntity implements Container, Men
         }
     }
 
-    private void transferAndFilter(ServerLevel level, Transfer chip) {
+    private void transferAndFilter(ServerLevel level, SmartChipData.Transfer chip) {
 
         InventoryWrapper source = new AutoFarmerWrapper(this.items);
 

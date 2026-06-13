@@ -123,6 +123,9 @@ public class ModBlocks {
 	public static final DeferredBlock<Block> STORAGE_CONTROLLER = registerBlock("storage_controller",
 			(properties) -> new StorageControllerBlock(properties.strength(3f).requiresCorrectToolForDrops()));
 
+	public static final DeferredBlock<Block> CARD_READER = registerBlock("card_reader",
+			(properties) -> new CardReaderBlock(properties.strength(6f).requiresCorrectToolForDrops()));
+
 	private static <T extends Block> DeferredBlock<T> registerBlock(String name, Function<BlockBehaviour.Properties, T> function) {
 		DeferredBlock<T> toReturn = BLOCKS.registerBlock(name, function);
 		registerBlockItem(name, toReturn);

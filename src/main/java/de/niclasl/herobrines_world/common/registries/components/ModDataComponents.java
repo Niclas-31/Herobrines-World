@@ -21,13 +21,13 @@ public class ModDataComponents {
             "energy",
             builder -> builder.persistent(Codec.INT));
 
-    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Transfer>> TRANSFER = register(
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<SmartChipData.Transfer>> TRANSFER = register(
             "transfer",
-            builder -> builder.persistent(Transfer.CODEC));
+            builder -> builder.persistent(SmartChipData.Transfer.CODEC));
 
-    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Access>> ACCESS = register(
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<SmartChipData.Access>> ACCESS = register(
             "access",
-            builder -> builder.persistent(Access.CODEC));
+            builder -> builder.persistent(SmartChipData.Access.CODEC));
 
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<RelicData>> RELIC_DATA = register(
             "relic_data",

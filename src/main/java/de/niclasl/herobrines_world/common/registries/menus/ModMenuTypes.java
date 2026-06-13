@@ -10,6 +10,8 @@ import net.neoforged.neoforge.network.IContainerFactory;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
+import java.awt.*;
+
 public class ModMenuTypes {
 	public static final DeferredRegister<MenuType<?>> MENUS = DeferredRegister.create(Registries.MENU, HerobrinesWorld.MOD_ID);
 
@@ -25,6 +27,8 @@ public class ModMenuTypes {
 			registerMenuType("smart_chip", SmartChipMenu::new);
 	public static final DeferredHolder<MenuType<?>, MenuType<StorageControllerMenu>> STORAGE_CONTROLLER =
 			registerMenuType("storage_controller", StorageControllerMenu::new);
+	public static final DeferredHolder<MenuType<?>, MenuType<CardReaderMenu>> CARD_READER =
+			registerMenuType("card_reader", CardReaderMenu::new);
 
 	private static <T extends AbstractContainerMenu> DeferredHolder<MenuType<?>, MenuType<T>> registerMenuType(String name,
 	                                                                                                           IContainerFactory<T> factory) {

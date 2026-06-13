@@ -553,6 +553,16 @@ public class ModRecipeProvider extends RecipeProvider {
                 .define('C', Items.COMPASS)
                 .unlockedBy("has_gold", has(Items.GOLD_INGOT)).save(output);
 
+        shaped(RecipeCategory.REDSTONE, ModBlocks.CARD_READER.get())
+                .pattern("IRI")
+                .pattern("QCQ")
+                .pattern("III")
+                .define('I', Items.IRON_INGOT)
+                .define('R', Items.REDSTONE)
+                .define('Q', Items.QUARTZ)
+                .define('C', ModItems.KEY_CARD.get())
+                .unlockedBy("has_key_card", has(ModItems.KEY_CARD)).save(output);
+
         shapeless(RecipeCategory.REDSTONE, ModItems.KEY_CARD.get())
                 .requires(Items.PAPER)
                 .requires(Items.REDSTONE)

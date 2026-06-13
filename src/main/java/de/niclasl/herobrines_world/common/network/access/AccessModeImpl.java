@@ -5,10 +5,12 @@ import de.niclasl.herobrines_world.common.network.access.mode.OwnerOnlyMode;
 import de.niclasl.herobrines_world.common.network.access.mode.PrivateMode;
 import de.niclasl.herobrines_world.common.network.access.mode.PublicMode;
 import de.niclasl.herobrines_world.common.network.access.mode.TrustedMode;
+import de.niclasl.herobrines_world_api.annotation.Experimental;
 import de.niclasl.herobrines_world_api.api.access.AccessMode;
 import de.niclasl.herobrines_world_api.registry.HWRegistries;
 import net.minecraft.resources.Identifier;
 
+@Experimental
 public class AccessModeImpl {
 
     public static final AccessMode PUBLIC = new PublicMode();

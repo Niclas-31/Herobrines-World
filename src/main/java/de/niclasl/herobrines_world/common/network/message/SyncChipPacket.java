@@ -1,10 +1,10 @@
 package de.niclasl.herobrines_world.common.network.message;
 
 import de.niclasl.herobrines_world.HerobrinesWorld;
-import de.niclasl.herobrines_world.common.registries.components.Access;
 import de.niclasl.herobrines_world.common.registries.components.ModDataComponents;
-import de.niclasl.herobrines_world.common.registries.components.Transfer;
+import de.niclasl.herobrines_world.common.registries.components.SmartChipData;
 import de.niclasl.herobrines_world.common.registries.items.custom.SmartChip;
+import de.niclasl.herobrines_world_api.annotation.Experimental;
 import de.niclasl.herobrines_world_api.api.access.AccessMode;
 import de.niclasl.herobrines_world_api.api.transfer.TransferMode;
 import de.niclasl.herobrines_world_api.registry.HWRegistries;
@@ -19,6 +19,7 @@ import org.jspecify.annotations.NonNull;
 
 import java.util.UUID;
 
+@Experimental
 public record SyncChipPacket(TransferMode transferMode, int range, int speed, AccessMode accessMode, int level, UUID owner) implements CustomPacketPayload {
 
     public static final Type<SyncChipPacket> TYPE =
@@ -67,8 +68,8 @@ public record SyncChipPacket(TransferMode transferMode, int range, int speed, Ac
 
             if (!(stack.getItem() instanceof SmartChip)) return;
 
-            Transfer oldTransfer =
-                    stack.getOrDefault(ModDataComponents.TRANSFER.get(), Transfer.DEFAULT);
+            SmartChipData.Transfer oldTransfer =
+                    stack.getOrDefault(ModDataComponents.TRANSFER.get(), SmartChipData.Transfer.DEFAULT);
 
             UUID owner = msg.owner;
 
@@ -77,7 +78,7 @@ public record SyncChipPacket(TransferMode transferMode, int range, int speed, Ac
             }
 
             stack.set(ModDataComponents.TRANSFER.get(),
-                    new Transfer(
+                    new SmartChipData.Transfer(
                             msg.range(),
                             oldTransfer.pos(),
                             oldTransfer.dim(),
@@ -87,7 +88,7 @@ public record SyncChipPacket(TransferMode transferMode, int range, int speed, Ac
             );
 
             stack.set(ModDataComponents.ACCESS.get(),
-                    new Access(
+                    new SmartChipData.Access(
                             owner,
                             msg.level(),
                             msg.accessMode()
