@@ -21,12 +21,7 @@ import java.util.List;
 
 public class ItemTransferSystem {
 
-    public static void tick(
-            InventoryWrapper source,
-            InventoryWrapper target,
-            TransferMode mode,
-            int maxSlot
-    ) {
+    public static void tick(InventoryWrapper source, InventoryWrapper target, TransferMode mode, int maxSlot) {
         if (mode == TransferModeImpl.INSERT) {
             insert(source, target, maxSlot);
         } else if (mode == TransferModeImpl.EXTRACT) {
