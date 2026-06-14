@@ -7,12 +7,18 @@ import de.niclasl.herobrines_world_api.api.leaderboard.RewardEntry;
 import de.niclasl.herobrines_world_api.api.leaderboard.RewardType;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
+import org.jspecify.annotations.NonNull;
 
 public class SoulsRewardType implements RewardType {
 
     @Override
-    public Identifier id() {
+    public @NonNull Identifier id() {
         return Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "souls");
+    }
+
+    @Override
+    public int priority() {
+        return 0;
     }
 
     @Override

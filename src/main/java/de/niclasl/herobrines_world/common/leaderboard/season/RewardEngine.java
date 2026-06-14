@@ -21,13 +21,9 @@ public class RewardEngine {
 
         RewardType xp = RewardTypeImpl.XP;
 
-        if (souls != null) {
-            rewards.add(new RewardEntry(souls, (int)(1000 * m)));
-        }
+        rewards.add(new RewardEntry(souls, (int) (1000 * m)));
 
-        if (xp != null) {
-            rewards.add(new RewardEntry(xp, (int)(500 * m)));
-        }
+        rewards.add(new RewardEntry(xp, (int) (500 * m)));
 
         return rewards;
     }

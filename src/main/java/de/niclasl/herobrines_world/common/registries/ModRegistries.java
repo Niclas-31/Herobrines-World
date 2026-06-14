@@ -1,5 +1,6 @@
 package de.niclasl.herobrines_world.common.registries;
 
+import de.niclasl.herobrines_world.common.leaderboard.RewardTypeImpl;
 import de.niclasl.herobrines_world.common.network.ModVariables;
 import de.niclasl.herobrines_world.common.network.access.AccessModeImpl;
 import de.niclasl.herobrines_world.common.network.transfer.TransferModeImpl;
@@ -23,6 +24,7 @@ import net.neoforged.bus.api.IEventBus;
 public class ModRegistries {
 
     public static void register(IEventBus eventBus) {
+        RewardTypeImpl.register();
         TransferModeImpl.register();
         AccessModeImpl.register();
 

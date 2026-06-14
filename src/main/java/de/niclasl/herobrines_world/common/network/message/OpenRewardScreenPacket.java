@@ -39,10 +39,14 @@ public record OpenRewardScreenPacket(List<RewardEntry> rewards) implements Custo
 
         List<RewardEntry> rewards = new ArrayList<>();
 
-        RewardType type = HWRegistries.REWARD_TYPES.get(buf.readIdentifier());
-
         for (int i = 0; i < size; i++) {
-            rewards.add(new RewardEntry(type, buf.readInt()));
+
+            Identifier id = buf.readIdentifier();
+            int amount = buf.readInt();
+
+            RewardType type = HWRegistries.REWARD_TYPES.get(id);
+
+            rewards.add(new RewardEntry(type, amount));
         }
 
         return new OpenRewardScreenPacket(rewards);

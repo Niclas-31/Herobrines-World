@@ -36,13 +36,14 @@ public record SyncLeaderboardPacket(List<LeaderboardEntry> entries) implements C
     private static SyncLeaderboardPacket decode(FriendlyByteBuf buf) {
         int size = buf.readInt();
 
-        UUID player = buf.readUUID();
-        String playerName = buf.readUtf();
-        int value = buf.readInt();
-
         List<LeaderboardEntry> entries = new ArrayList<>();
 
         for (int i = 0; i < size; i++) {
+
+            UUID player = buf.readUUID();
+            String playerName = buf.readUtf();
+            int value = buf.readInt();
+
             entries.add(new LeaderboardEntry(player, playerName, value));
         }
 

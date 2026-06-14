@@ -75,8 +75,10 @@ public class RewardScreen extends Screen {
 
             gui.fill(startX - 5, y - 2, startX + tableWidth, y + 12, 0x33000000);
 
+            String type = Component.translatable("gui.herobrines_world.rewards." + r.type().id().getPath()).getString();
+
             gui.drawString(this.font,
-                    r.type().id() + " x" + r.amount(),
+                    type + " x" + r.amount(),
                     startX,
                     y,
                     0xFF00FFAA
