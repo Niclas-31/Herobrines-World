@@ -4,7 +4,6 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import de.niclasl.herobrines_world.common.network.access.AccessModeImpl;
 import de.niclasl.herobrines_world.common.network.transfer.TransferModeImpl;
-import de.niclasl.herobrines_world_api.annotation.Experimental;
 import de.niclasl.herobrines_world_api.api.access.AccessMode;
 import de.niclasl.herobrines_world_api.api.transfer.TransferMode;
 import net.minecraft.core.BlockPos;
@@ -34,7 +33,6 @@ public record SmartChipData(Optional<Transfer> transfer, Optional<Access> access
                 );
     }
 
-    @Experimental
     public record Access(UUID owner, int level,  AccessMode mode) {
         public static final Access DEFAULT = new Access(
                 null, 1, AccessModeImpl.PUBLIC

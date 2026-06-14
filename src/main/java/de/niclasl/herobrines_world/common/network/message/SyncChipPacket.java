@@ -4,7 +4,6 @@ import de.niclasl.herobrines_world.HerobrinesWorld;
 import de.niclasl.herobrines_world.common.registries.components.ModDataComponents;
 import de.niclasl.herobrines_world.common.registries.components.SmartChipData;
 import de.niclasl.herobrines_world.common.registries.items.custom.SmartChip;
-import de.niclasl.herobrines_world_api.annotation.Experimental;
 import de.niclasl.herobrines_world_api.api.access.AccessMode;
 import de.niclasl.herobrines_world_api.api.transfer.TransferMode;
 import de.niclasl.herobrines_world_api.registry.HWRegistries;
@@ -19,7 +18,6 @@ import org.jspecify.annotations.NonNull;
 
 import java.util.UUID;
 
-@Experimental
 public record SyncChipPacket(TransferMode transferMode, int range, int speed, AccessMode accessMode, int level, UUID owner) implements CustomPacketPayload {
 
     public static final Type<SyncChipPacket> TYPE =
