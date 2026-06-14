@@ -7,38 +7,29 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 
 public class StorageControllerInventoryWrapper implements InventoryWrapper {
 
-    private final BlockEntity be;
+    private final StorageControllerBlockEntity controller;
 
     public StorageControllerInventoryWrapper(BlockEntity be) {
-        this.be = be;
+        this.controller = (StorageControllerBlockEntity) be;
     }
 
     @Override
     public int size() {
-
-        if (be instanceof StorageControllerBlockEntity controller) {
-            return controller.getItems().size();
-        }
-
-        return 0;
+        return controller.getContainerSize();
     }
 
     @Override
     public ItemStack get(int slot) {
-
-        if (be instanceof StorageControllerBlockEntity controller) {
-            return controller.getItems().get(slot);
-        }
-
-        return ItemStack.EMPTY;
+        return controller.getItem(slot);
     }
 
     @Override
     public void set(int slot, ItemStack stack) {
+        controller.setItem(slot, stack);
+    }
 
-        if (be instanceof StorageControllerBlockEntity controller) {
-            controller.getItems().set(slot, stack);
-            controller.setChanged();
-        }
+    @Override
+    public boolean canAccept(ItemStack stack) {
+        return true;
     }
 }

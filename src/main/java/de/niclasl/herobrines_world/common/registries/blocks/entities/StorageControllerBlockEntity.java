@@ -7,12 +7,8 @@ import de.niclasl.herobrines_world.common.registries.menus.StorageControllerMenu
 import de.niclasl.herobrines_world_api.api.transfer.node.StorageNode;
 import de.niclasl.herobrines_world_api.api.transfer.wrapper.InventoryWrapper;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.protocol.game.ClientGamePacketListener;
-import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.Container;
 import net.minecraft.world.ContainerHelper;
@@ -25,11 +21,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.storage.ValueInput;
-import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.AABB;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import org.jspecify.annotations.NonNull;
 
 import java.util.ArrayList;
@@ -39,8 +31,7 @@ public class StorageControllerBlockEntity extends BlockEntity implements Contain
 
     private static final int RANGE = 16;
 
-    private NonNullList<ItemStack> items = NonNullList.withSize(54, ItemStack.EMPTY);
-
+    private final NonNullList<ItemStack> items = NonNullList.withSize(54, ItemStack.EMPTY);
     private final List<StorageNode> network = new ArrayList<>();
 
     private int scanTimer;
@@ -50,41 +41,9 @@ public class StorageControllerBlockEntity extends BlockEntity implements Contain
         super(ModBlockEntities.STORAGE_CONTROLLER.get(), pos, state);
     }
 
-    @Override
-    public void handleUpdateTag(@NotNull ValueInput input) {
-        super.handleUpdateTag(input);
-
-        ContainerHelper.loadAllItems(input, this.items);
-    }
-
-    @Override
-    public @Nullable Packet<ClientGamePacketListener> getUpdatePacket() {
-        return ClientboundBlockEntityDataPacket.create(this);
-    }
-
-    @Override
-    protected void loadAdditional(@NonNull ValueInput input) {
-        super.loadAdditional(input);
-
-        ContainerHelper.loadAllItems(input, this.items);
-    }
-
-    @Override
-    protected void saveAdditional(@NonNull ValueOutput output) {
-        super.saveAdditional(output);
-
-        ContainerHelper.saveAllItems(output, this.items);
-    }
-
-    public boolean getMode() {
-        if (level == null) return false;
-        return level.getBlockState(worldPosition).getValue(StorageControllerBlock.POWERED);
-    }
-
     public void tick(Level level, StorageControllerBlockEntity be) {
         if (!(level instanceof ServerLevel serverLevel)) return;
-
-        if (!getMode()) return;
+        if (!be.getMode()) return;
 
         be.scanTimer++;
         be.sortTimer++;
@@ -117,10 +76,7 @@ public class StorageControllerBlockEntity extends BlockEntity implements Contain
 
             if (wrapper == null) continue;
 
-            network.add(new StorageNode(
-                    wrapper,
-                    filter
-            ));
+            network.add(new StorageNode(wrapper, filter));
         }
 
         setChanged();
@@ -128,112 +84,60 @@ public class StorageControllerBlockEntity extends BlockEntity implements Contain
 
     private void sortItems() {
 
-        InventoryWrapper source =
-                new StorageControllerInventoryWrapper(this);
+        InventoryWrapper source = new StorageControllerInventoryWrapper(this);
 
         for (int slot = 0; slot < source.size(); slot++) {
 
             ItemStack stack = source.get(slot);
+            if (stack.isEmpty()) continue;
 
-            if (stack.isEmpty()) {
-                continue;
+            ItemStack original = stack.copy();
+
+            for (StorageNode node : network) {
+
+                InventoryWrapper target = node.inventory();
+                if (target == null) continue;
+
+                ItemStack filter = node.filter();
+
+                if (filter.isEmpty()) continue;
+
+                if (!target.canAccept(stack)) continue;
+
+                stack = ItemTransferSystem.insertInto(target, stack);
+
+                if (stack.isEmpty()) break;
             }
 
-            boolean inserted = tryInsert(
-                    stack,
-                    true
-            );
-
-            if (!inserted) {
-                tryInsert(stack, false);
-            }
-
-            if (stack.isEmpty()) {
-                source.set(slot, ItemStack.EMPTY);
+            if (!ItemStack.matches(original, stack)) {
+                source.set(slot, stack);
             }
         }
     }
 
-    private boolean tryInsert(ItemStack stack, boolean filteredOnly) {
-        for (StorageNode node : network) {
+    private ItemStack readFilter(Level level, BlockPos pos) {
 
-            InventoryWrapper target = node.inventory();
+        AABB box = new AABB(pos).inflate(1.5);
 
-            if (target == null) {
-                continue;
-            }
+        List<ItemFrame> frames =
+                level.getEntitiesOfClass(ItemFrame.class, box);
 
-            boolean filtered = !node.filter().isEmpty();
+        for (ItemFrame frame : frames) {
 
-            if (filteredOnly && !filtered) {
-                continue;
-            }
+            ItemStack item = frame.getItem();
 
-            if (!filteredOnly && filtered) {
-                continue;
-            }
-
-            if (!target.canAccept(stack)) {
-                continue;
-            }
-
-            ItemStack moving = stack.copy();
-
-            int before = moving.getCount();
-
-            ItemStack remaining =
-                    ItemTransferSystem.insertInto(
-                            target,
-                            moving
-                    );
-
-            int moved =
-                    before - remaining.getCount();
-
-            if (moved <= 0) {
-                continue;
-            }
-
-            stack.shrink(moved);
-
-            return true;
-        }
-
-        return false;
-    }
-
-    private ItemStack readFilter(Level level, BlockPos chestPos) {
-
-        for (Direction dir : Direction.values()) {
-
-            BlockPos sidePos = chestPos.relative(dir);
-
-            AABB box = new AABB(sidePos);
-
-            List<ItemFrame> frames = level.getEntitiesOfClass(ItemFrame.class, box);
-
-            for (ItemFrame frame : frames) {
-
-                if (frame.getDirection() != dir) continue;
-
-                ItemStack displayed = frame.getItem();
-
-                if (!displayed.isEmpty()) {
-                    return displayed.copyWithCount(1);
-                }
+            if (!item.isEmpty()) {
+                return item.copyWithCount(1);
             }
         }
 
         return ItemStack.EMPTY;
     }
 
-    public NonNullList<ItemStack> getItems() {
-        return items;
-    }
-
-    public void setItem(NonNullList<ItemStack> items) {
-        this.items = items;
-        setChanged();
+    public boolean getMode() {
+        if (level == null) return false;
+        return level.getBlockState(worldPosition)
+                .getValue(StorageControllerBlock.POWERED);
     }
 
     @Override
@@ -243,12 +147,19 @@ public class StorageControllerBlockEntity extends BlockEntity implements Contain
 
     @Override
     public boolean isEmpty() {
-        return false;
+        for (ItemStack s : items) if (!s.isEmpty()) return false;
+        return true;
     }
 
     @Override
     public @NonNull ItemStack getItem(int slot) {
         return items.get(slot);
+    }
+
+    @Override
+    public void setItem(int slot, @NonNull ItemStack stack) {
+        items.set(slot, stack);
+        setChanged();
     }
 
     @Override
@@ -266,22 +177,14 @@ public class StorageControllerBlockEntity extends BlockEntity implements Contain
     }
 
     @Override
-    public void setItem(int slot, @NonNull ItemStack stack) {
-        items.set(slot, stack);
+    public void clearContent() {
+        items.clear();
         setChanged();
     }
 
     @Override
     public boolean stillValid(Player player) {
-        return player.distanceToSqr(worldPosition.getX() + 0.5,
-                worldPosition.getY() + 0.5,
-                worldPosition.getZ() + 0.5) <= 64.0;
-    }
-
-    @Override
-    public void clearContent() {
-        items.clear();
-        setChanged();
+        return player.distanceToSqr(worldPosition.getCenter()) <= 64;
     }
 
     @Override

@@ -21,4 +21,9 @@ public class EmptyInventoryWrapper implements InventoryWrapper {
 
     @Override
     public void set(int slot, ItemStack stack) {}
+
+    @Override
+    public boolean canAccept(ItemStack stack) {
+        return false;
+    }
 }

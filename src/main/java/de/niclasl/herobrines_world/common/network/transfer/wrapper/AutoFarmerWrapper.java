@@ -32,4 +32,9 @@ public class AutoFarmerWrapper implements InventoryWrapper {
 
         items.set(slot, stack);
     }
+
+    @Override
+    public boolean canAccept(ItemStack stack) {
+        return true;
+    }
 }

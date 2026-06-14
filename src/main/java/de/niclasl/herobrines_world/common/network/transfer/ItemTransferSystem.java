@@ -73,47 +73,31 @@ public class ItemTransferSystem {
     }
 
     public static ItemStack insertInto(InventoryWrapper target, ItemStack stack) {
-        if (!target.canAccept(stack)) {
-            return stack;
-        }
+
+        if (!target.canAccept(stack)) return stack;
 
         for (int slot = 0; slot < target.size(); slot++) {
 
             ItemStack existing = target.get(slot);
 
-            if (!existing.isEmpty()
-                    && !ItemStack.isSameItemSameComponents(existing, stack)) {
-                continue;
-            }
-
             if (existing.isEmpty()) {
-
                 target.set(slot, stack.copy());
-
-                stack.setCount(0);
-
                 return ItemStack.EMPTY;
             }
 
             int max = existing.getMaxStackSize();
-
             int space = max - existing.getCount();
 
-            if (space <= 0) {
-                continue;
-            }
+            if (space <= 0) continue;
 
             int move = Math.min(space, stack.getCount());
 
             existing.grow(move);
-
             stack.shrink(move);
 
             target.set(slot, existing);
 
-            if (stack.isEmpty()) {
-                return ItemStack.EMPTY;
-            }
+            if (stack.isEmpty()) return ItemStack.EMPTY;
         }
 
         return stack;
