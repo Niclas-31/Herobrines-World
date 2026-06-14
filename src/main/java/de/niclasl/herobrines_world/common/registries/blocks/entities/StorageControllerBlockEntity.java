@@ -117,7 +117,7 @@ public class StorageControllerBlockEntity extends BlockEntity implements Contain
 
     private ItemStack readFilter(Level level, BlockPos pos) {
 
-        AABB box = new AABB(pos).inflate(1.5);
+        AABB box = new AABB(pos).inflate(0.1);
 
         List<ItemFrame> frames =
                 level.getEntitiesOfClass(ItemFrame.class, box);
