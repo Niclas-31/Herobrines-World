@@ -1,21 +1,17 @@
 package de.niclasl.herobrines_world.client.screen;
 
-import de.niclasl.herobrines_world.HerobrinesWorld;
-import de.niclasl.herobrines_world_api.api.leaderboard.LeaderboardEntry;
 import de.niclasl.herobrines_world.common.leaderboard.season.SeasonManager;
 import de.niclasl.herobrines_world.common.network.message.RequestRewardsScreenPacket;
 import de.niclasl.herobrines_world.common.util.math.SoulMath;
+import de.niclasl.herobrines_world_api.api.leaderboard.LeaderboardEntry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.components.SpriteIconButton;
-import net.minecraft.client.gui.components.WidgetSprites;
+import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.client.network.ClientPacketDistributor;
 import org.jspecify.annotations.NonNull;
-import org.jspecify.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -29,8 +25,6 @@ public class SoulLeaderboardScreen extends Screen {
 
     private static final int ENTRY_HEIGHT = 18;
     private static final int VISIBLE_ENTRIES = 10;
-
-    private final Identifier REWARDS = Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "icon/rewards");
 
     public SoulLeaderboardScreen(List<LeaderboardEntry> entries) {
         super(Component.literal("Soul Leaderboard"));
@@ -48,11 +42,11 @@ public class SoulLeaderboardScreen extends Screen {
         int y = 10;
 
         Component message = Component.translatable("gui.herobrines_world.soul_leaderboard.rewards");
-        RewardsButton rewardsButton = new RewardsButton(message, REWARDS, b -> openRewardsScreen(), message);
-
-        rewardsButton.setPosition(x, y);
-
-        addRenderableWidget(rewardsButton);
+        addRenderableWidget(
+                Button.builder(message, b -> openRewardsScreen())
+                        .bounds(x, y, 100, 20)
+                        .build()
+        );
     }
 
     @Override
@@ -168,12 +162,5 @@ public class SoulLeaderboardScreen extends Screen {
     @Override
     public boolean isPauseScreen() {
         return false;
-    }
-
-    static class RewardsButton extends SpriteIconButton.CenteredIcon {
-
-        protected RewardsButton(Component message, Identifier sprite, OnPress onPress, @Nullable Component tooltip) {
-            super(20, 20, message, 14, 14, new WidgetSprites(sprite), onPress, tooltip, null);
-        }
     }
 }
