@@ -1,7 +1,6 @@
 package de.niclasl.herobrines_world.common.network.access;
 
 import de.niclasl.herobrines_world.HerobrinesWorld;
-import de.niclasl.herobrines_world.common.network.access.mode.OwnerOnlyMode;
 import de.niclasl.herobrines_world.common.network.access.mode.PrivateMode;
 import de.niclasl.herobrines_world.common.network.access.mode.PublicMode;
 import de.niclasl.herobrines_world.common.network.access.mode.TrustedMode;
@@ -14,13 +13,11 @@ public class AccessModeImpl {
     public static final AccessMode PUBLIC = new PublicMode();
     public static final AccessMode PRIVATE = new PrivateMode();
     public static final AccessMode TRUSTED = new TrustedMode();
-    public static final AccessMode OWNER_ONLY = new OwnerOnlyMode();
 
     public static void register() {
         registerAccessMode(id("public"), PUBLIC);
         registerAccessMode(id("private"), PRIVATE);
         registerAccessMode(id("trusted"), TRUSTED);
-        registerAccessMode(id("owner_only"), OWNER_ONLY);
     }
 
     public static void registerAccessMode(Identifier id, AccessMode mode) {

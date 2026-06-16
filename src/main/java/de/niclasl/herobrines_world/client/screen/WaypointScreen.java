@@ -1,6 +1,5 @@
 package de.niclasl.herobrines_world.client.screen;
 
-import de.niclasl.herobrines_world.HerobrinesWorld;
 import de.niclasl.herobrines_world.common.network.message.DeleteWaypointPacket;
 import de.niclasl.herobrines_world.common.network.message.DeselectWaypointPacket;
 import de.niclasl.herobrines_world.common.network.message.RenameWaypointPacket;
@@ -9,16 +8,15 @@ import de.niclasl.herobrines_world.common.registries.components.ModDataComponent
 import de.niclasl.herobrines_world.common.registries.components.SavedWaypoint;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.components.*;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.input.KeyEvent;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.client.network.ClientPacketDistributor;
 import org.jspecify.annotations.NonNull;
-import org.jspecify.annotations.Nullable;
 import org.lwjgl.glfw.GLFW;
 
 import java.util.List;
@@ -31,12 +29,12 @@ public class WaypointScreen extends Screen {
     private int scrollOffset;
 
     private UUID editingWaypoint;
+    private UUID selectedWaypoint;
 
     private EditBox renameBox;
     private Button saveButton;
-
-    private final Identifier EDIT = Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "icon/edit");
-    private final Identifier TRASH = Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "icon/trash");
+    private Button editButton;
+    private Button deleteButton;
 
     public WaypointScreen(ItemStack stack) {
         super(Component.translatable("gui.herobrines_world.waypoint.title"));
@@ -48,9 +46,9 @@ public class WaypointScreen extends Screen {
 
     @Override
     protected void init() {
-
         super.init();
 
+        Minecraft mc = Minecraft.getInstance();
         createWaypointButtons();
 
         renameBox = new EditBox(this.font, this.width / 2 - 100, this.height - 60, 200, 20,
@@ -60,6 +58,15 @@ public class WaypointScreen extends Screen {
         renameBox.setVisible(false);
         addRenderableWidget(renameBox);
 
+        Component message = Component.translatable("gui.herobrines_world.waypoint.edit");
+        editButton = addRenderableWidget(
+                Button.builder(message, b -> editSelected())
+                        .bounds(this.width / 2 - 200, this.height - 30, 100, 20)
+                        .build()
+        );
+
+        editButton.active = false;
+
         saveButton = Button.builder(Component.literal("Save"), b -> save())
                 .bounds(this.width / 2 - 100, this.height - 30, 100, 20)
                 .build();
@@ -68,8 +75,8 @@ public class WaypointScreen extends Screen {
 
         addRenderableWidget(saveButton);
 
-        assert Minecraft.getInstance().player != null;
-        ItemStack stack = Minecraft.getInstance().player.getMainHandItem();
+        assert mc.player != null;
+        ItemStack stack = mc.player.getMainHandItem();
 
         UUID selected = stack.get(ModDataComponents.SELECTED_WAYPOINT.get());
 
@@ -80,10 +87,18 @@ public class WaypointScreen extends Screen {
         );
 
         deselect.active = selected != null;
+
+        Component message1 = Component.translatable("gui.herobrines_world.waypoint.delete");
+        deleteButton = addRenderableWidget(
+                Button.builder(message1, b -> deleteSelected(mc))
+                        .bounds(this.width / 2 + 100, this.height - 30, 100, 20)
+                        .build()
+        );
+
+        deleteButton.active = false;
     }
 
     private void createWaypointButtons() {
-        Minecraft mc = Minecraft.getInstance();
         int startY = 40;
 
         int maxVisible = 6;
@@ -100,47 +115,29 @@ public class WaypointScreen extends Screen {
 
             Component text = Component.literal(waypoint.name());
 
-            final int index = i;
-
             addRenderableWidget(
                     Button.builder(
                             text,
                             button -> {
-                                        ClientPacketDistributor.sendToServer(new SyncWaypointCompass(waypoint.id()));
+                                if (waypoint.id().equals(selectedWaypoint)) {
 
-                                        this.onClose();
-                                    }
-                            )
+                                    ClientPacketDistributor.sendToServer(
+                                            new SyncWaypointCompass(waypoint.id())
+                                    );
+
+                                    this.onClose();
+                                    return;
+                                }
+
+                                selectedWaypoint = waypoint.id();
+                                editingWaypoint = waypoint.id();
+
+                                editButton.active = true;
+                                deleteButton.active = true;
+                            })
                             .bounds(this.width / 2 - 100, y, 200, 20)
                             .build()
             );
-
-            Component message = Component.translatable("gui.herobrines_world.waypoint.edit");
-            EditButton editButton = new EditButton(message, EDIT, b -> {
-                editingWaypoint = waypoint.id();
-
-                renameBox.setValue(waypoints.get(index).name());
-                renameBox.setVisible(true);
-                renameBox.setFocused(true);
-                saveButton.active = true;
-            }, message);
-
-            editButton.setPosition(this.width / 2 + 105, y);
-
-            addRenderableWidget(editButton);
-
-            Component message1 = Component.translatable("gui.herobrines_world.waypoint.delete");
-            TrashButton trashButton = new TrashButton(message1, TRASH, b -> {
-                if (!mc.hasShiftDown()) return;
-
-                ClientPacketDistributor.sendToServer(new DeleteWaypointPacket(waypoint.id()));
-
-                this.onClose();
-            }, message1);
-
-            trashButton.setPosition(this.width / 2 + 130, y);
-
-            addRenderableWidget(trashButton);
         }
     }
 
@@ -161,6 +158,42 @@ public class WaypointScreen extends Screen {
 
     private void deselect() {
         ClientPacketDistributor.sendToServer(new DeselectWaypointPacket());
+
+        selectedWaypoint = null;
+
+        editButton.active = false;
+        deleteButton.active = false;
+
+        this.onClose();
+    }
+
+    private void editSelected() {
+        if (selectedWaypoint == null) return;
+
+        SavedWaypoint waypoint = waypoints.stream()
+                .filter(w -> w.id().equals(selectedWaypoint))
+                .findFirst()
+                .orElse(null);
+
+        if (waypoint == null) return;
+
+        editingWaypoint = waypoint.id();
+
+        renameBox.setValue(waypoint.name());
+        renameBox.setVisible(true);
+        renameBox.setFocused(true);
+
+        saveButton.active = true;
+    }
+
+    private void deleteSelected(Minecraft mc) {
+        if (selectedWaypoint == null) return;
+        if (!mc.hasShiftDown()) return;
+
+        ClientPacketDistributor.sendToServer(
+                new DeleteWaypointPacket(selectedWaypoint)
+        );
+
         this.onClose();
     }
 
@@ -211,19 +244,5 @@ public class WaypointScreen extends Screen {
     @Override
     public boolean isPauseScreen() {
         return false;
-    }
-
-    static class EditButton extends SpriteIconButton.CenteredIcon {
-
-        protected EditButton(Component message, Identifier sprite, OnPress onPress, @Nullable Component tooltip) {
-            super(20, 20, message, 14, 14, new WidgetSprites(sprite), onPress, tooltip, null);
-        }
-    }
-
-    static class TrashButton extends SpriteIconButton.CenteredIcon {
-
-        protected TrashButton(Component message, Identifier sprite, OnPress onPress, @Nullable Component tooltip) {
-            super(20, 20, message, 14, 14, new WidgetSprites(sprite), onPress, tooltip, null);
-        }
     }
 }
