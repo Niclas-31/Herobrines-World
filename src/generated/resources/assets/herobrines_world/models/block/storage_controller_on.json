@@ -3,7 +3,7 @@
   "textures": {
     "bottom": "herobrines_world:block/storage_controller_bottom",
     "front": "herobrines_world:block/storage_controller_front_on",
-    "side": "herobrines_world:block/storage_controller_side",
+    "side": "herobrines_world:block/storage_controller_side_on",
     "top": "herobrines_world:block/storage_controller_top"
   }
 }
