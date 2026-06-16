@@ -38,7 +38,7 @@ public class SoulLeaderboardScreen extends Screen {
     protected void init() {
         super.init();
 
-        int x = this.width - 30;
+        int x = this.width - 130;
         int y = 10;
 
         Component message = Component.translatable("gui.herobrines_world.soul_leaderboard.rewards");
