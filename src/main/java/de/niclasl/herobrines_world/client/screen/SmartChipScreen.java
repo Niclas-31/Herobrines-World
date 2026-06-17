@@ -2,7 +2,6 @@ package de.niclasl.herobrines_world.client.screen;
 
 import de.niclasl.herobrines_world.common.network.message.SyncChipPacket;
 import de.niclasl.herobrines_world.common.registries.menus.SmartChipMenu;
-import de.niclasl.herobrines_world_api.annotation.Experimental;
 import de.niclasl.herobrines_world_api.api.access.AccessMode;
 import de.niclasl.herobrines_world_api.api.transfer.TransferMode;
 import de.niclasl.herobrines_world_api.registry.HWRegistries;
@@ -22,7 +21,6 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.UUID;
 
-@Experimental
 public class SmartChipScreen extends AbstractContainerScreen<SmartChipMenu> {
 
     private enum Tab {
@@ -93,7 +91,7 @@ public class SmartChipScreen extends AbstractContainerScreen<SmartChipMenu> {
                 }
         ).bounds(this.leftPos, this.topPos, half, 20).build());
 
-        Button access = addRenderableWidget(Button.builder(
+        addRenderableWidget(Button.builder(
                 Component.translatable("gui.herobrines_world.smart_chip.access"),
                 b -> {
                     saveCurrentInputs();
@@ -101,8 +99,6 @@ public class SmartChipScreen extends AbstractContainerScreen<SmartChipMenu> {
                     rebuildTab();
                 }
         ).bounds(this.leftPos + half, this.topPos, half, 20).build());
-
-        access.active = true;
 
         switch (currentTab) {
             case TRANSFER -> buildTransferTab();

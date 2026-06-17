@@ -44,10 +44,10 @@ public class ModMapping {
                 .put(TextureSlot.BOTTOM, TextureMapping.getBlockTexture(block));
     }
 
-    private static TextureMapping storageControllerTextureMapping(Block block, String frontSuffix) {
+    private static TextureMapping storageControllerTextureMapping(Block block, String frontSuffix, String sideSuffix) {
         return new TextureMapping()
                 .put(TextureSlot.FRONT, TextureMapping.getBlockTexture(block, frontSuffix))
-                .put(TextureSlot.SIDE, TextureMapping.getBlockTexture(block, "_side"))
+                .put(TextureSlot.SIDE, TextureMapping.getBlockTexture(block, sideSuffix))
                 .put(TextureSlot.TOP, TextureMapping.getBlockTexture(block, "_top"))
                 .put(TextureSlot.BOTTOM, TextureMapping.getBlockTexture(block, "_bottom"));
     }
@@ -71,8 +71,8 @@ public class ModMapping {
 
     public static void createStorageController(BlockModelGenerators bMG) {
         Block block = ModBlocks.STORAGE_CONTROLLER.get();
-        TextureMapping textureMapping = storageControllerTextureMapping(block, "_front");
-        TextureMapping textureMapping1 = storageControllerTextureMapping(block, "_front_on");
+        TextureMapping textureMapping = storageControllerTextureMapping(block, "_front", "_side");
+        TextureMapping textureMapping1 = storageControllerTextureMapping(block, "_front_on", "_side_on");
         Identifier identifier = ModelTemplates.CUBE_ORIENTABLE_TOP_BOTTOM.create(block, textureMapping, bMG.modelOutput);
         MultiVariant multiVariant = BlockModelGenerators.plainVariant(identifier);
         MultiVariant multiVariant1 = BlockModelGenerators.plainVariant(ModelTemplates.CUBE_ORIENTABLE_TOP_BOTTOM.createWithSuffix(block, "_on", textureMapping1, bMG.modelOutput));
