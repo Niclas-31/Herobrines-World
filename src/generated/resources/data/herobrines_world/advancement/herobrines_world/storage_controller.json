@@ -1,0 +1,33 @@
+{
+  "parent": "herobrines_world:herobrines_world/magma_tools",
+  "criteria": {
+    "storage_controller": {
+      "conditions": {
+        "items": [
+          {
+            "items": "herobrines_world:storage_controller"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.herobrines_world.storage_controller.descr"
+    },
+    "icon": {
+      "count": 1,
+      "id": "herobrines_world:storage_controller"
+    },
+    "title": {
+      "translate": "advancements.herobrines_world.storage_controller.title"
+    }
+  },
+  "requirements": [
+    [
+      "storage_controller"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

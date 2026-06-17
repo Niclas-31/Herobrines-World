@@ -44,27 +44,21 @@
   },
   "display": {
     "description": {
-      "translate": "advancements.herobrines_world.make_a_new_armor.descr"
+      "translate": "advancements.herobrines_world.obtain_armor.descr"
     },
     "icon": {
       "count": 1,
       "id": "herobrines_world:fire_chestplate"
     },
     "title": {
-      "translate": "advancements.herobrines_world.make_a_new_armor.title"
+      "translate": "advancements.herobrines_world.obtain_armor.title"
     }
   },
   "requirements": [
     [
-      "fire_helmet"
-    ],
-    [
-      "fire_chestplate"
-    ],
-    [
-      "fire_leggings"
-    ],
-    [
+      "fire_helmet",
+      "fire_chestplate",
+      "fire_leggings",
       "fire_boots"
     ]
   ],

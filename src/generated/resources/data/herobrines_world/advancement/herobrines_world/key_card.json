@@ -1,0 +1,33 @@
+{
+  "parent": "herobrines_world:herobrines_world/card_reader",
+  "criteria": {
+    "key_card": {
+      "conditions": {
+        "items": [
+          {
+            "items": "herobrines_world:key_card"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.herobrines_world.key_card.descr"
+    },
+    "icon": {
+      "count": 1,
+      "id": "herobrines_world:key_card"
+    },
+    "title": {
+      "translate": "advancements.herobrines_world.key_card.title"
+    }
+  },
+  "requirements": [
+    [
+      "key_card"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

@@ -1,0 +1,33 @@
+{
+  "parent": "herobrines_world:herobrines_world/key_card",
+  "criteria": {
+    "waypoint": {
+      "conditions": {
+        "items": [
+          {
+            "items": "herobrines_world:waypoint_compass"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.herobrines_world.waypoint.descr"
+    },
+    "icon": {
+      "count": 1,
+      "id": "herobrines_world:waypoint_compass"
+    },
+    "title": {
+      "translate": "advancements.herobrines_world.waypoint.title"
+    }
+  },
+  "requirements": [
+    [
+      "waypoint"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

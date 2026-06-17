@@ -1,0 +1,33 @@
+{
+  "parent": "herobrines_world:herobrines_world/storage_controller",
+  "criteria": {
+    "card_reader": {
+      "conditions": {
+        "items": [
+          {
+            "items": "herobrines_world:card_reader"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.herobrines_world.card_reader.descr"
+    },
+    "icon": {
+      "count": 1,
+      "id": "herobrines_world:card_reader"
+    },
+    "title": {
+      "translate": "advancements.herobrines_world.card_reader.title"
+    }
+  },
+  "requirements": [
+    [
+      "card_reader"
+    ]
+  ],
+  "sends_telemetry_event": true
+}
