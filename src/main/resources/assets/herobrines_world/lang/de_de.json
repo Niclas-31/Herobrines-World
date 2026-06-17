@@ -66,6 +66,9 @@
   "block.herobrines_world.storage_controller": "Lager Controller",
   "block.herobrines_world.card_reader": "Karten Lesegerät",
 
+  "block.herobrines_world.card_reader.access_granted": "Zugriff gewährt",
+  "block.herobrines_world.card_reader.access_denied": "Zugriff verweigert",
+
   "commands.souls.query.levels": "%s hat Seelenstufe %s",
   "commands.souls.query.points": "%s hat %s Seelenpunkte",
   "commands.three_hearts.query": "%s hat %s Herzen",

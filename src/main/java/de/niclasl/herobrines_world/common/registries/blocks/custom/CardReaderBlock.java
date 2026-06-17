@@ -71,7 +71,7 @@ public class CardReaderBlock extends BaseEntityBlock {
         if (!player.isCrouching()) {
             if (!(stack.getItem() instanceof KeyCard)) return InteractionResult.PASS;
 
-            boolean access = be.canAccess(player, stack);
+            boolean access = be.canAccess(stack);
 
             be.accessTicks = 40;
 
@@ -79,9 +79,9 @@ public class CardReaderBlock extends BaseEntityBlock {
                 if (access) {
                     level.setBlock(pos, state.setValue(POWERED, true), 3);
 
-                    player.displayClientMessage(Component.empty(), true);
+                    player.displayClientMessage(Component.translatable("block.herobrines_world.card_reader.access_granted"), true);
                 } else {
-                    player.displayClientMessage(Component.empty(), true);
+                    player.displayClientMessage(Component.translatable("block.herobrines_world.card_reader.access_denied"), true);
                 }
             }
 

@@ -67,6 +67,9 @@
   "block.herobrines_world.storage_controller": "Storage Controller",
   "block.herobrines_world.card_reader": "Card Reader",
 
+  "block.herobrines_world.card_reader.access_granted": "Access Granted",
+  "block.herobrines_world.card_reader.access_denied": "Access Denied",
+
   "commands.souls.query.levels": "%s has %s soul levels",
   "commands.souls.query.points": "%s has %s soul points",
   "commands.three_hearts.query": "%s Hearts: %s",

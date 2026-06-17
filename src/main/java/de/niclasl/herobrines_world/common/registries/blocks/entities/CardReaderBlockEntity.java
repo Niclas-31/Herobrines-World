@@ -70,7 +70,7 @@ public class CardReaderBlockEntity extends BlockEntity implements Container, Men
         ));
     }
 
-    public boolean canAccess(Player player, ItemStack card) {
+    public boolean canAccess(ItemStack card) {
         SmartChipData.Access access = items.getFirst().getOrDefault(ModDataComponents.ACCESS, SmartChipData.Access.DEFAULT);
 
         AccessMode mode = access.mode();
@@ -81,13 +81,12 @@ public class CardReaderBlockEntity extends BlockEntity implements Container, Men
 
         if (data == null) return false;
 
-        UUID playerUUID = player.getUUID();
+        UUID playerUUID = access.owner();
 
-        final boolean equals = data.owner().equals(playerUUID);
-        if (mode == AccessModeImpl.PRIVATE) return equals;
-        else if (mode == AccessModeImpl.TRUSTED) return equals && data.level() == access.level();
-        else if (mode == AccessModeImpl.OWNER_ONLY) return playerUUID.equals(data.owner());
-        else return false;
+        if (mode == AccessModeImpl.PRIVATE) return playerUUID.equals(data.owner());
+        else if (mode == AccessModeImpl.TRUSTED) return data.level() == access.level();
+
+        return false;
     }
 
     @Override
