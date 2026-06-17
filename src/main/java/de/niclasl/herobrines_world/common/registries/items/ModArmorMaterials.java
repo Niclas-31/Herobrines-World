@@ -26,6 +26,7 @@ public class ModArmorMaterials {
                 map.put(ArmorType.LEGGINGS, 3);
                 map.put(ArmorType.CHESTPLATE, 4);
                 map.put(ArmorType.HELMET, 1);
+                map.put(ArmorType.BODY, 4);
             }),
             12,
             SoundEvents.ARMOR_EQUIP_LEATHER,
@@ -41,6 +42,7 @@ public class ModArmorMaterials {
                 map.put(ArmorType.LEGGINGS, 5);
                 map.put(ArmorType.CHESTPLATE, 6);
                 map.put(ArmorType.HELMET, 2);
+                map.put(ArmorType.BODY, 6);
             }),
             14,
             SoundEvents.ARMOR_EQUIP_IRON,
@@ -56,6 +58,7 @@ public class ModArmorMaterials {
                 map.put(ArmorType.LEGGINGS, 6);
                 map.put(ArmorType.CHESTPLATE, 8);
                 map.put(ArmorType.HELMET, 3);
+                map.put(ArmorType.BODY, 8);
             }),
             12,
             SoundEvents.ARMOR_EQUIP_DIAMOND,
@@ -71,6 +74,7 @@ public class ModArmorMaterials {
                 map.put(ArmorType.LEGGINGS, 6);
                 map.put(ArmorType.CHESTPLATE, 8);
                 map.put(ArmorType.HELMET, 3);
+                map.put(ArmorType.BODY, 8);
             }),
             18,
             SoundEvents.ARMOR_EQUIP_NETHERITE,
