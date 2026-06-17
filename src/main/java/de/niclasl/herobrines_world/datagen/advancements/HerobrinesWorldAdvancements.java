@@ -6,6 +6,7 @@ import de.niclasl.herobrines_world.common.registries.items.ModItems;
 import de.niclasl.herobrines_world.common.worldgen.dimension.ModDimensions;
 import net.minecraft.advancements.Advancement.Builder;
 import net.minecraft.advancements.AdvancementHolder;
+import net.minecraft.advancements.AdvancementRequirements;
 import net.minecraft.advancements.AdvancementType;
 import net.minecraft.advancements.criterion.ChangeDimensionTrigger;
 import net.minecraft.advancements.criterion.InventoryChangeTrigger;
@@ -109,19 +110,20 @@ public class HerobrinesWorldAdvancements implements AdvancementSubProvider {
                 .parent(advancementHolder3)
                 .display(
                         ModItems.FIRE_CHESTPLATE,
-                        Component.translatable("advancements.herobrines_world.make_a_new_armor.title"),
-                        Component.translatable("advancements.herobrines_world.make_a_new_armor.descr"),
+                        Component.translatable("advancements.herobrines_world.obtain_armor.title"),
+                        Component.translatable("advancements.herobrines_world.obtain_armor.descr"),
                         null,
                         AdvancementType.TASK,
                         true,
                         true,
                         false
                 )
+                .requirements(AdvancementRequirements.Strategy.OR)
                 .addCriterion("fire_helmet", InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.FIRE_HELMET))
                 .addCriterion("fire_chestplate", InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.FIRE_CHESTPLATE))
                 .addCriterion("fire_leggings", InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.FIRE_LEGGINGS))
                 .addCriterion("fire_boots", InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.FIRE_BOOTS))
-                .save(consumer, "herobrines_world:herobrines_world/make_a_new_armor");
+                .save(consumer, "herobrines_world:herobrines_world/obtain_armor");
 
         Builder.advancement()
                 .parent(advancementHolder4)
@@ -139,5 +141,89 @@ public class HerobrinesWorldAdvancements implements AdvancementSubProvider {
                         "herobrine_diamond", InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.HEROBRINE_DIAMOND)
                 )
                 .save(consumer, "herobrines_world:herobrines_world/mine_herobrine_diamond");
+
+        AdvancementHolder storageController = Builder.advancement()
+                .parent(advancementHolder4)
+                .display(
+                        ModBlocks.STORAGE_CONTROLLER,
+                        Component.translatable("advancements.herobrines_world.storage_controller.title"),
+                        Component.translatable("advancements.herobrines_world.storage_controller.descr"),
+                        null,
+                        AdvancementType.TASK,
+                        true,
+                        true,
+                        false
+                )
+                .addCriterion(
+                        "storage_controller",
+                        InventoryChangeTrigger.TriggerInstance.hasItems(ModBlocks.STORAGE_CONTROLLER)
+                )
+                .save(
+                        consumer,
+                        "herobrines_world:herobrines_world/storage_controller"
+                );
+
+        AdvancementHolder cardReader = Builder.advancement()
+                .parent(storageController)
+                .display(
+                        ModBlocks.CARD_READER,
+                        Component.translatable("advancements.herobrines_world.card_reader.title"),
+                        Component.translatable("advancements.herobrines_world.card_reader.descr"),
+                        null,
+                        AdvancementType.TASK,
+                        true,
+                        true,
+                        false
+                )
+                .addCriterion(
+                        "card_reader",
+                        InventoryChangeTrigger.TriggerInstance.hasItems(ModBlocks.CARD_READER)
+                )
+                .save(
+                        consumer,
+                        "herobrines_world:herobrines_world/card_reader"
+                );
+
+        AdvancementHolder keyCard = Builder.advancement()
+                .parent(cardReader)
+                .display(
+                        ModItems.KEY_CARD,
+                        Component.translatable("advancements.herobrines_world.key_card.title"),
+                        Component.translatable("advancements.herobrines_world.key_card.descr"),
+                        null,
+                        AdvancementType.TASK,
+                        true,
+                        true,
+                        false
+                )
+                .addCriterion(
+                        "key_card",
+                        InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.KEY_CARD)
+                )
+                .save(
+                        consumer,
+                        "herobrines_world:herobrines_world/key_card"
+                );
+
+        Builder.advancement()
+                .parent(keyCard)
+                .display(
+                        ModItems.WAYPOINT_COMPASS,
+                        Component.translatable("advancements.herobrines_world.waypoint.title"),
+                        Component.translatable("advancements.herobrines_world.waypoint.descr"),
+                        null,
+                        AdvancementType.TASK,
+                        true,
+                        true,
+                        false
+                )
+                .addCriterion(
+                        "waypoint",
+                        InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.WAYPOINT_COMPASS)
+                )
+                .save(
+                        consumer,
+                        "herobrines_world:herobrines_world/waypoint"
+                );
     }
 }
