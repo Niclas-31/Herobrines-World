@@ -13,11 +13,11 @@ public class RewardTypeImpl {
     public static final RewardType XP = new XpRewardType();
 
     public static void register() {
-        registerTransferMode(id("souls"), SOULS);
-        registerTransferMode(id("xp"), XP);
+        registerRewardType(id("souls"), SOULS);
+        registerRewardType(id("xp"), XP);
     }
 
-    public static void registerTransferMode(Identifier id, RewardType mode) {
+    public static void registerRewardType(Identifier id, RewardType mode) {
         for (RewardType existing : HWRegistries.REWARD_TYPES.values()) {
 
             if (existing.priority() == mode.priority()) {
