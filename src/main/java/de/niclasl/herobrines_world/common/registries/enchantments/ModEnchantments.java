@@ -26,8 +26,6 @@ public class ModEnchantments {
             Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "roots_of_the_earth"));
     public static final ResourceKey<Enchantment> WILDERNESS_ACUMEN = ResourceKey.create(Registries.ENCHANTMENT,
             Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "wilderness_acumen"));
-    public static final ResourceKey<Enchantment> WOODCUTTER = ResourceKey.create(Registries.ENCHANTMENT,
-            Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "woodcutter"));
 
     public static void bootstrap(BootstrapContext<Enchantment> context) {
         var enchantments = context.lookup(Registries.ENCHANTMENT);
