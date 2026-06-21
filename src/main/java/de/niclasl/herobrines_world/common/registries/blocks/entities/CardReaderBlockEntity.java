@@ -84,7 +84,7 @@ public class CardReaderBlockEntity extends BlockEntity implements Container, Men
         UUID playerUUID = access.owner();
 
         if (mode == AccessModeImpl.PRIVATE) return playerUUID.equals(data.owner());
-        else if (mode == AccessModeImpl.TRUSTED) return data.level() == access.level();
+        else if (mode == AccessModeImpl.TRUSTED) return data.level() >= access.level();
 
         return false;
     }

@@ -1,9 +1,7 @@
 package de.niclasl.herobrines_world.common.network.access;
 
 import de.niclasl.herobrines_world.HerobrinesWorld;
-import de.niclasl.herobrines_world.common.network.access.mode.PrivateMode;
-import de.niclasl.herobrines_world.common.network.access.mode.PublicMode;
-import de.niclasl.herobrines_world.common.network.access.mode.TrustedMode;
+import de.niclasl.herobrines_world.common.network.access.mode.*;
 import de.niclasl.herobrines_world_api.api.access.AccessMode;
 import de.niclasl.herobrines_world_api.registry.HWRegistries;
 import net.minecraft.resources.Identifier;

@@ -25,7 +25,6 @@
   "gui.herobrines_world.smart_chip.access_mode.public": "Public",
   "gui.herobrines_world.smart_chip.access_mode.private": "Private",
   "gui.herobrines_world.smart_chip.access_mode.trusted": "Trusted",
-  "gui.herobrines_world.smart_chip.access_mode.owner_only": "Owner Only",
   "gui.herobrines_world.smart_chip.me": "Me",
   "gui.herobrines_world.smart_chip.save_access": "Save Access",
   "gui.herobrines_world.waypoint.title": "Waypoints",
