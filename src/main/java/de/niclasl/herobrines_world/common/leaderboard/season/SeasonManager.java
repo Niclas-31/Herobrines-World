@@ -102,18 +102,21 @@ public class SeasonManager {
         return data.frozenLeaderboard;
     }
 
-    public static List<LeaderboardEntry> buildLeaderboard(ServerLevel level) {
-        List<ServerPlayer> players = level.getServer().getPlayerList().getPlayers();
+    public static List<LeaderboardEntry> buildLeaderboard(ServerLevel serverLevel) {
+        List<ServerPlayer> players = serverLevel.getServer().getPlayerList().getPlayers();
 
         List<LeaderboardEntry> entries = new ArrayList<>();
 
         for (ServerPlayer p : players) {
-            int souls = p.getData(ModVariables.PLAYER_VARIABLES).Souls;
+            var vars = p.getData(ModVariables.PLAYER_VARIABLES);
+            int souls = vars.Souls;
+            int level = vars.SoulLevel;
 
             entries.add(new LeaderboardEntry(
                     p.getUUID(),
                     p.getGameProfile().name(),
-                    souls
+                    souls,
+                    level
             ));
         }
 

@@ -45,20 +45,6 @@ public class SoulMath {
         return level;
     }
 
-    public static float getProgress(int xp) {
-
-        int level = getLevelFromXP(xp);
-
-        if (level >= HARD_CAP) return 1f;
-
-        int current = getTotalForLevel(level);
-        int next = getTotalForLevel(level + 1);
-
-        if (next == current) return 0f;
-
-        return (float)(xp - current) / (float)(next - current);
-    }
-
     public static float getSoulBonus(int prestige) {
 
         if (prestige >= 50) return 3.0f;
@@ -70,9 +56,5 @@ public class SoulMath {
         if (prestige >= 1) return 1.1f;
 
         return 1.0f;
-    }
-
-    public static boolean canPrestige(int xp) {
-        return getLevelFromXP(xp) >= HARD_CAP;
     }
 }

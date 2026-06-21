@@ -30,6 +30,7 @@ public record SyncLeaderboardPacket(List<LeaderboardEntry> entries) implements C
             buf.writeUUID(entry.player());
             buf.writeUtf(entry.playerName());
             buf.writeInt(entry.value());
+            buf.writeInt(entry.level());
         }
     }
 
@@ -43,8 +44,9 @@ public record SyncLeaderboardPacket(List<LeaderboardEntry> entries) implements C
             UUID player = buf.readUUID();
             String playerName = buf.readUtf();
             int value = buf.readInt();
+            int level = buf.readInt();
 
-            entries.add(new LeaderboardEntry(player, playerName, value));
+            entries.add(new LeaderboardEntry(player, playerName, value, level));
         }
 
         return new SyncLeaderboardPacket(entries);

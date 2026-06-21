@@ -74,7 +74,7 @@ public class Souls {
 
 									ModVariables.PlayerVariables vars = vars(player);
 
-									if (!SoulMath.canPrestige(vars.Souls)) {
+									if (vars.SoulLevel < SoulMath.HARD_CAP) {
 
 										ctx.getSource().sendFailure(
 												Component.literal(
@@ -116,7 +116,7 @@ public class Souls {
 										.then(Commands.literal("levels")
 												.executes(ctx -> {
 													forPlayers(ctx, p -> {
-														int level = getLevel(vars(p));
+														int level = vars(p).SoulLevel;
 														ctx.getSource().sendSuccess(
 																() -> Component.translatable("commands.souls.query.levels", p.getName().getString(), level),
 																false
@@ -148,41 +148,62 @@ public class Souls {
 
 		ModVariables.PlayerVariables vars = vars(player);
 
-		int max = SoulMath.getTotalForLevel(SoulMath.HARD_CAP);
+		if (vars.SoulLevel >= SoulMath.HARD_CAP) {
+			vars.Souls = 0;
+			vars.markSyncDirty(player);
+			return;
+		}
 
-		vars.Souls = Math.min(vars.Souls + amount, max);
+		vars.Souls += amount;
+
+		while (vars.SoulLevel < SoulMath.HARD_CAP &&
+				vars.Souls >= SoulMath.getXPForLevel(vars.SoulLevel)) {
+
+			vars.Souls -= SoulMath.getXPForLevel(vars.SoulLevel);
+			vars.SoulLevel++;
+		}
+
+		if (vars.SoulLevel >= SoulMath.HARD_CAP) {
+			vars.SoulLevel = SoulMath.HARD_CAP;
+			vars.Souls = 0;
+		}
 
 		vars.markSyncDirty(player);
 	}
 
 	private static void setSouls(ServerPlayer player, int amount) {
+
 		ModVariables.PlayerVariables vars = vars(player);
 
-		int max = SoulMath.getTotalForLevel(SoulMath.HARD_CAP);
+		int max = SoulMath.getXPForLevel(vars.SoulLevel);
 
-		vars.Souls = Math.clamp(amount, 0, max);
+		vars.Souls = Math.clamp(amount, 0, max - 1);
 
 		vars.markSyncDirty(player);
 	}
 
 	private static void addLevels(ServerPlayer player, int amount) {
+
 		ModVariables.PlayerVariables vars = vars(player);
 
-		int level = SoulMath.getLevelFromXP(vars.Souls);
-
-		int newLevel = Math.min(level + amount, SoulMath.HARD_CAP);
-
-		setLevel(vars, newLevel);
+		vars.SoulLevel = Math.clamp(
+				vars.SoulLevel + amount,
+				0,
+				SoulMath.HARD_CAP
+		);
 
 		vars.markSyncDirty(player);
 	}
 
 	private static void setLevels(ServerPlayer player, int level) {
+
 		ModVariables.PlayerVariables vars = vars(player);
 
-		level = Math.clamp(level, 0, SoulMath.HARD_CAP);
-
-		setLevel(vars, level);
+		vars.SoulLevel = Math.clamp(
+				level,
+				0,
+				SoulMath.HARD_CAP
+		);
 
 		vars.markSyncDirty(player);
 	}
@@ -194,16 +215,5 @@ public class Souls {
 	private static void forPlayers(CommandContext<CommandSourceStack> ctx, Consumer<ServerPlayer> action)
 			throws CommandSyntaxException {
 		EntityArgument.getPlayers(ctx, "targets").forEach(action);
-	}
-
-	private static int getLevel(ModVariables.PlayerVariables vars) {
-		return SoulMath.getLevelFromXP(vars.Souls);
-	}
-
-	private static void setLevel(ModVariables.PlayerVariables vars, int targetLevel) {
-
-		targetLevel = Math.clamp(targetLevel, 0, SoulMath.HARD_CAP);
-
-		vars.Souls = SoulMath.getTotalForLevel(targetLevel);
 	}
 }

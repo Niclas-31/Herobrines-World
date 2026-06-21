@@ -2,6 +2,7 @@ package de.niclasl.herobrines_world.common.leaderboard.season.type;
 
 import de.niclasl.herobrines_world.HerobrinesWorld;
 import de.niclasl.herobrines_world.common.network.ModVariables;
+import de.niclasl.herobrines_world.common.util.math.SoulMath;
 import de.niclasl.herobrines_world_api.api.leaderboard.RewardContext;
 import de.niclasl.herobrines_world_api.api.leaderboard.RewardEntry;
 import de.niclasl.herobrines_world_api.api.leaderboard.RewardType;
@@ -23,9 +24,30 @@ public class SoulsRewardType implements RewardType {
 
     @Override
     public void apply(RewardContext context, RewardEntry entry) {
+
         ServerPlayer player = context.player();
         var data = player.getData(ModVariables.PLAYER_VARIABLES);
-        data.Souls += entry.amount();
+
+        int amount = entry.amount();
+
+        if (data.SoulLevel >= SoulMath.HARD_CAP) {
+            return;
+        }
+
+        data.Souls += amount;
+
+        while (data.SoulLevel < SoulMath.HARD_CAP
+                && data.Souls >= SoulMath.getXPForLevel(data.SoulLevel)) {
+
+            data.Souls -= SoulMath.getXPForLevel(data.SoulLevel);
+            data.SoulLevel++;
+        }
+
+        if (data.SoulLevel >= SoulMath.HARD_CAP) {
+            data.SoulLevel = SoulMath.HARD_CAP;
+            data.Souls = 0;
+        }
+
         data.markSyncDirty(player);
     }
 }

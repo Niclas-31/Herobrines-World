@@ -130,7 +130,7 @@ public class ModEvents {
             default -> 1;
         };
 
-        int playerLevel = SoulMath.getLevelFromXP(vars.Souls);
+        int playerLevel = vars.SoulLevel;
 
         int soulsGain = SoulGain.getSoulGain(baseGain, playerLevel);
 
@@ -141,21 +141,24 @@ public class ModEvents {
                 Math.round(soulsGain * prestigeBonus)
         );
 
-        int maxSouls = SoulMath.getTotalForLevel(SoulMath.HARD_CAP);
-
-        int newSouls = vars.Souls + soulsGain;
-
-        if (newSouls >= maxSouls) {
-
-            vars.Prestige++;
-
-            vars.Souls = newSouls - maxSouls;
-
-        } else {
-            vars.Souls = newSouls;
+        if (vars.SoulLevel >= SoulMath.HARD_CAP) {
+            vars.markSyncDirty(player);
+            return;
         }
 
-        vars.Souls = Math.max(0, vars.Souls);
+        vars.Souls += soulsGain;
+
+        while (vars.SoulLevel < SoulMath.HARD_CAP &&
+                vars.Souls >= SoulMath.getXPForLevel(vars.SoulLevel)) {
+
+            vars.Souls -= SoulMath.getXPForLevel(vars.SoulLevel);
+            vars.SoulLevel++;
+        }
+
+        if (vars.SoulLevel >= SoulMath.HARD_CAP) {
+            vars.SoulLevel = SoulMath.HARD_CAP;
+            vars.Souls = 0;
+        }
 
         vars.markSyncDirty(player);
     }

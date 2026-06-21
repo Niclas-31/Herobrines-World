@@ -6,21 +6,21 @@ import java.util.UUID;
 
 public class LeaderboardStorage {
 
-    private final Map<String, Map<UUID, Integer>> boards = new HashMap<>();
+    private final Map<String, Map<UUID, LeaderboardData>> boards = new HashMap<>();
 
-    public void setScore(String board, UUID player, int score) {
+    public void setScore(String board, UUID player, int souls, int level) {
         boards
                 .computeIfAbsent(board, b -> new HashMap<>())
-                .put(player, score);
+                .put(player, new LeaderboardData(souls, level));
     }
 
-    public int getScore(String board, UUID player) {
+    public LeaderboardData get(String board, UUID player) {
         return boards
                 .getOrDefault(board, Map.of())
-                .getOrDefault(player, 0);
+                .get(player);
     }
 
-    public Map<UUID, Integer> getBoard(String board) {
+    public Map<UUID, LeaderboardData> getBoard(String board) {
         return boards.getOrDefault(board, Map.of());
     }
 }

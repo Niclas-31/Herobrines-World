@@ -12,14 +12,18 @@ import java.util.List;
 
 public class SeasonRewardGenerator {
 
-    public static void generate(ServerLevel level, SeasonRewardStorage storage) {
-        List<ServerPlayer> players = level.getServer().getPlayerList().getPlayers();
+    public static void generate(ServerLevel serverLevel, SeasonRewardStorage storage) {
+        List<ServerPlayer> players = serverLevel.getServer().getPlayerList().getPlayers();
 
         List<LeaderboardEntry> leaderboard = new ArrayList<>();
 
         for (ServerPlayer p : players) {
-            int souls = p.getData(ModVariables.PLAYER_VARIABLES).Souls;
-            leaderboard.add(new LeaderboardEntry(p.getUUID(), p.getGameProfile().name(), souls));
+            var vars = p.getData(ModVariables.PLAYER_VARIABLES);
+
+            int souls = vars.Souls;
+            int level = vars.SoulLevel;
+
+            leaderboard.add(new LeaderboardEntry(p.getUUID(), p.getGameProfile().name(), souls, level));
         }
 
         leaderboard.sort(Comparator.comparingInt(LeaderboardEntry::value).reversed());
@@ -30,7 +34,7 @@ public class SeasonRewardGenerator {
 
             LeaderboardEntry entry = leaderboard.get(i);
 
-            ServerPlayer player = level.getServer()
+            ServerPlayer player = serverLevel.getServer()
                     .getPlayerList()
                     .getPlayer(entry.player());
 

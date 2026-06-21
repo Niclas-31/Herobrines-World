@@ -2,6 +2,7 @@ package de.niclasl.herobrines_world.common.registries.enchantments.custom;
 
 import com.mojang.serialization.MapCodec;
 import de.niclasl.herobrines_world.common.network.ModVariables;
+import de.niclasl.herobrines_world.common.util.math.SoulMath;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -44,7 +45,6 @@ public record HerobrineEnchantmentEffect() implements EnchantmentEntityEffect {
         }
 
         for (int i = 0; i < enchantmentLevel; i++) {
-
             EntityType.LIGHTNING_BOLT.spawn(
                     level,
                     entity.getOnPos(),
@@ -57,19 +57,32 @@ public record HerobrineEnchantmentEffect() implements EnchantmentEntityEffect {
                                           ModVariables.PlayerVariables vars,
                                           int cost) {
 
-        if (vars.Souls < cost) {
+        if (vars.SoulLevel >= SoulMath.HARD_CAP) {
+            return false;
+        }
 
+        if (vars.Souls < cost && vars.SoulLevel == 0) {
             player.sendSystemMessage(
                     Component.literal("§cNot enough Souls!")
             );
-
             return false;
         }
 
         vars.Souls -= cost;
 
-        vars.markSyncDirty(player);
+        while (vars.SoulLevel < SoulMath.HARD_CAP
+                && vars.Souls < 0) {
 
+            vars.SoulLevel--;
+            vars.Souls += SoulMath.getXPForLevel(vars.SoulLevel);
+        }
+
+        if (vars.SoulLevel < 0) {
+            vars.SoulLevel = 0;
+            vars.Souls = 0;
+        }
+
+        vars.markSyncDirty(player);
         return true;
     }
 

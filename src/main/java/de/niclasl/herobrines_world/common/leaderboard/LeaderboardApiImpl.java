@@ -20,27 +20,47 @@ public class LeaderboardApiImpl implements LeaderboardAPI {
     public List<LeaderboardEntry> getTop(String board, int limit) {
 
         return storage.getBoard(board).entrySet().stream()
-                .sorted((a, b) -> Integer.compare(b.getValue(), a.getValue()))
+                .sorted((a, b) -> {
+
+                    LeaderboardData da = a.getValue();
+                    LeaderboardData db = b.getValue();
+
+                    int levelCompare = Integer.compare(db.getLevel(), da.getLevel());
+                    if (levelCompare != 0) return levelCompare;
+
+                    return Integer.compare(db.getSouls(), da.getSouls());
+                })
                 .limit(limit)
                 .map(e -> {
 
                     UUID uuid = e.getKey();
-                    int score = e.getValue();
+                    LeaderboardData data = e.getValue();
 
                     String name = getName(uuid);
 
-                    return new LeaderboardEntry(uuid, name, score);
+                    return new LeaderboardEntry(
+                            uuid,
+                            name,
+                            data.getSouls(),
+                            data.getLevel()
+                    );
                 })
                 .toList();
     }
 
     @Override
     public int getRank(UUID player) {
+        return storage.getBoard("default").entrySet().stream()
+                .sorted((a, b) -> {
 
-        Map<UUID, Integer> board = storage.getBoard("default");
+                    LeaderboardData da = a.getValue();
+                    LeaderboardData db = b.getValue();
 
-        return board.entrySet().stream()
-                .sorted((a, b) -> Integer.compare(b.getValue(), a.getValue()))
+                    int levelCompare = Integer.compare(db.getLevel(), da.getLevel());
+                    if (levelCompare != 0) return levelCompare;
+
+                    return Integer.compare(db.getSouls(), da.getSouls());
+                })
                 .map(Map.Entry::getKey)
                 .toList()
                 .indexOf(player) + 1;

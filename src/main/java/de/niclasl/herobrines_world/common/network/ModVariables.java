@@ -89,6 +89,7 @@ public class ModVariables {
 		clone.Hide = original.Hide;
 		clone.Hearts = original.Hearts;
 		clone.Souls = original.Souls;
+		clone.SoulLevel = original.SoulLevel;
 		clone.Prestige = original.Prestige;
 		clone.ThreeHearts = original.ThreeHearts;
 		clone.rank = original.rank;
@@ -154,7 +155,8 @@ public class ModVariables {
 						new LeaderboardEntry(
 								UUID.fromString(e.getStringOr("uuid", "")),
 								e.getStringOr("name", ""),
-								e.getIntOr("value", 0)
+								e.getIntOr("value", 0),
+								e.getIntOr("level", 0)
 						)
 				);
 			}
@@ -176,6 +178,7 @@ public class ModVariables {
 				tag.putString("uuid", e.player().toString());
 				tag.putString("name", e.playerName());
 				tag.putInt("value", e.value());
+				tag.putInt("level", e.level());
 
 				list.add(tag);
 			}
@@ -275,6 +278,7 @@ public class ModVariables {
 		public boolean Hide = false;
 		public int Hearts = 3;
 		public int Souls = 0;
+		public int SoulLevel = 0;
 		public int Prestige = 0;
 		public boolean ThreeHearts = true;
 		public int rank;
@@ -285,6 +289,7 @@ public class ModVariables {
 
 			output.putInt("Hearts", Hearts);
 			output.putInt("Souls", Souls);
+			output.putInt("SoulLevel", SoulLevel);
 			output.putInt("Prestige", Prestige);
 
 			output.putBoolean("ThreeHearts", ThreeHearts);
@@ -297,6 +302,7 @@ public class ModVariables {
 
 			Hearts = input.getIntOr("Hearts", 0);
 			Souls = input.getIntOr("Souls", 0);
+			SoulLevel = input.getIntOr("SoulLevel", 0);
 			Prestige = input.getIntOr("Prestige", 0);
 
 			ThreeHearts = input.getBooleanOr("ThreeHearts", true);

@@ -2,7 +2,6 @@ package de.niclasl.herobrines_world.client.screen;
 
 import de.niclasl.herobrines_world.common.leaderboard.season.SeasonManager;
 import de.niclasl.herobrines_world.common.network.message.RequestRewardsScreenPacket;
-import de.niclasl.herobrines_world.common.util.math.SoulMath;
 import de.niclasl.herobrines_world_api.api.leaderboard.LeaderboardEntry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -92,7 +91,6 @@ public class SoulLeaderboardScreen extends Screen {
             int y = entryStartY + ((i - startIndex) * ENTRY_HEIGHT);
 
             int rank = i + 1;
-            int level = SoulMath.getLevelFromXP(entry.value());
 
             int rankColor = switch (rank) {
                 case 1 -> 0xFFFFD700;
@@ -106,7 +104,7 @@ public class SoulLeaderboardScreen extends Screen {
             gui.drawString(this.font, "#" + rank, startX, y, rankColor);
             gui.drawString(this.font, entry.playerName(), startX + 60, y, 0xFFFFFFFF);
             gui.drawString(this.font, String.valueOf(entry.value()), startX + 180, y, 0xFFFFFFFF);
-            gui.drawString(this.font, String.valueOf(level), startX + 240, y, 0xFFFFFFFF);
+            gui.drawString(this.font, String.valueOf(entry.level()), startX + 240, y, 0xFFFFFFFF);
         }
 
         super.render(gui, mouseX, mouseY, partialTick);

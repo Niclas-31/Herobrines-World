@@ -26,10 +26,19 @@ public class SoulsBar {
         Player player = Minecraft.getInstance().player;
         if (player == null) return;
 
-        int souls = player.getData(ModVariables.PLAYER_VARIABLES).Souls;
+        var vars = player.getData(ModVariables.PLAYER_VARIABLES);
 
-        int level = SoulMath.getLevelFromXP(souls);
-        float progress = SoulMath.getProgress(souls);
+        int souls = vars.Souls;
+        int level = vars.SoulLevel;
+
+        float progress;
+
+        if (level >= SoulMath.HARD_CAP) {
+            progress = 1.0f;
+        } else {
+            progress = (float) souls /
+                    SoulMath.getXPForLevel(level);
+        }
 
         int barWidth = 13;
         int filled = (int)(progress * barWidth);
