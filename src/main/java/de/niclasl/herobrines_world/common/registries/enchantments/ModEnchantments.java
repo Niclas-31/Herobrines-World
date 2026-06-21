@@ -1,10 +1,7 @@
 package de.niclasl.herobrines_world.common.registries.enchantments;
 
 import de.niclasl.herobrines_world.HerobrinesWorld;
-import de.niclasl.herobrines_world.common.registries.enchantments.custom.HeartOfTheForestEffect;
-import de.niclasl.herobrines_world.common.registries.enchantments.custom.HerobrineEnchantmentEffect;
-import de.niclasl.herobrines_world.common.registries.enchantments.custom.RootsOfTheEarthEffect;
-import de.niclasl.herobrines_world.common.registries.enchantments.custom.WildernessAcumenEffect;
+import de.niclasl.herobrines_world.common.registries.enchantments.custom.*;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
@@ -27,8 +24,10 @@ public class ModEnchantments {
             Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "heart_of_the_forest"));
     public static final ResourceKey<Enchantment> ROOTS_OF_THE_EARTH = ResourceKey.create(Registries.ENCHANTMENT,
             Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "roots_of_the_earth"));
-    public static final ResourceKey<Enchantment> WILDERNESS_ACUMEN =  ResourceKey.create(Registries.ENCHANTMENT,
+    public static final ResourceKey<Enchantment> WILDERNESS_ACUMEN = ResourceKey.create(Registries.ENCHANTMENT,
             Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "wilderness_acumen"));
+    public static final ResourceKey<Enchantment> WOODCUTTER = ResourceKey.create(Registries.ENCHANTMENT,
+            Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "woodcutter"));
 
     public static void bootstrap(BootstrapContext<Enchantment> context) {
         var enchantments = context.lookup(Registries.ENCHANTMENT);
@@ -43,7 +42,7 @@ public class ModEnchantments {
                         4,
                         Enchantment.dynamicCost(10, 10),
                         Enchantment.dynamicCost(30, 10),
-                        1,
+                        10,
                         EquipmentSlotGroup.MAINHAND))
                 .exclusiveWith(enchantments.getOrThrow(EnchantmentTags.DAMAGE_EXCLUSIVE))
                 .withEffect(EnchantmentEffectComponents.POST_ATTACK, EnchantmentTarget.ATTACKER,
@@ -55,7 +54,7 @@ public class ModEnchantments {
                 2,
                 Enchantment.dynamicCost(5, 10),
                 Enchantment.dynamicCost(20, 10),
-                1,
+                6,
                 EquipmentSlotGroup.MAINHAND)));
 
         register(context, HEART_OF_THE_FOREST, Enchantment.enchantment(Enchantment.definition(
@@ -64,7 +63,7 @@ public class ModEnchantments {
                 2,
                 Enchantment.dynamicCost(20, 15),
                 Enchantment.dynamicCost(40, 15),
-                1,
+                12,
                 EquipmentSlotGroup.CHEST))
                 .exclusiveWith(HolderSet.direct(bindingCurse, vanishingCurse))
                 .withEffect(EnchantmentEffectComponents.TICK, new HeartOfTheForestEffect()));
@@ -75,7 +74,7 @@ public class ModEnchantments {
                 4,
                 Enchantment.dynamicCost(8, 10),
                 Enchantment.dynamicCost(25, 10),
-                1,
+                8,
                 EquipmentSlotGroup.LEGS))
                 .exclusiveWith(HolderSet.direct(bindingCurse, vanishingCurse))
                 .withEffect(EnchantmentEffectComponents.TICK, new RootsOfTheEarthEffect()));
@@ -86,7 +85,7 @@ public class ModEnchantments {
                 3,
                 Enchantment.dynamicCost(10, 12),
                 Enchantment.dynamicCost(30, 12),
-                1,
+                9,
                 EquipmentSlotGroup.HEAD))
                 .exclusiveWith(HolderSet.direct(bindingCurse, vanishingCurse))
                 .withEffect(EnchantmentEffectComponents.TICK, new WildernessAcumenEffect()));
