@@ -1,20 +1,40 @@
 package de.niclasl.herobrines_world.common.event;
 
 import de.niclasl.herobrines_world.HerobrinesWorld;
+import de.niclasl.herobrines_world.common.network.transfer.resolver.RemoteInventoryResolver;
 import de.niclasl.herobrines_world.common.registries.entities.ModEntities;
+import de.niclasl.herobrines_world.common.registries.potions.ModPotions;
+import de.niclasl.herobrines_world_api.api.event.RegisterResolverEvent;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.SpawnPlacementTypes;
 import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.alchemy.PotionBrewing;
+import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.event.brewing.RegisterBrewingRecipesEvent;
 import net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent;
 
 import java.util.Calendar;
 
 @EventBusSubscriber(modid = HerobrinesWorld.MOD_ID)
-public class ModEventBusEvents {
+public class RegistriesEvents {
+
+    @SubscribeEvent
+    public static void onBrewingRecipeRegister(RegisterBrewingRecipesEvent event) {
+        PotionBrewing.Builder builder = event.getBuilder();
+
+        builder.addMix(Potions.AWKWARD, Items.RED_DYE, ModPotions.GOOD_HEROBRINE_OMEN);
+        builder.addMix(Potions.AWKWARD, Items.BLACK_DYE, ModPotions.BAD_HEROBRINE_OMEN);
+    }
+
+    @SubscribeEvent
+    public static void registerResolvers(RegisterResolverEvent event) {
+        event.registerResolver(new RemoteInventoryResolver());
+    }
 
     @SubscribeEvent
     public static void registerSpawnPlacements(RegisterSpawnPlacementsEvent event) {

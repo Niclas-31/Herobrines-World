@@ -15,6 +15,7 @@ import net.neoforged.neoforge.network.PacketDistributor;
 
 @EventBusSubscriber
 public class SeasonEvents {
+
     @SubscribeEvent
     public static void onWorldTick(LevelTickEvent.Post event) {
         if (event.getLevel() instanceof ServerLevel level) {

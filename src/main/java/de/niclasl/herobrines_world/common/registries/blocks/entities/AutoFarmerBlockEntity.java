@@ -9,6 +9,7 @@ import de.niclasl.herobrines_world.common.registries.components.SmartChipData;
 import de.niclasl.herobrines_world.common.registries.items.custom.BatteryItem;
 import de.niclasl.herobrines_world.common.registries.menus.AutoFarmerMenu;
 import de.niclasl.herobrines_world_api.api.transfer.TransferAPI;
+import de.niclasl.herobrines_world_api.api.transfer.resolver.InventoryResolver;
 import de.niclasl.herobrines_world_api.api.transfer.wrapper.InventoryWrapper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
@@ -201,11 +202,15 @@ public class AutoFarmerBlockEntity extends BlockEntity implements Container, Men
 
         InventoryWrapper source = new AutoFarmerWrapper(this.items);
 
-        InventoryWrapper target = TransferAPI.resolver().resolve(level, chip.pos(), chip.dim());
+        List<InventoryResolver> resolvers = TransferAPI.getResolvers();
 
-        ItemTransferSystem.tick(source, target, chip.mode(), 27);
+        for (InventoryResolver resolver : resolvers) {
+            InventoryWrapper target = resolver.resolve(level, chip.pos(), chip.dim());
 
-        applyBufferRules(target);
+            ItemTransferSystem.tick(source, target, chip.mode(), 27);
+
+            applyBufferRules(target);
+        }
     }
 
     private void applyBufferRules(InventoryWrapper target) {
