@@ -1,10 +1,8 @@
 package de.niclasl.herobrines_world.common.event;
 
 import de.niclasl.herobrines_world.HerobrinesWorld;
-import de.niclasl.herobrines_world.common.network.transfer.resolver.RemoteInventoryResolver;
 import de.niclasl.herobrines_world.common.registries.entities.ModEntities;
 import de.niclasl.herobrines_world.common.registries.potions.ModPotions;
-import de.niclasl.herobrines_world_api.api.event.RegisterResolverEvent;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.SpawnPlacementTypes;
@@ -29,11 +27,6 @@ public class RegistriesEvents {
 
         builder.addMix(Potions.AWKWARD, Items.RED_DYE, ModPotions.GOOD_HEROBRINE_OMEN);
         builder.addMix(Potions.AWKWARD, Items.BLACK_DYE, ModPotions.BAD_HEROBRINE_OMEN);
-    }
-
-    @SubscribeEvent
-    public static void registerResolvers(RegisterResolverEvent event) {
-        event.registerResolver(new RemoteInventoryResolver());
     }
 
     @SubscribeEvent
