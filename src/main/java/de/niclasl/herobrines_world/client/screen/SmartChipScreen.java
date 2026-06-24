@@ -135,8 +135,7 @@ public class SmartChipScreen extends AbstractContainerScreen<SmartChipMenu> {
         addRenderableWidget(Button.builder(Component.literal("+"), b -> adjustBox(speedBox, 1, 2))
                 .bounds(this.leftPos + 120, row(2), 20, 20).build());
 
-        addRenderableWidget(Button.builder(Component.translatable("gui.herobrines_world.smart_chip.save_transfer"), b -> saveAll())
-                .bounds(this.leftPos + 10, row(4), 160, 20).build());
+        buildSaveButton();
     }
 
     private void buildAccessTab() {
@@ -175,8 +174,12 @@ public class SmartChipScreen extends AbstractContainerScreen<SmartChipMenu> {
                 }
         ).bounds(this.leftPos + 135, row(2), 40, 20).build());
 
-        addRenderableWidget(Button.builder(Component.translatable("gui.herobrines_world.smart_chip.save_access"), b -> saveAll())
-                .bounds(this.leftPos + 10, row(4), 160, 20).build());
+        buildSaveButton();
+    }
+
+    private void buildSaveButton() {
+        addRenderableWidget(Button.builder(Component.translatable("gui.herobrines_world.smart_chip.save"), b -> saveAll())
+                .bounds(this.leftPos + 10, this.topPos + 135, 160, 20).build());
     }
 
     private void saveAll() {
