@@ -20,8 +20,8 @@ public class SeasonRewardGenerator {
         for (ServerPlayer p : players) {
             var vars = p.getData(ModVariables.PLAYER_VARIABLES);
 
-            int souls = vars.Souls;
-            int level = vars.SoulLevel;
+            int souls = vars.souls;
+            int level = vars.soulLevel;
 
             leaderboard.add(new LeaderboardEntry(p.getUUID(), p.getGameProfile().name(), souls, level));
         }

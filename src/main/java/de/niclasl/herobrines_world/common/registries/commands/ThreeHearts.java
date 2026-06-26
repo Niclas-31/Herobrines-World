@@ -131,7 +131,7 @@ public class ThreeHearts {
 			player.displayClientMessage(Component.translatable("herobrines_world.configuration.three_hearts.disabled"), true);
 			return;
 		}
-		player.displayClientMessage(Component.translatable("commands.three_hearts.query", player.getName().getString(), vars.Hearts), true);
+		player.displayClientMessage(Component.translatable("commands.three_hearts.query", player.getName().getString(), vars.hearts), true);
 	}
 
 	private static void setHearts(ServerPlayer player, int value) {
@@ -142,7 +142,7 @@ public class ThreeHearts {
 			return;
 		}
 
-		vars.Hearts = value;
+		vars.hearts = value;
 		vars.markSyncDirty(player);
 	}
 
@@ -154,9 +154,9 @@ public class ThreeHearts {
 			return;
 		}
 
-		vars.Hearts += value;
-		if (vars.Hearts > 3) {
-			vars.Hearts = 3;
+		vars.hearts += value;
+		if (vars.hearts > 3) {
+			vars.hearts = 3;
 		}
 		vars.markSyncDirty(player);
 	}
@@ -169,9 +169,9 @@ public class ThreeHearts {
 			return;
 		}
 
-		vars.Hearts -= value;
-		if (vars.Hearts < 0) {
-			vars.Hearts = 0;
+		vars.hearts -= value;
+		if (vars.hearts < 0) {
+			vars.hearts = 0;
 		}
 		vars.markSyncDirty(player);
 	}
@@ -188,7 +188,7 @@ public class ThreeHearts {
 
 		player.setHealth(1.0f);
 
-		vars.Hearts = 3;
+		vars.hearts = 3;
 		vars.markSyncDirty(player);
 
 		ServerPlayer.RespawnConfig config = new ServerPlayer.RespawnConfig(level.getLevelData().getRespawnData(), true);
@@ -202,10 +202,10 @@ public class ThreeHearts {
 		if (player.level().getLevelData().isHardcore()) return false;
 
         if (player.level().getServer().isDedicatedServer()) {
-			return !vars.ThreeHearts;
+			return !vars.threeHearts;
 		}
 
-		return !Config.THREE_HEARTS.getAsBoolean() || !vars.ThreeHearts;
+		return !Config.THREE_HEARTS.getAsBoolean() || !vars.threeHearts;
 	}
 
 	private static void setEnabled(ServerPlayer player, boolean enabled) {
@@ -213,7 +213,7 @@ public class ThreeHearts {
 
 		if (player.level().getLevelData().isHardcore()) return;
 
-		vars.ThreeHearts = enabled;
+		vars.threeHearts = enabled;
 		vars.markSyncDirty(player);
 
 		player.displayClientMessage(

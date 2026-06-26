@@ -21,7 +21,7 @@ public class TransferModeImpl {
 
             if (existing.priority() == mode.priority()) {
                 throw new IllegalStateException(
-                        "Duplicate AccessMode priority "
+                        "Duplicate TransferMode priority "
                                 + mode.priority()
                                 + " between "
                                 + existing.id()

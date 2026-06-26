@@ -28,8 +28,8 @@ public class SoulsBar {
 
         var vars = player.getData(ModVariables.PLAYER_VARIABLES);
 
-        int souls = vars.Souls;
-        int level = vars.SoulLevel;
+        int souls = vars.souls;
+        int level = vars.soulLevel;
 
         float progress;
 

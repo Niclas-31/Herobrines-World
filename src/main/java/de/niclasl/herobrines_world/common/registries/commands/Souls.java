@@ -74,7 +74,7 @@ public class Souls {
 
 									ModVariables.PlayerVariables vars = vars(player);
 
-									if (vars.SoulLevel < SoulMath.HARD_CAP) {
+									if (vars.soulLevel < SoulMath.HARD_CAP) {
 
 										ctx.getSource().sendFailure(
 												Component.literal(
@@ -85,14 +85,14 @@ public class Souls {
 										return 0;
 									}
 
-									vars.Prestige++;
-									vars.Souls = 0;
+									vars.prestige++;
+									vars.souls = 0;
 
 									vars.markSyncDirty(player);
 
 									ctx.getSource().sendSuccess(
 											() -> Component.literal(
-													"Prestiged to " + vars.Prestige
+													"Prestiged to " + vars.prestige
 											),
 											false
 									);
@@ -105,7 +105,7 @@ public class Souls {
 										.then(Commands.literal("points")
 												.executes(ctx -> {
 													forPlayers(ctx, p -> {
-														int souls = vars(p).Souls;
+														int souls = vars(p).souls;
 														ctx.getSource().sendSuccess(
 																() -> Component.translatable("commands.souls.query.points", p.getDisplayName().getString(), souls),
 																false
@@ -116,7 +116,7 @@ public class Souls {
 										.then(Commands.literal("levels")
 												.executes(ctx -> {
 													forPlayers(ctx, p -> {
-														int level = vars(p).SoulLevel;
+														int level = vars(p).soulLevel;
 														ctx.getSource().sendSuccess(
 																() -> Component.translatable("commands.souls.query.levels", p.getName().getString(), level),
 																false
@@ -148,24 +148,24 @@ public class Souls {
 
 		ModVariables.PlayerVariables vars = vars(player);
 
-		if (vars.SoulLevel >= SoulMath.HARD_CAP) {
-			vars.Souls = 0;
+		if (vars.soulLevel >= SoulMath.HARD_CAP) {
+			vars.souls = 0;
 			vars.markSyncDirty(player);
 			return;
 		}
 
-		vars.Souls += amount;
+		vars.souls += amount;
 
-		while (vars.SoulLevel < SoulMath.HARD_CAP &&
-				vars.Souls >= SoulMath.getXPForLevel(vars.SoulLevel)) {
+		while (vars.soulLevel < SoulMath.HARD_CAP &&
+				vars.souls >= SoulMath.getXPForLevel(vars.soulLevel)) {
 
-			vars.Souls -= SoulMath.getXPForLevel(vars.SoulLevel);
-			vars.SoulLevel++;
+			vars.souls -= SoulMath.getXPForLevel(vars.soulLevel);
+			vars.soulLevel++;
 		}
 
-		if (vars.SoulLevel >= SoulMath.HARD_CAP) {
-			vars.SoulLevel = SoulMath.HARD_CAP;
-			vars.Souls = 0;
+		if (vars.soulLevel >= SoulMath.HARD_CAP) {
+			vars.soulLevel = SoulMath.HARD_CAP;
+			vars.souls = 0;
 		}
 
 		vars.markSyncDirty(player);
@@ -175,9 +175,9 @@ public class Souls {
 
 		ModVariables.PlayerVariables vars = vars(player);
 
-		int max = SoulMath.getXPForLevel(vars.SoulLevel);
+		int max = SoulMath.getXPForLevel(vars.soulLevel);
 
-		vars.Souls = Math.clamp(amount, 0, max - 1);
+		vars.souls = Math.clamp(amount, 0, max - 1);
 
 		vars.markSyncDirty(player);
 	}
@@ -186,8 +186,8 @@ public class Souls {
 
 		ModVariables.PlayerVariables vars = vars(player);
 
-		vars.SoulLevel = Math.clamp(
-				vars.SoulLevel + amount,
+		vars.soulLevel = Math.clamp(
+				vars.soulLevel + amount,
 				0,
 				SoulMath.HARD_CAP
 		);
@@ -199,7 +199,7 @@ public class Souls {
 
 		ModVariables.PlayerVariables vars = vars(player);
 
-		vars.SoulLevel = Math.clamp(
+		vars.soulLevel = Math.clamp(
 				level,
 				0,
 				SoulMath.HARD_CAP

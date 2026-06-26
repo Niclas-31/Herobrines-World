@@ -38,7 +38,7 @@ public record SyncHidePacket() implements CustomPacketPayload {
 
 			var vars = player.getData(ModVariables.PLAYER_VARIABLES);
 
-			vars.Hide = !vars.Hide;
+			vars.hide = !vars.hide;
 
 			if (player instanceof ServerPlayer serverPlayer) {
 				vars.markSyncDirty(serverPlayer);

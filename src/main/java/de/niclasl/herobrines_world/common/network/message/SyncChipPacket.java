@@ -18,7 +18,8 @@ import org.jspecify.annotations.NonNull;
 
 import java.util.UUID;
 
-public record SyncChipPacket(TransferMode transferMode, int range, int speed, AccessMode accessMode, int level, UUID owner) implements CustomPacketPayload {
+public record SyncChipPacket(TransferMode transferMode, int range, int speed, AccessMode accessMode, int level, UUID owner,
+                             int keepAmount, boolean voidTrash) implements CustomPacketPayload {
 
     public static final Type<SyncChipPacket> TYPE =
             new Type<>(Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "sync_chip"));
@@ -32,12 +33,18 @@ public record SyncChipPacket(TransferMode transferMode, int range, int speed, Ac
         buf.writeIdentifier(msg.transferMode.id());
         buf.writeInt(msg.range());
         buf.writeInt(msg.speed());
+
         buf.writeIdentifier(msg.accessMode.id());
         buf.writeInt(msg.level());
+
         buf.writeBoolean(msg.owner != null);
+
         if (msg.owner != null) {
             buf.writeUUID(msg.owner());
         }
+
+        buf.writeInt(msg.keepAmount());
+        buf.writeBoolean(msg.voidTrash());
     }
 
     private static SyncChipPacket decode(RegistryFriendlyByteBuf buf) {
@@ -50,7 +57,9 @@ public record SyncChipPacket(TransferMode transferMode, int range, int speed, Ac
         if (buf.readBoolean()) {
             owner = buf.readUUID();
         }
-        return new SyncChipPacket(transferMode, range, speed, accessMode, level, owner);
+        int keepAmount = buf.readInt();
+        boolean voidTrash = buf.readBoolean();
+        return new SyncChipPacket(transferMode, range, speed, accessMode, level, owner, keepAmount, voidTrash);
     }
 
     @Override
@@ -81,7 +90,9 @@ public record SyncChipPacket(TransferMode transferMode, int range, int speed, Ac
                             oldTransfer.pos(),
                             oldTransfer.dim(),
                             msg.speed(),
-                            msg.transferMode()
+                            msg.transferMode(),
+                            msg.keepAmount(),
+                            msg.voidTrash()
                     )
             );
 

@@ -65,7 +65,9 @@ public class SmartChip extends Item {
                 pos,
                 dim,
                 old.speed(),
-                old.mode()
+                old.mode(),
+                old.keepAmount(),
+                old.voidTrash()
         );
 
         stack.set(ModDataComponents.TRANSFER.get(), updated);

@@ -35,7 +35,7 @@ public class FrozenHeart extends Item {
 			return InteractionResult.SUCCESS;
 		}
 
-		if (vars.Hearts >= 3) {
+		if (vars.hearts >= 3) {
 			if (!level.isClientSide()) {
 				player.displayClientMessage(
 						Component.translatable("item.herobrines_world.frozen_heart.not_more_hearts"),
@@ -47,7 +47,7 @@ public class FrozenHeart extends Item {
 
 		player.getItemInHand(hand).shrink(1);
 
-		vars.Hearts = Math.min(3, vars.Hearts + 1);
+		vars.hearts = Math.min(3, vars.hearts + 1);
 
 		if (player instanceof ServerPlayer sp) {
 			vars.markSyncDirty(sp);
@@ -62,9 +62,9 @@ public class FrozenHeart extends Item {
 		if (player.level().getLevelData().isHardcore()) return false;
 
         if (player.level().getServer().isDedicatedServer()) {
-			return vars.ThreeHearts;
+			return vars.threeHearts;
 		}
 
-		return Config.THREE_HEARTS.getAsBoolean() && vars.ThreeHearts;
+		return Config.THREE_HEARTS.getAsBoolean() && vars.threeHearts;
 	}
 }

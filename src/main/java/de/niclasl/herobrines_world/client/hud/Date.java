@@ -24,7 +24,7 @@ public class Date {
 		String date = new SimpleDateFormat("dd/MM/yyyy").format(Calendar.getInstance().getTime());
 		String time = Calendar.getInstance().get(Calendar.HOUR_OF_DAY) + ":" + Calendar.getInstance().get(Calendar.MINUTE) + ":" + Calendar.getInstance().get(Calendar.SECOND);
 
-        boolean condition = entity.getData(ModVariables.PLAYER_VARIABLES).Hide;
+        boolean condition = entity.getData(ModVariables.PLAYER_VARIABLES).hide;
 
         if (condition) {
 			event.getGuiGraphics().drawString(Minecraft.getInstance().font, date, 0, 1, -3407872, false);

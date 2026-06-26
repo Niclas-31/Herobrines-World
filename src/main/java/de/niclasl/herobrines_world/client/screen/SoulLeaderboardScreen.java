@@ -143,9 +143,7 @@ public class SoulLeaderboardScreen extends Screen {
     }
 
     @Override
-    public boolean mouseScrolled(double mouseX, double mouseY,
-                                 double scrollX, double scrollY) {
-
+    public boolean mouseScrolled(double mouseX, double mouseY, double scrollX, double scrollY) {
         if (scrollY > 0) {
             scrollOffset--;
         } else if (scrollY < 0) {

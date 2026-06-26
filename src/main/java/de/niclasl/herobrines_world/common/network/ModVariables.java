@@ -86,12 +86,12 @@ public class ModVariables {
 		PlayerVariables original = event.getOriginal().getData(PLAYER_VARIABLES);
 		PlayerVariables clone = new PlayerVariables();
 
-		clone.Hide = original.Hide;
-		clone.Hearts = original.Hearts;
-		clone.Souls = original.Souls;
-		clone.SoulLevel = original.SoulLevel;
-		clone.Prestige = original.Prestige;
-		clone.ThreeHearts = original.ThreeHearts;
+		clone.hide = original.hide;
+		clone.hearts = original.hearts;
+		clone.souls = original.souls;
+		clone.soulLevel = original.soulLevel;
+		clone.prestige = original.prestige;
+		clone.threeHearts = original.threeHearts;
 		clone.rank = original.rank;
 
 		event.getEntity().setData(PLAYER_VARIABLES, clone);
@@ -275,37 +275,41 @@ public class ModVariables {
 
 	public static class PlayerVariables implements ValueIOSerializable {
 		boolean _syncDirty = false;
-		public boolean Hide = false;
-		public int Hearts = 3;
-		public int Souls = 0;
-		public int SoulLevel = 0;
-		public int Prestige = 0;
-		public boolean ThreeHearts = true;
+
+		public boolean hide;
+
+		public int hearts = 3;
+		public int souls;
+		public int soulLevel;
+		public int prestige;
+
+		public boolean threeHearts = true;
+
 		public int rank;
 
 		@Override
 		public void serialize(ValueOutput output) {
-			output.putBoolean("Hide", Hide);
+			output.putBoolean("Hide", hide);
 
-			output.putInt("Hearts", Hearts);
-			output.putInt("Souls", Souls);
-			output.putInt("SoulLevel", SoulLevel);
-			output.putInt("Prestige", Prestige);
+			output.putInt("Hearts", hearts);
+			output.putInt("Souls", souls);
+			output.putInt("SoulLevel", soulLevel);
+			output.putInt("Prestige", prestige);
 
-			output.putBoolean("ThreeHearts", ThreeHearts);
+			output.putBoolean("ThreeHearts", threeHearts);
 			output.putInt("rank", rank);
 		}
 
 		@Override
 		public void deserialize(ValueInput input) {
-			Hide = input.getBooleanOr("Hide", false);
+			hide = input.getBooleanOr("Hide", false);
 
-			Hearts = input.getIntOr("Hearts", 0);
-			Souls = input.getIntOr("Souls", 0);
-			SoulLevel = input.getIntOr("SoulLevel", 0);
-			Prestige = input.getIntOr("Prestige", 0);
+			hearts = input.getIntOr("Hearts", 0);
+			souls = input.getIntOr("Souls", 0);
+			soulLevel = input.getIntOr("SoulLevel", 0);
+			prestige = input.getIntOr("Prestige", 0);
 
-			ThreeHearts = input.getBooleanOr("ThreeHearts", true);
+			threeHearts = input.getBooleanOr("ThreeHearts", true);
 			rank = input.getIntOr("rank", 0);
 		}
 

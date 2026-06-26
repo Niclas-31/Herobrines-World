@@ -16,9 +16,11 @@ import java.util.Optional;
 import java.util.UUID;
 
 public record SmartChipData(Optional<Transfer> transfer, Optional<Access> access) {
-    public record Transfer(int range, BlockPos pos, ResourceKey<Level> dim, int speed, TransferMode mode) {
+    public record Transfer(int range, BlockPos pos, ResourceKey<Level> dim, int speed, TransferMode mode,
+                           int keepAmount, boolean voidTrash) {
         public static final Transfer DEFAULT = new Transfer(
-                4,BlockPos.ZERO, Level.OVERWORLD, 0, TransferModeImpl.INSERT
+                4,BlockPos.ZERO, Level.OVERWORLD, 0, TransferModeImpl.INSERT,
+                64, true
         );
 
         public static final Codec<Transfer> CODEC =
@@ -28,7 +30,9 @@ public record SmartChipData(Optional<Transfer> transfer, Optional<Access> access
                                 BlockPos.CODEC.fieldOf("pos").forGetter(Transfer::pos),
                                 ResourceKey.codec(Registries.DIMENSION).fieldOf("dim").forGetter(Transfer::dim),
                                 Codec.INT.fieldOf("speed").forGetter(Transfer::speed),
-                                TransferMode.CODEC.fieldOf("mode").forGetter(Transfer::mode)
+                                TransferMode.CODEC.fieldOf("mode").forGetter(Transfer::mode),
+                                Codec.INT.fieldOf("keepAmount").forGetter(Transfer::keepAmount),
+                                Codec.BOOL.fieldOf("voidTrash").forGetter(Transfer::voidTrash)
                         ).apply(instance, Transfer::new)
                 );
     }

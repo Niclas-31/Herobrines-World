@@ -33,15 +33,15 @@ public class ThreeHearts {
 		boolean gamemode = getEntityGameType(entity) == GameType.SURVIVAL
 				|| getEntityGameType(entity) == GameType.ADVENTURE;
 
-		boolean enabled = vars.ThreeHearts;
+		boolean enabled = vars.threeHearts;
 
 		if (entity.level().getLevelData().isHardcore()) {
 			enabled = false;
 		}
 
-		boolean heart1 = vars.Hearts >= 1;
-		boolean heart2 = vars.Hearts >= 2;
-		boolean heart3 = vars.Hearts >= 3;
+		boolean heart1 = vars.hearts >= 1;
+		boolean heart2 = vars.hearts >= 2;
+		boolean heart3 = vars.hearts >= 3;
 
 		if (enabled && gamemode) {
 

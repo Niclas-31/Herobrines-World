@@ -57,29 +57,29 @@ public record HerobrineEnchantmentEffect() implements EnchantmentEntityEffect {
                                           ModVariables.PlayerVariables vars,
                                           int cost) {
 
-        if (vars.SoulLevel >= SoulMath.HARD_CAP) {
+        if (vars.soulLevel >= SoulMath.HARD_CAP) {
             return false;
         }
 
-        if (vars.Souls < cost && vars.SoulLevel == 0) {
+        if (vars.souls < cost && vars.soulLevel == 0) {
             player.sendSystemMessage(
                     Component.literal("§cNot enough Souls!")
             );
             return false;
         }
 
-        vars.Souls -= cost;
+        vars.souls -= cost;
 
-        while (vars.SoulLevel < SoulMath.HARD_CAP
-                && vars.Souls < 0) {
+        while (vars.soulLevel < SoulMath.HARD_CAP
+                && vars.souls < 0) {
 
-            vars.SoulLevel--;
-            vars.Souls += SoulMath.getXPForLevel(vars.SoulLevel);
+            vars.soulLevel--;
+            vars.souls += SoulMath.getXPForLevel(vars.soulLevel);
         }
 
-        if (vars.SoulLevel < 0) {
-            vars.SoulLevel = 0;
-            vars.Souls = 0;
+        if (vars.soulLevel < 0) {
+            vars.soulLevel = 0;
+            vars.souls = 0;
         }
 
         vars.markSyncDirty(player);

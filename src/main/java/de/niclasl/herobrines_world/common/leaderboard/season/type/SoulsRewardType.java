@@ -30,22 +30,22 @@ public class SoulsRewardType implements RewardType {
 
         int amount = entry.amount();
 
-        if (data.SoulLevel >= SoulMath.HARD_CAP) {
+        if (data.soulLevel >= SoulMath.HARD_CAP) {
             return;
         }
 
-        data.Souls += amount;
+        data.souls += amount;
 
-        while (data.SoulLevel < SoulMath.HARD_CAP
-                && data.Souls >= SoulMath.getXPForLevel(data.SoulLevel)) {
+        while (data.soulLevel < SoulMath.HARD_CAP
+                && data.souls >= SoulMath.getXPForLevel(data.soulLevel)) {
 
-            data.Souls -= SoulMath.getXPForLevel(data.SoulLevel);
-            data.SoulLevel++;
+            data.souls -= SoulMath.getXPForLevel(data.soulLevel);
+            data.soulLevel++;
         }
 
-        if (data.SoulLevel >= SoulMath.HARD_CAP) {
-            data.SoulLevel = SoulMath.HARD_CAP;
-            data.Souls = 0;
+        if (data.soulLevel >= SoulMath.HARD_CAP) {
+            data.soulLevel = SoulMath.HARD_CAP;
+            data.souls = 0;
         }
 
         data.markSyncDirty(player);

@@ -41,8 +41,6 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class AutoFarmerBlockEntity extends BlockEntity implements Container, MenuProvider {
-    private static final int KEEP_AMOUNT = 64;
-
     private NonNullList<ItemStack> items = NonNullList.withSize(29, ItemStack.EMPTY);
     private int cleanupTimer = 0;
     private int ticks = 0;
@@ -139,9 +137,9 @@ public class AutoFarmerBlockEntity extends BlockEntity implements Container, Men
         if (!(level instanceof ServerLevel serverLevel)) return;
 
         ItemStack chipStack = be.items.get(28);
-        SmartChipData.Transfer chip = chipStack.get(ModDataComponents.TRANSFER);
+        SmartChipData.Transfer chip = chipStack.getOrDefault(ModDataComponents.TRANSFER, SmartChipData.Transfer.DEFAULT);
 
-        if (chip == null) {
+        if (chipStack.isEmpty()) {
             level.setBlock(pos, state.setValue(AutoFarmerBlock.POWERED, false), 3);
             return;
         }
@@ -206,43 +204,31 @@ public class AutoFarmerBlockEntity extends BlockEntity implements Container, Men
         for (InventoryResolver resolver : resolvers) {
             InventoryWrapper target = resolver.resolve(level, chip.pos(), chip.dim());
 
-            ItemTransferSystem.tick(source, target, chip.mode(), 27);
+            applyBufferRules(chip.voidTrash());
 
-            applyBufferRules(target);
+            ItemTransferSystem.tick(source, target, chip.mode(), 27, chip.keepAmount());
         }
     }
 
-    private void applyBufferRules(InventoryWrapper target) {
-
-        for (int i = 0; i < items.size(); i++) {
+    private void applyBufferRules(boolean voidTrash) {
+        for (int i = 0; i < 27; i++) {
 
             ItemStack stack = items.get(i);
             if (stack.isEmpty()) continue;
 
-            if (stack.is(Items.POISONOUS_POTATO)) {
+            if (voidTrash && isTrash(stack)) {
                 items.set(i, ItemStack.EMPTY);
-                continue;
-            }
-
-            if (isCropOrSeed(stack)) {
-
-                if (stack.getCount() > KEEP_AMOUNT) {
-
-                    int excess = stack.getCount() - KEEP_AMOUNT;
-
-                    ItemStack toMove = stack.copy();
-                    toMove.setCount(excess);
-
-                    ItemStack remaining = insertInto(target, toMove);
-
-                    int moved = excess - remaining.getCount();
-
-                    stack.shrink(moved);
-                }
             }
         }
 
         setChanged();
+    }
+
+    private boolean isTrash(ItemStack stack) {
+        return stack.is(Items.POISONOUS_POTATO)
+                || stack.is(Items.ROTTEN_FLESH)
+                || stack.is(Items.DIRT)
+                || stack.is(Items.COBBLESTONE);
     }
 
     private void useEnergyOfBattery() {
@@ -259,42 +245,6 @@ public class AutoFarmerBlockEntity extends BlockEntity implements Container, Men
         if (level != null && !level.isClientSide()) {
             level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), 3);
         }
-    }
-
-    private boolean isCropOrSeed(ItemStack stack) {
-        return stack.is(Items.WHEAT_SEEDS)
-                || stack.is(Items.BEETROOT_SEEDS)
-                || stack.is(Items.CARROT)
-                || stack.is(Items.POTATO);
-    }
-
-    private static ItemStack insertInto(InventoryWrapper target, ItemStack stack) {
-        for (int slot = 0; slot < target.size(); slot++) {
-
-            ItemStack existing = target.get(slot);
-
-            if (existing.isEmpty()) {
-                target.set(slot, stack);
-                return ItemStack.EMPTY;
-            }
-
-            if (ItemStack.isSameItemSameComponents(existing, stack)) {
-
-                int max = existing.getMaxStackSize();
-                int space = max - existing.getCount();
-
-                if (space <= 0) continue;
-
-                int move = Math.min(space, stack.getCount());
-
-                existing.grow(move);
-                stack.shrink(move);
-
-                if (stack.isEmpty()) return ItemStack.EMPTY;
-            }
-        }
-
-        return stack;
     }
 
     private void breakCrops(int range) {

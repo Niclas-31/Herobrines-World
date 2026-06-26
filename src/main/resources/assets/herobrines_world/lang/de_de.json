@@ -19,6 +19,7 @@
   "gui.herobrines_world.smart_chip.transfer_mode": "Übertragungsmodus: %s",
   "gui.herobrines_world.smart_chip.transfer_mode.insert": "Einfügen",
   "gui.herobrines_world.smart_chip.transfer_mode.extract": "Entnehmen",
+  "gui.herobrines_world.smart_chip.transfer.void_trash": "Müll löschen: %s",
   "gui.herobrines_world.smart_chip.save": "Speichern",
   "gui.herobrines_world.smart_chip.access_mode": "Zugriffsmodus: %s",
   "gui.herobrines_world.smart_chip.access_mode.public": "Öffentlich",

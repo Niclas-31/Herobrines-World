@@ -118,34 +118,34 @@ public class ModEvents {
             default -> 1;
         };
 
-        int playerLevel = vars.SoulLevel;
+        int playerLevel = vars.soulLevel;
 
         int soulsGain = SoulGain.getSoulGain(baseGain, playerLevel);
 
-        float prestigeBonus = SoulMath.getSoulBonus(vars.Prestige);
+        float prestigeBonus = SoulMath.getSoulBonus(vars.prestige);
 
         soulsGain = Math.max(
                 1,
                 Math.round(soulsGain * prestigeBonus)
         );
 
-        if (vars.SoulLevel >= SoulMath.HARD_CAP) {
+        if (vars.soulLevel >= SoulMath.HARD_CAP) {
             vars.markSyncDirty(player);
             return;
         }
 
-        vars.Souls += soulsGain;
+        vars.souls += soulsGain;
 
-        while (vars.SoulLevel < SoulMath.HARD_CAP &&
-                vars.Souls >= SoulMath.getXPForLevel(vars.SoulLevel)) {
+        while (vars.soulLevel < SoulMath.HARD_CAP &&
+                vars.souls >= SoulMath.getXPForLevel(vars.soulLevel)) {
 
-            vars.Souls -= SoulMath.getXPForLevel(vars.SoulLevel);
-            vars.SoulLevel++;
+            vars.souls -= SoulMath.getXPForLevel(vars.soulLevel);
+            vars.soulLevel++;
         }
 
-        if (vars.SoulLevel >= SoulMath.HARD_CAP) {
-            vars.SoulLevel = SoulMath.HARD_CAP;
-            vars.Souls = 0;
+        if (vars.soulLevel >= SoulMath.HARD_CAP) {
+            vars.soulLevel = SoulMath.HARD_CAP;
+            vars.souls = 0;
         }
 
         vars.markSyncDirty(player);
@@ -159,12 +159,12 @@ public class ModEvents {
 
         if (player.level().getLevelData().isHardcore()) return;
 
-        if (!vars.ThreeHearts) return;
+        if (!vars.threeHearts) return;
 
-        vars.Hearts = Math.max(0, vars.Hearts - 1);
+        vars.hearts = Math.max(0, vars.hearts - 1);
         vars.markSyncDirty(player);
 
-        if (vars.Hearts <= 0) {
+        if (vars.hearts <= 0) {
             player.setGameMode(GameType.SPECTATOR);
         }
     }
