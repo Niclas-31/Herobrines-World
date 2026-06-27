@@ -29,8 +29,8 @@ public class Souls {
 
 		event.getDispatcher().register(
 				Commands.literal("souls")
-						.requires(Commands.hasPermission(Commands.LEVEL_GAMEMASTERS))
 						.then(Commands.literal("add")
+								.requires(Commands.hasPermission(Commands.LEVEL_GAMEMASTERS))
 								.then(Commands.argument("targets", EntityArgument.players())
 										.then(Commands.argument("amount", IntegerArgumentType.integer())
 												.then(Commands.literal("points")
@@ -51,6 +51,7 @@ public class Souls {
 								)
 						)
 						.then(Commands.literal("set")
+								.requires(Commands.hasPermission(Commands.LEVEL_GAMEMASTERS))
 								.then(Commands.argument("targets", EntityArgument.players())
 										.then(Commands.argument("amount", IntegerArgumentType.integer(0))
 												.then(Commands.literal("points")
@@ -69,6 +70,7 @@ public class Souls {
 								)
 						)
 						.then(Commands.literal("prestige")
+								.requires(Commands.hasPermission(Commands.LEVEL_GAMEMASTERS))
 								.executes(ctx -> {
 									ServerPlayer player = ctx.getSource().getPlayerOrException();
 
@@ -101,6 +103,7 @@ public class Souls {
 								})
 						)
 						.then(Commands.literal("query")
+								.requires(Commands.hasPermission(Commands.LEVEL_GAMEMASTERS))
 								.then(Commands.argument("targets", EntityArgument.players())
 										.then(Commands.literal("points")
 												.executes(ctx -> {
