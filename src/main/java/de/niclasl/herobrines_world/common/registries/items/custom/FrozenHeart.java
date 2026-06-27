@@ -1,6 +1,5 @@
 package de.niclasl.herobrines_world.common.registries.items.custom;
 
-import de.niclasl.herobrines_world.Config;
 import de.niclasl.herobrines_world.common.network.ModVariables;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
@@ -61,10 +60,6 @@ public class FrozenHeart extends Item {
 
 		if (player.level().getLevelData().isHardcore()) return false;
 
-        if (player.level().getServer().isDedicatedServer()) {
-			return vars.threeHearts;
-		}
-
-		return Config.THREE_HEARTS.getAsBoolean() && vars.threeHearts;
+		return vars.threeHearts;
 	}
 }

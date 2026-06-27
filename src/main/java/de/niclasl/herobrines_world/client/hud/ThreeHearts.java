@@ -22,20 +22,22 @@ public class ThreeHearts {
 	@SubscribeEvent(priority = EventPriority.NORMAL)
 	public static void eventHandler(RenderGuiEvent.Pre event) {
 
-		Player entity = Minecraft.getInstance().player;
-		if (entity == null) return;
+		Minecraft mc = Minecraft.getInstance();
+		Player player = mc.player;
+
+		if (player == null) return;
 
 		int w = event.getGuiGraphics().guiWidth();
 		int h = event.getGuiGraphics().guiHeight();
 
-		ModVariables.PlayerVariables vars = entity.getData(ModVariables.PLAYER_VARIABLES);
+		ModVariables.PlayerVariables vars = player.getData(ModVariables.PLAYER_VARIABLES);
 
-		boolean gamemode = getEntityGameType(entity) == GameType.SURVIVAL
-				|| getEntityGameType(entity) == GameType.ADVENTURE;
+		boolean gamemode = getEntityGameType(player) == GameType.SURVIVAL
+				|| getEntityGameType(player) == GameType.ADVENTURE;
 
 		boolean enabled = vars.threeHearts;
 
-		if (entity.level().getLevelData().isHardcore()) {
+		if (player.level().getLevelData().isHardcore()) {
 			enabled = false;
 		}
 
@@ -57,7 +59,6 @@ public class ThreeHearts {
 					Identifier.parse("minecraft:textures/gui/sprites/hud/heart/container.png"),
 					w / 2 - 5, h - 55, 0, 0, 9, 9, 9, 9);
 
-			// Hearts
 			if (heart3) {
 				event.getGuiGraphics().blit(RenderPipelines.GUI_TEXTURED,
 						Identifier.parse("minecraft:textures/gui/sprites/hud/heart/frozen_full.png"),

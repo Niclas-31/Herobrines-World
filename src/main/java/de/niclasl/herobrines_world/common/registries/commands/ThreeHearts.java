@@ -1,12 +1,13 @@
 package de.niclasl.herobrines_world.common.registries.commands;
 
 import com.mojang.brigadier.arguments.IntegerArgumentType;
-import de.niclasl.herobrines_world.Config;
 import de.niclasl.herobrines_world.common.network.ModVariables;
 import net.minecraft.commands.Commands;
 import net.minecraft.commands.arguments.EntityArgument;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.server.permissions.PermissionSet;
+import net.minecraft.server.players.NameAndId;
 import net.minecraft.world.level.Level;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -19,8 +20,8 @@ public class ThreeHearts {
 	public static void registerCommand(RegisterCommandsEvent event) {
 		event.getDispatcher().register(
 				Commands.literal("three_hearts")
-						.requires(Commands.hasPermission(Commands.LEVEL_GAMEMASTERS))
 						.then(Commands.literal("query")
+								.requires(Commands.hasPermission(Commands.LEVEL_GAMEMASTERS))
 								.then(Commands.argument("targets", EntityArgument.players())
 										.executes(ctx -> {
 											for (ServerPlayer player : EntityArgument.getPlayers(ctx, "targets")) {
@@ -31,6 +32,7 @@ public class ThreeHearts {
 								)
 						)
 						.then(Commands.literal("set")
+								.requires(Commands.hasPermission(Commands.LEVEL_GAMEMASTERS))
 								.then(Commands.argument("targets", EntityArgument.players())
 										.then(Commands.argument("hearts", IntegerArgumentType.integer(0, 3))
 												.executes(ctx -> {
@@ -44,6 +46,7 @@ public class ThreeHearts {
 								)
 						)
 						.then(Commands.literal("add")
+								.requires(Commands.hasPermission(Commands.LEVEL_GAMEMASTERS))
 								.then(Commands.argument("targets", EntityArgument.players())
 										.then(Commands.argument("hearts", IntegerArgumentType.integer(0, 3))
 												.executes(ctx -> {
@@ -57,6 +60,7 @@ public class ThreeHearts {
 								)
 						)
 						.then(Commands.literal("remove")
+								.requires(Commands.hasPermission(Commands.LEVEL_GAMEMASTERS))
 								.then(Commands.argument("targets", EntityArgument.players())
 										.then(Commands.argument("hearts", IntegerArgumentType.integer(0, 3))
 												.executes(ctx -> {
@@ -70,6 +74,7 @@ public class ThreeHearts {
 								)
 						)
 						.then(Commands.literal("reset")
+								.requires(Commands.hasPermission(Commands.LEVEL_GAMEMASTERS))
 								.then(Commands.argument("targets", EntityArgument.players())
 										.executes(ctx -> {
 											for (ServerPlayer player : EntityArgument.getPlayers(ctx, "targets")) {
@@ -80,6 +85,7 @@ public class ThreeHearts {
 								)
 						)
 						.then(Commands.literal("revive")
+								.requires(Commands.hasPermission(Commands.LEVEL_GAMEMASTERS))
 								.then(Commands.argument("targets", EntityArgument.players())
 										.executes(ctx -> {
 											for (ServerPlayer player : EntityArgument.getPlayers(ctx, "targets")) {
@@ -90,6 +96,8 @@ public class ThreeHearts {
 								)
 						)
 						.then(Commands.literal("on")
+								.requires(src -> src.getEntity() instanceof ServerPlayer player
+										&& permission(player))
 								.executes(ctx -> {
 									for (ServerPlayer player : ctx.getSource().getServer().getPlayerList().getPlayers()) {
 										setEnabled(player, true);
@@ -106,6 +114,8 @@ public class ThreeHearts {
 								)
 						)
 						.then(Commands.literal("off")
+								.requires(src -> src.getEntity() instanceof ServerPlayer player2
+										&& permission(player2))
 								.executes(ctx -> {
 									for (ServerPlayer player : ctx.getSource().getServer().getPlayerList().getPlayers()) {
 										setEnabled(player, false);
@@ -205,7 +215,7 @@ public class ThreeHearts {
 			return !vars.threeHearts;
 		}
 
-		return !Config.THREE_HEARTS.getAsBoolean() || !vars.threeHearts;
+        return vars.threeHearts;
 	}
 
 	private static void setEnabled(ServerPlayer player, boolean enabled) {
@@ -220,5 +230,15 @@ public class ThreeHearts {
 				Component.translatable("commands.three_hearts.enabled", enabled ? "enabled" : "disabled"),
 				true
 		);
+	}
+
+	private static boolean permission(ServerPlayer player) {
+		boolean singleplayer = player.level().getServer().isSingleplayerOwner(new NameAndId(player.getGameProfile()));
+
+		PermissionSet permissionSet = player.createCommandSourceStack().permissions();
+
+		return singleplayer
+				? Commands.LEVEL_ALL.check(permissionSet)
+				: Commands.LEVEL_GAMEMASTERS.check(permissionSet);
 	}
 }
