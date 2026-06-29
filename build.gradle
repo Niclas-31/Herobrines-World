@@ -29,13 +29,6 @@ neoForge {
     runs {
         client {
             client()
-            systemProperty 'herobrines_world.dev', 'false'
-        }
-
-        devClient {
-            client()
-
-            systemProperty 'herobrines_world.dev', 'true'
         }
 
         server {
@@ -65,14 +58,6 @@ sourceSets {
         resources {
             srcDir 'src/generated/resources'
         }
-    }
-
-    dev {
-        java.srcDir('src/dev/java')
-        resources.srcDir('src/dev/resources')
-
-        compileClasspath += sourceSets.main.output
-        runtimeClasspath += sourceSets.main.output
     }
 }
 
