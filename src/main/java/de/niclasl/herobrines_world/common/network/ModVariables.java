@@ -53,8 +53,7 @@ public class ModVariables {
 			PacketDistributor.sendToPlayer(
 					player,
 					new SavedDataSyncMessage(
-							1,
-							WorldVariables.get(level)
+							MapVariables.get(level)
 					)
 			);
 		}
@@ -101,33 +100,22 @@ public class ModVariables {
 	public static void onWorldTick(LevelTickEvent.Post event) {
 		if (!(event.getLevel() instanceof ServerLevel level)) return;
 
-		WorldVariables world = WorldVariables.get(level);
-
-		if (world._syncDirty) {
-			PacketDistributor.sendToPlayersInDimension(
-					level,
-					new SavedDataSyncMessage(1, world)
-			);
-			world._syncDirty = false;
-		}
-
 		MapVariables map = MapVariables.get(level);
 
-		if (map._syncDirty) {
-			PacketDistributor.sendToAllPlayers(
-					new SavedDataSyncMessage(0, map)
-			);
-			map._syncDirty = false;
+		if (map.syncDirty) {
+			PacketDistributor.sendToAllPlayers(new SavedDataSyncMessage(map));
+			map.syncDirty = false;
 		}
 	}
 
-	public static class WorldVariables extends SavedData {
-		public static final SavedDataType<WorldVariables> TYPE = new SavedDataType<>("world_variables", ctx -> new WorldVariables(), ctx -> CompoundTag.CODEC.xmap(tag -> {
-			WorldVariables instance = new WorldVariables();
+	public static class MapVariables extends SavedData {
+		public static final SavedDataType<MapVariables> TYPE = new SavedDataType<>("map_variables", ctx -> new MapVariables(), ctx -> CompoundTag.CODEC.xmap(tag -> {
+			MapVariables instance = new MapVariables();
             instance.read(tag);
 			return instance;
 		}, instance -> instance.save(new CompoundTag())));
-		boolean _syncDirty = false;
+		boolean syncDirty = false;
+
 		public boolean isHerobrineDead = false;
 		public long seasonStart = 0;
 		public long seasonEnd = 0;
@@ -189,38 +177,7 @@ public class ModVariables {
 
 		public void markSyncDirty() {
 			this.setDirty();
-			this._syncDirty = true;
-		}
-
-		static WorldVariables clientSide = new WorldVariables();
-
-		public static WorldVariables get(LevelAccessor world) {
-			if (world instanceof ServerLevel level) {
-				return level.getDataStorage().computeIfAbsent(WorldVariables.TYPE);
-			}
-
-			return clientSide;
-		}
-	}
-
-	public static class MapVariables extends SavedData {
-		public static final SavedDataType<MapVariables> TYPE = new SavedDataType<>("map_variables", ctx -> new MapVariables(), ctx -> CompoundTag.CODEC.xmap(tag -> {
-			MapVariables instance = new MapVariables();
-            instance.read(tag);
-			return instance;
-		}, instance -> instance.save(new CompoundTag())));
-		boolean _syncDirty = false;
-
-		public void read(CompoundTag nbt) {
-		}
-
-		public CompoundTag save(CompoundTag nbt) {
-			return nbt;
-		}
-
-		public void markSyncDirty() {
-			this.setDirty();
-			this._syncDirty = true;
+			this.syncDirty = true;
 		}
 
 		static MapVariables clientSide = new MapVariables();
@@ -234,26 +191,17 @@ public class ModVariables {
 		}
 	}
 
-	public record SavedDataSyncMessage(int dataType, SavedData data) implements CustomPacketPayload {
+	public record SavedDataSyncMessage(MapVariables data) implements CustomPacketPayload {
 		public static final Type<SavedDataSyncMessage> TYPE = new Type<>(Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "saved_data_sync"));
-		public static final StreamCodec<RegistryFriendlyByteBuf, SavedDataSyncMessage> STREAM_CODEC = StreamCodec.of((RegistryFriendlyByteBuf buffer, SavedDataSyncMessage message) -> {
-			buffer.writeInt(message.dataType);
-			if (message.data instanceof MapVariables mapVariables)
-				buffer.writeNbt(mapVariables.save(new CompoundTag()));
-			else if (message.data instanceof WorldVariables worldVariables)
-				buffer.writeNbt(worldVariables.save(new CompoundTag()));
-		}, (RegistryFriendlyByteBuf buffer) -> {
-			int dataType = buffer.readInt();
+		public static final StreamCodec<RegistryFriendlyByteBuf, SavedDataSyncMessage> STREAM_CODEC = StreamCodec.of(
+				(RegistryFriendlyByteBuf buf, SavedDataSyncMessage msg) ->
+						buf.writeNbt(msg.data.save(new CompoundTag())), (RegistryFriendlyByteBuf buffer) -> {
 			CompoundTag nbt = buffer.readNbt();
-			SavedData data = null;
-			if (nbt != null) {
-				data = dataType == 0 ? new MapVariables() : new WorldVariables();
-				if (data instanceof MapVariables mapVariables)
-					mapVariables.read(nbt);
-				else if (data instanceof WorldVariables worldVariables)
-					worldVariables.read(nbt);
+			MapVariables data = new MapVariables();
+            if (nbt != null) {
+				data.read(nbt);
 			}
-			return new SavedDataSyncMessage(dataType, data);
+			return new SavedDataSyncMessage(data);
 		});
 
 		@Override
@@ -263,18 +211,13 @@ public class ModVariables {
 
 		public static void handle(final SavedDataSyncMessage message, final IPayloadContext context) {
 			if (message.data != null) {
-				context.enqueueWork(() -> {
-					if (message.dataType == 0)
-						MapVariables.clientSide.read(((MapVariables) message.data).save(new CompoundTag()));
-					else
-						WorldVariables.clientSide.read(((WorldVariables) message.data).save(new CompoundTag()));
-				});
+				context.enqueueWork(() -> MapVariables.clientSide.read(message.data.save(new CompoundTag())));
 			}
 		}
 	}
 
 	public static class PlayerVariables implements ValueIOSerializable {
-		boolean _syncDirty = false;
+		boolean syncDirty = false;
 
 		public boolean hide;
 
@@ -314,7 +257,7 @@ public class ModVariables {
 		}
 
 		public void markSyncDirty(ServerPlayer player) {
-			_syncDirty = true;
+			syncDirty = true;
 			PacketDistributor.sendToPlayer(player, new PlayerVariablesSyncMessage(player.getData(PLAYER_VARIABLES)));
 		}
 	}

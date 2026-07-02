@@ -278,9 +278,9 @@ public class HerobrineBoss extends Monster {
 			return;
 		}
 
-		ModVariables.WorldVariables world = ModVariables.WorldVariables.get(level());
+		ModVariables.MapVariables map = ModVariables.MapVariables.get(level());
 
-		if (source.getEntity() instanceof ServerPlayer player && !world.isHerobrineDead) {
+		if (source.getEntity() instanceof ServerPlayer player && !map.isHerobrineDead) {
 			ItemStack relicStack = new ItemStack(ModItems.HEROBRINE_RELIC.get());
 
 			relicStack.set(ModDataComponents.RELIC_DATA, new RelicData(
@@ -291,8 +291,8 @@ public class HerobrineBoss extends Monster {
 			));
 			player.addItem(relicStack);
 
-			world.isHerobrineDead = true;
-			world.markSyncDirty();
+			map.isHerobrineDead = true;
+			map.markSyncDirty();
 			player.sendSystemMessage(Component.translatable("entity.herobrines_world.herobrine_boss.defeated"));
 		}
 	}

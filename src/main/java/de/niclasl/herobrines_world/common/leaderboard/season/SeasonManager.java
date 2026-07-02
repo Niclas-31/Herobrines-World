@@ -15,8 +15,7 @@ public class SeasonManager {
 
     public static void initialize(ServerLevel level) {
 
-        ModVariables.WorldVariables data =
-                ModVariables.WorldVariables.get(level);
+        ModVariables.MapVariables data = ModVariables.MapVariables.get(level);
 
         if (data.seasonStart != 0 && data.seasonEnd > 0) return;
 
@@ -35,7 +34,7 @@ public class SeasonManager {
 
     public static void tick(ServerLevel level) {
 
-        var data = ModVariables.WorldVariables.get(level);
+        var data = ModVariables.MapVariables.get(level);
 
         long now = System.currentTimeMillis();
         long seasonDuration = 30L * 24 * 60 * 60 * 1000;
@@ -93,7 +92,7 @@ public class SeasonManager {
     }
 
     public static List<LeaderboardEntry> getLeaderboard(ServerLevel level) {
-        var data = ModVariables.WorldVariables.get(level);
+        var data = ModVariables.MapVariables.get(level);
 
         if (isSeasonActive(level)) {
             return buildLeaderboard(level);
@@ -150,14 +149,14 @@ public class SeasonManager {
 
     public static boolean isSeasonActive(LevelAccessor level) {
         return System.currentTimeMillis() <
-                ModVariables.WorldVariables.get(level).seasonEnd;
+                ModVariables.MapVariables.get(level).seasonEnd;
     }
 
     public static long getNextSeasonStart(LevelAccessor level) {
-        return ModVariables.WorldVariables.get(level).nextSeasonStart;
+        return ModVariables.MapVariables.get(level).nextSeasonStart;
     }
 
     public static long getSeasonEnd(LevelAccessor level) {
-        return ModVariables.WorldVariables.get(level).seasonEnd;
+        return ModVariables.MapVariables.get(level).seasonEnd;
     }
 }
