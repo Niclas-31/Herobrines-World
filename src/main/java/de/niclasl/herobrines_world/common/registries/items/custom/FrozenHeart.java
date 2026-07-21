@@ -26,20 +26,14 @@ public class FrozenHeart extends Item {
 
 		if (!isThreeHeartsEnabled(serverPlayer)) {
 			if (!level.isClientSide()) {
-				player.displayClientMessage(
-						Component.translatable("herobrines_world.configuration.three_hearts.disabled"),
-						true
-				);
+				serverPlayer.sendSystemMessage(Component.translatable("herobrines_world.configuration.three_hearts.disabled"), true);
 			}
 			return InteractionResult.SUCCESS;
 		}
 
 		if (vars.hearts >= 3) {
 			if (!level.isClientSide()) {
-				player.displayClientMessage(
-						Component.translatable("item.herobrines_world.frozen_heart.not_more_hearts"),
-						true
-				);
+				serverPlayer.sendSystemMessage(Component.translatable("item.herobrines_world.frozen_heart.not_more_hearts"), true);
 			}
 			return InteractionResult.SUCCESS;
 		}

@@ -7,6 +7,7 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.trading.VillagerTrade;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 
@@ -75,6 +76,18 @@ public class ModTags {
 
         private static TagKey<Biome> createTag(String name) {
             return TagKey.create(Registries.BIOME, Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, name));
+        }
+    }
+
+    public static class Villagers {
+        public static final TagKey<VillagerTrade> LUMBERJACK_LEVEL_1 = createTag("lumberjack/level_1");
+        public static final TagKey<VillagerTrade> LUMBERJACK_LEVEL_2 = createTag("lumberjack/level_2");
+        public static final TagKey<VillagerTrade> LUMBERJACK_LEVEL_3 = createTag("lumberjack/level_3");
+        public static final TagKey<VillagerTrade> LUMBERJACK_LEVEL_4 = createTag("lumberjack/level_4");
+        public static final TagKey<VillagerTrade> LUMBERJACK_LEVEL_5 = createTag("lumberjack/level_5");
+
+        private static TagKey<VillagerTrade> createTag(String name) {
+            return TagKey.create(Registries.VILLAGER_TRADE, Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, name));
         }
     }
 }

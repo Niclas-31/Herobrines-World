@@ -2,7 +2,7 @@ package de.niclasl.herobrines_world.client.screen;
 
 import de.niclasl.herobrines_world.HerobrinesWorld;
 import de.niclasl.herobrines_world.common.registries.menus.StorageControllerMenu;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
@@ -16,10 +16,7 @@ public class StorageControllerScreen extends AbstractContainerScreen<StorageCont
             Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "textures/gui/container/storage_controller.png");
 
     public StorageControllerScreen(StorageControllerMenu menu, Inventory inventory, Component title) {
-        super(menu, inventory, title);
-
-        this.imageWidth = 176;
-        this.imageHeight = 222;
+        super(menu, inventory, title, 176, 222);
     }
 
     @Override
@@ -30,7 +27,9 @@ public class StorageControllerScreen extends AbstractContainerScreen<StorageCont
     }
 
     @Override
-    protected void renderBg(GuiGraphics graphics, float partialTick, int mouseX, int mouseY) {
+    public void extractBackground(@NonNull GuiGraphicsExtractor graphics, int mouseX, int mouseY, float a) {
+        super.extractBackground(graphics, mouseX, mouseY, a);
+
         graphics.blit(
                 RenderPipelines.GUI_TEXTURED,
                 TEXTURE,
@@ -43,12 +42,5 @@ public class StorageControllerScreen extends AbstractContainerScreen<StorageCont
                 256,
                 256
         );
-    }
-
-    @Override
-    public void render(@NonNull GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
-        renderBackground(graphics, mouseX, mouseY, partialTick);
-        super.render(graphics, mouseX, mouseY, partialTick);
-        renderTooltip(graphics, mouseX, mouseY);
     }
 }

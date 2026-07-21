@@ -6,7 +6,7 @@ import de.niclasl.herobrines_world.common.registries.components.SavedWaypoint;
 import de.niclasl.herobrines_world.common.registries.items.ModItems;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.api.distmarker.Dist;
@@ -52,7 +52,7 @@ public class Waypoints {
         renderWaypoint(event.getGuiGraphics(), mc, wp);
     }
 
-    private static void renderWaypoint(GuiGraphics gui, Minecraft mc, SavedWaypoint wp) {
+    private static void renderWaypoint(GuiGraphicsExtractor gui, Minecraft mc, SavedWaypoint wp) {
 
         Camera cam = mc.gameRenderer.getMainCamera();
 
@@ -90,6 +90,6 @@ public class Waypoints {
 
         gui.fill(screenX - 3, screenY - 3, screenX + 3, screenY + 3, 0xFFFFFFFF);
 
-        gui.drawString(mc.font, text, screenX - mc.font.width(text) / 2, screenY + 6, 0xFFFFFFFF);
+        gui.text(mc.font, text, screenX - mc.font.width(text) / 2, screenY + 6, 0xFFFFFFFF);
     }
 }

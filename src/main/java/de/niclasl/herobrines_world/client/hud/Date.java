@@ -27,8 +27,8 @@ public class Date {
         boolean condition = entity.getData(ModVariables.PLAYER_VARIABLES).hide;
 
         if (condition) {
-			event.getGuiGraphics().drawString(Minecraft.getInstance().font, date, 0, 1, -3407872, false);
-			event.getGuiGraphics().drawString(Minecraft.getInstance().font, time, 0, 12, -3407872, false);
+			event.getGuiGraphics().text(Minecraft.getInstance().font, date, 0, 1, -3407872, false);
+			event.getGuiGraphics().text(Minecraft.getInstance().font, time, 0, 12, -3407872, false);
 		}
 	}
 }

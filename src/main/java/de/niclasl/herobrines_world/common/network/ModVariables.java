@@ -1,5 +1,6 @@
 package de.niclasl.herobrines_world.common.network;
 
+import com.mojang.serialization.Codec;
 import de.niclasl.herobrines_world.HerobrinesWorld;
 import de.niclasl.herobrines_world_api.api.leaderboard.LeaderboardEntry;
 import net.minecraft.nbt.CompoundTag;
@@ -109,11 +110,21 @@ public class ModVariables {
 	}
 
 	public static class MapVariables extends SavedData {
-		public static final SavedDataType<MapVariables> TYPE = new SavedDataType<>("map_variables", ctx -> new MapVariables(), ctx -> CompoundTag.CODEC.xmap(tag -> {
-			MapVariables instance = new MapVariables();
-            instance.read(tag);
-			return instance;
-		}, instance -> instance.save(new CompoundTag())));
+		public static final Codec<MapVariables> CODEC = CompoundTag.CODEC.xmap(
+				tag -> {
+					MapVariables instance = new MapVariables();
+
+					if (tag instanceof CompoundTag compoundTag) {
+						instance.read(compoundTag);
+					}
+
+					return instance;
+				}, instance -> instance.save(new CompoundTag())
+		);
+		public static final SavedDataType<MapVariables> TYPE =
+				new SavedDataType<>(
+						Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "map_variables"),
+						MapVariables::new, CODEC);
 		boolean syncDirty = false;
 
 		public boolean isHerobrineDead = false;

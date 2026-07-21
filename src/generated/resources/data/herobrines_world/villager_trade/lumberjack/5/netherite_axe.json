@@ -1,0 +1,12 @@
+{
+  "gives": {
+    "id": "minecraft:netherite_axe"
+  },
+  "max_uses": 1.0,
+  "reputation_discount": 0.17,
+  "wants": {
+    "count": 15.0,
+    "id": "minecraft:emerald"
+  },
+  "xp": 25.0
+}

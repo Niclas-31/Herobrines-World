@@ -7,7 +7,7 @@ import de.niclasl.herobrines_world.common.network.message.SyncWaypointCompass;
 import de.niclasl.herobrines_world.common.registries.components.ModDataComponents;
 import de.niclasl.herobrines_world.common.registries.components.SavedWaypoint;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.screens.Screen;
@@ -60,14 +60,14 @@ public class WaypointScreen extends Screen {
 
         Component message = Component.translatable("gui.herobrines_world.waypoint.edit");
         editButton = addRenderableWidget(
-                Button.builder(message, b -> editSelected())
+                Button.builder(message, _ -> editSelected())
                         .bounds(this.width / 2 - 200, this.height - 30, 100, 20)
                         .build()
         );
 
         editButton.active = false;
 
-        saveButton = Button.builder(Component.literal("Save"), b -> save())
+        saveButton = Button.builder(Component.literal("Save"), _ -> save())
                 .bounds(this.width / 2 - 100, this.height - 30, 100, 20)
                 .build();
 
@@ -81,7 +81,7 @@ public class WaypointScreen extends Screen {
         UUID selected = stack.get(ModDataComponents.SELECTED_WAYPOINT.get());
 
         Button deselect = addRenderableWidget(
-                Button.builder(Component.literal("Deselect"), b -> deselect())
+                Button.builder(Component.literal("Deselect"), _ -> deselect())
                         .bounds(this.width / 2, this.height - 30, 100, 20)
                         .build()
         );
@@ -90,7 +90,7 @@ public class WaypointScreen extends Screen {
 
         Component message1 = Component.translatable("gui.herobrines_world.waypoint.delete");
         deleteButton = addRenderableWidget(
-                Button.builder(message1, b -> deleteSelected(mc))
+                Button.builder(message1, _ -> deleteSelected(mc))
                         .bounds(this.width / 2 + 100, this.height - 30, 100, 20)
                         .build()
         );
@@ -117,8 +117,7 @@ public class WaypointScreen extends Screen {
 
             addRenderableWidget(
                     Button.builder(
-                            text,
-                            button -> {
+                            text, _ -> {
                                 if (waypoint.id().equals(selectedWaypoint)) {
 
                                     ClientPacketDistributor.sendToServer(
@@ -214,12 +213,10 @@ public class WaypointScreen extends Screen {
     }
 
     @Override
-    public void render(@NonNull GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
-        this.renderBackground(guiGraphics, mouseX, mouseY, partialTick);
+    public void extractRenderState(@NonNull GuiGraphicsExtractor graphics, int mouseX, int mouseY, float a) {
+        super.extractRenderState(graphics, mouseX, mouseY, a);
 
-        super.render(guiGraphics, mouseX, mouseY, partialTick);
-
-        guiGraphics.drawCenteredString(this.font, this.title, this.width / 2, 15, 0xFFFFFFFF);
+        graphics.text(this.font, this.title, this.width / 2, 15, 0xFFFFFFFF);
     }
 
     @Override

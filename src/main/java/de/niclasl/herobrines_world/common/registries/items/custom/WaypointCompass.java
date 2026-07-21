@@ -49,18 +49,12 @@ public class WaypointCompass extends Item {
 
                 saveWaypoints(stack, waypoints);
 
-                player.displayClientMessage(
-                        Component.translatable("item.herobrines_world.waypoint_compass.waypoint_saved")
-                                .withStyle(ChatFormatting.GREEN),
-                        true
-                );
+                ((ServerPlayer) player).sendSystemMessage(Component.translatable("item.herobrines_world.waypoint_compass.waypoint_saved").withStyle(ChatFormatting.GREEN), true);
 
                 return InteractionResult.SUCCESS;
             }
 
-            PacketDistributor.sendToPlayer(
-                    (ServerPlayer) player,
-                    new OpenWaypointScreenPacket(stack));
+            PacketDistributor.sendToPlayer((ServerPlayer) player, new OpenWaypointScreenPacket(stack));
         }
 
         return InteractionResult.SUCCESS;

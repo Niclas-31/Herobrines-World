@@ -2,7 +2,7 @@ package de.niclasl.herobrines_world.client.screen;
 
 import de.niclasl.herobrines_world.HerobrinesWorld;
 import de.niclasl.herobrines_world.common.registries.menus.CardReaderMenu;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
@@ -17,32 +17,25 @@ public class CardReaderScreen extends AbstractContainerScreen<CardReaderMenu> {
 
     public CardReaderScreen(CardReaderMenu menu, Inventory inventory, Component title) {
         super(menu, inventory, title);
-
-        this.imageWidth = 176;
-        this.imageHeight = 166;
     }
 
     @Override
-    protected void renderBg(GuiGraphics guiGraphics, float partialTick, int mouseX, int mouseY) {
-        guiGraphics.blit(
+    public void extractBackground(@NonNull GuiGraphicsExtractor graphics, int mouseX, int mouseY, float a) {
+        super.extractBackground(graphics, mouseX, mouseY, a);
+
+        int x = (this.width - this.imageWidth) / 2;
+        int y = (this.height - this.imageHeight) / 2;
+
+        graphics.blit(
                 RenderPipelines.GUI_TEXTURED,
                 TEXTURE,
-                this.leftPos,
-                this.topPos,
+                x,
+                y,
                 0,
                 0,
                 this.imageWidth,
                 this.imageHeight,
                 256, 256
         );
-    }
-
-    @Override
-    public void render(@NonNull GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
-        this.renderBackground(guiGraphics, mouseX, mouseY, partialTick);
-
-        super.render(guiGraphics, mouseX, mouseY, partialTick);
-
-        this.renderTooltip(guiGraphics, mouseX, mouseY);
     }
 }

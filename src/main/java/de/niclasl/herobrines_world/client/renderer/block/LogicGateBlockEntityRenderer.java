@@ -5,14 +5,14 @@ import com.mojang.math.Axis;
 import de.niclasl.herobrines_world.common.registries.blocks.custom.DelayerBlock;
 import de.niclasl.herobrines_world.common.registries.blocks.entities.LogicGateBlockEntity;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
-import net.minecraft.client.renderer.state.CameraRenderState;
+import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.FormattedCharSequence;
+import net.minecraft.util.LightCoordsUtil;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
@@ -64,7 +64,7 @@ public class LogicGateBlockEntityRenderer implements BlockEntityRenderer<LogicGa
         float f = (float) -this.font.width(formattedcharsequence) / 2;
 
         collector.submitText(
-                poseStack, f, 0f, formattedcharsequence, false, Font.DisplayMode.POLYGON_OFFSET, LightTexture.FULL_BRIGHT, DyeColor.YELLOW.getTextColor(), 0, 0
+                poseStack, f, 0f, formattedcharsequence, false, Font.DisplayMode.POLYGON_OFFSET, LightCoordsUtil.FULL_BRIGHT, DyeColor.YELLOW.getTextColor(), 0, 0
         );
 
         poseStack.popPose();

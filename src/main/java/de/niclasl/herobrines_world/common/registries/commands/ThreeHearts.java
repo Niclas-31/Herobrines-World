@@ -127,17 +127,17 @@ public class ThreeHearts {
 		ModVariables.PlayerVariables vars = player.getData(ModVariables.PLAYER_VARIABLES);
 
 		if (isThreeHeartsEnabled(player)) {
-			player.displayClientMessage(Component.translatable("herobrines_world.configuration.three_hearts.disabled"), true);
+			player.sendSystemMessage(Component.translatable("herobrines_world.configuration.three_hearts.disabled"), true);
 			return;
 		}
-		player.displayClientMessage(Component.translatable("commands.three_hearts.query", player.getName().getString(), vars.hearts), true);
+		player.sendSystemMessage(Component.translatable("commands.three_hearts.query", player.getName().getString(), vars.hearts), true);
 	}
 
 	private static void setHearts(ServerPlayer player, int value) {
 		ModVariables.PlayerVariables vars = player.getData(ModVariables.PLAYER_VARIABLES);
 
 		if (isThreeHeartsEnabled(player)) {
-			player.displayClientMessage(Component.translatable("herobrines_world.configuration.three_hearts.disabled"), true);
+			player.sendSystemMessage(Component.translatable("herobrines_world.configuration.three_hearts.disabled"), true);
 			return;
 		}
 
@@ -149,7 +149,7 @@ public class ThreeHearts {
 		ModVariables.PlayerVariables vars = player.getData(ModVariables.PLAYER_VARIABLES);
 
 		if (isThreeHeartsEnabled(player)) {
-			player.displayClientMessage(Component.translatable("herobrines_world.configuration.three_hearts.disabled"), true);
+			player.sendSystemMessage(Component.translatable("herobrines_world.configuration.three_hearts.disabled"), true);
 			return;
 		}
 
@@ -164,7 +164,7 @@ public class ThreeHearts {
 		ModVariables.PlayerVariables vars = player.getData(ModVariables.PLAYER_VARIABLES);
 
 		if (isThreeHeartsEnabled(player)) {
-			player.displayClientMessage(Component.translatable("herobrines_world.configuration.three_hearts.disabled"), true);
+			player.sendSystemMessage(Component.translatable("herobrines_world.configuration.three_hearts.disabled"), true);
 			return;
 		}
 
@@ -179,7 +179,7 @@ public class ThreeHearts {
 		ModVariables.PlayerVariables vars = player.getData(ModVariables.PLAYER_VARIABLES);
 
 		if (isThreeHeartsEnabled(player)) {
-			player.displayClientMessage(Component.translatable("herobrines_world.configuration.three_hearts.disabled"), true);
+			player.sendSystemMessage(Component.translatable("herobrines_world.configuration.three_hearts.disabled"), true);
 			return;
 		}
 
@@ -200,11 +200,7 @@ public class ThreeHearts {
 
 		if (player.level().getLevelData().isHardcore()) return false;
 
-        if (player.level().getServer().isDedicatedServer()) {
-			return !vars.threeHearts;
-		}
-
-        return vars.threeHearts;
+        return !vars.threeHearts;
 	}
 
 	private static void setEnabled(ServerPlayer player, boolean enabled) {
@@ -215,7 +211,7 @@ public class ThreeHearts {
 		vars.threeHearts = enabled;
 		vars.markSyncDirty(player);
 
-		player.displayClientMessage(
+		player.sendSystemMessage(
 				Component.translatable("commands.three_hearts.enabled", enabled ? "enabled" : "disabled"),
 				true
 		);

@@ -57,7 +57,7 @@ public class ModMapping {
                 ModBlocks.LUMBERJACK_TABLE.get(),
                 TexturedModel.createDefault(
                         (block) -> new TextureMapping()
-                                .put(TextureSlot.DOWN, defaultLoc())
+                                .put(TextureSlot.DOWN, TextureMapping.getBlockTexture(block, "_bottom"))
                                 .put(TextureSlot.UP, TextureMapping.getBlockTexture(block, "_top"))
                                 .put(TextureSlot.NORTH, TextureMapping.getBlockTexture(block, "_front"))
                                 .put(TextureSlot.SOUTH, TextureMapping.getBlockTexture(block, "_side"))
@@ -109,14 +109,14 @@ public class ModMapping {
                     block,
                     "_" + name,
                     ModelTemplates.CUBE_BOTTOM_TOP,
-                    (identifier) -> autoFarmerTextureMapping(block, mode, false)
+                    (_) -> autoFarmerTextureMapping(block, mode, false)
             );
 
             Identifier on = bMG.createSuffixedVariant(
                     block,
                     "_" + name + "_on",
                     ModelTemplates.CUBE_BOTTOM_TOP,
-                    (identifier) -> autoFarmerTextureMapping(block, mode, true)
+                    (_) -> autoFarmerTextureMapping(block, mode, true)
             );
 
             offModels.put(mode, off);
@@ -215,9 +215,5 @@ public class ModMapping {
                                 ItemModelUtils.rangeSelect(new CompassAngle(true, CompassAngleState.CompassTarget.SPAWN), 32.0F, list)
                         )
                 );
-    }
-
-    private static Identifier defaultLoc() {
-        return Identifier.withDefaultNamespace("block/oak_planks");
     }
 }

@@ -30,7 +30,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.CropBlock;
-import net.minecraft.world.level.block.FarmBlock;
+import net.minecraft.world.level.block.FarmlandBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
@@ -287,7 +287,7 @@ public class AutoFarmerBlockEntity extends BlockEntity implements Container, Men
                     BlockPos below = target.below();
                     BlockState belowState = level.getBlockState(below);
 
-                    if (belowState.getBlock() instanceof FarmBlock) {
+                    if (belowState.getBlock() instanceof FarmlandBlock) {
 
                         for (ItemStack stack : items) {
                             if (!stack.isEmpty() && stack.getItem() instanceof BlockItem blockItem) {

@@ -16,6 +16,9 @@ import net.minecraft.util.ARGB;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.attribute.*;
+import net.minecraft.world.clock.WorldClock;
+import net.minecraft.world.clock.WorldClocks;
+import net.minecraft.world.level.CardinalLighting;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Climate;
 import net.minecraft.world.level.biome.MultiNoiseBiomeSource;
@@ -26,6 +29,7 @@ import net.minecraft.world.timeline.Timeline;
 import net.minecraft.world.timeline.Timelines;
 
 import java.util.List;
+import java.util.Optional;
 
 public class ModDimensions {
     public static final ResourceKey<Level> HEROBRINE_REALM =
@@ -49,7 +53,8 @@ public class ModDimensions {
                     Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "underworld"));
 
     public static void bootstrapType(BootstrapContext<DimensionType> context) {
-        HolderGetter<Timeline> holdergetter = context.lookup(Registries.TIMELINE);
+        HolderGetter<Timeline> timeline = context.lookup(Registries.TIMELINE);
+        HolderGetter<WorldClock> worldClock = context.lookup(Registries.WORLD_CLOCK);
         EnvironmentAttributeMap herobrineAttributes = EnvironmentAttributeMap.builder()
                 .set(EnvironmentAttributes.FOG_COLOR, -6750208)
                 .set(EnvironmentAttributes.SKY_COLOR, -6750208)
@@ -67,6 +72,7 @@ public class ModDimensions {
                         false,
                         true,
                         false,
+                        false,
                         1.0,
                         -64,
                         384,
@@ -75,16 +81,33 @@ public class ModDimensions {
                         0.0F,
                         new DimensionType.MonsterSettings(UniformInt.of(0, 7), 0),
                         DimensionType.Skybox.OVERWORLD,
-                        DimensionType.CardinalLightType.DEFAULT,
+                        CardinalLighting.Type.DEFAULT,
                         herobrineAttributes,
-                        holdergetter.getOrThrow(TimelineTags.IN_OVERWORLD)
+                        timeline.getOrThrow(TimelineTags.IN_OVERWORLD),
+                        Optional.of(worldClock.getOrThrow(WorldClocks.OVERWORLD))
                 )
         );
+        EnvironmentAttributeMap underworldAttributes = EnvironmentAttributeMap.builder()
+                .set(EnvironmentAttributes.FOG_START_DISTANCE, 10.0F)
+                .set(EnvironmentAttributes.FOG_END_DISTANCE, 96.0F)
+                .set(EnvironmentAttributes.SKY_LIGHT_COLOR, Timelines.NIGHT_SKY_LIGHT_COLOR)
+                .set(EnvironmentAttributes.SKY_LIGHT_LEVEL, 4.0F)
+                .set(EnvironmentAttributes.SKY_LIGHT_FACTOR, 0.0F)
+                .set(EnvironmentAttributes.DEFAULT_DRIPSTONE_PARTICLE, ParticleTypes.DRIPPING_DRIPSTONE_LAVA)
+                .set(EnvironmentAttributes.BED_RULE, BedRule.EXPLODES)
+                .set(EnvironmentAttributes.RESPAWN_ANCHOR_WORKS, true)
+                .set(EnvironmentAttributes.WATER_EVAPORATES, true)
+                .set(EnvironmentAttributes.FAST_LAVA, true)
+                .set(EnvironmentAttributes.PIGLINS_ZOMBIFY, false)
+                .set(EnvironmentAttributes.CAN_START_RAID, false)
+                .set(EnvironmentAttributes.SNOW_GOLEM_MELTS, true)
+                .build();
         context.register(ModDimensions.UNDERWORLD_TYPE,
                 new DimensionType(
                         true,
                         false,
                         true,
+                        false,
                         8.0,
                         0,
                         256,
@@ -93,23 +116,10 @@ public class ModDimensions {
                         0.1F,
                         new DimensionType.MonsterSettings(ConstantInt.of(7), 15),
                         DimensionType.Skybox.NONE,
-                        DimensionType.CardinalLightType.NETHER,
-                        EnvironmentAttributeMap.builder()
-                                .set(EnvironmentAttributes.FOG_START_DISTANCE, 10.0F)
-                                .set(EnvironmentAttributes.FOG_END_DISTANCE, 96.0F)
-                                .set(EnvironmentAttributes.SKY_LIGHT_COLOR, Timelines.NIGHT_SKY_LIGHT_COLOR)
-                                .set(EnvironmentAttributes.SKY_LIGHT_LEVEL, 4.0F)
-                                .set(EnvironmentAttributes.SKY_LIGHT_FACTOR, 0.0F)
-                                .set(EnvironmentAttributes.DEFAULT_DRIPSTONE_PARTICLE, ParticleTypes.DRIPPING_DRIPSTONE_LAVA)
-                                .set(EnvironmentAttributes.BED_RULE, BedRule.EXPLODES)
-                                .set(EnvironmentAttributes.RESPAWN_ANCHOR_WORKS, true)
-                                .set(EnvironmentAttributes.WATER_EVAPORATES, true)
-                                .set(EnvironmentAttributes.FAST_LAVA, true)
-                                .set(EnvironmentAttributes.PIGLINS_ZOMBIFY, false)
-                                .set(EnvironmentAttributes.CAN_START_RAID, false)
-                                .set(EnvironmentAttributes.SNOW_GOLEM_MELTS, true)
-                                .build(),
-                        holdergetter.getOrThrow(TimelineTags.IN_NETHER)
+                        CardinalLighting.Type.NETHER,
+                        underworldAttributes,
+                        timeline.getOrThrow(TimelineTags.IN_NETHER),
+                        Optional.empty()
                 )
         );
     }

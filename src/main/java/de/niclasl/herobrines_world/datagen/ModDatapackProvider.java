@@ -2,6 +2,8 @@ package de.niclasl.herobrines_world.datagen;
 
 import de.niclasl.herobrines_world.HerobrinesWorld;
 import de.niclasl.herobrines_world.common.registries.enchantments.ModEnchantments;
+import de.niclasl.herobrines_world.common.registries.villagers.ModTradeSets;
+import de.niclasl.herobrines_world.common.registries.villagers.ModVillagerTrades;
 import de.niclasl.herobrines_world.common.worldgen.ModBiomeModifiers;
 import de.niclasl.herobrines_world.common.worldgen.ModConfiguredFeatures;
 import de.niclasl.herobrines_world.common.worldgen.ModPlacedFeatures;
@@ -33,7 +35,9 @@ public class ModDatapackProvider extends DatapackBuiltinEntriesProvider {
             .add(Registries.NOISE_SETTINGS, ModNoiseGeneratorSettings::bootstrap)
             .add(Registries.ENCHANTMENT, ModEnchantments::bootstrap)
             .add(Registries.LEVEL_STEM, ModDimensions::bootstrapStem)
-            .add(NeoForgeRegistries.Keys.BIOME_MODIFIERS, ModBiomeModifiers::bootstrap);
+            .add(NeoForgeRegistries.Keys.BIOME_MODIFIERS, ModBiomeModifiers::bootstrap)
+            .add(Registries.VILLAGER_TRADE, ModVillagerTrades::bootstrap)
+            .add(Registries.TRADE_SET, ModTradeSets::bootstrap);
 
     public ModDatapackProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
         super(output, registries, BUILDER, Set.of(HerobrinesWorld.MOD_ID));

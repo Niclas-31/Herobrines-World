@@ -5,6 +5,7 @@ import de.niclasl.herobrines_world.common.registries.components.ModDataComponent
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionHand;
@@ -59,10 +60,7 @@ public class OreDetector extends Item {
 			setMode(stack, next);
 
 			if (!level.isClientSide()) {
-				player.displayClientMessage(
-						Component.translatable("item.herobrines_world.ore_detector.mode", next),
-						true
-				);
+				((ServerPlayer) player).sendSystemMessage(Component.translatable("item.herobrines_world.ore_detector.mode", next), true);
 			}
 
 			return InteractionResult.SUCCESS;
@@ -98,20 +96,14 @@ public class OreDetector extends Item {
 
 			if (level.getBlockState(checkPos).is(tag)) {
 				if (player.level().isClientSide()) {
-					player.displayClientMessage(
-							Component.translatable("item.herobrines_world.ore_detector.found", checkPos.getX(), checkPos.getY(), checkPos.getZ()),
-							true
-					);
+					((ServerPlayer) player).sendSystemMessage(Component.translatable("item.herobrines_world.ore_detector.found", checkPos.getX(), checkPos.getY(), checkPos.getZ()), true);
 				}
 				return;
 			}
 		}
 
 		if (!level.isClientSide()) {
-			player.displayClientMessage(
-					Component.translatable("item.herobrines_world.ore_detector.no_found"),
-					true
-			);
+			((ServerPlayer) player).sendSystemMessage(Component.translatable("item.herobrines_world.ore_detector.no_found"), true);
 		}
 	}
 

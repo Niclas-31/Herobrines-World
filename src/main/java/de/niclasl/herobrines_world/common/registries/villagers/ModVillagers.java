@@ -3,6 +3,7 @@ package de.niclasl.herobrines_world.common.registries.villagers;
 import com.google.common.collect.ImmutableSet;
 import de.niclasl.herobrines_world.HerobrinesWorld;
 import de.niclasl.herobrines_world.common.registries.blocks.ModBlocks;
+import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
@@ -28,7 +29,16 @@ public class ModVillagers {
                     poiTypeHolder -> poiTypeHolder.value() == LUMBER_POI.value(),
                     ImmutableSet.of(),
                     ImmutableSet.of(),
-                    SoundEvents.VILLAGER_WORK_TOOLSMITH));
+                    SoundEvents.VILLAGER_WORK_TOOLSMITH,
+                    Int2ObjectMap.ofEntries(
+                            Int2ObjectMap.entry(1, ModTradeSets.LUMBERJACK_LEVEL_1),
+                            Int2ObjectMap.entry(2, ModTradeSets.LUMBERJACK_LEVEL_2),
+                            Int2ObjectMap.entry(3, ModTradeSets.LUMBERJACK_LEVEL_3),
+                            Int2ObjectMap.entry(4, ModTradeSets.LUMBERJACK_LEVEL_4),
+                            Int2ObjectMap.entry(5, ModTradeSets.LUMBERJACK_LEVEL_5)
+                    )
+            )
+    );
 
     public static void register(IEventBus eventBus) {
         POI_TYPES.register(eventBus);

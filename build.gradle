@@ -2,7 +2,7 @@ plugins {
     id 'java-library'
     id 'maven-publish'
     id 'idea'
-    id 'net.neoforged.moddev' version '2.0.113'
+    id 'net.neoforged.moddev' version '2.0.142'
 }
 
 version = mod_version
@@ -16,7 +16,7 @@ base {
     archivesName = mod_id
 }
 
-java.toolchain.languageVersion = JavaLanguageVersion.of(21)
+java.toolchain.languageVersion = JavaLanguageVersion.of(25)
 
 neoForge {
     version = project.neo_version
@@ -36,12 +36,19 @@ neoForge {
             programArgument '--nogui'
         }
 
-        data {
+        clientData {
             clientData()
+
+            programArguments.addAll(
+                    '--mod', mod_id,
+                    '--all',
+                    '--output', file('src/generated/resources/').absolutePath,
+                    '--existing', file('src/main/resources/').absolutePath
+            )
         }
 
         configureEach {
-            systemProperty 'forge.logging.markers', 'REGISTRIES'
+            systemProperty 'neoforge.logging.markers', 'REGISTRIES'
             logLevel = org.slf4j.event.Level.DEBUG
         }
     }

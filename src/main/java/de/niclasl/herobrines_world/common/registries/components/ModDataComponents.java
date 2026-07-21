@@ -47,8 +47,7 @@ public class ModDataComponents {
 
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<KeyCardData>> KEY_CARD_DATA = register(
             "key_card_data",
-            builder -> builder.persistent(KeyCardData.CODEC)
-    );
+            builder -> builder.persistent(KeyCardData.CODEC));
 
     private static <T> DeferredHolder<DataComponentType<?>, DataComponentType<T>> register(String name,
                                                                                            UnaryOperator<DataComponentType.Builder<T>> builderOperator) {

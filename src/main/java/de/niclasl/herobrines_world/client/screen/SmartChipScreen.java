@@ -5,7 +5,7 @@ import de.niclasl.herobrines_world.common.registries.menus.SmartChipMenu;
 import de.niclasl.herobrines_world_api.api.access.AccessMode;
 import de.niclasl.herobrines_world_api.api.transfer.TransferMode;
 import de.niclasl.herobrines_world_api.registry.HWRegistries;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
@@ -63,9 +63,6 @@ public class SmartChipScreen extends AbstractContainerScreen<SmartChipMenu> {
 
     public SmartChipScreen(SmartChipMenu menu, Inventory inventory, Component title) {
         super(menu, inventory, title);
-
-        this.imageWidth = 176;
-        this.imageHeight = 166;
     }
 
     @Override
@@ -102,7 +99,7 @@ public class SmartChipScreen extends AbstractContainerScreen<SmartChipMenu> {
 
         addRenderableWidget(Button.builder(
                 Component.translatable("gui.herobrines_world.smart_chip.transfer"),
-                b -> {
+                _ -> {
                     saveCurrentInputs();
                     currentTab = Tab.TRANSFER;
                     rebuildTab();
@@ -111,7 +108,7 @@ public class SmartChipScreen extends AbstractContainerScreen<SmartChipMenu> {
 
         addRenderableWidget(Button.builder(
                 Component.translatable("gui.herobrines_world.smart_chip.access"),
-                b -> {
+                _ -> {
                     saveCurrentInputs();
                     currentTab = Tab.ACCESS;
                     rebuildTab();
@@ -151,19 +148,19 @@ public class SmartChipScreen extends AbstractContainerScreen<SmartChipMenu> {
                         Component.translatable(
                                 "gui.herobrines_world.smart_chip.access_mode." + accessMode.id().getPath()
                         )),
-                b -> {
+                _ -> {
                     accessMode = nextAccess(accessMode);
                     updateAccessButtons();
                 }
         ).bounds(this.leftPos + 10, row(0), 160, 20).build());
 
-        addRenderableWidget(Button.builder(Component.literal("-"), b -> adjustBox(tierBox, -1, 10))
+        addRenderableWidget(Button.builder(Component.literal("-"), _ -> adjustBox(tierBox, -1, 10))
                 .bounds(this.leftPos + 10, row(1), 20, 20).build());
         tierBox = new EditBox(this.font, this.leftPos + 35, row(1), 80, 20, Component.literal("Tier"));
         tierBox.setValue(String.valueOf(level));
         addNumberLimiter(tierBox, 0, 10);
         addRenderableWidget(tierBox);
-        addRenderableWidget(Button.builder(Component.literal("+"), b -> adjustBox(tierBox, 1, 10))
+        addRenderableWidget(Button.builder(Component.literal("+"), _ -> adjustBox(tierBox, 1, 10))
                 .bounds(this.leftPos + 120, row(1), 20, 20).build());
 
         ownerBox = new EditBox(this.font, this.leftPos + 10, row(2), 120, 20, Component.literal("Owner UUID"));
@@ -173,7 +170,7 @@ public class SmartChipScreen extends AbstractContainerScreen<SmartChipMenu> {
         addRenderableWidget(ownerBox);
         addRenderableWidget(Button.builder(
                 Component.translatable("gui.herobrines_world.smart_chip.me"),
-                b -> {
+                _ -> {
                     if (minecraft.player != null) {
                         owner = minecraft.player.getUUID();
                         ownerBox.setValue(owner.toString());
@@ -190,45 +187,45 @@ public class SmartChipScreen extends AbstractContainerScreen<SmartChipMenu> {
                     Component.translatable("gui.herobrines_world.smart_chip.transfer_mode",
                             Component.translatable(
                                     "gui.herobrines_world.smart_chip.transfer_mode." + transferMode.id().getPath())),
-                    b -> {
+                    _ -> {
                         transferMode = nextMode(transferMode);
                         updateTransferButtons();
                     }
             ).bounds(this.leftPos + 10, y, 160, 20).build());
             case RANGE -> {
-                addRenderableWidget(Button.builder(Component.literal("-"), b -> adjustBox(rangeBox, -1, 16))
+                addRenderableWidget(Button.builder(Component.literal("-"), _ -> adjustBox(rangeBox, -1, 16))
                         .bounds(this.leftPos + 10, y, 20, 20).build());
                 rangeBox = new EditBox(this.font, this.leftPos + 35, y, 80, 20, Component.literal("Range"));
                 rangeBox.setValue(String.valueOf(range));
                 addNumberLimiter(rangeBox, 4, 16);
                 addRenderableWidget(rangeBox);
-                addRenderableWidget(Button.builder(Component.literal("+"), b -> adjustBox(rangeBox, 1, 16))
+                addRenderableWidget(Button.builder(Component.literal("+"), _ -> adjustBox(rangeBox, 1, 16))
                         .bounds(this.leftPos + 120, y, 20, 20).build());
             }
             case SPEED -> {
-                addRenderableWidget(Button.builder(Component.literal("-"), b -> adjustBox(speedBox, -1, 2))
+                addRenderableWidget(Button.builder(Component.literal("-"), _ -> adjustBox(speedBox, -1, 2))
                         .bounds(this.leftPos + 10, y, 20, 20).build());
                 speedBox = new EditBox(this.font, this.leftPos + 35, y, 80, 20, Component.literal("Speed"));
                 speedBox.setValue(String.valueOf(speed));
                 addNumberLimiter(speedBox, 0, 2);
                 addRenderableWidget(speedBox);
-                addRenderableWidget(Button.builder(Component.literal("+"), b -> adjustBox(speedBox, 1, 2))
+                addRenderableWidget(Button.builder(Component.literal("+"), _ -> adjustBox(speedBox, 1, 2))
                         .bounds(this.leftPos + 120, y, 20, 20).build());
             }
             case KEEP_AMOUNT -> {
-                addRenderableWidget(Button.builder(Component.literal("-"), b -> adjustBox(keepAmountBox, -1, 64))
+                addRenderableWidget(Button.builder(Component.literal("-"), _ -> adjustBox(keepAmountBox, -1, 64))
                         .bounds(this.leftPos + 10, y, 20, 20).build());
                 keepAmountBox = new EditBox(this.font, this.leftPos + 35, y, 80, 20, Component.literal("KeepAmount"));
                 keepAmountBox.setValue(String.valueOf(keepAmount));
                 addNumberLimiter(keepAmountBox, 1, 64);
                 addRenderableWidget(keepAmountBox);
-                addRenderableWidget(Button.builder(Component.literal("+"), b -> adjustBox(keepAmountBox, 1, 64))
+                addRenderableWidget(Button.builder(Component.literal("+"), _ -> adjustBox(keepAmountBox, 1, 64))
                         .bounds(this.leftPos + 120, y, 20, 20).build());
             }
             case VOID_TRASH -> voidTrashButton = addRenderableWidget(Button.builder(
                     Component.translatable("gui.herobrines_world.smart_chip.transfer.void_trash",
                             voidTrash),
-                    b -> {
+                    _ -> {
                         voidTrash = !voidTrash;
                         updateTransferButtons();
                     }
@@ -237,7 +234,7 @@ public class SmartChipScreen extends AbstractContainerScreen<SmartChipMenu> {
     }
 
     private void buildSaveButton() {
-        addRenderableWidget(Button.builder(Component.translatable("gui.herobrines_world.smart_chip.save"), b -> saveAll())
+        addRenderableWidget(Button.builder(Component.translatable("gui.herobrines_world.smart_chip.save"), _ -> saveAll())
                 .bounds(this.leftPos + 10, this.topPos + 135, 160, 20).build());
     }
 
@@ -453,16 +450,10 @@ public class SmartChipScreen extends AbstractContainerScreen<SmartChipMenu> {
     }
 
     @Override
-    protected void renderBg(@NonNull GuiGraphics graphics, float partialTick, int mouseX, int mouseY) {
+    public void extractBackground(@NonNull GuiGraphicsExtractor graphics, int mouseX, int mouseY, float a) {
     }
 
     @Override
-    public void render(@NonNull GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
-        this.renderBackground(graphics, mouseX, mouseY, partialTick);
-        super.render(graphics, mouseX, mouseY, partialTick);
-    }
-
-    @Override
-    protected void renderLabels(@NonNull GuiGraphics graphics, int mouseX, int mouseY) {
+    protected void extractLabels(@NonNull GuiGraphicsExtractor graphics, int xm, int ym) {
     }
 }

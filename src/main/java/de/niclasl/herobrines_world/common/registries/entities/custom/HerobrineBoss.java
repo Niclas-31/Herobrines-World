@@ -49,7 +49,12 @@ public class HerobrineBoss extends Monster {
 	private static final Map<UUID, Set<LivingEntity>> ownerTargets = new HashMap<>();
 
 	private final ServerBossEvent bossBar =
-			new ServerBossEvent(this.getDisplayName(), ServerBossEvent.BossBarColor.RED, ServerBossEvent.BossBarOverlay.NOTCHED_12);
+			new ServerBossEvent(
+					UUID.randomUUID(),
+					this.getDisplayName(),
+					ServerBossEvent.BossBarColor.RED,
+					ServerBossEvent.BossBarOverlay.NOTCHED_12
+			);
 
 	private int phase = 1;
 	private int abilityCooldown = 0;

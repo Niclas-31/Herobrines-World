@@ -62,6 +62,6 @@ public class SoulsBar {
             );
         }
 
-        event.getGuiGraphics().drawString(Minecraft.getInstance().font, String.valueOf(level), w - 53, h - 39, -16777063, false);
+        event.getGuiGraphics().text(Minecraft.getInstance().font, String.valueOf(level), w - 53, h - 39, -16777063, false);
     }
 }

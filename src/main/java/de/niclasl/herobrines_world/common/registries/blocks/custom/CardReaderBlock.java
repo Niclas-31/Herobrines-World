@@ -6,6 +6,7 @@ import de.niclasl.herobrines_world.common.registries.items.custom.KeyCard;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.SimpleMenuProvider;
@@ -79,9 +80,9 @@ public class CardReaderBlock extends BaseEntityBlock {
                 if (access) {
                     level.setBlock(pos, state.setValue(POWERED, true), 3);
 
-                    player.displayClientMessage(Component.translatable("block.herobrines_world.card_reader.access_granted"), true);
+                    ((ServerPlayer) player).sendSystemMessage(Component.translatable("block.herobrines_world.card_reader.access_granted"), true);
                 } else {
-                    player.displayClientMessage(Component.translatable("block.herobrines_world.card_reader.access_denied"), true);
+                    ((ServerPlayer) player).sendSystemMessage(Component.translatable("block.herobrines_world.card_reader.access_denied"), true);
                 }
             }
 
@@ -107,7 +108,7 @@ public class CardReaderBlock extends BaseEntityBlock {
             @NonNull BlockEntityType<T> blockEntityType
     ) {
         if (level.isClientSide()) return null;
-        return (lvl, pos, bs, be) -> {
+        return (_, _, _, be) -> {
             if (be instanceof CardReaderBlockEntity card) {
                 card.tick(level, card);
             }

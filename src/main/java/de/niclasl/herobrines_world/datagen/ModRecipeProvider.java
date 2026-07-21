@@ -1,13 +1,15 @@
 package de.niclasl.herobrines_world.datagen;
 
-import de.niclasl.herobrines_world.HerobrinesWorld;
 import de.niclasl.herobrines_world.common.registries.blocks.ModBlocks;
 import de.niclasl.herobrines_world.common.registries.items.ModItems;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
-import net.minecraft.data.recipes.*;
+import net.minecraft.data.recipes.RecipeCategory;
+import net.minecraft.data.recipes.RecipeOutput;
+import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.crafting.*;
+import net.minecraft.world.item.crafting.CookingBookCategory;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import org.jetbrains.annotations.NotNull;
 
@@ -48,8 +50,8 @@ public class ModRecipeProvider extends RecipeProvider {
         List<ItemLike> PLATIN_SMELTABLES = List.of(ModBlocks.PLATINE_ORE,
                 ModBlocks.DEEPSLATE_PLATIN_ORE);
 
-        oreSmelting(output, ASH_SMELTABLES, RecipeCategory.MISC, ModItems.ASH_INGOT.get(), 0.25f, "ash");
-        oreBlasting(output, ASH_SMELTABLES, ModItems.ASH_INGOT.get(), 0.25f, "ash");
+        oreSmelting(ASH_SMELTABLES, RecipeCategory.MISC, CookingBookCategory.MISC, ModItems.ASH_INGOT.get(), 0.25f, 200, "ash");
+        oreBlasting(ASH_SMELTABLES, RecipeCategory.MISC, CookingBookCategory.MISC, ModItems.ASH_INGOT.get(), 0.25f, 100, "ash");
 
         shaped(RecipeCategory.TOOLS, ModItems.ASH_PICKAXE.get())
                 .pattern("aaa")
@@ -128,7 +130,7 @@ public class ModRecipeProvider extends RecipeProvider {
         stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, ModBlocks.BLUE_SANDSTONE_WALL.get(),
                 ModBlocks.BLUE_SANDSTONE.get());
 
-        oreSmelting(output, SMOOTH_SMELTABLES, RecipeCategory.BUILDING_BLOCKS, ModBlocks.BLUE_SMOOTH_SANDSTONE.get(), 0.5f, "smooth");
+        oreSmelting(SMOOTH_SMELTABLES, RecipeCategory.BUILDING_BLOCKS, CookingBookCategory.BLOCKS, ModBlocks.BLUE_SMOOTH_SANDSTONE.get(), 0.5f, 200, "smooth");
 
         shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.BLUE_SMOOTH_SANDSTONE_SLAB.get(), 6)
                 .pattern("SSS")
@@ -222,8 +224,8 @@ public class ModRecipeProvider extends RecipeProvider {
                 .define('M', Items.MAGMA_BLOCK)
                 .unlockedBy("has_magma", has(Items.MAGMA_BLOCK)).save(output);
 
-        oreSmelting(output, GREEN_SMELTABLES, RecipeCategory.MISC, ModItems.GREEN_GEMSTONE.get(), 0.5f, "green");
-        oreBlasting(output, GREEN_SMELTABLES, ModItems.GREEN_GEMSTONE.get(), 0.5f, "green");
+        oreSmelting(GREEN_SMELTABLES, RecipeCategory.MISC, CookingBookCategory.MISC, ModItems.GREEN_GEMSTONE.get(), 0.5f, 200, "green");
+        oreBlasting(GREEN_SMELTABLES, RecipeCategory.MISC, CookingBookCategory.MISC, ModItems.GREEN_GEMSTONE.get(), 0.5f, 100, "green");
 
         shaped(RecipeCategory.TOOLS, ModItems.HEROBRINE_AXE.get())
                 .pattern("DD")
@@ -257,8 +259,8 @@ public class ModRecipeProvider extends RecipeProvider {
                 .requires(ModBlocks.HEROBRINE_BLOCK.get())
                 .unlockedBy("has_herobrine_block", has(ModBlocks.HEROBRINE_BLOCK)).save(output);
 
-        oreSmelting(output, HEROBRINE_SMELTABLES, RecipeCategory.MISC, ModItems.HEROBRINE_DIAMOND.get(), 0.75f, "herobrine");
-        oreBlasting(output, HEROBRINE_SMELTABLES, ModItems.HEROBRINE_DIAMOND.get(), 0.75f, "herobrine");
+        oreSmelting(HEROBRINE_SMELTABLES, RecipeCategory.MISC, CookingBookCategory.MISC, ModItems.HEROBRINE_DIAMOND.get(), 0.75f, 200, "herobrine");
+        oreBlasting(HEROBRINE_SMELTABLES, RecipeCategory.MISC, CookingBookCategory.MISC, ModItems.HEROBRINE_DIAMOND.get(), 0.75f, 100, "herobrine");
 
         shaped(RecipeCategory.TOOLS, ModItems.HEROBRINE_HELMET.get())
                 .pattern("DDD")
@@ -396,8 +398,8 @@ public class ModRecipeProvider extends RecipeProvider {
                 .define('T', Items.STONE_SLAB)
                 .unlockedBy("has_stone_slab", has(Items.STONE_SLAB)).save(output);
 
-        oreSmelting(output, PLATIN_SMELTABLES, RecipeCategory.MISC, ModItems.PLATIN_INGOT.get(), 0.8f, "platin");
-        oreBlasting(output, PLATIN_SMELTABLES, ModItems.PLATIN_INGOT.get(), 0.8f, "platin");
+        oreSmelting(PLATIN_SMELTABLES, RecipeCategory.MISC, CookingBookCategory.MISC, ModItems.PLATIN_INGOT.get(), 0.8f, 200, "platin");
+        oreBlasting(PLATIN_SMELTABLES, RecipeCategory.MISC, CookingBookCategory.MISC, ModItems.PLATIN_INGOT.get(), 0.8f, 100, "platin");
 
         shaped(RecipeCategory.TOOLS, ModItems.PLATIN_AXE.get())
                 .pattern("PP")
@@ -568,25 +570,5 @@ public class ModRecipeProvider extends RecipeProvider {
                 .requires(Items.REDSTONE)
                 .requires(Items.IRON_NUGGET)
                 .unlockedBy("has_redstone", has(Items.REDSTONE)).save(output);
-    }
-
-    protected void oreSmelting(RecipeOutput recipeOutput, List<ItemLike> pIngredients, RecipeCategory pCategory, ItemLike pResult,
-                               float pExperience, String pGroup) {
-        oreCooking(recipeOutput, RecipeSerializer.SMELTING_RECIPE, SmeltingRecipe::new, pIngredients, pCategory, pResult,
-                pExperience, 200, pGroup, "_from_smelting");
-    }
-
-    protected void oreBlasting(RecipeOutput recipeOutput, List<ItemLike> pIngredients, ItemLike pResult,
-                               float pExperience, String pGroup) {
-        oreCooking(recipeOutput, RecipeSerializer.BLASTING_RECIPE, BlastingRecipe::new, pIngredients, RecipeCategory.MISC, pResult,
-                pExperience, 100, pGroup, "_from_blasting");
-    }
-
-    protected <T extends AbstractCookingRecipe> void oreCooking(RecipeOutput recipeOutput, RecipeSerializer<T> pCookingSerializer, AbstractCookingRecipe.Factory<T> factory,
-                                                                List<ItemLike> pIngredients, RecipeCategory pCategory, ItemLike pResult, float pExperience, int pCookingTime, String pGroup, String pRecipeName) {
-        for(ItemLike itemlike : pIngredients) {
-            SimpleCookingRecipeBuilder.generic(Ingredient.of(itemlike), pCategory, pResult, pExperience, pCookingTime, pCookingSerializer, factory).group(pGroup).unlockedBy(getHasName(itemlike), has(itemlike))
-                    .save(recipeOutput, HerobrinesWorld.MOD_ID + ":" + getItemName(pResult) + pRecipeName + "_" + getItemName(itemlike));
-        }
     }
 }

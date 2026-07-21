@@ -1,10 +1,10 @@
 package de.niclasl.herobrines_world.client.screen;
 
-import de.niclasl.herobrines_world_api.api.leaderboard.RewardEntry;
 import de.niclasl.herobrines_world.common.leaderboard.season.SeasonManager;
 import de.niclasl.herobrines_world.common.network.message.ClaimRewardsPacket;
+import de.niclasl.herobrines_world_api.api.leaderboard.RewardEntry;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
@@ -39,9 +39,7 @@ public class RewardScreen extends Screen {
 
         Button claimAll = addRenderableWidget(
                 Button.builder(
-                        Component.translatable("gui.herobrines_world.rewards.claim_all"),
-                                b -> claimAll()
-                        )
+                        Component.translatable("gui.herobrines_world.rewards.claim_all"), _ -> claimAll())
                         .pos(centerX + 155, this.height - 40)
                         .size(60, 20)
                         .build()
@@ -51,8 +49,8 @@ public class RewardScreen extends Screen {
     }
 
     @Override
-    public void render(@NonNull GuiGraphics gui, int mouseX, int mouseY, float partialTick) {
-        this.renderBackground(gui, mouseX, mouseY, partialTick);
+    public void extractBackground(@NonNull GuiGraphicsExtractor graphics, int mouseX, int mouseY, float a) {
+        super.extractBackground(graphics, mouseX, mouseY, a);
 
         int centerX = width / 2;
 
@@ -62,7 +60,7 @@ public class RewardScreen extends Screen {
         int titleY = 20;
         int entryStartY = 70;
 
-        gui.drawCenteredString(this.font, this.title, centerX, titleY, 0xFFFFFF);
+        graphics.centeredText(this.font, this.title, centerX, titleY, 0xFFFFFF);
 
         int startIndex = scrollOffset;
         int endIndex = Math.min(rewards.size(), startIndex + VISIBLE_ENTRIES);
@@ -73,19 +71,17 @@ public class RewardScreen extends Screen {
 
             int y = entryStartY + ((i - startIndex) * ENTRY_HEIGHT);
 
-            gui.fill(startX - 5, y - 2, startX + tableWidth, y + 12, 0x33000000);
+            graphics.fill(startX - 5, y - 2, startX + tableWidth, y + 12, 0x33000000);
 
             String type = Component.translatable("gui.herobrines_world.rewards." + r.type().id().getPath()).getString();
 
-            gui.drawString(this.font,
+            graphics.text(this.font,
                     type + " x" + r.amount(),
                     startX,
                     y,
                     0xFF00FFAA
             );
         }
-
-        super.render(gui, mouseX, mouseY, partialTick);
     }
 
     private void claimAll() {

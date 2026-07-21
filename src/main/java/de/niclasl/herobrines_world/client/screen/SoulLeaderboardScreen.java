@@ -4,7 +4,7 @@ import de.niclasl.herobrines_world.common.leaderboard.season.SeasonManager;
 import de.niclasl.herobrines_world.common.network.message.RequestRewardsScreenPacket;
 import de.niclasl.herobrines_world_api.api.leaderboard.LeaderboardEntry;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
@@ -42,15 +42,15 @@ public class SoulLeaderboardScreen extends Screen {
 
         Component message = Component.translatable("gui.herobrines_world.soul_leaderboard.rewards");
         addRenderableWidget(
-                Button.builder(message, b -> openRewardsScreen())
+                Button.builder(message, _ -> openRewardsScreen())
                         .bounds(x, y, 100, 20)
                         .build()
         );
     }
 
     @Override
-    public void render(@NonNull GuiGraphics gui, int mouseX, int mouseY, float partialTick) {
-        this.renderBackground(gui, mouseX, mouseY, partialTick);
+    public void extractRenderState(@NonNull GuiGraphicsExtractor graphics, int mouseX, int mouseY, float a) {
+        super.extractRenderState(graphics, mouseX, mouseY, a);
 
         int centerX = width / 2;
 
@@ -61,25 +61,23 @@ public class SoulLeaderboardScreen extends Screen {
         int headerY = 50;
         int entryStartY = 70;
 
-        String season_ends = Component.translatable(
-                "gui.herobrines_world.soul_leaderboard.season_ends_in",
-                getRemainingTime()).getString();
+        String season_ends = Component.translatable("gui.herobrines_world.soul_leaderboard.season_ends_in", getRemainingTime()).getString();
 
         String rankString = Component.translatable("gui.herobrines_world.soul_leaderboard.rank").getString();
         String player = Component.translatable("gui.herobrines_world.soul_leaderboard.player").getString();
         String souls = Component.translatable("gui.herobrines_world.soul_leaderboard.souls").getString();
         String levels = Component.translatable("gui.herobrines_world.soul_leaderboard.levels").getString();
 
-        gui.drawCenteredString(this.font, season_ends, centerX, titleY + 12, 0xFFFFFFFF);
+        graphics.centeredText(this.font, season_ends, centerX, titleY + 12, 0xFFFFFFFF);
 
-        gui.fill(startX - 5, headerY - 4, startX + tableWidth, headerY + 12, 0x88000000);
+        graphics.fill(startX - 5, headerY - 4, startX + tableWidth, headerY + 12, 0x88000000);
 
-        gui.drawString(this.font, rankString, startX, headerY, 0xFFCCCCCC);
-        gui.drawString(this.font, player, startX + 60, headerY, 0xFFCCCCCC);
-        gui.drawString(this.font, souls, startX + 180, headerY, 0xFFCCCCCC);
-        gui.drawString(this.font, levels, startX + 240, headerY, 0xFFCCCCCC);
+        graphics.text(this.font, rankString, startX, headerY, 0xFFCCCCCC);
+        graphics.text(this.font, player, startX + 60, headerY, 0xFFCCCCCC);
+        graphics.text(this.font, souls, startX + 180, headerY, 0xFFCCCCCC);
+        graphics.text(this.font, levels, startX + 240, headerY, 0xFFCCCCCC);
 
-        gui.fill(startX, headerY + 14, startX + tableWidth - 5, headerY + 15, 0xFF444444);
+        graphics.fill(startX, headerY + 14, startX + tableWidth - 5, headerY + 15, 0xFF444444);
 
         int startIndex = scrollOffset;
         int endIndex = Math.min(entries.size(), startIndex + VISIBLE_ENTRIES);
@@ -99,15 +97,13 @@ public class SoulLeaderboardScreen extends Screen {
                 default -> 0xFFFFFFFF;
             };
 
-            gui.fill(startX - 5, y - 2, startX + tableWidth, y + 12, 0x33000000);
+            graphics.fill(startX - 5, y - 2, startX + tableWidth, y + 12, 0x33000000);
 
-            gui.drawString(this.font, "#" + rank, startX, y, rankColor);
-            gui.drawString(this.font, entry.playerName(), startX + 60, y, 0xFFFFFFFF);
-            gui.drawString(this.font, String.valueOf(entry.value()), startX + 180, y, 0xFFFFFFFF);
-            gui.drawString(this.font, String.valueOf(entry.level()), startX + 240, y, 0xFFFFFFFF);
+            graphics.text(this.font, "#" + rank, startX, y, rankColor);
+            graphics.text(this.font, entry.playerName(), startX + 60, y, 0xFFFFFFFF);
+            graphics.text(this.font, String.valueOf(entry.value()), startX + 180, y, 0xFFFFFFFF);
+            graphics.text(this.font, String.valueOf(entry.level()), startX + 240, y, 0xFFFFFFFF);
         }
-
-        super.render(gui, mouseX, mouseY, partialTick);
     }
 
     private void openRewardsScreen() {

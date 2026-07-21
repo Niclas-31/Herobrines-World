@@ -2,13 +2,13 @@ package de.niclasl.herobrines_world.client.screen;
 
 import de.niclasl.herobrines_world.HerobrinesWorld;
 import de.niclasl.herobrines_world.common.registries.menus.AutoFarmerMenu;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Inventory;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 public class AutoFarmerScreen extends AbstractContainerScreen<AutoFarmerMenu> {
 
@@ -16,18 +16,17 @@ public class AutoFarmerScreen extends AbstractContainerScreen<AutoFarmerMenu> {
             Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "textures/gui/container/auto_farmer.png");
 
     public AutoFarmerScreen(AutoFarmerMenu menu, Inventory inventory, Component title) {
-        super(menu, inventory, title);
-
-        this.imageWidth = 198;
-        this.imageHeight = 166;
+        super(menu, inventory, title, 198, 166);
     }
 
     @Override
-    protected void renderBg(@NotNull GuiGraphics guiGraphics, float partialTicks, int mouseX, int mouseY) {
+    public void extractBackground(@NonNull GuiGraphicsExtractor graphics, int mouseX, int mouseY, float a) {
+        super.extractBackground(graphics, mouseX, mouseY, a);
+
         int x = (this.width - this.imageWidth) / 2;
         int y = (this.height - this.imageHeight) / 2;
 
-        guiGraphics.blit(
+        graphics.blit(
                 RenderPipelines.GUI_TEXTURED,
                 TEXTURE,
                 x,
@@ -39,17 +38,5 @@ public class AutoFarmerScreen extends AbstractContainerScreen<AutoFarmerMenu> {
                 256,
                 256
         );
-    }
-
-    @Override
-    public void render(@NotNull GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
-        this.renderBackground(guiGraphics, mouseX, mouseY, partialTicks);
-        super.render(guiGraphics, mouseX, mouseY, partialTicks);
-        this.renderTooltip(guiGraphics, mouseX, mouseY);
-    }
-
-    @Override
-    protected void renderLabels(@NotNull GuiGraphics guiGraphics, int mouseX, int mouseY) {
-        super.renderLabels(guiGraphics, mouseX, mouseY);
     }
 }

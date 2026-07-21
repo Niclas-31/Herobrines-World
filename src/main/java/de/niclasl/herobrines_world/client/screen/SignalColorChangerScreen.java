@@ -1,9 +1,9 @@
 package de.niclasl.herobrines_world.client.screen;
 
 import de.niclasl.herobrines_world.HerobrinesWorld;
-import de.niclasl.herobrines_world.common.registries.menus.SignalColorChangerMenu;
 import de.niclasl.herobrines_world.common.network.message.SyncColorPacket;
-import net.minecraft.client.gui.GuiGraphics;
+import de.niclasl.herobrines_world.common.registries.menus.SignalColorChangerMenu;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.ImageButton;
 import net.minecraft.client.gui.components.WidgetSprites;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
@@ -12,7 +12,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Inventory;
 import net.neoforged.neoforge.client.network.ClientPacketDistributor;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 public class SignalColorChangerScreen extends AbstractContainerScreen<SignalColorChangerMenu> {
     private final int x, y, z;
@@ -23,19 +23,12 @@ public class SignalColorChangerScreen extends AbstractContainerScreen<SignalColo
         this.x = container.x;
 		this.y = container.y;
 		this.z = container.z;
-
-		this.imageWidth = 176;
-		this.imageHeight = 166;
 	}
 
 	@Override
-	public void render(@NotNull GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
-		super.render(guiGraphics, mouseX, mouseY, partialTicks);
-		this.renderTooltip(guiGraphics, mouseX, mouseY);
-	}
+	public void extractBackground(@NonNull GuiGraphicsExtractor graphics, int mouseX, int mouseY, float a) {
+		super.extractBackground(graphics, mouseX, mouseY, a);
 
-	@Override
-	protected void renderBg(@NotNull GuiGraphics guiGraphics, float partialTicks, int mouseX, int mouseY) {
 		Object[][] lamps = {
 				{-105, 56, "red_lamp"}, {-89, 56, "red_lamp_on"},
 				{-63, 56, "yellow_lamp"}, {-48, 56, "yellow_lamp_on"},
@@ -59,13 +52,13 @@ public class SignalColorChangerScreen extends AbstractContainerScreen<SignalColo
 			Identifier texture = Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID,
 					"textures/gui/sprites/container/signal/" + color + ".png");
 
-			guiGraphics.blit(RenderPipelines.GUI_TEXTURED, texture, this.leftPos + x, this.topPos + y,
+			graphics.blit(RenderPipelines.GUI_TEXTURED, texture, this.leftPos + x, this.topPos + y,
 					0, 0, 16, 16, 16, 16);
 		}
 	}
 
-    @Override
-	protected void renderLabels(@NotNull GuiGraphics guiGraphics, int mouseX, int mouseY) {
+	@Override
+	protected void extractLabels(@NonNull GuiGraphicsExtractor graphics, int xm, int ym) {
 	}
 
 	@Override
@@ -101,11 +94,12 @@ public class SignalColorChangerScreen extends AbstractContainerScreen<SignalColo
 					posY,
 					24, 24,
 					new WidgetSprites(texture, texture),
-					e -> ClientPacketDistributor.sendToServer(new SyncColorPacket(buttonID, x, y, z))
+                    _ -> ClientPacketDistributor.sendToServer(new SyncColorPacket(buttonID, x, y, z))
 			) {
 				@Override
-				public void renderContents(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
-					guiGraphics.blit(RenderPipelines.GUI_TEXTURED, texture, posX, posY, 0, 0, 24, 24, 24, 24);
+				public void extractContents(@NonNull GuiGraphicsExtractor graphics, int mouseX, int mouseY, float a) {
+					super.extractContents(graphics, mouseX, mouseY, a);
+					graphics.blit(RenderPipelines.GUI_TEXTURED, texture, posX, posY, 0, 0, 24, 24, 24, 24);
 				}
 			};
 

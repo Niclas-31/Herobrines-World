@@ -1,25 +1,22 @@
 package de.niclasl.herobrines_world.client.screen;
 
+import de.niclasl.herobrines_world.common.network.message.SyncTimePacket;
 import de.niclasl.herobrines_world.common.registries.blocks.entities.DelayerBlockEntity;
 import de.niclasl.herobrines_world.common.registries.menus.DelayerMenu;
-import de.niclasl.herobrines_world.common.network.message.SyncTimePacket;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 import net.neoforged.neoforge.client.network.ClientPacketDistributor;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 public class DelayerScreen extends AbstractContainerScreen<DelayerMenu> {
     private EditBox ticksBox, secondsBox, minutesBox, hoursBox;
 
     public DelayerScreen(DelayerMenu menu, Inventory playerInv, Component title) {
         super(menu, playerInv, title);
-
-        this.imageWidth = 176;
-        this.imageHeight = 166;
     }
 
     @Override
@@ -147,16 +144,10 @@ public class DelayerScreen extends AbstractContainerScreen<DelayerMenu> {
     }
 
     @Override
-    protected void renderBg(@NotNull GuiGraphics guiGraphics, float partialTicks, int mouseX, int mouseY) {
+    public void extractBackground(@NonNull GuiGraphicsExtractor graphics, int mouseX, int mouseY, float a) {
     }
 
     @Override
-    public void render(@NotNull GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
-        this.renderBackground(guiGraphics, mouseX, mouseY, partialTicks);
-        super.render(guiGraphics, mouseX, mouseY, partialTicks);
-    }
-
-    @Override
-    protected void renderLabels(@NotNull GuiGraphics guiGraphics, int mouseX, int mouseY) {
+    protected void extractLabels(@NonNull GuiGraphicsExtractor graphics, int xm, int ym) {
     }
 }

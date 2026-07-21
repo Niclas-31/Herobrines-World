@@ -14,7 +14,6 @@
       "translate": "advancements.herobrines_world.root.descr"
     },
     "icon": {
-      "count": 1,
       "id": "herobrines_world:cursed_stone"
     },
     "show_toast": false,

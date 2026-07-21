@@ -1,5 +1,7 @@
 package de.niclasl.herobrines_world.common.leaderboard.season;
 
+import com.mojang.serialization.Codec;
+import de.niclasl.herobrines_world.HerobrinesWorld;
 import de.niclasl.herobrines_world_api.api.leaderboard.RewardEntry;
 import de.niclasl.herobrines_world_api.api.leaderboard.RewardType;
 import de.niclasl.herobrines_world.common.network.message.SyncClaimStatePacket;
@@ -19,21 +21,20 @@ public class SeasonRewardStorage extends SavedData {
     private final Map<UUID, List<RewardEntry>> rewardsByPlayer = new HashMap<>();
     private final Set<UUID> claimed = new HashSet<>();
 
+    public static final Codec<SeasonRewardStorage> CODEC = CompoundTag.CODEC.xmap(
+            tag -> {
+                SeasonRewardStorage instance = new SeasonRewardStorage();
+                instance.read(tag);
+                return instance;
+            }, instance -> instance.save(new CompoundTag())
+    );
+    public static final SavedDataType<SeasonRewardStorage> TYPE =
+            new SavedDataType<>(
+                    Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "season_reward_storage"),
+                    SeasonRewardStorage::new, CODEC);
+
     public static SeasonRewardStorage get(ServerLevel level) {
-        return level.getDataStorage().computeIfAbsent(
-                new SavedDataType<>(
-                        "season_reward_storage",
-                        ctx -> new SeasonRewardStorage(),
-                        ctx -> CompoundTag.CODEC.xmap(
-                                tag -> {
-                                    SeasonRewardStorage data = new SeasonRewardStorage();
-                                    data.read(tag);
-                                    return data;
-                                },
-                                data -> data.save(new CompoundTag())
-                        )
-                )
-        );
+        return level.getDataStorage().computeIfAbsent(TYPE);
     }
 
     public void read(CompoundTag tag) {

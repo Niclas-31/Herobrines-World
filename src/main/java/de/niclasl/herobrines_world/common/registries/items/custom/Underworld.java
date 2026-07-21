@@ -9,6 +9,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemInstance;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
@@ -79,7 +80,7 @@ public class Underworld extends Item {
 	}
 
 	@Override
-	public boolean canPerformAction(@NonNull ItemStack stack, @NonNull ItemAbility ability) {
+	public boolean canPerformAction(@NonNull ItemInstance stack, @NonNull ItemAbility ability) {
 		return ItemAbilities.DEFAULT_FLINT_ACTIONS.contains(ability);
 	}
 }

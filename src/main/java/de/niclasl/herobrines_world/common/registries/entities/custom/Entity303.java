@@ -26,11 +26,14 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 
 public class Entity303 extends Monster {
 
 	private final ServerBossEvent bossInfo =
-			new ServerBossEvent(this.getDisplayName(),
+			new ServerBossEvent(
+					UUID.randomUUID(),
+					this.getDisplayName(),
 					ServerBossEvent.BossBarColor.RED,
 					ServerBossEvent.BossBarOverlay.NOTCHED_20);
 

@@ -26,7 +26,7 @@ public class ModCreativeModeTabs {
 			CREATIVE_MODE_TAB.register("herobrine_building_blocks",
 					() -> CreativeModeTab.builder()
 							.icon(() -> new ItemStack(ModBlocks.BLUE_SANDSTONE.get()))
-							.title(Component.translatable("item_group.herobrines_world.herobrine_building_blocks"))
+							.title(Component.translatable("itemGroup.herobrine_building_blocks"))
 							.displayItems((parameters, tabData) -> {
 								tabData.accept(ModBlocks.BLUE_SANDSTONE);
 								tabData.accept(ModBlocks.BLUE_SANDSTONE_STAIRS);
@@ -46,7 +46,7 @@ public class ModCreativeModeTabs {
 					() -> CreativeModeTab.builder()
 							.icon(() -> new ItemStack(ModBlocks.SIGNAL.get()))
 							.withTabsBefore(Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "herobrine_building_blocks"))
-							.title(Component.translatable("item_group.herobrines_world.herobrine_colored_blocks"))
+							.title(Component.translatable("itemGroup.herobrine_colored_blocks"))
 							.displayItems((parameters, tabData) -> {
 								for (ColorProperty color : ColorProperty.values()) {
 									tabData.accept(SignalBlock.setModeOnStack(new ItemStack(ModBlocks.SIGNAL.get()), color));
@@ -58,7 +58,7 @@ public class ModCreativeModeTabs {
 					() -> CreativeModeTab.builder()
 							.icon(() -> new ItemStack(ModBlocks.ASH_BLOCK.get()))
 							.withTabsBefore(Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "herobrine_colored_blocks"))
-							.title(Component.translatable("item_group.herobrines_world.herobrine_natural_blocks"))
+							.title(Component.translatable("itemGroup.herobrine_natural_blocks"))
 							.displayItems((parameters, tabData) -> {
 								tabData.accept(ModBlocks.ASH_BLOCK);
 								tabData.accept(ModBlocks.BLUE_SANDSTONE);
@@ -81,7 +81,7 @@ public class ModCreativeModeTabs {
 					() -> CreativeModeTab.builder()
 							.icon(() -> new ItemStack(ModBlocks.LUMBERJACK_TABLE.get()))
 							.withTabsBefore(Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "herobrine_natural_blocks"))
-							.title(Component.translatable("item_group.herobrines_world.herobrine_functional_blocks"))
+							.title(Component.translatable("itemGroup.herobrine_functional_blocks"))
 							.displayItems((parameters, tabData) -> {
 								tabData.accept(ModBlocks.LUMBERJACK_TABLE);
 								for (FarmerMode mode : FarmerMode.values()) {
@@ -94,7 +94,7 @@ public class ModCreativeModeTabs {
 					() -> CreativeModeTab.builder()
 							.icon(() -> new ItemStack(ModBlocks.SIGNAL.get()))
 							.withTabsBefore(Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "herobrine_functional_blocks"))
-							.title(Component.translatable("item_group.herobrines_world.herobrine_redstone_blocks"))
+							.title(Component.translatable("itemGroup.herobrine_redstone_blocks"))
 							.displayItems((parameters, tabData) -> {
 								for (ColorProperty color : ColorProperty.values()) {
 									tabData.accept(SignalBlock.setModeOnStack(new ItemStack(ModBlocks.SIGNAL), color));
@@ -118,7 +118,7 @@ public class ModCreativeModeTabs {
 					() -> CreativeModeTab.builder()
 							.icon(() -> new ItemStack(ModItems.HEROBRINE_PICKAXE.get()))
 							.withTabsBefore(Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "herobrine_redstone_blocks"))
-							.title(Component.translatable("item_group.herobrines_world.herobrine_tools_and_utilities"))
+							.title(Component.translatable("itemGroup.herobrine_tools_and_utilities"))
 							.displayItems((parameters, tabData) -> {
 								tabData.accept(ModItems.ASH_PICKAXE);
 								tabData.accept(ModItems.ORE_DETECTOR);
@@ -148,7 +148,7 @@ public class ModCreativeModeTabs {
 					() -> CreativeModeTab.builder()
 							.icon(() -> new ItemStack(ModItems.PLATIN_SWORD.get()))
 							.withTabsBefore(Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "herobrine_tools_and_utilities"))
-							.title(Component.translatable("item_group.herobrines_world.herobrine_combat"))
+							.title(Component.translatable("itemGroup.herobrine_combat"))
 							.displayItems((parameters, tabData) -> {
 								tabData.accept(ModItems.NATURE_SWORD);
 								tabData.accept(ModItems.FIRE_SWORD);
@@ -181,7 +181,7 @@ public class ModCreativeModeTabs {
 					() -> CreativeModeTab.builder()
 							.icon(() -> new ItemStack(ModItems.ASH_INGOT.get()))
 							.withTabsBefore(Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "herobrine_combat"))
-							.title(Component.translatable("item_group.herobrines_world.herobrine_ingredients"))
+							.title(Component.translatable("itemGroup.herobrine_ingredients"))
 							.displayItems((parameters, tabData) -> {
 								tabData.accept(ModItems.HEROBRINE_DIAMOND);
 								tabData.accept(ModItems.ASH_INGOT);
@@ -195,7 +195,7 @@ public class ModCreativeModeTabs {
 					() -> CreativeModeTab.builder()
 							.icon(() -> new ItemStack(ModItems.GOOD_HEROBRINE_SPAWN_EGG.get()))
 							.withTabsBefore(Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "herobrine_ingredients"))
-							.title(Component.translatable("item_group.herobrines_world.herobrine_spawn_eggs"))
+							.title(Component.translatable("itemGroup.herobrine_spawn_eggs"))
 							.displayItems((parameters, tabData) -> {
 								tabData.accept(ModItems.HEROBRINE_BOSS_SPAWN_EGG);
 								tabData.accept(ModItems.NICLASL_SPAWN_EGG);
@@ -205,7 +205,6 @@ public class ModCreativeModeTabs {
 								tabData.accept(ModItems.CHRISTMAS_NICLASL_SPAWN_EGG);
 							}).build());
 
-	// -------------------- Registrierung --------------------
 	public static void register(IEventBus eventBus) {
 		CREATIVE_MODE_TAB.register(eventBus);
 	}

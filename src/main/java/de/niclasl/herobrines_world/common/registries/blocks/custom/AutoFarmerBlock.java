@@ -7,6 +7,7 @@ import de.niclasl.herobrines_world.common.registries.blocks.properties.FarmerMod
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.entity.player.Player;
@@ -69,10 +70,7 @@ public class AutoFarmerBlock extends BaseEntityBlock {
 
                     level.setBlock(pos, state.setValue(FARMER_MODE, next), 3);
 
-                    player.displayClientMessage(
-                            Component.literal("Mode: " + next.name()),
-                            true
-                    );
+                    ((ServerPlayer) player).sendSystemMessage(Component.literal("Mode: " + next.name()), true);
                 } else {
                     BlockEntity entity = level.getBlockEntity(pos);
                     if (entity instanceof AutoFarmerBlockEntity autoFarmerBlockEntity) {

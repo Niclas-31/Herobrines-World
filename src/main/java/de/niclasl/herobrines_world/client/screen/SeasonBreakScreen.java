@@ -4,7 +4,7 @@ import de.niclasl.herobrines_world.common.leaderboard.season.SeasonManager;
 import de.niclasl.herobrines_world_api.api.leaderboard.LeaderboardAPIHolder;
 import de.niclasl.herobrines_world_api.api.leaderboard.LeaderboardEntry;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.Level;
@@ -37,8 +37,8 @@ public class SeasonBreakScreen extends Screen {
     }
 
     @Override
-    public void render(@NonNull GuiGraphics gui, int mouseX, int mouseY, float partialTick) {
-        this.renderBackground(gui, mouseX, mouseY, partialTick);
+    public void extractRenderState(@NonNull GuiGraphicsExtractor graphics, int mouseX, int mouseY, float a) {
+        super.extractRenderState(graphics, mouseX, mouseY, a);
 
         int centerX = width / 2;
 
@@ -46,19 +46,19 @@ public class SeasonBreakScreen extends Screen {
         String next_season_start = Component.translatable("gui.herobrines_world.season_break.next_season_start").getString();
         String top_3 = Component.translatable("gui.herobrines_world.season_break.top_3").getString();
 
-        gui.drawCenteredString(this.font, season_ended, centerX, 40, 0xFFFFFFFF);
+        graphics.centeredText(this.font, season_ended, centerX, 40, 0xFFFFFFFF);
 
-        gui.drawCenteredString(this.font, next_season_start, centerX, 80, 0xFFCCCCCC);
+        graphics.centeredText(this.font, next_season_start, centerX, 80, 0xFFCCCCCC);
 
-        gui.drawCenteredString(this.font, getRemainingTime(), centerX, 100, 0xFFFFAA00);
+        graphics.centeredText(this.font, getRemainingTime(), centerX, 100, 0xFFFFAA00);
 
         int startY = 130;
 
-        gui.drawCenteredString(font, top_3, centerX, startY, 0xFFFFFF00);
+        graphics.centeredText(this.font, top_3, centerX, startY, 0xFFFFFF00);
 
-        for (int i = 0; i < top3.size(); i++) {
+        for (int i = 0; i < this.top3.size(); i++) {
 
-            LeaderboardEntry entry = top3.get(i);
+            LeaderboardEntry entry = this.top3.get(i);
 
             String text = switch (i) {
                 case 0 -> "🥇 ";
@@ -67,16 +67,14 @@ public class SeasonBreakScreen extends Screen {
                 default -> (i + 1) + ". ";
             } + entry.playerName() + " - " + entry.value();
 
-            gui.drawCenteredString(
-                    font,
+            graphics.centeredText(
+                    this.font,
                     text,
                     centerX,
                     startY + 15 + (i * 12),
                     0xFFFFFFFF
             );
         }
-
-        super.render(gui, mouseX, mouseY, partialTick);
     }
 
     private String getRemainingTime() {
