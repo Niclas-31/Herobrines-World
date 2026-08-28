@@ -1,7 +1,8 @@
 package de.niclasl.herobrines_world.common.registries.commands;
 
 import com.mojang.brigadier.arguments.IntegerArgumentType;
-import de.niclasl.herobrines_world.common.network.ModVariables;
+import de.niclasl.herobrines_world.HerobrinesWorld;
+import de.niclasl.herobrines_world.common.util.database.PlayerData;
 import net.minecraft.commands.Commands;
 import net.minecraft.commands.arguments.EntityArgument;
 import net.minecraft.network.chat.Component;
@@ -10,6 +11,8 @@ import net.minecraft.world.level.Level;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.RegisterCommandsEvent;
+
+import java.sql.SQLException;
 
 @EventBusSubscriber
 public class ThreeHearts {
@@ -23,8 +26,16 @@ public class ThreeHearts {
 								.then(Commands.argument("targets", EntityArgument.players())
 										.executes(ctx -> {
 											for (ServerPlayer player : EntityArgument.getPlayers(ctx, "targets")) {
-												queryHearts(player);
-											}
+                                                try {
+                                                    queryHearts(player);
+                                                } catch (SQLException e) {
+													HerobrinesWorld.LOGGER.error(
+															"Failed to query hearts for player {}",
+															player.getUUID(),
+															e
+													);
+                                                }
+                                            }
 											return 1;
 										})
 								)
@@ -35,8 +46,16 @@ public class ThreeHearts {
 												.executes(ctx -> {
 													int value = IntegerArgumentType.getInteger(ctx, "hearts");
 													for (ServerPlayer player : EntityArgument.getPlayers(ctx, "targets")) {
-														setHearts(player, value);
-													}
+                                                        try {
+                                                            setHearts(player, value);
+                                                        } catch (SQLException e) {
+															HerobrinesWorld.LOGGER.error(
+																	"Failed to update hearts state for {}",
+																	player.getUUID(),
+																	e
+															);
+                                                        }
+                                                    }
 													return 1;
 												})
 										)
@@ -48,8 +67,16 @@ public class ThreeHearts {
 												.executes(ctx -> {
 													int value = IntegerArgumentType.getInteger(ctx, "hearts");
 													for (ServerPlayer player : EntityArgument.getPlayers(ctx, "targets")) {
-														addHearts(player, value);
-													}
+                                                        try {
+                                                            addHearts(player, value);
+                                                        } catch (SQLException e) {
+															HerobrinesWorld.LOGGER.error(
+																	"Failed to update hearts state for {}",
+																	player.getUUID(),
+																	e
+															);
+                                                        }
+                                                    }
 													return 1;
 												})
 										)
@@ -61,8 +88,16 @@ public class ThreeHearts {
 												.executes(ctx -> {
 													int value = IntegerArgumentType.getInteger(ctx, "hearts");
 													for (ServerPlayer player : EntityArgument.getPlayers(ctx, "targets")) {
-														removeHearts(player, value);
-													}
+                                                        try {
+                                                            removeHearts(player, value);
+                                                        } catch (SQLException e) {
+															HerobrinesWorld.LOGGER.error(
+																	"Failed to update hearts state for {}",
+																	player.getUUID(),
+																	e
+															);
+                                                        }
+                                                    }
 													return 1;
 												})
 										)
@@ -72,8 +107,16 @@ public class ThreeHearts {
 								.then(Commands.argument("targets", EntityArgument.players())
 										.executes(ctx -> {
 											for (ServerPlayer player : EntityArgument.getPlayers(ctx, "targets")) {
-												setHearts(player, 3);
-											}
+                                                try {
+                                                    setHearts(player, 3);
+                                                } catch (SQLException e) {
+													HerobrinesWorld.LOGGER.error(
+															"Failed to update hearts state for {}",
+															player.getUUID(),
+															e
+													);
+                                                }
+                                            }
 											return 1;
 										})
 								)
@@ -82,8 +125,16 @@ public class ThreeHearts {
 								.then(Commands.argument("targets", EntityArgument.players())
 										.executes(ctx -> {
 											for (ServerPlayer player : EntityArgument.getPlayers(ctx, "targets")) {
-												revivePlayer(player);
-											}
+                                                try {
+                                                    revivePlayer(player);
+                                                } catch (SQLException e) {
+													HerobrinesWorld.LOGGER.error(
+															"Failed to update hearts state for {}",
+															player.getUUID(),
+															e
+													);
+                                                }
+                                            }
 											return 1;
 										})
 								)
@@ -91,15 +142,31 @@ public class ThreeHearts {
 						.then(Commands.literal("on")
 								.executes(ctx -> {
 									for (ServerPlayer player : ctx.getSource().getServer().getPlayerList().getPlayers()) {
-										setEnabled(player, true);
-									}
+                                        try {
+                                            setEnabled(player, true);
+                                        } catch (SQLException e) {
+											HerobrinesWorld.LOGGER.error(
+													"Failed to update threeHearts state for {}",
+													player.getUUID(),
+													e
+											);
+                                        }
+                                    }
 									return 1;
 								})
 								.then(Commands.argument("targets", EntityArgument.players())
 										.executes(ctx -> {
 											for (ServerPlayer player : EntityArgument.getPlayers(ctx, "targets")) {
-												setEnabled(player, true);
-											}
+                                                try {
+                                                    setEnabled(player, true);
+                                                } catch (SQLException e) {
+													HerobrinesWorld.LOGGER.error(
+															"Failed to update threeHearts state for {}",
+															player.getUUID(),
+															e
+													);
+                                                }
+                                            }
 											return 1;
 										})
 								)
@@ -107,15 +174,31 @@ public class ThreeHearts {
 						.then(Commands.literal("off")
 								.executes(ctx -> {
 									for (ServerPlayer player : ctx.getSource().getServer().getPlayerList().getPlayers()) {
-										setEnabled(player, false);
-									}
+                                        try {
+                                            setEnabled(player, false);
+                                        } catch (SQLException e) {
+											HerobrinesWorld.LOGGER.error(
+													"Failed to update threeHearts state for {}",
+													player.getUUID(),
+													e
+											);
+                                        }
+                                    }
 									return 1;
 								})
 								.then(Commands.argument("targets", EntityArgument.players())
 										.executes(ctx -> {
 											for (ServerPlayer player : EntityArgument.getPlayers(ctx, "targets")) {
-												setEnabled(player, false);
-											}
+                                                try {
+                                                    setEnabled(player, false);
+                                                } catch (SQLException e) {
+													HerobrinesWorld.LOGGER.error(
+															"Failed to update threeHearts state for {}",
+															player.getUUID(),
+															e
+													);
+                                                }
+                                            }
 											return 1;
 										})
 								)
@@ -123,60 +206,60 @@ public class ThreeHearts {
 		);
 	}
 
-	private static void queryHearts(ServerPlayer player) {
-		ModVariables.PlayerVariables vars = player.getData(ModVariables.PLAYER_VARIABLES);
+	private static void queryHearts(ServerPlayer player) throws SQLException {
+		PlayerData data = HerobrinesWorld.DATABASE.getPlayerData(player.getUUID());
 
 		if (isThreeHeartsEnabled(player)) {
 			player.sendSystemMessage(Component.translatable("herobrines_world.configuration.three_hearts.disabled"), true);
 			return;
 		}
-		player.sendSystemMessage(Component.translatable("commands.three_hearts.query", player.getName().getString(), vars.hearts), true);
+		player.sendSystemMessage(Component.translatable("commands.three_hearts.query", player.getName().getString(), data.hearts), true);
 	}
 
-	private static void setHearts(ServerPlayer player, int value) {
-		ModVariables.PlayerVariables vars = player.getData(ModVariables.PLAYER_VARIABLES);
-
-		if (isThreeHeartsEnabled(player)) {
-			player.sendSystemMessage(Component.translatable("herobrines_world.configuration.three_hearts.disabled"), true);
-			return;
-		}
-
-		vars.hearts = value;
-		vars.markSyncDirty(player);
-	}
-
-	private static void addHearts(ServerPlayer player, int value) {
-		ModVariables.PlayerVariables vars = player.getData(ModVariables.PLAYER_VARIABLES);
+	private static void setHearts(ServerPlayer player, int value) throws SQLException {
+		PlayerData data = HerobrinesWorld.DATABASE.getPlayerData(player.getUUID());
 
 		if (isThreeHeartsEnabled(player)) {
 			player.sendSystemMessage(Component.translatable("herobrines_world.configuration.three_hearts.disabled"), true);
 			return;
 		}
 
-		vars.hearts += value;
-		if (vars.hearts > 3) {
-			vars.hearts = 3;
-		}
-		vars.markSyncDirty(player);
+		data.hearts = value;
+		HerobrinesWorld.DATABASE.savePlayerData(data);
 	}
 
-	private static void removeHearts(ServerPlayer player, int value) {
-		ModVariables.PlayerVariables vars = player.getData(ModVariables.PLAYER_VARIABLES);
+	private static void addHearts(ServerPlayer player, int value) throws SQLException {
+		PlayerData data = HerobrinesWorld.DATABASE.getPlayerData(player.getUUID());
 
 		if (isThreeHeartsEnabled(player)) {
 			player.sendSystemMessage(Component.translatable("herobrines_world.configuration.three_hearts.disabled"), true);
 			return;
 		}
 
-		vars.hearts -= value;
-		if (vars.hearts < 0) {
-			vars.hearts = 0;
+		data.hearts += value;
+		if (data.hearts > 3) {
+			data.hearts = 3;
 		}
-		vars.markSyncDirty(player);
+		HerobrinesWorld.DATABASE.savePlayerData(data);
 	}
 
-	private static void revivePlayer(ServerPlayer player) {
-		ModVariables.PlayerVariables vars = player.getData(ModVariables.PLAYER_VARIABLES);
+	private static void removeHearts(ServerPlayer player, int value) throws SQLException {
+		PlayerData data = HerobrinesWorld.DATABASE.getPlayerData(player.getUUID());
+
+		if (isThreeHeartsEnabled(player)) {
+			player.sendSystemMessage(Component.translatable("herobrines_world.configuration.three_hearts.disabled"), true);
+			return;
+		}
+
+		data.hearts -= value;
+		if (data.hearts < 0) {
+			data.hearts = 0;
+		}
+		HerobrinesWorld.DATABASE.savePlayerData(data);
+	}
+
+	private static void revivePlayer(ServerPlayer player) throws SQLException {
+		PlayerData data = HerobrinesWorld.DATABASE.getPlayerData(player.getUUID());
 
 		if (isThreeHeartsEnabled(player)) {
 			player.sendSystemMessage(Component.translatable("herobrines_world.configuration.three_hearts.disabled"), true);
@@ -187,29 +270,29 @@ public class ThreeHearts {
 
 		player.setHealth(1.0f);
 
-		vars.hearts = 3;
-		vars.markSyncDirty(player);
+		data.hearts = 3;
+		HerobrinesWorld.DATABASE.savePlayerData(data);
 
 		ServerPlayer.RespawnConfig config = new ServerPlayer.RespawnConfig(level.getLevelData().getRespawnData(), true);
 
 		player.setRespawnPosition(config, true);
 	}
 
-	private static boolean isThreeHeartsEnabled(ServerPlayer player) {
-		ModVariables.PlayerVariables vars = player.getData(ModVariables.PLAYER_VARIABLES);
+	private static boolean isThreeHeartsEnabled(ServerPlayer player) throws SQLException {
+		PlayerData data = HerobrinesWorld.DATABASE.getPlayerData(player.getUUID());
 
 		if (player.level().getLevelData().isHardcore()) return false;
 
-        return !vars.threeHearts;
+        return !data.threeHearts;
 	}
 
-	private static void setEnabled(ServerPlayer player, boolean enabled) {
-		ModVariables.PlayerVariables vars = player.getData(ModVariables.PLAYER_VARIABLES);
+	private static void setEnabled(ServerPlayer player, boolean enabled) throws SQLException {
+		PlayerData data = HerobrinesWorld.DATABASE.getPlayerData(player.getUUID());
 
 		if (player.level().getLevelData().isHardcore()) return;
 
-		vars.threeHearts = enabled;
-		vars.markSyncDirty(player);
+		data.threeHearts = enabled;
+		HerobrinesWorld.DATABASE.savePlayerData(data);
 
 		player.sendSystemMessage(
 				Component.translatable("commands.three_hearts.enabled", enabled ? "enabled" : "disabled"),
