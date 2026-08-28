@@ -1,8 +1,8 @@
 package de.niclasl.herobrines_world.common.network.message;
 
 import de.niclasl.herobrines_world.HerobrinesWorld;
-import de.niclasl.herobrines_world_api.api.leaderboard.RewardEntry;
-import de.niclasl.herobrines_world_api.api.leaderboard.RewardType;
+import de.niclasl.herobrines_world_api.leaderboard.RewardEntry;
+import de.niclasl.herobrines_world_api.leaderboard.RewardType;
 import de.niclasl.herobrines_world.client.ClientHandler;
 import de.niclasl.herobrines_world_api.registry.HWRegistries;
 import net.minecraft.network.RegistryFriendlyByteBuf;

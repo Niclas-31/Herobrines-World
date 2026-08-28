@@ -1,7 +1,7 @@
 package de.niclasl.herobrines_world.common.leaderboard;
 
-import de.niclasl.herobrines_world_api.api.leaderboard.LeaderboardAPI;
-import de.niclasl.herobrines_world_api.api.leaderboard.LeaderboardEntry;
+import de.niclasl.herobrines_world_api.leaderboard.LeaderboardAPI;
+import de.niclasl.herobrines_world_api.leaderboard.LeaderboardEntry;
 import net.neoforged.neoforge.server.ServerLifecycleHooks;
 
 import java.util.List;

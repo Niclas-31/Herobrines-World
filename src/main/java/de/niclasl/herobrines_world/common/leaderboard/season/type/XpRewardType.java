@@ -1,9 +1,9 @@
 package de.niclasl.herobrines_world.common.leaderboard.season.type;
 
 import de.niclasl.herobrines_world.HerobrinesWorld;
-import de.niclasl.herobrines_world_api.api.leaderboard.RewardContext;
-import de.niclasl.herobrines_world_api.api.leaderboard.RewardEntry;
-import de.niclasl.herobrines_world_api.api.leaderboard.RewardType;
+import de.niclasl.herobrines_world_api.leaderboard.RewardContext;
+import de.niclasl.herobrines_world_api.leaderboard.RewardEntry;
+import de.niclasl.herobrines_world_api.leaderboard.RewardType;
 import net.minecraft.resources.Identifier;
 import org.jspecify.annotations.NonNull;
 

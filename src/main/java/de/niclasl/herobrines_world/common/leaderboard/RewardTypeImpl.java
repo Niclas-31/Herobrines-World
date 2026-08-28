@@ -2,7 +2,7 @@ package de.niclasl.herobrines_world.common.leaderboard;
 
 import de.niclasl.herobrines_world.HerobrinesWorld;
 import de.niclasl.herobrines_world.common.leaderboard.season.type.*;
-import de.niclasl.herobrines_world_api.api.leaderboard.RewardType;
+import de.niclasl.herobrines_world_api.leaderboard.RewardType;
 import de.niclasl.herobrines_world_api.registry.HWRegistries;
 import net.minecraft.resources.Identifier;
 
@@ -31,7 +31,7 @@ public class RewardTypeImpl {
             }
         }
 
-        HWRegistries.REWARD_TYPES.put(id, mode);
+        HWRegistries.REWARD_TYPES.register(id, mode);
     }
 
     private static Identifier id(String path) {

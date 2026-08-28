@@ -73,6 +73,7 @@ public class ModTags {
         public static final TagKey<Biome> IS_ALL_BIOMES = createTag("is_all_biomes");
 
         public static final TagKey<Biome> HAS_ASH_DESERT_PYRAMID = createTag("has_structure/ash_desert_pyramid");
+        public static final TagKey<Biome> HAS_CURSED_WELL = createTag("has_structure/cursed_well");
 
         private static TagKey<Biome> createTag(String name) {
             return TagKey.create(Registries.BIOME, Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, name));

@@ -13,11 +13,13 @@ import net.neoforged.neoforge.event.level.LevelEvent;
 import net.neoforged.neoforge.event.tick.LevelTickEvent;
 import net.neoforged.neoforge.network.PacketDistributor;
 
+import java.sql.SQLException;
+
 @EventBusSubscriber
 public class SeasonEvents {
 
     @SubscribeEvent
-    public static void onWorldTick(LevelTickEvent.Post event) {
+    public static void onWorldTick(LevelTickEvent.Post event) throws SQLException {
         if (event.getLevel() instanceof ServerLevel level) {
             SeasonManager.tick(level);
         }

@@ -1,8 +1,8 @@
 package de.niclasl.herobrines_world.client.screen;
 
 import de.niclasl.herobrines_world.common.leaderboard.season.SeasonManager;
-import de.niclasl.herobrines_world_api.api.leaderboard.LeaderboardAPIHolder;
-import de.niclasl.herobrines_world_api.api.leaderboard.LeaderboardEntry;
+import de.niclasl.herobrines_world_api.leaderboard.LeaderboardAPIHolder;
+import de.niclasl.herobrines_world_api.leaderboard.LeaderboardEntry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.Screen;

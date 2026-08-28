@@ -4,8 +4,8 @@ import de.niclasl.herobrines_world.common.network.transfer.wrapper.CombinedChest
 import de.niclasl.herobrines_world.common.network.transfer.wrapper.SingleInventoryWrapper;
 import de.niclasl.herobrines_world.common.registries.blocks.entities.AutoFarmerBlockEntity;
 import de.niclasl.herobrines_world.common.registries.blocks.entities.StorageControllerBlockEntity;
-import de.niclasl.herobrines_world_api.api.transfer.TransferMode;
-import de.niclasl.herobrines_world_api.api.transfer.wrapper.InventoryWrapper;
+import de.niclasl.herobrines_world_api.transfer.TransferMode;
+import de.niclasl.herobrines_world_api.transfer.wrapper.InventoryWrapper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.Container;

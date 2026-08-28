@@ -2,8 +2,8 @@ package de.niclasl.herobrines_world.common.network.transfer.resolver;
 
 import de.niclasl.herobrines_world.common.network.transfer.wrapper.EmptyInventoryWrapper;
 import de.niclasl.herobrines_world.common.network.transfer.wrapper.StorageControllerInventoryWrapper;
-import de.niclasl.herobrines_world_api.api.transfer.resolver.InventoryResolver;
-import de.niclasl.herobrines_world_api.api.transfer.wrapper.InventoryWrapper;
+import de.niclasl.herobrines_world_api.transfer.resolver.InventoryResolver;
+import de.niclasl.herobrines_world_api.transfer.wrapper.InventoryWrapper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;

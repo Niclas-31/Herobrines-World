@@ -8,9 +8,9 @@ import de.niclasl.herobrines_world.common.registries.components.ModDataComponent
 import de.niclasl.herobrines_world.common.registries.components.SmartChipData;
 import de.niclasl.herobrines_world.common.registries.items.custom.BatteryItem;
 import de.niclasl.herobrines_world.common.registries.menus.AutoFarmerMenu;
-import de.niclasl.herobrines_world_api.api.transfer.TransferAPI;
-import de.niclasl.herobrines_world_api.api.transfer.resolver.InventoryResolver;
-import de.niclasl.herobrines_world_api.api.transfer.wrapper.InventoryWrapper;
+import de.niclasl.herobrines_world_api.transfer.TransferAPI;
+import de.niclasl.herobrines_world_api.transfer.resolver.InventoryResolver;
+import de.niclasl.herobrines_world_api.transfer.wrapper.InventoryWrapper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;

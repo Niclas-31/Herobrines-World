@@ -82,11 +82,6 @@ public class ModMessage {
                 ModVariables.SavedDataSyncMessage::handle
         );
         registrar.playToClient(
-                ModVariables.PlayerVariablesSyncMessage.TYPE,
-                ModVariables.PlayerVariablesSyncMessage.STREAM_CODEC,
-                ModVariables.PlayerVariablesSyncMessage::handle
-        );
-        registrar.playToClient(
                 SyncClaimStatePacket.TYPE,
                 SyncClaimStatePacket.STREAM_CODEC,
                 SyncClaimStatePacket::handleSyncClaimState

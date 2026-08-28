@@ -3,7 +3,7 @@ package de.niclasl.herobrines_world.common.network.message;
 import de.niclasl.herobrines_world.HerobrinesWorld;
 import de.niclasl.herobrines_world.common.leaderboard.season.SeasonManager;
 import de.niclasl.herobrines_world.common.leaderboard.season.SeasonRewardStorage;
-import de.niclasl.herobrines_world_api.api.leaderboard.RewardEntry;
+import de.niclasl.herobrines_world_api.leaderboard.RewardEntry;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
@@ -14,6 +14,7 @@ import net.neoforged.neoforge.network.PacketDistributor;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 import org.jspecify.annotations.NonNull;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public record RequestRewardsScreenPacket() implements CustomPacketPayload {
@@ -47,10 +48,18 @@ public record RequestRewardsScreenPacket() implements CustomPacketPayload {
             SeasonRewardStorage storage =
                     SeasonRewardStorage.get(level);
 
-            List<RewardEntry> rewards;
+            List<RewardEntry> rewards = List.of();
 
             if (SeasonManager.isSeasonActive(level)) {
-                rewards = SeasonManager.getPreviewRewards(player, level);
+                try {
+                    rewards = SeasonManager.getPreviewRewards(player, level);
+                } catch (SQLException e) {
+                    HerobrinesWorld.LOGGER.error(
+                            "Failed to get Preview Rewards for {}",
+                            player.getUUID(),
+                            e
+                    );
+                }
             } else {
                 rewards = storage.getRewards(player.getUUID());
             }

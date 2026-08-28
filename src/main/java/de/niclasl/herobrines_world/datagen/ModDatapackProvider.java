@@ -4,15 +4,17 @@ import de.niclasl.herobrines_world.HerobrinesWorld;
 import de.niclasl.herobrines_world.common.registries.enchantments.ModEnchantments;
 import de.niclasl.herobrines_world.common.registries.villagers.ModTradeSets;
 import de.niclasl.herobrines_world.common.registries.villagers.ModVillagerTrades;
+import de.niclasl.herobrines_world.common.util.clock.ModTimelines;
+import de.niclasl.herobrines_world.common.util.clock.ModWorldClocks;
 import de.niclasl.herobrines_world.common.worldgen.ModBiomeModifiers;
 import de.niclasl.herobrines_world.common.worldgen.ModConfiguredFeatures;
 import de.niclasl.herobrines_world.common.worldgen.ModPlacedFeatures;
-import de.niclasl.herobrines_world.common.worldgen.biome.data.ModBiomeData;
-import de.niclasl.herobrines_world.common.worldgen.dimension.ModDimensions;
-import de.niclasl.herobrines_world.common.worldgen.dimension.noise.data.ModNoiseData;
-import de.niclasl.herobrines_world.common.worldgen.dimension.noise.generator.ModNoiseGeneratorSettings;
-import de.niclasl.herobrines_world.common.worldgen.structure.ModStructureSets;
-import de.niclasl.herobrines_world.common.worldgen.structure.ModStructures;
+import de.niclasl.herobrines_world.common.world.biome.data.ModBiomeData;
+import de.niclasl.herobrines_world.common.world.ModDimensions;
+import de.niclasl.herobrines_world.common.world.noise.data.ModNoiseData;
+import de.niclasl.herobrines_world.common.world.noise.generator.ModNoiseGeneratorSettings;
+import de.niclasl.herobrines_world.common.structure.ModStructureSets;
+import de.niclasl.herobrines_world.common.structure.ModStructures;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;
@@ -36,6 +38,8 @@ public class ModDatapackProvider extends DatapackBuiltinEntriesProvider {
             .add(Registries.ENCHANTMENT, ModEnchantments::bootstrap)
             .add(Registries.LEVEL_STEM, ModDimensions::bootstrapStem)
             .add(NeoForgeRegistries.Keys.BIOME_MODIFIERS, ModBiomeModifiers::bootstrap)
+            .add(Registries.WORLD_CLOCK, ModWorldClocks::bootstrap)
+            .add(Registries.TIMELINE, ModTimelines::bootstrap)
             .add(Registries.VILLAGER_TRADE, ModVillagerTrades::bootstrap)
             .add(Registries.TRADE_SET, ModTradeSets::bootstrap);
 

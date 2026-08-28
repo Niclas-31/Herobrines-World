@@ -2,8 +2,8 @@ package de.niclasl.herobrines_world.client.screen;
 
 import de.niclasl.herobrines_world.common.network.message.SyncChipPacket;
 import de.niclasl.herobrines_world.common.registries.menus.SmartChipMenu;
-import de.niclasl.herobrines_world_api.api.access.AccessMode;
-import de.niclasl.herobrines_world_api.api.transfer.TransferMode;
+import de.niclasl.herobrines_world_api.access.AccessMode;
+import de.niclasl.herobrines_world_api.transfer.TransferMode;
 import de.niclasl.herobrines_world_api.registry.HWRegistries;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;

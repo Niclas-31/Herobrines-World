@@ -1,7 +1,8 @@
 package de.niclasl.herobrines_world.common.registries.enchantments.custom;
 
 import com.mojang.serialization.MapCodec;
-import de.niclasl.herobrines_world.common.network.ModVariables;
+import de.niclasl.herobrines_world.HerobrinesWorld;
+import de.niclasl.herobrines_world.common.util.database.PlayerData;
 import de.niclasl.herobrines_world.common.util.math.SoulMath;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
@@ -13,6 +14,8 @@ import net.minecraft.world.item.enchantment.EnchantedItemInUse;
 import net.minecraft.world.item.enchantment.effects.EnchantmentEntityEffect;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
+
+import java.sql.SQLException;
 
 public record HerobrineEnchantmentEffect() implements EnchantmentEntityEffect {
     public static final MapCodec<HerobrineEnchantmentEffect> CODEC = MapCodec.unit(HerobrineEnchantmentEffect::new);
@@ -30,8 +33,13 @@ public record HerobrineEnchantmentEffect() implements EnchantmentEntityEffect {
             return;
         }
 
-        ModVariables.PlayerVariables vars =
-                player.getData(ModVariables.PLAYER_VARIABLES);
+        PlayerData data;
+
+        try {
+            data = HerobrinesWorld.DATABASE.getPlayerData(player.getUUID());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
         int cost = switch (enchantmentLevel) {
             case 2 -> 2;
@@ -40,49 +48,57 @@ public record HerobrineEnchantmentEffect() implements EnchantmentEntityEffect {
             default -> 1;
         };
 
-        if (!tryConsumeSoul(player, vars, cost)) {
-            return;
-        }
+        try {
+            if (!tryConsumeSoul(player, data, cost)) {
+                return;
+            }
 
-        for (int i = 0; i < enchantmentLevel; i++) {
-            EntityType.LIGHTNING_BOLT.spawn(
-                    level,
-                    entity.getOnPos(),
-                    EntitySpawnReason.TRIGGERED
+            for (int i = 0; i < enchantmentLevel; i++) {
+                EntityType.LIGHTNING_BOLT.spawn(
+                        level,
+                        entity.getOnPos(),
+                        EntitySpawnReason.TRIGGERED
+                );
+            }
+        } catch (SQLException e) {
+            HerobrinesWorld.LOGGER.error(
+                    "Failed to update souls and soulLevel state for {}",
+                    player.getUUID(),
+                    e
             );
         }
     }
 
     private static boolean tryConsumeSoul(ServerPlayer player,
-                                          ModVariables.PlayerVariables vars,
-                                          int cost) {
+                                          PlayerData data,
+                                          int cost) throws SQLException {
 
-        if (vars.soulLevel >= SoulMath.HARD_CAP) {
+        if (cost < 0) {
             return false;
         }
 
-        if (vars.souls < cost && vars.soulLevel == 0) {
+        if (data.souls < cost) {
             player.sendSystemMessage(
                     Component.literal("§cNot enough Souls!")
             );
             return false;
         }
 
-        vars.souls -= cost;
+        data.souls -= cost;
 
-        while (vars.soulLevel < SoulMath.HARD_CAP
-                && vars.souls < 0) {
+        while (data.soulLevel < SoulMath.HARD_CAP
+                && data.souls < 0) {
 
-            vars.soulLevel--;
-            vars.souls += SoulMath.getXPForLevel(vars.soulLevel);
+            data.soulLevel--;
+            data.souls += SoulMath.getXPForLevel(data.soulLevel);
         }
 
-        if (vars.soulLevel < 0) {
-            vars.soulLevel = 0;
-            vars.souls = 0;
+        if (data.soulLevel < 0) {
+            data.soulLevel = 0;
+            data.souls = 0;
         }
 
-        vars.markSyncDirty(player);
+        HerobrinesWorld.DATABASE.savePlayerData(data);
         return true;
     }
 

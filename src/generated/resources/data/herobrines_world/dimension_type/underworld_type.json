@@ -23,6 +23,7 @@
   },
   "cardinal_light": "nether",
   "coordinate_scale": 8.0,
+  "default_clock": "herobrines_world:underworld",
   "has_ceiling": true,
   "has_ender_dragon_fight": false,
   "has_fixed_time": true,

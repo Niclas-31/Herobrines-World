@@ -1,12 +1,7 @@
 {
     "pack": {
-        "description": "",
-        "min_format":75,
-        "max_format":94,
-        "supported_formats": {
-            "min_inclusive":75,
-            "max_inclusive":94
-        },
-        "pack_format":94
+        "description": "Herobrines Datapack & Resource Pack",
+        "min_format": [84, 0],
+        "max_format": [101, 0]
     }
 }

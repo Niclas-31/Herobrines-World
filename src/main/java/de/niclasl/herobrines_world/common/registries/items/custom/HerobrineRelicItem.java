@@ -3,7 +3,7 @@ package de.niclasl.herobrines_world.common.registries.items.custom;
 import de.niclasl.herobrines_world.common.registries.components.ModDataComponents;
 import de.niclasl.herobrines_world.common.registries.components.RelicData;
 import de.niclasl.herobrines_world.common.registries.entities.ModEntities;
-import de.niclasl.herobrines_world.common.registries.entities.custom.HerobrineBoss;
+import de.niclasl.herobrines_world.common.boss.entity.HerobrineBoss;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;

@@ -1,11 +1,14 @@
 package de.niclasl.herobrines_world.client;
 
 import de.niclasl.herobrines_world.HerobrinesWorld;
+import de.niclasl.herobrines_world.client.renderer.entity.RedCrystalRenderer;
+import de.niclasl.herobrines_world.client.renderer.entity.model.RedCrystalModel;
 import de.niclasl.herobrines_world.client.screen.*;
 import de.niclasl.herobrines_world.common.registries.blocks.entities.ModBlockEntities;
 import de.niclasl.herobrines_world.client.renderer.block.BatteryChargerRenderer;
 import de.niclasl.herobrines_world.client.renderer.block.DelayerRenderer;
 import de.niclasl.herobrines_world.client.renderer.block.LogicGateBlockEntityRenderer;
+import de.niclasl.herobrines_world.common.registries.entities.ModEntities;
 import de.niclasl.herobrines_world.common.registries.menus.ModMenuTypes;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -26,6 +29,7 @@ public class HerobrinesWorldClient {
 
     @SubscribeEvent
     public static void registerBER(EntityRenderersEvent.RegisterRenderers event) {
+        event.registerEntityRenderer(ModEntities.RED_CRYSTAL.get(), RedCrystalRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.DELAYER.get(), DelayerRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.LOGIC_GATE_BLOCK.get(), LogicGateBlockEntityRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.BATTERY_CHARGER.get(), BatteryChargerRenderer::new);
@@ -40,5 +44,13 @@ public class HerobrinesWorldClient {
         event.register(ModMenuTypes.SMART_CHIP.get(), SmartChipScreen::new);
         event.register(ModMenuTypes.STORAGE_CONTROLLER.get(), StorageControllerScreen::new);
         event.register(ModMenuTypes.CARD_READER.get(), CardReaderScreen::new);
+    }
+
+    @SubscribeEvent
+    public static void registerLayerDefinition(EntityRenderersEvent.RegisterLayerDefinitions event) {
+        event.registerLayerDefinition(
+                ModModelLayers.RED_CRYSTAL,
+                RedCrystalModel::createBodyLayer
+        );
     }
 }

@@ -2,7 +2,7 @@ package de.niclasl.herobrines_world.client.screen;
 
 import de.niclasl.herobrines_world.common.leaderboard.season.SeasonManager;
 import de.niclasl.herobrines_world.common.network.message.ClaimRewardsPacket;
-import de.niclasl.herobrines_world_api.api.leaderboard.RewardEntry;
+import de.niclasl.herobrines_world_api.leaderboard.RewardEntry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;

@@ -4,6 +4,7 @@ import de.niclasl.herobrines_world.HerobrinesWorld;
 import de.niclasl.herobrines_world.common.registries.components.ModDataComponents;
 import de.niclasl.herobrines_world.common.registries.entities.ModEntities;
 import de.niclasl.herobrines_world.common.registries.items.custom.*;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.equipment.ArmorType;
 import net.neoforged.bus.api.IEventBus;
@@ -283,6 +284,11 @@ public class ModItems {
 	public static final DeferredItem<Item> KEY_CARD = ITEMS.registerItem(
 			"key_card",
 			(properties) -> new KeyCard(properties.rarity(Rarity.EPIC).stacksTo(1))
+	);
+
+	public static final DeferredItem<Item> RED_CRYSTAL = ITEMS.registerItem(
+			"red_crystal",
+			(properties) -> new RedCrystalItem(properties.component(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true))
 	);
 
 	public static void register(IEventBus eventBus) {

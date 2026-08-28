@@ -2,7 +2,7 @@ package de.niclasl.herobrines_world.datagen.tags;
 
 import de.niclasl.herobrines_world.HerobrinesWorld;
 import de.niclasl.herobrines_world.common.util.ModTags;
-import de.niclasl.herobrines_world.common.worldgen.biome.ModBiomes;
+import de.niclasl.herobrines_world.common.world.biome.ModBiomes;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.BiomeTagsProvider;
@@ -48,6 +48,8 @@ public class ModBiomeTagProvider extends BiomeTagsProvider {
 
         tag(ModTags.Biomes.HAS_ASH_DESERT_PYRAMID)
                 .add(ModBiomes.ASH_DESERT);
+        tag(ModTags.Biomes.HAS_CURSED_WELL)
+                .add(ModBiomes.CURSED_FOREST);
 
         tag(BiomeTags.HAS_VILLAGE_SNOWY)
                 .add(ModBiomes.FROZEN_FOREST);

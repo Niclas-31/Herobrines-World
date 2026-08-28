@@ -33,8 +33,7 @@ public class Waypoints {
 
         if (!stack.is(ModItems.WAYPOINT_COMPASS.get())) return;
 
-        List<SavedWaypoint> waypoints =
-                stack.get(ModDataComponents.WAYPOINTS.get());
+        List<SavedWaypoint> waypoints = stack.get(ModDataComponents.WAYPOINTS.get());
 
         UUID selected = stack.get(ModDataComponents.SELECTED_WAYPOINT.get());
 
@@ -53,7 +52,6 @@ public class Waypoints {
     }
 
     private static void renderWaypoint(GuiGraphicsExtractor gui, Minecraft mc, SavedWaypoint wp) {
-
         Camera cam = mc.gameRenderer.getMainCamera();
 
         Vec3 camPos = cam.position();
@@ -86,7 +84,17 @@ public class Waypoints {
         assert mc.player != null;
         double dist = mc.player.distanceToSqr(Vec3.atCenterOf(wp.pos()));
 
-        String text = wp.name() + " " + (int)Math.sqrt(dist) + "m";
+        double distance = Math.sqrt(dist);
+
+        String distanceText;
+
+        if (distance >= 1_000) {
+            distanceText = String.format("%.1f km", distance / 1_000);
+        } else {
+            distanceText = (int) distance + " m";
+        }
+
+        String text = wp.name() + " " + distanceText;
 
         gui.fill(screenX - 3, screenY - 3, screenX + 3, screenY + 3, 0xFFFFFFFF);
 

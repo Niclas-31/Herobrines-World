@@ -216,7 +216,7 @@ public class WaypointScreen extends Screen {
     public void extractRenderState(@NonNull GuiGraphicsExtractor graphics, int mouseX, int mouseY, float a) {
         super.extractRenderState(graphics, mouseX, mouseY, a);
 
-        graphics.text(this.font, this.title, this.width / 2, 15, 0xFFFFFFFF);
+        graphics.centeredText(this.font, this.title, this.width / 2, 15, 0xFFFFFFFF);
     }
 
     @Override

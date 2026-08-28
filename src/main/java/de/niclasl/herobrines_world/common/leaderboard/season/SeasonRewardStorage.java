@@ -2,8 +2,8 @@ package de.niclasl.herobrines_world.common.leaderboard.season;
 
 import com.mojang.serialization.Codec;
 import de.niclasl.herobrines_world.HerobrinesWorld;
-import de.niclasl.herobrines_world_api.api.leaderboard.RewardEntry;
-import de.niclasl.herobrines_world_api.api.leaderboard.RewardType;
+import de.niclasl.herobrines_world_api.leaderboard.RewardEntry;
+import de.niclasl.herobrines_world_api.leaderboard.RewardType;
 import de.niclasl.herobrines_world.common.network.message.SyncClaimStatePacket;
 import de.niclasl.herobrines_world_api.registry.HWRegistries;
 import net.minecraft.nbt.CompoundTag;

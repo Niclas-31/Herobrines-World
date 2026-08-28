@@ -1,12 +1,15 @@
 package de.niclasl.herobrines_world.common.leaderboard.season;
 
-import de.niclasl.herobrines_world_api.api.leaderboard.LeaderboardEntry;
-import de.niclasl.herobrines_world_api.api.leaderboard.RewardEntry;
+import de.niclasl.herobrines_world.HerobrinesWorld;
 import de.niclasl.herobrines_world.common.network.ModVariables;
+import de.niclasl.herobrines_world.common.util.database.PlayerData;
+import de.niclasl.herobrines_world_api.leaderboard.LeaderboardEntry;
+import de.niclasl.herobrines_world_api.leaderboard.RewardEntry;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.LevelAccessor;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -32,7 +35,7 @@ public class SeasonManager {
         data.markSyncDirty();
     }
 
-    public static void tick(ServerLevel level) {
+    public static void tick(ServerLevel level) throws SQLException {
 
         var data = ModVariables.MapVariables.get(level);
 
@@ -91,7 +94,7 @@ public class SeasonManager {
         }
     }
 
-    public static List<LeaderboardEntry> getLeaderboard(ServerLevel level) {
+    public static List<LeaderboardEntry> getLeaderboard(ServerLevel level) throws SQLException {
         var data = ModVariables.MapVariables.get(level);
 
         if (isSeasonActive(level)) {
@@ -101,15 +104,15 @@ public class SeasonManager {
         return data.frozenLeaderboard;
     }
 
-    public static List<LeaderboardEntry> buildLeaderboard(ServerLevel serverLevel) {
+    public static List<LeaderboardEntry> buildLeaderboard(ServerLevel serverLevel) throws SQLException {
         List<ServerPlayer> players = serverLevel.getServer().getPlayerList().getPlayers();
 
         List<LeaderboardEntry> entries = new ArrayList<>();
 
         for (ServerPlayer p : players) {
-            var vars = p.getData(ModVariables.PLAYER_VARIABLES);
-            int souls = vars.souls;
-            int level = vars.soulLevel;
+            PlayerData data = HerobrinesWorld.DATABASE.getPlayerData(p.getUUID());
+            int souls = data.souls;
+            int level = data.soulLevel;
 
             entries.add(new LeaderboardEntry(
                     p.getUUID(),
@@ -124,7 +127,7 @@ public class SeasonManager {
         return entries;
     }
 
-    public static int getCurrentRank(ServerPlayer target, ServerLevel level) {
+    public static int getCurrentRank(ServerPlayer target, ServerLevel level) throws SQLException {
 
         List<LeaderboardEntry> list = buildLeaderboard(level);
 
@@ -138,7 +141,7 @@ public class SeasonManager {
         return -1;
     }
 
-    public static List<RewardEntry> getPreviewRewards(ServerPlayer player, ServerLevel level) {
+    public static List<RewardEntry> getPreviewRewards(ServerPlayer player, ServerLevel level) throws SQLException {
 
         int rank = getCurrentRank(player, level);
 

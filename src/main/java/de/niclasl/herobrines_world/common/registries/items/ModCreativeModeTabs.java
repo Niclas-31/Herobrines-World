@@ -27,7 +27,7 @@ public class ModCreativeModeTabs {
 					() -> CreativeModeTab.builder()
 							.icon(() -> new ItemStack(ModBlocks.BLUE_SANDSTONE.get()))
 							.title(Component.translatable("itemGroup.herobrine_building_blocks"))
-							.displayItems((parameters, tabData) -> {
+							.displayItems((_, tabData) -> {
 								tabData.accept(ModBlocks.BLUE_SANDSTONE);
 								tabData.accept(ModBlocks.BLUE_SANDSTONE_STAIRS);
 								tabData.accept(ModBlocks.BLUE_SANDSTONE_SLAB);
@@ -47,7 +47,7 @@ public class ModCreativeModeTabs {
 							.icon(() -> new ItemStack(ModBlocks.SIGNAL.get()))
 							.withTabsBefore(Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "herobrine_building_blocks"))
 							.title(Component.translatable("itemGroup.herobrine_colored_blocks"))
-							.displayItems((parameters, tabData) -> {
+							.displayItems((_, tabData) -> {
 								for (ColorProperty color : ColorProperty.values()) {
 									tabData.accept(SignalBlock.setModeOnStack(new ItemStack(ModBlocks.SIGNAL.get()), color));
 								}
@@ -59,7 +59,7 @@ public class ModCreativeModeTabs {
 							.icon(() -> new ItemStack(ModBlocks.ASH_BLOCK.get()))
 							.withTabsBefore(Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "herobrine_colored_blocks"))
 							.title(Component.translatable("itemGroup.herobrine_natural_blocks"))
-							.displayItems((parameters, tabData) -> {
+							.displayItems((_, tabData) -> {
 								tabData.accept(ModBlocks.ASH_BLOCK);
 								tabData.accept(ModBlocks.BLUE_SANDSTONE);
 								tabData.accept(ModBlocks.CURSED_STONE);
@@ -82,11 +82,12 @@ public class ModCreativeModeTabs {
 							.icon(() -> new ItemStack(ModBlocks.LUMBERJACK_TABLE.get()))
 							.withTabsBefore(Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "herobrine_natural_blocks"))
 							.title(Component.translatable("itemGroup.herobrine_functional_blocks"))
-							.displayItems((parameters, tabData) -> {
+							.displayItems((_, tabData) -> {
 								tabData.accept(ModBlocks.LUMBERJACK_TABLE);
 								for (FarmerMode mode : FarmerMode.values()) {
 									tabData.accept(AutoFarmerBlock.setModeOnStack(new ItemStack(ModBlocks.AUTO_FARMER), mode));
 								}
+								tabData.accept(ModItems.RED_CRYSTAL);
 							}).build());
 
 	public static final Supplier<CreativeModeTab> HEROBRINE_REDSTONE_BLOCKS =
@@ -95,7 +96,7 @@ public class ModCreativeModeTabs {
 							.icon(() -> new ItemStack(ModBlocks.SIGNAL.get()))
 							.withTabsBefore(Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "herobrine_functional_blocks"))
 							.title(Component.translatable("itemGroup.herobrine_redstone_blocks"))
-							.displayItems((parameters, tabData) -> {
+							.displayItems((_, tabData) -> {
 								for (ColorProperty color : ColorProperty.values()) {
 									tabData.accept(SignalBlock.setModeOnStack(new ItemStack(ModBlocks.SIGNAL), color));
 								}
@@ -119,7 +120,7 @@ public class ModCreativeModeTabs {
 							.icon(() -> new ItemStack(ModItems.HEROBRINE_PICKAXE.get()))
 							.withTabsBefore(Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "herobrine_redstone_blocks"))
 							.title(Component.translatable("itemGroup.herobrine_tools_and_utilities"))
-							.displayItems((parameters, tabData) -> {
+							.displayItems((_, tabData) -> {
 								tabData.accept(ModItems.ASH_PICKAXE);
 								tabData.accept(ModItems.ORE_DETECTOR);
 								tabData.accept(ModItems.NATURE_SHOVEL);
@@ -149,7 +150,7 @@ public class ModCreativeModeTabs {
 							.icon(() -> new ItemStack(ModItems.PLATIN_SWORD.get()))
 							.withTabsBefore(Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "herobrine_tools_and_utilities"))
 							.title(Component.translatable("itemGroup.herobrine_combat"))
-							.displayItems((parameters, tabData) -> {
+							.displayItems((_, tabData) -> {
 								tabData.accept(ModItems.NATURE_SWORD);
 								tabData.accept(ModItems.FIRE_SWORD);
 								tabData.accept(ModItems.HEROBRINE_SWORD);
@@ -174,6 +175,7 @@ public class ModCreativeModeTabs {
 								tabData.accept(ModItems.PLATIN_CHESTPLATE);
 								tabData.accept(ModItems.PLATIN_LEGGINGS);
 								tabData.accept(ModItems.PLATIN_BOOTS);
+								tabData.accept(ModItems.RED_CRYSTAL);
 							}).build());
 
 	public static final Supplier<CreativeModeTab> HEROBRINE_INGREDIENTS =
@@ -182,7 +184,7 @@ public class ModCreativeModeTabs {
 							.icon(() -> new ItemStack(ModItems.ASH_INGOT.get()))
 							.withTabsBefore(Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "herobrine_combat"))
 							.title(Component.translatable("itemGroup.herobrine_ingredients"))
-							.displayItems((parameters, tabData) -> {
+							.displayItems((_, tabData) -> {
 								tabData.accept(ModItems.HEROBRINE_DIAMOND);
 								tabData.accept(ModItems.ASH_INGOT);
 								tabData.accept(ModItems.FROZEN_HEART);
@@ -196,7 +198,7 @@ public class ModCreativeModeTabs {
 							.icon(() -> new ItemStack(ModItems.GOOD_HEROBRINE_SPAWN_EGG.get()))
 							.withTabsBefore(Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "herobrine_ingredients"))
 							.title(Component.translatable("itemGroup.herobrine_spawn_eggs"))
-							.displayItems((parameters, tabData) -> {
+							.displayItems((_, tabData) -> {
 								tabData.accept(ModItems.HEROBRINE_BOSS_SPAWN_EGG);
 								tabData.accept(ModItems.NICLASL_SPAWN_EGG);
 								tabData.accept(ModItems.ENTITY_303_SPAWN_EGG);

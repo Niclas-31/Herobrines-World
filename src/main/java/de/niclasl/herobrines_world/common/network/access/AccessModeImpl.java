@@ -2,7 +2,7 @@ package de.niclasl.herobrines_world.common.network.access;
 
 import de.niclasl.herobrines_world.HerobrinesWorld;
 import de.niclasl.herobrines_world.common.network.access.mode.*;
-import de.niclasl.herobrines_world_api.api.access.AccessMode;
+import de.niclasl.herobrines_world_api.access.AccessMode;
 import de.niclasl.herobrines_world_api.registry.HWRegistries;
 import net.minecraft.resources.Identifier;
 
@@ -33,7 +33,7 @@ public class AccessModeImpl {
             }
         }
 
-        HWRegistries.ACCESS_MODES.put(id, mode);
+        HWRegistries.ACCESS_MODES.register(id, mode);
     }
 
     private static Identifier id(String path) {

@@ -37,7 +37,7 @@
     "minecraft:visual/sky_color": "#990000"
   },
   "coordinate_scale": 1.0,
-  "default_clock": "minecraft:overworld",
+  "default_clock": "herobrines_world:herobrines_realm",
   "has_ceiling": false,
   "has_ender_dragon_fight": false,
   "has_skylight": true,

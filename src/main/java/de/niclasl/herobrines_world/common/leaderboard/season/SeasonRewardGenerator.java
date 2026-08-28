@@ -1,27 +1,29 @@
 package de.niclasl.herobrines_world.common.leaderboard.season;
 
-import de.niclasl.herobrines_world_api.api.leaderboard.LeaderboardEntry;
-import de.niclasl.herobrines_world_api.api.leaderboard.RewardEntry;
-import de.niclasl.herobrines_world.common.network.ModVariables;
+import de.niclasl.herobrines_world.HerobrinesWorld;
+import de.niclasl.herobrines_world.common.util.database.PlayerData;
+import de.niclasl.herobrines_world_api.leaderboard.LeaderboardEntry;
+import de.niclasl.herobrines_world_api.leaderboard.RewardEntry;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
 public class SeasonRewardGenerator {
 
-    public static void generate(ServerLevel serverLevel, SeasonRewardStorage storage) {
+    public static void generate(ServerLevel serverLevel, SeasonRewardStorage storage) throws SQLException {
         List<ServerPlayer> players = serverLevel.getServer().getPlayerList().getPlayers();
 
         List<LeaderboardEntry> leaderboard = new ArrayList<>();
 
         for (ServerPlayer p : players) {
-            var vars = p.getData(ModVariables.PLAYER_VARIABLES);
+            PlayerData data = HerobrinesWorld.DATABASE.getPlayerData(p.getUUID());
 
-            int souls = vars.souls;
-            int level = vars.soulLevel;
+            int souls = data.souls;
+            int level = data.soulLevel;
 
             leaderboard.add(new LeaderboardEntry(p.getUUID(), p.getGameProfile().name(), souls, level));
         }

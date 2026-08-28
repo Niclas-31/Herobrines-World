@@ -2,10 +2,10 @@ package de.niclasl.herobrines_world.common.network.message;
 
 import de.niclasl.herobrines_world.HerobrinesWorld;
 import de.niclasl.herobrines_world.common.leaderboard.season.SeasonRewardStorage;
-import de.niclasl.herobrines_world_api.api.leaderboard.LeaderboardAPI;
-import de.niclasl.herobrines_world_api.api.leaderboard.LeaderboardAPIHolder;
-import de.niclasl.herobrines_world_api.api.leaderboard.RewardContext;
-import de.niclasl.herobrines_world_api.api.leaderboard.RewardEntry;
+import de.niclasl.herobrines_world_api.leaderboard.LeaderboardAPI;
+import de.niclasl.herobrines_world_api.leaderboard.LeaderboardAPIHolder;
+import de.niclasl.herobrines_world_api.leaderboard.RewardContext;
+import de.niclasl.herobrines_world_api.leaderboard.RewardEntry;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
@@ -16,6 +16,7 @@ import net.neoforged.neoforge.network.PacketDistributor;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 import org.jspecify.annotations.NonNull;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.UUID;
 
@@ -64,7 +65,15 @@ public record ClaimRewardsPacket() implements CustomPacketPayload {
             RewardContext rewardCtx = new RewardContext(player, rank);
 
             for (RewardEntry r : rewards) {
-                r.type().apply(rewardCtx, r);
+                try {
+                    r.type().apply(rewardCtx, r);
+                } catch (SQLException e) {
+                    HerobrinesWorld.LOGGER.error(
+                            "Failed to update reward state for {}",
+                            player.getUUID(),
+                            e
+                    );
+                }
             }
 
             storage.markClaimed(uuid);

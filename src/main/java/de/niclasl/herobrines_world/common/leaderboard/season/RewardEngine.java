@@ -1,8 +1,8 @@
 package de.niclasl.herobrines_world.common.leaderboard.season;
 
 import de.niclasl.herobrines_world.common.leaderboard.RewardTypeImpl;
-import de.niclasl.herobrines_world_api.api.leaderboard.RewardEntry;
-import de.niclasl.herobrines_world_api.api.leaderboard.RewardType;
+import de.niclasl.herobrines_world_api.leaderboard.RewardEntry;
+import de.niclasl.herobrines_world_api.leaderboard.RewardType;
 
 import java.util.ArrayList;
 import java.util.List;

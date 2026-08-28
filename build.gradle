@@ -70,7 +70,8 @@ sourceSets {
 
 
 dependencies {
-    implementation "de.niclasl:herobrines_world_api:2"
+    implementation "de.niclasl:herobrines-world-api:3.0"
+    implementation "org.hsqldb:hsqldb:2.7.0"
 }
 
 var generateModMetadata = tasks.register("generateModMetadata", ProcessResources) {

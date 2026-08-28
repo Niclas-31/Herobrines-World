@@ -61,9 +61,7 @@ public class DelayerRenderer implements BlockEntityRenderer<DelayerBlockEntity, 
 
         float f = (float) -this.font.width(formattedcharsequence) / 2;
 
-        collector.submitText(
-                poseStack, f, 0f, formattedcharsequence, false, Font.DisplayMode.POLYGON_OFFSET, LightCoordsUtil.FULL_BRIGHT, DyeColor.YELLOW.getTextColor(), 0, 0
-        );
+        collector.submitText(poseStack, f, 0f, formattedcharsequence, false, Font.DisplayMode.POLYGON_OFFSET, LightCoordsUtil.FULL_BRIGHT, DyeColor.YELLOW.getTextColor(), 0, 0);
 
         poseStack.popPose();
     }

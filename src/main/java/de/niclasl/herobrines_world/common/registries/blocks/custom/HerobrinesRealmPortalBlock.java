@@ -4,7 +4,7 @@ import com.mojang.logging.LogUtils;
 import com.mojang.serialization.MapCodec;
 import de.niclasl.herobrines_world.common.teleport.HerobrinesRealmPortalShape;
 import de.niclasl.herobrines_world.common.teleport.HerobrinesRealmTeleporter;
-import de.niclasl.herobrines_world.common.worldgen.dimension.ModDimensions;
+import de.niclasl.herobrines_world.common.world.ModDimensions;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;

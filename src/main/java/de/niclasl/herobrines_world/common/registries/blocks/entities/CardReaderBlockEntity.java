@@ -6,7 +6,7 @@ import de.niclasl.herobrines_world.common.registries.components.KeyCardData;
 import de.niclasl.herobrines_world.common.registries.components.ModDataComponents;
 import de.niclasl.herobrines_world.common.registries.components.SmartChipData;
 import de.niclasl.herobrines_world.common.registries.menus.CardReaderMenu;
-import de.niclasl.herobrines_world_api.api.access.AccessMode;
+import de.niclasl.herobrines_world_api.access.AccessMode;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;

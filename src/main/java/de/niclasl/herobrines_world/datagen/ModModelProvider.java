@@ -130,6 +130,7 @@ public class ModModelProvider extends ModelProvider {
         // Smart Chip & Case
         itemModels.generateFlatItem(ModItems.PLATIN_INGOT.get(), ModelTemplates.FLAT_ITEM);
         itemModels.generateFlatItem(ModItems.KEY_CARD.get(), ModelTemplates.FLAT_ITEM);
+        itemModels.generateFlatItem(ModItems.RED_CRYSTAL.get(), ModelTemplates.FLAT_ITEM);
     }
 
     public BlockModelGenerators.BlockFamilyProvider family(BlockModelGenerators generators, Block block) {

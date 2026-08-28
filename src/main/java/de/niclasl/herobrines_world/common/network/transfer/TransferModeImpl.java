@@ -2,7 +2,7 @@ package de.niclasl.herobrines_world.common.network.transfer;
 
 import de.niclasl.herobrines_world.HerobrinesWorld;
 import de.niclasl.herobrines_world.common.network.transfer.mode.*;
-import de.niclasl.herobrines_world_api.api.transfer.TransferMode;
+import de.niclasl.herobrines_world_api.transfer.TransferMode;
 import de.niclasl.herobrines_world_api.registry.HWRegistries;
 import net.minecraft.resources.Identifier;
 
@@ -31,7 +31,7 @@ public class TransferModeImpl {
             }
         }
 
-        HWRegistries.TRANSFER_MODES.put(id, mode);
+        HWRegistries.TRANSFER_MODES.register(id, mode);
     }
 
     private static Identifier id(String path) {

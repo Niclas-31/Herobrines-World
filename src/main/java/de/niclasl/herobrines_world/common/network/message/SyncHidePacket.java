@@ -1,14 +1,15 @@
 package de.niclasl.herobrines_world.common.network.message;
 
 import de.niclasl.herobrines_world.HerobrinesWorld;
-import de.niclasl.herobrines_world.common.network.ModVariables;
+import de.niclasl.herobrines_world.common.util.database.PlayerData;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.Identifier;
-import net.minecraft.server.level.ServerPlayer;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 import org.jetbrains.annotations.NotNull;
+
+import java.sql.SQLException;
 
 public record SyncHidePacket() implements CustomPacketPayload {
 
@@ -36,13 +37,19 @@ public record SyncHidePacket() implements CustomPacketPayload {
 		ctx.enqueueWork(() -> {
 			var player = ctx.player();
 
-			var vars = player.getData(ModVariables.PLAYER_VARIABLES);
+            try {
+                PlayerData data = HerobrinesWorld.DATABASE.getPlayerData(player.getUUID());
 
-			vars.hide = !vars.hide;
+				data.hide = !data.hide;
 
-			if (player instanceof ServerPlayer serverPlayer) {
-				vars.markSyncDirty(serverPlayer);
-			}
+				HerobrinesWorld.DATABASE.savePlayerData(data);
+            } catch (SQLException e) {
+				HerobrinesWorld.LOGGER.error(
+						"Failed to update hide state for {}",
+						player.getUUID(),
+						e
+				);
+            }
 		});
 	}
 }

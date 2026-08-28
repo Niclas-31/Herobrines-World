@@ -3,7 +3,7 @@ package de.niclasl.herobrines_world.datagen.advancements;
 import de.niclasl.herobrines_world.HerobrinesWorld;
 import de.niclasl.herobrines_world.common.registries.blocks.ModBlocks;
 import de.niclasl.herobrines_world.common.registries.items.ModItems;
-import de.niclasl.herobrines_world.common.worldgen.dimension.ModDimensions;
+import de.niclasl.herobrines_world.common.world.ModDimensions;
 import net.minecraft.advancements.Advancement.Builder;
 import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.advancements.AdvancementRequirements;
