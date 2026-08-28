@@ -1,8 +1,8 @@
 package de.niclasl.herobrines_world.client.hud;
 
 import de.niclasl.herobrines_world.HerobrinesWorld;
+import de.niclasl.herobrines_world.common.util.database.PlayerData;
 import de.niclasl.herobrines_world.common.util.math.SoulMath;
-import de.niclasl.herobrines_world.common.network.ModVariables;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.resources.Identifier;
@@ -13,23 +13,25 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.RenderGuiEvent;
 
+import java.sql.SQLException;
+
 @EventBusSubscriber(Dist.CLIENT)
 public class SoulsBar {
     private static final Identifier SOUL_BAR_BACKGROUND_SPRITE = Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "textures/gui/sprites/hud/soul_bar_background.png");
     private static final Identifier SOUL_BAR_PROGRESS_SPRITE = Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "textures/gui/sprites/hud/soul_bar_progress.png");
 
     @SubscribeEvent(priority = EventPriority.NORMAL)
-    public static void eventHandler(RenderGuiEvent.Pre event) {
+    public static void eventHandler(RenderGuiEvent.Pre event) throws SQLException {
         int w = event.getGuiGraphics().guiWidth();
         int h = event.getGuiGraphics().guiHeight();
 
         Player player = Minecraft.getInstance().player;
         if (player == null) return;
 
-        var vars = player.getData(ModVariables.PLAYER_VARIABLES);
+        PlayerData data = HerobrinesWorld.DATABASE.getPlayerData(player.getUUID());
 
-        int souls = vars.souls;
-        int level = vars.soulLevel;
+        int souls = data.souls;
+        int level = data.soulLevel;
 
         float progress;
 

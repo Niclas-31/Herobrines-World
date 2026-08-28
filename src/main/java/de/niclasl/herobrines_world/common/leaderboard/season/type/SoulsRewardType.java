@@ -1,14 +1,16 @@
 package de.niclasl.herobrines_world.common.leaderboard.season.type;
 
 import de.niclasl.herobrines_world.HerobrinesWorld;
-import de.niclasl.herobrines_world.common.network.ModVariables;
+import de.niclasl.herobrines_world.common.util.database.PlayerData;
 import de.niclasl.herobrines_world.common.util.math.SoulMath;
-import de.niclasl.herobrines_world_api.api.leaderboard.RewardContext;
-import de.niclasl.herobrines_world_api.api.leaderboard.RewardEntry;
-import de.niclasl.herobrines_world_api.api.leaderboard.RewardType;
+import de.niclasl.herobrines_world_api.leaderboard.RewardContext;
+import de.niclasl.herobrines_world_api.leaderboard.RewardEntry;
+import de.niclasl.herobrines_world_api.leaderboard.RewardType;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import org.jspecify.annotations.NonNull;
+
+import java.sql.SQLException;
 
 public class SoulsRewardType implements RewardType {
 
@@ -23,10 +25,10 @@ public class SoulsRewardType implements RewardType {
     }
 
     @Override
-    public void apply(RewardContext context, RewardEntry entry) {
+    public void apply(RewardContext context, RewardEntry entry) throws SQLException {
 
         ServerPlayer player = context.player();
-        var data = player.getData(ModVariables.PLAYER_VARIABLES);
+        PlayerData data = HerobrinesWorld.DATABASE.getPlayerData(player.getUUID());
 
         int amount = entry.amount();
 
@@ -48,6 +50,6 @@ public class SoulsRewardType implements RewardType {
             data.souls = 0;
         }
 
-        data.markSyncDirty(player);
+        HerobrinesWorld.DATABASE.savePlayerData(data);
     }
 }

@@ -1,8 +1,8 @@
 package de.niclasl.herobrines_world.common.event;
 
 import de.niclasl.herobrines_world.HerobrinesWorld;
-import de.niclasl.herobrines_world.common.network.ModVariables;
 import de.niclasl.herobrines_world.common.registries.enchantments.ModEnchantments;
+import de.niclasl.herobrines_world.common.util.database.PlayerData;
 import de.niclasl.herobrines_world.common.util.math.SoulGain;
 import de.niclasl.herobrines_world.common.util.math.SoulMath;
 import net.minecraft.core.registries.Registries;
@@ -13,18 +13,19 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
 
+import java.sql.SQLException;
+
 @EventBusSubscriber(modid = HerobrinesWorld.MOD_ID)
 public class SoulEvents {
 
     @SubscribeEvent
-    public static void onLivingDeath(LivingDeathEvent event) {
-
+    public static void onLivingDeath(LivingDeathEvent event) throws SQLException {
         Entity source = event.getSource().getEntity();
 
         if (!(source instanceof ServerPlayer player)) return;
         if (player.level().isClientSide()) return;
 
-        ModVariables.PlayerVariables vars = player.getData(ModVariables.PLAYER_VARIABLES);
+        PlayerData data = HerobrinesWorld.DATABASE.getPlayerData(player.getUUID());
 
         ItemStack stack = player.getMainHandItem();
 
@@ -40,36 +41,33 @@ public class SoulEvents {
             default -> 1;
         };
 
-        int playerLevel = vars.soulLevel;
+        int soulsGain = SoulGain.getSoulGain(baseGain, data.soulLevel);
 
-        int soulsGain = SoulGain.getSoulGain(baseGain, playerLevel);
-
-        float prestigeBonus = SoulMath.getSoulBonus(vars.prestige);
+        float prestigeBonus = SoulMath.getSoulBonus(data.prestige);
 
         soulsGain = Math.max(
                 1,
                 Math.round(soulsGain * prestigeBonus)
         );
 
-        if (vars.soulLevel >= SoulMath.HARD_CAP) {
-            vars.markSyncDirty(player);
+        if (data.soulLevel >= SoulMath.HARD_CAP) {
             return;
         }
 
-        vars.souls += soulsGain;
+        data.souls += soulsGain;
 
-        while (vars.soulLevel < SoulMath.HARD_CAP &&
-                vars.souls >= SoulMath.getXPForLevel(vars.soulLevel)) {
+        while (data.soulLevel < SoulMath.HARD_CAP &&
+                data.souls >= SoulMath.getXPForLevel(data.soulLevel)) {
 
-            vars.souls -= SoulMath.getXPForLevel(vars.soulLevel);
-            vars.soulLevel++;
+            data.souls -= SoulMath.getXPForLevel(data.soulLevel);
+            data.soulLevel++;
         }
 
-        if (vars.soulLevel >= SoulMath.HARD_CAP) {
-            vars.soulLevel = SoulMath.HARD_CAP;
-            vars.souls = 0;
+        if (data.soulLevel >= SoulMath.HARD_CAP) {
+            data.soulLevel = SoulMath.HARD_CAP;
+            data.souls = 0;
         }
 
-        vars.markSyncDirty(player);
+        HerobrinesWorld.DATABASE.savePlayerData(data);
     }
 }

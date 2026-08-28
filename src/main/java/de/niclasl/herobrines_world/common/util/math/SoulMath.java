@@ -7,8 +7,8 @@ public class SoulMath {
 
     public static int getXPForLevel(int level) {
 
-        if (level <= 16) return 2 * level + 7;
-        if (level <= 31) return 5 * level - 38;
+        if (level <= 15) return 2 * level + 7;
+        if (level <= 30) return 5 * level - 38;
 
         int base = 9 * level - 158;
 
@@ -18,31 +18,6 @@ public class SoulMath {
         }
 
         return base;
-    }
-
-    public static int getTotalForLevel(int level) {
-
-        int capped = Math.min(level, HARD_CAP);
-
-        int xp = 0;
-
-        for (int i = 0; i < capped; i++) {
-            xp += getXPForLevel(i);
-        }
-
-        return xp;
-    }
-
-    public static int getLevelFromXP(int xp) {
-
-        int level = 0;
-
-        while (level < HARD_CAP &&
-                xp >= getTotalForLevel(level + 1)) {
-            level++;
-        }
-
-        return level;
     }
 
     public static float getSoulBonus(int prestige) {
@@ -56,5 +31,28 @@ public class SoulMath {
         if (prestige >= 1) return 1.1f;
 
         return 1.0f;
+    }
+
+    public static int getLevelFromSouls(int souls) {
+
+        if (souls <= 0) {
+            return 0;
+        }
+
+        int level = 0;
+        int total = 0;
+
+        while (level < HARD_CAP) {
+            int required = getXPForLevel(level);
+
+            if (total + required > souls) {
+                break;
+            }
+
+            total += required;
+            level++;
+        }
+
+        return level;
     }
 }

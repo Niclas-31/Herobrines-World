@@ -73,11 +73,11 @@ public record HerobrineEnchantmentEffect() implements EnchantmentEntityEffect {
                                           PlayerData data,
                                           int cost) throws SQLException {
 
-        if (cost < 0) {
+        if (data.soulLevel >= SoulMath.HARD_CAP) {
             return false;
         }
 
-        if (data.souls < cost) {
+        if (data.souls < cost && data.soulLevel == 0) {
             player.sendSystemMessage(
                     Component.literal("§cNot enough Souls!")
             );
