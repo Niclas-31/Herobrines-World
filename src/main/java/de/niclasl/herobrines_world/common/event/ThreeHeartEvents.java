@@ -12,7 +12,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.config.ModConfigEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
-import net.neoforged.neoforge.event.entity.player.PlayerEvent;
+import net.neoforged.neoforge.event.level.LevelEvent;
 import net.neoforged.neoforge.server.ServerLifecycleHooks;
 
 @EventBusSubscriber(modid = HerobrinesWorld.MOD_ID)
@@ -38,20 +38,21 @@ public class ThreeHeartEvents {
     }
 
     @SubscribeEvent
-    public static void onPlayerLogin(PlayerEvent.PlayerLoggedInEvent event) {
+    public static void onLevelLoad(LevelEvent.Load event) {
 
-        if (!(event.getEntity() instanceof ServerPlayer player)) return;
+        if (event.getLevel() instanceof ServerLevel serverLevel) {
+            MinecraftServer server = serverLevel.getServer();
 
-        ServerLevel level = player.level();
+            if (server.isHardcore()) return;
+            if (server.isDedicatedServer()) return;
 
-        if (level.getLevelData().isHardcore()) return;
-        if (!player.level().getServer().isDedicatedServer()) return;
+            for (ServerPlayer player : server.getPlayerList().getPlayers()) {
+                PlayerVariables vars = player.getData(ModVariables.PLAYER_VARIABLES);
 
-        PlayerVariables vars = player.getData(ModVariables.PLAYER_VARIABLES);
-
-        vars.threeHearts = Config.THREE_HEARTS.getAsBoolean();
-
-        vars.markSyncDirty(player);
+                vars.threeHearts = Config.THREE_HEARTS.getAsBoolean();
+                vars.markSyncDirty(player);
+            }
+        }
     }
 
     @SubscribeEvent
