@@ -1,15 +1,13 @@
 package de.niclasl.herobrines_world.common.leaderboard.season;
 
-import de.niclasl.herobrines_world.HerobrinesWorld;
-import de.niclasl.herobrines_world.common.network.ModVariables;
-import de.niclasl.herobrines_world.common.util.database.PlayerData;
+import de.niclasl.herobrines_world.common.util.variables.MapVariables;
+import de.niclasl.herobrines_world.common.util.variables.ModVariables;
 import de.niclasl.herobrines_world_api.leaderboard.LeaderboardEntry;
 import de.niclasl.herobrines_world_api.leaderboard.RewardEntry;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.LevelAccessor;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -18,7 +16,7 @@ public class SeasonManager {
 
     public static void initialize(ServerLevel level) {
 
-        ModVariables.MapVariables data = ModVariables.MapVariables.get(level);
+        MapVariables data = MapVariables.get(level);
 
         if (data.seasonStart != 0 && data.seasonEnd > 0) return;
 
@@ -35,9 +33,9 @@ public class SeasonManager {
         data.markSyncDirty();
     }
 
-    public static void tick(ServerLevel level) throws SQLException {
+    public static void tick(ServerLevel level) {
 
-        var data = ModVariables.MapVariables.get(level);
+        var data = MapVariables.get(level);
 
         long now = System.currentTimeMillis();
         long seasonDuration = 30L * 24 * 60 * 60 * 1000;
@@ -94,8 +92,8 @@ public class SeasonManager {
         }
     }
 
-    public static List<LeaderboardEntry> getLeaderboard(ServerLevel level) throws SQLException {
-        var data = ModVariables.MapVariables.get(level);
+    public static List<LeaderboardEntry> getLeaderboard(ServerLevel level) {
+        var data = MapVariables.get(level);
 
         if (isSeasonActive(level)) {
             return buildLeaderboard(level);
@@ -104,15 +102,16 @@ public class SeasonManager {
         return data.frozenLeaderboard;
     }
 
-    public static List<LeaderboardEntry> buildLeaderboard(ServerLevel serverLevel) throws SQLException {
+    public static List<LeaderboardEntry> buildLeaderboard(ServerLevel serverLevel) {
         List<ServerPlayer> players = serverLevel.getServer().getPlayerList().getPlayers();
 
         List<LeaderboardEntry> entries = new ArrayList<>();
 
         for (ServerPlayer p : players) {
-            PlayerData data = HerobrinesWorld.DATABASE.getPlayerData(p.getUUID());
-            int souls = data.souls;
-            int level = data.soulLevel;
+            var vars = p.getData(ModVariables.PLAYER_VARIABLES);
+
+            int souls = vars.souls;
+            int level = vars.soulLevel;
 
             entries.add(new LeaderboardEntry(
                     p.getUUID(),
@@ -127,7 +126,7 @@ public class SeasonManager {
         return entries;
     }
 
-    public static int getCurrentRank(ServerPlayer target, ServerLevel level) throws SQLException {
+    public static int getCurrentRank(ServerPlayer target, ServerLevel level) {
 
         List<LeaderboardEntry> list = buildLeaderboard(level);
 
@@ -141,7 +140,7 @@ public class SeasonManager {
         return -1;
     }
 
-    public static List<RewardEntry> getPreviewRewards(ServerPlayer player, ServerLevel level) throws SQLException {
+    public static List<RewardEntry> getPreviewRewards(ServerPlayer player, ServerLevel level) {
 
         int rank = getCurrentRank(player, level);
 
@@ -151,15 +150,14 @@ public class SeasonManager {
     }
 
     public static boolean isSeasonActive(LevelAccessor level) {
-        return System.currentTimeMillis() <
-                ModVariables.MapVariables.get(level).seasonEnd;
+        return System.currentTimeMillis() < MapVariables.get(level).seasonEnd;
     }
 
     public static long getNextSeasonStart(LevelAccessor level) {
-        return ModVariables.MapVariables.get(level).nextSeasonStart;
+        return MapVariables.get(level).nextSeasonStart;
     }
 
     public static long getSeasonEnd(LevelAccessor level) {
-        return ModVariables.MapVariables.get(level).seasonEnd;
+        return MapVariables.get(level).seasonEnd;
     }
 }

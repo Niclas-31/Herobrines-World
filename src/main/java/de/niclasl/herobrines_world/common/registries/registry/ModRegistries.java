@@ -2,7 +2,6 @@ package de.niclasl.herobrines_world.common.registries.registry;
 
 import de.niclasl.herobrines_world.common.boss.entity.HerobrineBoss;
 import de.niclasl.herobrines_world.common.leaderboard.RewardTypeImpl;
-import de.niclasl.herobrines_world.common.network.ModVariables;
 import de.niclasl.herobrines_world.common.network.access.AccessModeImpl;
 import de.niclasl.herobrines_world.common.network.transfer.TransferModeImpl;
 import de.niclasl.herobrines_world.common.registries.blocks.ModBlocks;
@@ -21,6 +20,7 @@ import de.niclasl.herobrines_world.common.structure.ModStructurePieceType;
 import de.niclasl.herobrines_world.common.structure.ModStructureType;
 import de.niclasl.herobrines_world.common.structure.boss.HWStructureTypes;
 import de.niclasl.herobrines_world.common.structure.boss.StructureManager;
+import de.niclasl.herobrines_world.common.util.variables.ModVariables;
 import de.niclasl.herobrines_world_api.registry.HWRegistries;
 import net.neoforged.bus.api.IEventBus;
 

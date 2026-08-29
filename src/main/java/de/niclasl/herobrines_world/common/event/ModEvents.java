@@ -1,8 +1,8 @@
 package de.niclasl.herobrines_world.common.event;
 
 import de.niclasl.herobrines_world.HerobrinesWorld;
-import de.niclasl.herobrines_world.common.network.ModVariables;
 import de.niclasl.herobrines_world.common.structure.boss.HWStructureTypes;
+import de.niclasl.herobrines_world.common.util.variables.MapVariables;
 import de.niclasl.herobrines_world.common.world.ModDimensions;
 import de.niclasl.herobrines_world_api.registry.HWRegistries;
 import de.niclasl.herobrines_world_api.structure.StructureAPI;
@@ -22,7 +22,7 @@ public class ModEvents {
             return;
         }
 
-        ModVariables.MapVariables map = ModVariables.MapVariables.get(event.getLevel());
+        MapVariables map = MapVariables.get(event.getLevel());
 
         if (map == null) {
             return;

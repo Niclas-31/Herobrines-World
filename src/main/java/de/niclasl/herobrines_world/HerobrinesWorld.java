@@ -6,7 +6,6 @@ import de.niclasl.herobrines_world.common.leaderboard.LeaderboardStorage;
 import de.niclasl.herobrines_world.common.network.ModMessage;
 import de.niclasl.herobrines_world.common.registries.registry.ModRegistries;
 import de.niclasl.herobrines_world.common.registries.registry.ModResolverRegistries;
-import de.niclasl.herobrines_world.common.util.database.DatabaseManager;
 import de.niclasl.herobrines_world.config.Config;
 import de.niclasl.herobrines_world_api.leaderboard.LeaderboardAPIHolder;
 import de.niclasl.herobrines_world_api.version.ApiVersion;
@@ -27,8 +26,6 @@ public class HerobrinesWorld {
 
 	public static final ApiVersion REQUIRED_VERSION = new ApiVersion(3, 0);
 
-	public static final DatabaseManager DATABASE = new DatabaseManager();
-
 	public static final Logger LOGGER = LogUtils.getLogger();
 
     public HerobrinesWorld(IEventBus modEventBus, ModContainer modContainer) throws SQLException {
@@ -41,8 +38,6 @@ public class HerobrinesWorld {
 					"Voltrix API Version " + REQUIRED_VERSION + " does not exist!"
 			);
 		}
-
-		DatabaseManager.init();
 
 		modEventBus.addListener(ModMessage::register);
 

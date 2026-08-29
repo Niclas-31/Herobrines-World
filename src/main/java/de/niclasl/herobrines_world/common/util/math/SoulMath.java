@@ -23,36 +23,13 @@ public class SoulMath {
     public static float getSoulBonus(int prestige) {
 
         if (prestige >= 50) return 3.0f;
-        if (prestige >= 25) return 2.5f;
-        if (prestige >= 15) return 2.0f;
-        if (prestige >= 10) return 1.75f;
-        if (prestige >= 5) return 1.5f;
-        if (prestige >= 3) return 1.25f;
-        if (prestige >= 1) return 1.1f;
+        if (prestige >= 25) return 2.75f;
+        if (prestige >= 15) return 2.5f;
+        if (prestige >= 10) return 2.25f;
+        if (prestige >= 5) return 2.0f;
+        if (prestige >= 3) return 1.75f;
+        if (prestige >= 1) return 1.5f;
 
         return 1.0f;
-    }
-
-    public static int getLevelFromSouls(int souls) {
-
-        if (souls <= 0) {
-            return 0;
-        }
-
-        int level = 0;
-        int total = 0;
-
-        while (level < HARD_CAP) {
-            int required = getXPForLevel(level);
-
-            if (total + required > souls) {
-                break;
-            }
-
-            total += required;
-            level++;
-        }
-
-        return level;
     }
 }

@@ -1,10 +1,10 @@
 package de.niclasl.herobrines_world.common.boss.entity;
 
-import de.niclasl.herobrines_world.common.network.ModVariables;
 import de.niclasl.herobrines_world.common.registries.components.ModDataComponents;
 import de.niclasl.herobrines_world.common.registries.components.RelicData;
 import de.niclasl.herobrines_world.common.registries.entities.ModEntities;
 import de.niclasl.herobrines_world.common.registries.items.ModItems;
+import de.niclasl.herobrines_world.common.util.variables.MapVariables;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerBossEvent;
 import net.minecraft.server.level.ServerLevel;
@@ -280,7 +280,7 @@ public class HerobrineBoss extends Monster {
 			return;
 		}
 
-		ModVariables.MapVariables map = ModVariables.MapVariables.get(level());
+		MapVariables map = MapVariables.get(level());
 
 		if (source.getEntity() instanceof ServerPlayer player && !map.isHerobrineDead) {
 			ItemStack relicStack = new ItemStack(ModItems.HEROBRINE_RELIC.get());
@@ -394,7 +394,7 @@ public class HerobrineBoss extends Monster {
 
 	public static void addTarget(UUID ownerUUID, LivingEntity target) {
 		if (ownerUUID == null || target == null) return;
-		ownerTargets.computeIfAbsent(ownerUUID, k -> new HashSet<>()).add(target);
+		ownerTargets.computeIfAbsent(ownerUUID, _ -> new HashSet<>()).add(target);
 	}
 
 	public static Set<LivingEntity> getTargets(UUID ownerUUID) {

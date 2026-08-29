@@ -1,7 +1,7 @@
 package de.niclasl.herobrines_world.client.hud;
 
-import de.niclasl.herobrines_world.HerobrinesWorld;
-import de.niclasl.herobrines_world.common.util.database.PlayerData;
+import de.niclasl.herobrines_world.common.util.variables.ModVariables;
+import de.niclasl.herobrines_world.common.util.variables.PlayerVariables;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.PlayerInfo;
 import net.minecraft.client.renderer.RenderPipelines;
@@ -15,7 +15,6 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.RenderGuiEvent;
 
-import java.sql.SQLException;
 import java.util.Objects;
 
 @EventBusSubscriber(Dist.CLIENT)
@@ -28,7 +27,7 @@ public class ThreeHearts {
 			Identifier.parse("minecraft:textures/gui/sprites/hud/heart/frozen_full.png");
 
 	@SubscribeEvent(priority = EventPriority.NORMAL)
-	public static void eventHandler(RenderGuiEvent.Pre event) throws SQLException {
+	public static void eventHandler(RenderGuiEvent.Pre event) {
 
 		Minecraft mc = Minecraft.getInstance();
 		Player player = mc.player;
@@ -38,20 +37,20 @@ public class ThreeHearts {
 		int w = event.getGuiGraphics().guiWidth();
 		int h = event.getGuiGraphics().guiHeight();
 
-		PlayerData data = HerobrinesWorld.DATABASE.getPlayerData(player.getUUID());
+		PlayerVariables vars = player.getData(ModVariables.PLAYER_VARIABLES);
 
 		boolean gamemode = getEntityGameType(player) == GameType.SURVIVAL
 				|| getEntityGameType(player) == GameType.ADVENTURE;
 
-		boolean enabled = data.threeHearts;
+		boolean enabled = vars.threeHearts;
 
 		if (player.level().getLevelData().isHardcore()) {
 			enabled = false;
 		}
 
-		boolean heart1 = data.hearts >= 1;
-		boolean heart2 = data.hearts >= 2;
-		boolean heart3 = data.hearts >= 3;
+		boolean heart1 = vars.hearts >= 1;
+		boolean heart2 = vars.hearts >= 2;
+		boolean heart3 = vars.hearts >= 3;
 
 		if (enabled && gamemode) {
 			event.getGuiGraphics().blit(RenderPipelines.GUI_TEXTURED,

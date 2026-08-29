@@ -4,10 +4,11 @@ import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import de.niclasl.herobrines_world.common.leaderboard.season.SeasonManager;
-import de.niclasl.herobrines_world.common.network.ModVariables;
 import de.niclasl.herobrines_world.common.network.message.SyncLeaderboardPacket;
 import de.niclasl.herobrines_world.common.util.math.SoulMath;
-import de.niclasl.herobrines_world_api.api.leaderboard.LeaderboardEntry;
+import de.niclasl.herobrines_world.common.util.variables.ModVariables;
+import de.niclasl.herobrines_world.common.util.variables.PlayerVariables;
+import de.niclasl.herobrines_world_api.leaderboard.LeaderboardEntry;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.commands.arguments.EntityArgument;
@@ -32,18 +33,16 @@ public class Souls {
 						.then(Commands.literal("add")
 								.requires(Commands.hasPermission(Commands.LEVEL_GAMEMASTERS))
 								.then(Commands.argument("targets", EntityArgument.players())
-										.then(Commands.argument("amount", IntegerArgumentType.integer())
+										.then(Commands.argument("amount", IntegerArgumentType.integer(0))
 												.then(Commands.literal("points")
 														.executes(ctx -> {
 															int amount = IntegerArgumentType.getInteger(ctx, "amount");
-
 															forPlayers(ctx, p -> addSouls(p, amount));
 															return 1;
 														}))
 												.then(Commands.literal("levels")
 														.executes(ctx -> {
 															int amount = IntegerArgumentType.getInteger(ctx, "amount");
-
 															forPlayers(ctx, p -> addLevels(p, amount));
 															return 1;
 														}))
@@ -69,12 +68,31 @@ public class Souls {
 										)
 								)
 						)
+						.then(Commands.literal("remove")
+								.requires(Commands.hasPermission(Commands.LEVEL_GAMEMASTERS))
+								.then(Commands.argument("targets", EntityArgument.players())
+										.then(Commands.argument("amount", IntegerArgumentType.integer(0))
+												.then(Commands.literal("points")
+														.executes(ctx -> {
+															int amount = IntegerArgumentType.getInteger(ctx, "amount");
+															forPlayers(ctx, p -> removeSouls(p, amount));
+															return 1;
+														}))
+												.then(Commands.literal("levels")
+														.executes(ctx -> {
+															int amount = IntegerArgumentType.getInteger(ctx, "amount");
+															forPlayers(ctx, p -> removeLevels(p, amount));
+															return 1;
+														}))
+										)
+								)
+						)
 						.then(Commands.literal("prestige")
 								.requires(Commands.hasPermission(Commands.LEVEL_GAMEMASTERS))
 								.executes(ctx -> {
 									ServerPlayer player = ctx.getSource().getPlayerOrException();
 
-									ModVariables.PlayerVariables vars = vars(player);
+									PlayerVariables vars = vars(player);
 
 									if (vars.soulLevel < SoulMath.HARD_CAP) {
 
@@ -149,7 +167,7 @@ public class Souls {
 
 	private static void addSouls(ServerPlayer player, int amount) {
 
-		ModVariables.PlayerVariables vars = vars(player);
+		PlayerVariables vars = vars(player);
 
 		if (vars.soulLevel >= SoulMath.HARD_CAP) {
 			vars.souls = 0;
@@ -176,18 +194,18 @@ public class Souls {
 
 	private static void setSouls(ServerPlayer player, int amount) {
 
-		ModVariables.PlayerVariables vars = vars(player);
+		PlayerVariables vars = vars(player);
 
 		int max = SoulMath.getXPForLevel(vars.soulLevel);
 
-		vars.souls = Math.clamp(amount, 0, max - 1);
+		vars.souls = Math.clamp(amount, 0, max);
 
 		vars.markSyncDirty(player);
 	}
 
 	private static void addLevels(ServerPlayer player, int amount) {
 
-		ModVariables.PlayerVariables vars = vars(player);
+		PlayerVariables vars = vars(player);
 
 		vars.soulLevel = Math.clamp(
 				vars.soulLevel + amount,
@@ -200,7 +218,7 @@ public class Souls {
 
 	private static void setLevels(ServerPlayer player, int level) {
 
-		ModVariables.PlayerVariables vars = vars(player);
+		PlayerVariables vars = vars(player);
 
 		vars.soulLevel = Math.clamp(
 				level,
@@ -211,7 +229,39 @@ public class Souls {
 		vars.markSyncDirty(player);
 	}
 
-	private static ModVariables.PlayerVariables vars(ServerPlayer player) {
+	private static void removeSouls(ServerPlayer player, int amount) {
+		var vars = player.getData(ModVariables.PLAYER_VARIABLES);
+
+		vars.souls -= amount;
+
+		while (vars.soulLevel > 0
+				&& vars.souls < 0) {
+			vars.soulLevel--;
+
+			vars.souls += SoulMath.getXPForLevel(vars.soulLevel);
+		}
+
+		if (vars.soulLevel <= 0 && vars.souls < 0) {
+			vars.soulLevel = 0;
+			vars.souls = 0;
+		}
+
+		vars.markSyncDirty(player);
+	}
+
+	private static void removeLevels(ServerPlayer player, int amount) {
+		var vars = player.getData(ModVariables.PLAYER_VARIABLES);
+
+        vars.soulLevel = Math.clamp(
+                vars.soulLevel - amount,
+                0,
+                SoulMath.HARD_CAP
+        );
+
+		vars.markSyncDirty(player);
+	}
+
+	private static PlayerVariables vars(ServerPlayer player) {
 		return player.getData(ModVariables.PLAYER_VARIABLES);
 	}
 

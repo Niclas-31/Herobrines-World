@@ -77,9 +77,14 @@ public class ModMessage {
                 OpenWaypointScreenPacket::handle
         );
         registrar.playToClient(
-                ModVariables.SavedDataSyncMessage.TYPE,
-                ModVariables.SavedDataSyncMessage.STREAM_CODEC,
-                ModVariables.SavedDataSyncMessage::handle
+                PlayerVariablesSyncMessage.TYPE,
+                PlayerVariablesSyncMessage.STREAM_CODEC,
+                PlayerVariablesSyncMessage::handle
+        );
+        registrar.playToClient(
+                SavedDataSyncMessage.TYPE,
+                SavedDataSyncMessage.STREAM_CODEC,
+                SavedDataSyncMessage::handle
         );
         registrar.playToClient(
                 SyncClaimStatePacket.TYPE,
