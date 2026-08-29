@@ -107,6 +107,7 @@ public class Souls {
 
 									vars.prestige++;
 									vars.souls = 0;
+									vars.soulLevel=0;
 
 									vars.markSyncDirty(player);
 
