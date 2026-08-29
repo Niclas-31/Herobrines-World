@@ -14,7 +14,6 @@ import net.neoforged.neoforge.network.PacketDistributor;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 import org.jspecify.annotations.NonNull;
 
-import java.sql.SQLException;
 import java.util.List;
 
 public record RequestRewardsScreenPacket() implements CustomPacketPayload {
@@ -48,18 +47,10 @@ public record RequestRewardsScreenPacket() implements CustomPacketPayload {
             SeasonRewardStorage storage =
                     SeasonRewardStorage.get(level);
 
-            List<RewardEntry> rewards = List.of();
+            List<RewardEntry> rewards;
 
             if (SeasonManager.isSeasonActive(level)) {
-                try {
-                    rewards = SeasonManager.getPreviewRewards(player, level);
-                } catch (SQLException e) {
-                    HerobrinesWorld.LOGGER.error(
-                            "Failed to get Preview Rewards for {}",
-                            player.getUUID(),
-                            e
-                    );
-                }
+                rewards = SeasonManager.getPreviewRewards(player, level);
             } else {
                 rewards = storage.getRewards(player.getUUID());
             }
