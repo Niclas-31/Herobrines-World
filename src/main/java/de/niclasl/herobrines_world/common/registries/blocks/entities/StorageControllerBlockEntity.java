@@ -22,6 +22,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 import org.jspecify.annotations.NonNull;
 
 import java.util.ArrayList;
@@ -147,7 +148,9 @@ public class StorageControllerBlockEntity extends BlockEntity implements Contain
 
     @Override
     public boolean isEmpty() {
-        for (ItemStack s : items) if (!s.isEmpty()) return false;
+        for (ItemStack s : items) {
+            if (!s.isEmpty()) return false;
+        }
         return true;
     }
 
@@ -184,7 +187,7 @@ public class StorageControllerBlockEntity extends BlockEntity implements Contain
 
     @Override
     public boolean stillValid(Player player) {
-        return player.distanceToSqr(worldPosition.getCenter()) <= 64;
+        return player.distanceToSqr(Vec3.atCenterOf(worldPosition)) <= 64;
     }
 
     @Override

@@ -2,7 +2,7 @@ package de.niclasl.herobrines_world.common.world.noise.generator;
 
 import de.niclasl.herobrines_world.HerobrinesWorld;
 import de.niclasl.herobrines_world.common.world.noise.ModNoiseSettings;
-import de.niclasl.herobrines_world.common.world.noise.router.ModNoiseRouter;
+import de.niclasl.herobrines_world.common.world.noise.router.ModNoiseRouterData;
 import de.niclasl.herobrines_world.common.world.surface.ModSurfaceRuleData;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
@@ -32,8 +32,8 @@ public class ModNoiseGeneratorSettings {
                 ModNoiseSettings.UNDERWORLD,
                 Blocks.NETHERRACK.defaultBlockState(),
                 Blocks.LAVA.defaultBlockState(),
-                ModNoiseRouter.underworld(context.lookup(Registries.DENSITY_FUNCTION), context.lookup(Registries.NOISE)),
-                ModSurfaceRuleData.underworld(),
+                ModNoiseRouterData.underworld(context.lookup(Registries.DENSITY_FUNCTION), context.lookup(Registries.NOISE)),
+                ModSurfaceRuleData.underworld(context.lookup(Registries.BIOME)),
                 List.of(),
                 32,
                 false,
@@ -48,8 +48,8 @@ public class ModNoiseGeneratorSettings {
                 ModNoiseSettings.HEROBRINES_REALM,
                 Blocks.STONE.defaultBlockState(),
                 Blocks.WATER.defaultBlockState(),
-                ModNoiseRouter.herobrinesRealm(context.lookup(Registries.DENSITY_FUNCTION), context.lookup(Registries.NOISE), false, false),
-                ModSurfaceRuleData.herobrine(),
+                ModNoiseRouterData.herobrinesRealm(context.lookup(Registries.DENSITY_FUNCTION), context.lookup(Registries.NOISE), false, false),
+                ModSurfaceRuleData.herobrine(context.lookup(Registries.BIOME)),
                 new OverworldBiomeBuilder().spawnTarget(),
                 63,
                 false,

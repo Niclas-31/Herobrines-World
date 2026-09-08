@@ -4,6 +4,8 @@ import com.google.common.collect.ImmutableList;
 import de.niclasl.herobrines_world.common.registries.blocks.ModBlocks;
 import de.niclasl.herobrines_world.common.world.biome.ModBiomes;
 import de.niclasl.herobrines_world.common.world.noise.ModNoises;
+import net.minecraft.core.HolderGetter;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.SurfaceRules;
@@ -26,11 +28,12 @@ public class ModSurfaceRuleData {
         return SurfaceRules.state(block.defaultBlockState());
     }
 
-    public static SurfaceRules.RuleSource herobrine() {
-        return herobrine(false, true);
+    public static SurfaceRules.RuleSource herobrine(HolderGetter<Biome> biomes) {
+        return herobrine(biomes, false, true);
     }
 
     public static SurfaceRules.RuleSource herobrine(
+            HolderGetter<Biome> biomes,
             boolean bedrockRoof,
             boolean bedrockFloor
     ) {
@@ -63,11 +66,10 @@ public class ModSurfaceRuleData {
         );
 
         SurfaceRules.RuleSource biomeRules = SurfaceRules.sequence(
-
-                SurfaceRules.ifTrue(SurfaceRules.isBiome(ModBiomes.CURSED_FOREST), cursedForest),
-                SurfaceRules.ifTrue(SurfaceRules.isBiome(ModBiomes.FIRE_LAND), fireLand),
-                SurfaceRules.ifTrue(SurfaceRules.isBiome(ModBiomes.FROZEN_FOREST), frozenForest),
-                SurfaceRules.ifTrue(SurfaceRules.isBiome(ModBiomes.ASH_DESERT), ashDesert)
+                SurfaceRules.ifTrue(SurfaceRules.isBiome(biomes, ModBiomes.CURSED_FOREST), cursedForest),
+                SurfaceRules.ifTrue(SurfaceRules.isBiome(biomes, ModBiomes.FIRE_LAND), fireLand),
+                SurfaceRules.ifTrue(SurfaceRules.isBiome(biomes, ModBiomes.FROZEN_FOREST), frozenForest),
+                SurfaceRules.ifTrue(SurfaceRules.isBiome(biomes,ModBiomes.ASH_DESERT), ashDesert)
         );
 
         SurfaceRules.RuleSource waterRules = SurfaceRules.ifTrue(
@@ -154,13 +156,13 @@ public class ModSurfaceRuleData {
         return SurfaceRules.sequence(builder.build().toArray(SurfaceRules.RuleSource[]::new));
     }
 
-    public static SurfaceRules.RuleSource underworld() {
+    public static SurfaceRules.RuleSource underworld(HolderGetter<Biome> biomes) {
 
         SurfaceRules.RuleSource abyssalBlock =
                 SurfaceRules.state(ModBlocks.ABYSSAL_BLOCK.get().defaultBlockState());
 
         SurfaceRules.RuleSource blackConcrete =
-                SurfaceRules.state(Blocks.BLACK_CONCRETE.defaultBlockState());
+                SurfaceRules.state(Blocks.CONCRETE.black().defaultBlockState());
 
         SurfaceRules.RuleSource netherrack =
                 SurfaceRules.state(Blocks.NETHERRACK.defaultBlockState());
@@ -187,22 +189,22 @@ public class ModSurfaceRuleData {
                         bedrock
                 ),
                 SurfaceRules.ifTrue(
-                        SurfaceRules.isBiome(ModBiomes.ABYSSAL_WASTES),
+                        SurfaceRules.isBiome(biomes, ModBiomes.ABYSSAL_WASTES),
                         SurfaceRules.sequence(
                                 SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR, abyssalBlock),
                                 SurfaceRules.ifTrue(SurfaceRules.UNDER_FLOOR, netherrack)
                         )
                 ),
                 SurfaceRules.ifTrue(
-                        SurfaceRules.isBiome(ModBiomes.VOID_DEPTHS),
+                        SurfaceRules.isBiome(biomes, ModBiomes.VOID_DEPTHS),
                         SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR, blackConcrete)
                 ),
                 SurfaceRules.ifTrue(
-                        SurfaceRules.isBiome(ModBiomes.MISTY_CHASMS),
+                        SurfaceRules.isBiome(biomes, ModBiomes.MISTY_CHASMS),
                         SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR, netherrack)
                 ),
                 SurfaceRules.ifTrue(
-                        SurfaceRules.noiseCondition(ModNoises.CHAOS, 0.3),
+                        SurfaceRules.noiseCondition3d(ModNoises.CHAOS, 0.3),
                         SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR, lava)
                 )
         );

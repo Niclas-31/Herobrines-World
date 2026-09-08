@@ -33,7 +33,7 @@ public class ModKeyMappings {
 
 	@SubscribeEvent
 	public static void onClientTick(ClientTickEvent.Post event) {
-		if (Minecraft.getInstance().screen == null) {
+		if (Minecraft.getInstance().gui.screen() == null) {
 			TOGGLE_OVERLAY.consumeClick();
 		}
 	}

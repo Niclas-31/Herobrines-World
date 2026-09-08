@@ -1,10 +1,15 @@
 package de.niclasl.herobrines_world.common.boss.entity;
 
+import de.niclasl.herobrines_world.HerobrinesWorld;
+import de.niclasl.herobrines_world.common.boss.BossFightManager;
+import de.niclasl.herobrines_world.common.boss.BossManager;
+import de.niclasl.herobrines_world.common.boss.ability.AbilityImpl;
 import de.niclasl.herobrines_world.common.registries.components.ModDataComponents;
 import de.niclasl.herobrines_world.common.registries.components.RelicData;
 import de.niclasl.herobrines_world.common.registries.entities.ModEntities;
 import de.niclasl.herobrines_world.common.registries.items.ModItems;
 import de.niclasl.herobrines_world.common.util.variables.MapVariables;
+import de.niclasl.herobrines_world_api.boss.*;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerBossEvent;
 import net.minecraft.server.level.ServerLevel;
@@ -16,7 +21,6 @@ import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.control.FlyingMoveControl;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
@@ -28,7 +32,6 @@ import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.hurtingprojectile.SmallFireball;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
@@ -44,9 +47,11 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 
-public class HerobrineBoss extends Monster {
+public class HerobrineBoss extends Boss {
 
-	private static final Map<UUID, Set<LivingEntity>> ownerTargets = new HashMap<>();
+	public final AnimationState sprintAnimationState = new AnimationState();
+	public final AnimationState flyAnimationState = new AnimationState();
+	public final AnimationState attackAnimationState = new AnimationState();
 
 	private final ServerBossEvent bossBar =
 			new ServerBossEvent(
@@ -56,9 +61,13 @@ public class HerobrineBoss extends Monster {
 					ServerBossEvent.BossBarOverlay.NOTCHED_12
 			);
 
-	private int phase = 1;
-	private int abilityCooldown = 0;
-	private int minionCooldown = 0;
+	private BossContext bossContext;
+
+	private static final Map<UUID, Set<LivingEntity>> ownerTargets = new HashMap<>();
+
+	private static final BossManager manager = BossManager.get();
+
+	private BossPhase phase = BossPhase.PHASE_1;
 	private final Random random = new Random();
 
 	private UUID ownerUUID;
@@ -70,24 +79,10 @@ public class HerobrineBoss extends Monster {
 	public HerobrineBoss(EntityType<? extends Monster> type, Level level) {
 		super(type, level);
 
+		this.bossContext = new BossContext(level, this, BossFightState.NOT_STARTED);
+
 		this.xpReward = 500;
 		this.setPersistenceRequired();
-
-		this.moveControl = new FlyingMoveControl(this, 10, true);
-		this.setNoGravity(true);
-	}
-
-	@Override
-	protected @NotNull PathNavigation createNavigation(@NotNull Level level) {
-		return new FlyingPathNavigation(this, level);
-	}
-
-	@Override
-	public boolean canAttack(@NotNull LivingEntity target) {
-		if (ownerUUID != null && ownerUUID.equals(target.getUUID())) {
-			return false;
-		}
-		return super.canAttack(target);
 	}
 
 	@Override
@@ -120,8 +115,126 @@ public class HerobrineBoss extends Monster {
 				this,
 				Player.class,
 				true,
-                (player, _) -> !isOwner(player)
-        ));
+				(player, _) -> !isOwner(player)
+		));
+	}
+
+	public static AttributeSupplier.Builder createAttributes() {
+		return Monster.createMonsterAttributes()
+				.add(Attributes.MAX_HEALTH, 600)
+				.add(Attributes.ATTACK_DAMAGE, 6)
+				.add(Attributes.MOVEMENT_SPEED, 0.3)
+				.add(Attributes.FOLLOW_RANGE, 40)
+				.add(Attributes.FLYING_SPEED, 0.3);
+	}
+
+	private void setupAnimationStates() {
+		this.sprintAnimationState.animateWhen(this.isSprinting(), this.tickCount);
+
+		this.flyAnimationState.animateWhen(
+				this.isFallFlying(),
+				this.tickCount
+		);
+	}
+
+	@Override
+	public void tick() {
+		super.tick();
+
+		if(this.level().isClientSide()) {
+			this.setupAnimationStates();
+		}
+
+		BossFightState state = bossContext.getState();
+
+		if (state == BossFightState.STARTING) {
+			this.setInvulnerable(true);
+			this.setNoAi(true);
+
+			if (this.getHealth() < this.getMaxHealth()) {
+				this.setHealth(Math.min(
+						this.getHealth() + 1.0F,
+						this.getMaxHealth()
+				));
+			}
+
+			if (this.getHealth() >= this.getMaxHealth()) {
+				if (level() instanceof ServerLevel level) {
+					BossFightManager manager = BossFightManager.get(level);
+					manager.setState(BossFightState.ACTIVE);
+				}
+
+				bossContext.setState(BossFightState.ACTIVE);
+
+				this.setInvulnerable(false);
+				this.setNoAi(false);
+			}
+        }
+	}
+
+	@Override
+	protected void addAdditionalSaveData(@NotNull ValueOutput output) {
+		super.addAdditionalSaveData(output);
+		if (ownerUUID != null) output.putString("Owner", ownerUUID.toString());
+		output.putBoolean("MinionMode", minionMode);
+		output.putBoolean("hideBossBar", hideBossBar);
+		output.putBoolean("OwnedBoss", ownedBoss);
+	}
+
+	@Override
+	protected void readAdditionalSaveData(@NotNull ValueInput input) {
+		super.readAdditionalSaveData(input);
+
+		String ownerStr = input.getStringOr("Owner", "");
+		if (!ownerStr.isEmpty()) {
+			try {
+				ownerUUID = UUID.fromString(ownerStr);
+			} catch (IllegalArgumentException e) {
+				ownerUUID = null;
+			}
+		}
+
+		minionMode = input.getBooleanOr("MinionMode", true);
+		hideBossBar = input.getBooleanOr("hideBossBar", false);
+		ownedBoss = input.getBooleanOr("OwnedBoss", false);
+
+	}
+
+	@Override
+	protected @NotNull SoundEvent getHurtSound(@NotNull DamageSource source) {
+		return SoundEvents.PLAYER_HURT;
+	}
+
+	@Override
+	protected @NotNull SoundEvent getDeathSound() {
+		return SoundEvents.PLAYER_DEATH;
+	}
+
+	@Override
+	protected @NotNull PathNavigation createNavigation(@NotNull Level level) {
+		return new FlyingPathNavigation(this, level);
+	}
+
+	@Override
+	public boolean canAttack(@NotNull LivingEntity target) {
+		if (ownerUUID != null && ownerUUID.equals(target.getUUID())) {
+			return false;
+		}
+		return super.canAttack(target);
+	}
+
+	@Override
+	public BossType getBossType() {
+		return BossType.HEROBRINE_BOSS;
+	}
+
+	public List<Mob> getMinions() {
+		return minions;
+	}
+
+	@Override
+	public void setBossContext(BossContext bossContext) {
+		this.bossContext = bossContext;
 	}
 
 	@Override
@@ -138,44 +251,10 @@ public class HerobrineBoss extends Monster {
 		bossBar.removePlayer(player);
 	}
 
-	private void spawnVanillaMinions(int count) {
-		if (!(level() instanceof ServerLevel level)) return;
-
-		for (int i = 0; i < count; i++) {
-			EntityType<?> type = random.nextBoolean()
-					? EntityType.ZOMBIE
-					: EntityType.SKELETON;
-
-			Mob mob = (Mob) type.create(level, EntitySpawnReason.MOB_SUMMONED);
-			if (mob == null) continue;
-
-			mob.setPos(
-					getX() + random.nextInt(6) - 3,
-					getY(),
-					getZ() + random.nextInt(6) - 3
-			);
-
-			mob.setItemSlot(EquipmentSlot.HEAD, new ItemStack(Items.IRON_HELMET));
-			mob.setItemSlot(EquipmentSlot.CHEST, new ItemStack(Items.IRON_CHESTPLATE));
-			mob.setItemSlot(EquipmentSlot.LEGS, new ItemStack(Items.IRON_LEGGINGS));
-			mob.setItemSlot(EquipmentSlot.FEET, new ItemStack(Items.IRON_BOOTS));
-			mob.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.IRON_SWORD));
-
-			mob.setDropChance(EquipmentSlot.HEAD, 0.0F);
-			mob.setDropChance(EquipmentSlot.CHEST, 0.0F);
-			mob.setDropChance(EquipmentSlot.LEGS, 0.0F);
-			mob.setDropChance(EquipmentSlot.FEET, 0.0F);
-			mob.setDropChance(EquipmentSlot.MAINHAND, 0.0F);
-
-			minions.add(mob);
-			level.addFreshEntity(mob);
-		}
-	}
-
 	@Override
 	public void aiStep() {
 		super.aiStep();
-		this.setNoGravity(true);
+		this.bossBar.setProgress(this.getHealth() / this.getMaxHealth());
 
 		minions.removeIf(Mob::isDeadOrDying);
 
@@ -184,67 +263,153 @@ public class HerobrineBoss extends Monster {
 		}
 	}
 
-	private void handleFireballAttack() {
-		if (abilityCooldown > 0) return;
-		LivingEntity target = this.getTarget();
-		if (target == null) return;
-
-		for (int i = 0; i < 3; i++) {
-			double dx = target.getX() - this.getX() + (random.nextDouble() - 0.5) * 2;
-			double dy = target.getEyeY() - this.getEyeY() + (random.nextDouble() - 0.5) * 2;
-			double dz = target.getZ() - this.getZ() + (random.nextDouble() - 0.5) * 2;
-			SmallFireball fireball = new SmallFireball(EntityType.SMALL_FIREBALL, this.level());
-			fireball.setPos(this.getX(), this.getEyeY(), this.getZ());
-			fireball.setDeltaMovement(dx * 0.2, dy * 0.2, dz * 0.2);
-			this.level().addFreshEntity(fireball);
-		}
-
-		abilityCooldown = 60;
-	}
-
 	@Override
 	protected void customServerAiStep(@NotNull ServerLevel level) {
 		super.customServerAiStep(level);
 
-		float hpPercent = this.getHealth() / this.getMaxHealth();
-
-		if (phase == 1 && hpPercent <= 0.66F) {
-			phase = 2;
-			Objects.requireNonNull(this.getAttribute(Attributes.ATTACK_DAMAGE)).setBaseValue(30);
-			Objects.requireNonNull(this.getAttribute(Attributes.MOVEMENT_SPEED)).setBaseValue(0.4);
-			Objects.requireNonNull(this.getAttribute(Attributes.FLYING_SPEED)).setBaseValue(0.5);
+		if (bossContext == null) {
+			return;
 		}
 
-		if (phase == 2 && hpPercent <= 0.33F) {
-			phase = 3;
-			this.setHealth(this.getMaxHealth());
-			Objects.requireNonNull(this.getAttribute(Attributes.ATTACK_DAMAGE)).setBaseValue(60);
-			Objects.requireNonNull(this.getAttribute(Attributes.MOVEMENT_SPEED)).setBaseValue(0.6);
+		bossContext.tick();
 
-			level.explode(this, getX(), getY(), getZ(),
-					3F, Level.ExplosionInteraction.NONE);
+		updateAbilities();
+		updateTarget();
+	}
+
+	@Override
+	public boolean hurtServer(@NotNull ServerLevel level, @NotNull DamageSource source, float amount) {
+        HerobrinesWorld.LOGGER.info("Herobrine hurt | HP={} | Damage={} | Invulnerable={} | State={} | Phase={}", getHealth(), amount, isInvulnerable(), bossContext.getState(), phase);
+
+		if (source.is(DamageTypes.FALL)
+				|| source.is(DamageTypes.DROWN)
+				|| source.is(DamageTypes.CACTUS)
+				|| source.is(DamageTypes.WITHER)
+				|| source.is(DamageTypes.EXPLOSION)) {
+			return false;
 		}
 
-		if (minionCooldown <= 0 && minionMode && phase == 2 && minions.isEmpty()) {
-			spawnVanillaMinions(2);
-			minionCooldown = 200;
-		} else if (minionCooldown <= 0 && minionMode && phase == 3 && minions.isEmpty()) {
-			spawnVanillaMinions(4);
-			minionCooldown = 100;
+		if (bossContext == null) {
+			return super.hurtServer(level, source, amount);
 		}
 
-		if (phase == 3) handleFireballAttack();
+		if (bossContext.getState() != BossFightState.ACTIVE) {
+			return false;
+		}
 
-		if (abilityCooldown > 0) abilityCooldown--;
-		if (minionCooldown > 0) minionCooldown--;
-
-		bossBar.setProgress(hpPercent);
-
-		if (ownerUUID != null) {
-			Set<LivingEntity> targets = getTargets(ownerUUID);
-			if (!targets.isEmpty()) {
-				this.setTarget(targets.iterator().next());
+		if (getHealth() - amount <= 0) {
+			if (phase != BossPhase.PHASE_4) {
+				nextPhase();
+				return false;
 			}
+
+			bossContext.setState(BossFightState.DEFEATED);
+			manager.getFightManager().setState(BossFightState.DEFEATED);
+
+			return super.hurtServer(level, source, amount);
+		}
+
+		return super.hurtServer(level, source, amount);
+	}
+
+	private void nextPhase() {
+		switch (phase) {
+			case PHASE_1 -> phase = BossPhase.PHASE_2;
+			case PHASE_2 -> phase = BossPhase.PHASE_3;
+			case PHASE_3 -> phase = BossPhase.PHASE_4;
+			case PHASE_4 -> {
+                return;
+            }
+		}
+
+		setHealth(getMaxHealth());
+
+		applyPhaseAttributes();
+
+		bossContext.setAbilityCooldown(0);
+		bossContext.setMinionCooldown(0);
+	}
+
+	private void applyPhaseAttributes() {
+		switch (phase) {
+			case PHASE_1 -> {
+				Objects.requireNonNull(getAttribute(Attributes.ATTACK_DAMAGE))
+						.setBaseValue(6);
+
+				Objects.requireNonNull(getAttribute(Attributes.MOVEMENT_SPEED))
+						.setBaseValue(0.3);
+
+				Objects.requireNonNull(getAttribute(Attributes.FLYING_SPEED))
+						.setBaseValue(0.3);
+			}
+
+			case PHASE_2 -> {
+				Objects.requireNonNull(getAttribute(Attributes.ATTACK_DAMAGE))
+						.setBaseValue(10);
+
+				Objects.requireNonNull(getAttribute(Attributes.MOVEMENT_SPEED))
+						.setBaseValue(0.4);
+
+				Objects.requireNonNull(getAttribute(Attributes.FLYING_SPEED))
+						.setBaseValue(0.5);
+			}
+
+			case PHASE_3 -> {
+				Objects.requireNonNull(getAttribute(Attributes.ATTACK_DAMAGE))
+						.setBaseValue(14);
+
+				Objects.requireNonNull(getAttribute(Attributes.MOVEMENT_SPEED))
+						.setBaseValue(0.5);
+
+				Objects.requireNonNull(getAttribute(Attributes.FLYING_SPEED))
+						.setBaseValue(0.6);
+			}
+
+			case PHASE_4 -> {
+				Objects.requireNonNull(getAttribute(Attributes.ATTACK_DAMAGE))
+						.setBaseValue(18);
+
+				Objects.requireNonNull(getAttribute(Attributes.MOVEMENT_SPEED))
+						.setBaseValue(0.6);
+
+				Objects.requireNonNull(getAttribute(Attributes.FLYING_SPEED))
+						.setBaseValue(0.7);
+			}
+		}
+	}
+
+	private void updateAbilities() {
+		if (phase == BossPhase.PHASE_2
+				&& minionMode
+				&& minions.isEmpty()
+				&& bossContext.getMinionCooldown() <= 0) {
+			Ability summonAbility = AbilityImpl.SUMMON;
+
+			List<EntityType<?>> entities = List.of(EntityTypes.ZOMBIE, EntityTypes.SKELETON);
+
+			summonAbility.execute(bossContext, 2, entities);
+
+			bossContext.setMinionCooldown(200);
+		}
+
+		if (phase == BossPhase.PHASE_3 && bossContext.getAbilityCooldown() <= 0) {
+			Ability fireBallAbility = AbilityImpl.FIREBALL;
+
+			fireBallAbility.execute(bossContext, 3);
+
+			bossContext.setAbilityCooldown(100);
+		}
+	}
+
+	private void updateTarget() {
+		if (ownerUUID == null) {
+			return;
+		}
+
+		Set<LivingEntity> targets = getTargets(ownerUUID);
+
+		if (!targets.isEmpty()) {
+			setTarget(targets.iterator().next());
 		}
 	}
 
@@ -312,70 +477,12 @@ public class HerobrineBoss extends Monster {
 		return super.isAlliedTo(team);
 	}
 
-	@Override
-	protected void addAdditionalSaveData(@NotNull ValueOutput output) {
-		super.addAdditionalSaveData(output);
-		if (ownerUUID != null) output.putString("Owner", ownerUUID.toString());
-		output.putBoolean("MinionMode", minionMode);
-		output.putBoolean("hideBossBar", hideBossBar);
-		output.putBoolean("OwnedBoss", ownedBoss);
-	}
-
-	@Override
-	protected void readAdditionalSaveData(@NotNull ValueInput input) {
-		super.readAdditionalSaveData(input);
-
-		String ownerStr = input.getStringOr("Owner", "");
-		if (!ownerStr.isEmpty()) {
-			try {
-				ownerUUID = UUID.fromString(ownerStr);
-			} catch (IllegalArgumentException e) {
-				ownerUUID = null;
-			}
-		}
-
-		minionMode = input.getBooleanOr("MinionMode", true);
-		hideBossBar = input.getBooleanOr("hideBossBar", false);
-		ownedBoss = input.getBooleanOr("OwnedBoss", false);
-	}
-
 	public void setTamedOwner(ServerPlayer player) {
 		if (player != null) ownerUUID = player.getUUID();
 	}
 
 	public void setMinionMode(boolean b) {
 		this.minionMode = b;
-	}
-
-	public static AttributeSupplier.Builder createAttributes() {
-		return Monster.createMonsterAttributes()
-				.add(Attributes.MAX_HEALTH, 600)
-				.add(Attributes.ATTACK_DAMAGE, 6)
-				.add(Attributes.MOVEMENT_SPEED, 0.3)
-				.add(Attributes.FOLLOW_RANGE, 40)
-				.add(Attributes.FLYING_SPEED, 0.3);
-	}
-
-	@Override
-	public boolean hurtServer(@NotNull ServerLevel level, @NotNull DamageSource source, float amount) {
-		if (source.is(DamageTypes.FALL)
-				|| source.is(DamageTypes.DROWN)
-				|| source.is(DamageTypes.CACTUS)
-				|| source.is(DamageTypes.WITHER)
-				|| source.is(DamageTypes.EXPLOSION)) {
-			return false;
-		}
-		return super.hurtServer(level, source, amount);
-	}
-
-	@Override
-	protected @NotNull SoundEvent getHurtSound(@NotNull DamageSource source) {
-		return SoundEvents.PLAYER_HURT;
-	}
-
-	@Override
-	protected @NotNull SoundEvent getDeathSound() {
-		return SoundEvents.PLAYER_DEATH;
 	}
 
 	private boolean isOwner(Entity entity) {

@@ -1,7 +1,10 @@
 package de.niclasl.herobrines_world.common.registries.blocks;
 
+import de.niclasl.herobrines_world.HerobrinesWorld;
 import de.niclasl.herobrines_world.common.registries.blocks.custom.*;
 import de.niclasl.herobrines_world.common.registries.items.ModItems;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.ColorRGBA;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.level.block.*;
@@ -12,10 +15,8 @@ import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 import net.neoforged.bus.api.IEventBus;
-import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.DeferredBlock;
-
-import de.niclasl.herobrines_world.HerobrinesWorld;
+import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.function.Function;
 import java.util.function.ToIntFunction;
@@ -28,16 +29,16 @@ public class ModBlocks {
 			(properties) -> new Block(properties.sound(SoundType.WOOD).strength(10f, 30f).requiresCorrectToolForDrops()));
 
 	public static final DeferredBlock<Block> SIGNAL = registerBlock("signal",
-			(properties) -> new SignalBlock(properties.mapColor(MapColor.TERRACOTTA_ORANGE).lightLevel(litBlockEmission()).strength(0.3F).sound(SoundType.GLASS).isValidSpawn((blockState, blockGetter, blockPos, entityType) -> ModBlocks.always())));
+			(properties) -> new SignalBlock(properties.mapColor(MapColor.TERRACOTTA_ORANGE).lightLevel(litBlockEmission()).strength(0.3F).sound(SoundType.GLASS).isValidSpawn((_, _, _, _) -> ModBlocks.always())));
 
 	public static final DeferredBlock<Block> ASH_BLOCK = registerBlock("ash_block",
 			(properties) -> new ColoredFallingBlock(new ColorRGBA(14406560), properties.sound(SoundType.SAND).strength(1f, 10f)));
 
 	public static final DeferredBlock<Block> HEROBRINES_REALM_PORTAL = registerBlockNoItem("herobrines_realm_portal",
-			(properties) -> new HerobrinesRealmPortalBlock(properties.noCollision().randomTicks().pushReaction(PushReaction.BLOCK).strength(-1.0F).sound(SoundType.GLASS).lightLevel(s -> 0).noLootTable()));
+			(properties) -> new HerobrinesRealmPortalBlock(properties.noCollision().randomTicks().pushReaction(PushReaction.BLOCK).strength(-1.0F).sound(SoundType.GLASS).lightLevel(_ -> 11).noLootTable()));
 
 	public static final DeferredBlock<Block> UNDERWORLD_PORTAL = registerBlockNoItem("underworld_portal",
-			(properties) -> new UnderworldPortalBlock(properties.noCollision().randomTicks().pushReaction(PushReaction.BLOCK).strength(-1.0F).sound(SoundType.GLASS).lightLevel(s -> 0).noLootTable()));
+			(properties) -> new UnderworldPortalBlock(properties.noCollision().randomTicks().pushReaction(PushReaction.BLOCK).strength(-1.0F).sound(SoundType.GLASS).lightLevel(_ -> 11).noLootTable()));
 
 	public static final DeferredBlock<Block> BLUE_SANDSTONE = registerBlock("blue_sandstone",
 			(properties) -> new Block(properties.strength(0.8f).requiresCorrectToolForDrops()));
@@ -49,7 +50,7 @@ public class ModBlocks {
 			(properties) -> new SlabBlock(properties.strength(0.8f).requiresCorrectToolForDrops()));
 
 	public static final DeferredBlock<Block> BLUE_SANDSTONE_WALL = registerBlock("blue_sandstone_wall",
-			(properties) -> new WallBlock(properties.strength(0.8f).requiresCorrectToolForDrops().noOcclusion().isRedstoneConductor((bs, br, bp) -> false).forceSolidOn()));
+			(properties) -> new WallBlock(properties.strength(0.8f).requiresCorrectToolForDrops().noOcclusion().isRedstoneConductor((_, _, _) -> false).forceSolidOn()));
 
 	public static final DeferredBlock<Block> BLUE_CHISELED_SANDSTONE = registerBlock("blue_chiseled_sandstone",
 			(properties) -> new Block(properties.strength(0.8f).requiresCorrectToolForDrops()));
@@ -126,6 +127,13 @@ public class ModBlocks {
 	public static final DeferredBlock<Block> CARD_READER = registerBlock("card_reader",
 			(properties) -> new CardReaderBlock(properties.strength(6f).requiresCorrectToolForDrops()));
 
+	public static final DeferredBlock<Block> BOSS_SPAWNER = registerBlock("boss_spawner",
+			(properties) -> new BossSpawnBlock(properties.strength(-1f, 3600000f).noLootTable()));
+
+	public static ResourceKey<Block> getRK(Block block) {
+		return BuiltInRegistries.BLOCK.getResourceKey(block).get();
+	}
+
 	private static <T extends Block> DeferredBlock<T> registerBlock(String name, Function<BlockBehaviour.Properties, T> function) {
 		DeferredBlock<T> toReturn = BLOCKS.registerBlock(name, function);
 		registerBlockItem(name, toReturn);
@@ -143,7 +151,6 @@ public class ModBlocks {
 	public static void register(IEventBus eventBus) {
 		BLOCKS.register(eventBus);
 	}
-
 
 	public static boolean always() {
         return true;

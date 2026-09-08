@@ -1,25 +1,27 @@
 package de.niclasl.herobrines_world.common.registries.entities.custom;
 
+import de.niclasl.herobrines_world_api.boss.Boss;
+import de.niclasl.herobrines_world_api.boss.BossContext;
+import de.niclasl.herobrines_world_api.boss.BossType;
+import net.minecraft.server.level.ServerBossEvent;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageTypes;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.control.FlyingMoveControl;
+import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
+import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
+import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
+import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
+import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
+import net.minecraft.world.entity.ai.navigation.PathNavigation;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.hurtingprojectile.SmallFireball;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.monster.Monster;
-import net.minecraft.world.entity.ai.navigation.PathNavigation;
-import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
-import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
-import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
-import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
-import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
-import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
-import net.minecraft.world.entity.ai.control.FlyingMoveControl;
-import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
-import net.minecraft.world.entity.*;
-import net.minecraft.world.damagesource.DamageTypes;
-import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerBossEvent;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
@@ -28,7 +30,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
-public class Entity303 extends Monster {
+public class Entity303 extends Boss {
 
 	private final ServerBossEvent bossInfo =
 			new ServerBossEvent(
@@ -150,8 +152,8 @@ public class Entity303 extends Monster {
 
 		for (int i = 0; i < count; i++) {
 			EntityType<?> type = random.nextBoolean()
-					? EntityType.WITHER_SKELETON
-					: EntityType.PIGLIN;
+					? EntityTypes.WITHER_SKELETON
+					: EntityTypes.PIGLIN;
 
 			Mob mob = (Mob) type.create(level, EntitySpawnReason.MOB_SUMMONED);
 			if (mob == null) continue;
@@ -215,5 +217,20 @@ public class Entity303 extends Monster {
 				.add(Attributes.MOVEMENT_SPEED, 0.3)
 				.add(Attributes.FLYING_SPEED, 0.3)
 				.add(Attributes.FOLLOW_RANGE, 40);
+	}
+
+	@Override
+	public BossType getBossType() {
+		return null;
+	}
+
+	@Override
+	public void setBossContext(BossContext bossContext) {
+
+	}
+
+	@Override
+	public List<Mob> getMinions() {
+		return List.of();
 	}
 }

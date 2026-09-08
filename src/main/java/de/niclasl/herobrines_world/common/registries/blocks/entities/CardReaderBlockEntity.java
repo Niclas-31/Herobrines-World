@@ -119,7 +119,10 @@ public class CardReaderBlockEntity extends BlockEntity implements Container, Men
 
     @Override
     public boolean isEmpty() {
-        return false;
+        for (ItemStack stack : items) {
+            if (!stack.isEmpty()) return false;
+        }
+        return true;
     }
 
     @Override

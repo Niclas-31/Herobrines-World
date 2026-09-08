@@ -21,6 +21,10 @@ public class AccessModeImpl {
     public static void registerAccessMode(Identifier id, AccessMode mode) {
         for (AccessMode existing : HWRegistries.ACCESS_MODES.values()) {
 
+            if (existing.id().equals(id)) {
+                throw new IllegalStateException("Access mode with id " + id + " already exists");
+            }
+
             if (existing.priority() == mode.priority()) {
                 throw new IllegalStateException(
                         "Duplicate AccessMode priority "

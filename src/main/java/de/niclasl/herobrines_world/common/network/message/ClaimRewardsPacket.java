@@ -16,7 +16,6 @@ import net.neoforged.neoforge.network.PacketDistributor;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 import org.jspecify.annotations.NonNull;
 
-import java.sql.SQLException;
 import java.util.List;
 import java.util.UUID;
 
@@ -65,15 +64,7 @@ public record ClaimRewardsPacket() implements CustomPacketPayload {
             RewardContext rewardCtx = new RewardContext(player, rank);
 
             for (RewardEntry r : rewards) {
-                try {
-                    r.type().apply(rewardCtx, r);
-                } catch (SQLException e) {
-                    HerobrinesWorld.LOGGER.error(
-                            "Failed to update reward state for {}",
-                            player.getUUID(),
-                            e
-                    );
-                }
+                r.type().apply(rewardCtx, r);
             }
 
             storage.markClaimed(uuid);

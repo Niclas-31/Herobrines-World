@@ -19,6 +19,10 @@ public class TransferModeImpl {
     public static void registerTransferMode(Identifier id, TransferMode mode) {
         for (TransferMode existing : HWRegistries.TRANSFER_MODES.values()) {
 
+            if (existing.id().equals(id)) {
+                throw new IllegalStateException("Transfer mode with id " + id + " already exists");
+            }
+
             if (existing.priority() == mode.priority()) {
                 throw new IllegalStateException(
                         "Duplicate TransferMode priority "

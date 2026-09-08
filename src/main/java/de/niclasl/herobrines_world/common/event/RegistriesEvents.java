@@ -25,8 +25,8 @@ public class RegistriesEvents {
     public static void onBrewingRecipeRegister(RegisterBrewingRecipesEvent event) {
         PotionBrewing.Builder builder = event.getBuilder();
 
-        builder.addMix(Potions.AWKWARD, Items.RED_DYE, ModPotions.GOOD_HEROBRINE_OMEN);
-        builder.addMix(Potions.AWKWARD, Items.BLACK_DYE, ModPotions.BAD_HEROBRINE_OMEN);
+        builder.addMix(Potions.AWKWARD, Items.DYE.red(), ModPotions.GOOD_HEROBRINE_OMEN);
+        builder.addMix(Potions.AWKWARD, Items.DYE.black(), ModPotions.BAD_HEROBRINE_OMEN);
     }
 
     @SubscribeEvent

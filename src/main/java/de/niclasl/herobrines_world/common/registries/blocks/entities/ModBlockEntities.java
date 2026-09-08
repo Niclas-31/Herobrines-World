@@ -37,6 +37,10 @@ public class ModBlockEntities {
             BLOCK_ENTITIES.register("card_reader", () -> new BlockEntityType<>(
                     CardReaderBlockEntity::new, ModBlocks.CARD_READER.get()));
 
+    public static final Supplier<BlockEntityType<BossSpawnBlockEntity>> BOSS_SPAWNER =
+            BLOCK_ENTITIES.register("boss_spawner", () -> new BlockEntityType<>(
+                    BossSpawnBlockEntity::new, ModBlocks.BOSS_SPAWNER.get()));
+
     public static void register(IEventBus eventBus) {
         BLOCK_ENTITIES.register(eventBus);
     }

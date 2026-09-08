@@ -2,7 +2,6 @@ package de.niclasl.herobrines_world.common.world;
 
 import com.mojang.datafixers.util.Pair;
 import de.niclasl.herobrines_world.HerobrinesWorld;
-import de.niclasl.herobrines_world.common.util.clock.ModWorldClocks;
 import de.niclasl.herobrines_world.common.world.biome.ModBiomes;
 import de.niclasl.herobrines_world.common.world.noise.generator.ModNoiseGeneratorSettings;
 import net.minecraft.core.HolderGetter;
@@ -18,10 +17,12 @@ import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.attribute.*;
 import net.minecraft.world.clock.WorldClock;
+import net.minecraft.world.clock.WorldClocks;
 import net.minecraft.world.level.CardinalLighting;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Climate;
 import net.minecraft.world.level.biome.MultiNoiseBiomeSource;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.dimension.DimensionType;
 import net.minecraft.world.level.dimension.LevelStem;
 import net.minecraft.world.level.levelgen.NoiseBasedChunkGenerator;
@@ -53,6 +54,7 @@ public class ModDimensions {
                     Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "underworld"));
 
     public static void bootstrapType(BootstrapContext<DimensionType> context) {
+        HolderGetter<Block> blocks = context.lookup(Registries.BLOCK);
         HolderGetter<Timeline> timeline = context.lookup(Registries.TIMELINE);
         HolderGetter<WorldClock> worldClock = context.lookup(Registries.WORLD_CLOCK);
         EnvironmentAttributeMap herobrineAttributes = EnvironmentAttributeMap.builder()
@@ -77,14 +79,14 @@ public class ModDimensions {
                         -64,
                         384,
                         384,
-                        BlockTags.INFINIBURN_OVERWORLD,
+                        blocks.getOrThrow(BlockTags.INFINIBURN_OVERWORLD),
                         0.0F,
                         new DimensionType.MonsterSettings(UniformInt.of(0, 7), 0),
                         DimensionType.Skybox.OVERWORLD,
                         CardinalLighting.Type.DEFAULT,
                         herobrineAttributes,
                         timeline.getOrThrow(TimelineTags.IN_OVERWORLD),
-                        Optional.of(worldClock.getOrThrow(ModWorldClocks.HEROBRINES_REALM))
+                        Optional.of(worldClock.getOrThrow(WorldClocks.OVERWORLD))
                 )
         );
         EnvironmentAttributeMap underworldAttributes = EnvironmentAttributeMap.builder()
@@ -112,14 +114,14 @@ public class ModDimensions {
                         0,
                         256,
                         128,
-                        BlockTags.INFINIBURN_NETHER,
+                        blocks.getOrThrow(BlockTags.INFINIBURN_NETHER),
                         0.1F,
                         new DimensionType.MonsterSettings(ConstantInt.of(7), 15),
                         DimensionType.Skybox.NONE,
                         CardinalLighting.Type.NETHER,
                         underworldAttributes,
                         timeline.getOrThrow(TimelineTags.IN_NETHER),
-                        Optional.of(worldClock.getOrThrow(ModWorldClocks.UNDERWORLD))
+                        Optional.empty()
                 )
         );
     }

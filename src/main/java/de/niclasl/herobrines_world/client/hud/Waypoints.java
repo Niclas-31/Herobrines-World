@@ -52,7 +52,7 @@ public class Waypoints {
     }
 
     private static void renderWaypoint(GuiGraphicsExtractor gui, Minecraft mc, SavedWaypoint wp) {
-        Camera cam = mc.gameRenderer.getMainCamera();
+        Camera cam = mc.gameRenderer.mainCamera();
 
         Vec3 camPos = cam.position();
 

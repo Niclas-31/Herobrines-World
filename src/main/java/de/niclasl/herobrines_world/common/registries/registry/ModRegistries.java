@@ -1,5 +1,7 @@
 package de.niclasl.herobrines_world.common.registries.registry;
 
+import de.niclasl.herobrines_world.common.boss.ability.AbilityImpl;
+import de.niclasl.herobrines_world.common.boss.entity.BossImpl;
 import de.niclasl.herobrines_world.common.boss.entity.HerobrineBoss;
 import de.niclasl.herobrines_world.common.leaderboard.RewardTypeImpl;
 import de.niclasl.herobrines_world.common.network.access.AccessModeImpl;
@@ -31,6 +33,7 @@ public class ModRegistries {
         TransferModeImpl.register();
         AccessModeImpl.register();
         HWStructureTypes.register();
+        BossImpl.register();
 
         HWRegistries.registerStructureAPI(new StructureManager());
 
@@ -58,5 +61,6 @@ public class ModRegistries {
 
         ModVariables.ATTACHMENT_TYPES.register(eventBus);
         HerobrineBoss.register();
+        AbilityImpl.register();
     }
 }

@@ -5,8 +5,8 @@ import de.niclasl.herobrines_world.common.registries.blocks.ModBlocks;
 import de.niclasl.herobrines_world.common.util.ModTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
+import net.minecraft.references.BlockItemIds;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.world.level.block.Blocks;
 import net.neoforged.neoforge.common.data.BlockTagsProvider;
 import org.jetbrains.annotations.NotNull;
 
@@ -20,63 +20,63 @@ public class ModBlockTagProvider extends BlockTagsProvider {
     @Override
     protected void addTags(HolderLookup.@NotNull Provider provider) {
         tag(BlockTags.MINEABLE_WITH_PICKAXE)
-                .add(ModBlocks.CURSED_STONE.get())
-                .add(ModBlocks.ABYSSAL_BLOCK.get())
-                .add(ModBlocks.FROZEN_HEART_ORE.get())
-                .add(ModBlocks.DEEPSLATE_FROZEN_HEART_ORE.get())
-                .add(ModBlocks.GREEN_ORE.get())
-                .add(ModBlocks.DEEPSLATE_GREEN_ORE.get())
-                .add(ModBlocks.ASH_ORE.get())
-                .add(ModBlocks.DEEPSLATE_ASH_ORE.get())
-                .add(ModBlocks.HEROBRINE_ORE.get())
-                .add(ModBlocks.DEEPSLATE_HEROBRINE_ORE.get())
-                .add(ModBlocks.BLUE_SANDSTONE.get())
-                .add(ModBlocks.BLUE_SANDSTONE_STAIRS.get())
-                .add(ModBlocks.BLUE_SANDSTONE_SLAB.get())
-                .add(ModBlocks.BLUE_SANDSTONE_WALL.get())
-                .add(ModBlocks.BLUE_CHISELED_SANDSTONE.get())
-                .add(ModBlocks.BLUE_SMOOTH_SANDSTONE.get())
-                .add(ModBlocks.BLUE_SMOOTH_SANDSTONE_STAIRS.get())
-                .add(ModBlocks.BLUE_SMOOTH_SANDSTONE_SLAB.get())
-                .add(ModBlocks.BLUE_CUT_SANDSTONE.get())
-                .add(ModBlocks.BLUE_CUT_SANDSTONE_SLAB.get())
-                .add(ModBlocks.HEROBRINE_BLOCK.get())
-                .add(ModBlocks.AUTO_FARMER.get())
-                .add(ModBlocks.BATTERY_CHARGER.get())
-                .add(ModBlocks.PLATINE_ORE.get())
-                .add(ModBlocks.DEEPSLATE_PLATIN_ORE.get())
-                .add(ModBlocks.STORAGE_CONTROLLER.get())
-                .add(ModBlocks.CARD_READER.get());
+                .add(ModBlocks.getRK(ModBlocks.CURSED_STONE.get()))
+                .add(ModBlocks.getRK(ModBlocks.ABYSSAL_BLOCK.get()))
+                .add(ModBlocks.getRK(ModBlocks.FROZEN_HEART_ORE.get()))
+                .add(ModBlocks.getRK(ModBlocks.DEEPSLATE_FROZEN_HEART_ORE.get()))
+                .add(ModBlocks.getRK(ModBlocks.GREEN_ORE.get()))
+                .add(ModBlocks.getRK(ModBlocks.DEEPSLATE_GREEN_ORE.get()))
+                .add(ModBlocks.getRK(ModBlocks.ASH_ORE.get()))
+                .add(ModBlocks.getRK(ModBlocks.DEEPSLATE_ASH_ORE.get()))
+                .add(ModBlocks.getRK(ModBlocks.HEROBRINE_ORE.get()))
+                .add(ModBlocks.getRK(ModBlocks.DEEPSLATE_HEROBRINE_ORE.get()))
+                .add(ModBlocks.getRK(ModBlocks.BLUE_SANDSTONE.get()))
+                .add(ModBlocks.getRK(ModBlocks.BLUE_SANDSTONE_STAIRS.get()))
+                .add(ModBlocks.getRK(ModBlocks.BLUE_SANDSTONE_SLAB.get()))
+                .add(ModBlocks.getRK(ModBlocks.BLUE_SANDSTONE_WALL.get()))
+                .add(ModBlocks.getRK(ModBlocks.BLUE_CHISELED_SANDSTONE.get()))
+                .add(ModBlocks.getRK(ModBlocks.BLUE_SMOOTH_SANDSTONE.get()))
+                .add(ModBlocks.getRK(ModBlocks.BLUE_SMOOTH_SANDSTONE_STAIRS.get()))
+                .add(ModBlocks.getRK(ModBlocks.BLUE_SMOOTH_SANDSTONE_SLAB.get()))
+                .add(ModBlocks.getRK(ModBlocks.BLUE_CUT_SANDSTONE.get()))
+                .add(ModBlocks.getRK(ModBlocks.BLUE_CUT_SANDSTONE_SLAB.get()))
+                .add(ModBlocks.getRK(ModBlocks.HEROBRINE_BLOCK.get()))
+                .add(ModBlocks.getRK(ModBlocks.AUTO_FARMER.get()))
+                .add(ModBlocks.getRK(ModBlocks.BATTERY_CHARGER.get()))
+                .add(ModBlocks.getRK(ModBlocks.PLATINE_ORE.get()))
+                .add(ModBlocks.getRK(ModBlocks.DEEPSLATE_PLATIN_ORE.get()))
+                .add(ModBlocks.getRK(ModBlocks.STORAGE_CONTROLLER.get()))
+                .add(ModBlocks.getRK(ModBlocks.CARD_READER.get()));
 
         tag(BlockTags.MINEABLE_WITH_SHOVEL)
-                .add(ModBlocks.ASH_BLOCK.get());
+                .add(ModBlocks.getRK(ModBlocks.ASH_BLOCK.get()));
 
         tag(BlockTags.MINEABLE_WITH_AXE)
-                .add(ModBlocks.LUMBERJACK_TABLE.get());
+                .add(ModBlocks.getRK(ModBlocks.LUMBERJACK_TABLE.get()));
 
         tag(BlockTags.NEEDS_STONE_TOOL)
-                .add(ModBlocks.FROZEN_HEART_ORE.get())
-                .add(ModBlocks.DEEPSLATE_FROZEN_HEART_ORE.get())
-                .add(ModBlocks.GREEN_ORE.get())
-                .add(ModBlocks.DEEPSLATE_GREEN_ORE.get())
-                .add(ModBlocks.AUTO_FARMER.get())
-                .add(ModBlocks.BATTERY_CHARGER.get());
+                .add(ModBlocks.getRK(ModBlocks.FROZEN_HEART_ORE.get()))
+                .add(ModBlocks.getRK(ModBlocks.DEEPSLATE_FROZEN_HEART_ORE.get()))
+                .add(ModBlocks.getRK(ModBlocks.GREEN_ORE.get()))
+                .add(ModBlocks.getRK(ModBlocks.DEEPSLATE_GREEN_ORE.get()))
+                .add(ModBlocks.getRK(ModBlocks.AUTO_FARMER.get()))
+                .add(ModBlocks.getRK(ModBlocks.BATTERY_CHARGER.get()));
 
         tag(BlockTags.NEEDS_IRON_TOOL)
-                .add(ModBlocks.HEROBRINE_ORE.get())
-                .add(ModBlocks.DEEPSLATE_HEROBRINE_ORE.get())
-                .add(ModBlocks.HEROBRINE_BLOCK.get())
-                .add(ModBlocks.ASH_ORE.get())
-                .add(ModBlocks.DEEPSLATE_ASH_ORE.get());
+                .add(ModBlocks.getRK(ModBlocks.HEROBRINE_ORE.get()))
+                .add(ModBlocks.getRK(ModBlocks.DEEPSLATE_HEROBRINE_ORE.get()))
+                .add(ModBlocks.getRK(ModBlocks.HEROBRINE_BLOCK.get()))
+                .add(ModBlocks.getRK(ModBlocks.ASH_ORE.get()))
+                .add(ModBlocks.getRK(ModBlocks.DEEPSLATE_ASH_ORE.get()));
 
 
         tag(ModTags.Blocks.NEEDS_NATURE_TOOL)
-                .add(ModBlocks.PLATINE_ORE.get())
-                .add(ModBlocks.DEEPSLATE_PLATIN_ORE.get());
+                .add(ModBlocks.getRK(ModBlocks.PLATINE_ORE.get()))
+                .add(ModBlocks.getRK(ModBlocks.DEEPSLATE_PLATIN_ORE.get()));
         tag(ModTags.Blocks.NEEDS_ASH_TOOLS);
         tag(ModTags.Blocks.NEEDS_FIRE_TOOL)
-                .add(ModBlocks.STORAGE_CONTROLLER.get())
-                .add(ModBlocks.CARD_READER.get());
+                .add(ModBlocks.getRK(ModBlocks.STORAGE_CONTROLLER.get()))
+                .add(ModBlocks.getRK(ModBlocks.CARD_READER.get()));
         tag(ModTags.Blocks.NEEDS_PLATIN_TOOL);
         tag(ModTags.Blocks.NEEDS_HEROBRINE_TOOL);
 
@@ -130,73 +130,73 @@ public class ModBlockTagProvider extends BlockTagsProvider {
                 .addTag(ModTags.Blocks.NEEDS_HEROBRINE_TOOL);
 
         tag(BlockTags.SLABS)
-                .add(ModBlocks.BLUE_SMOOTH_SANDSTONE_SLAB.get())
-                .add(ModBlocks.BLUE_CUT_SANDSTONE_SLAB.get())
-                .add(ModBlocks.BLUE_SANDSTONE_SLAB.get());
+                .add(ModBlocks.getRK(ModBlocks.BLUE_SMOOTH_SANDSTONE_SLAB.get()))
+                .add(ModBlocks.getRK(ModBlocks.BLUE_CUT_SANDSTONE_SLAB.get()))
+                .add(ModBlocks.getRK(ModBlocks.BLUE_SANDSTONE_SLAB.get()));
 
         tag(BlockTags.STAIRS)
-                .add(ModBlocks.BLUE_SMOOTH_SANDSTONE_STAIRS.get())
-                .add(ModBlocks.BLUE_SANDSTONE_STAIRS.get());
+                .add(ModBlocks.getRK(ModBlocks.BLUE_SMOOTH_SANDSTONE_STAIRS.get()))
+                .add(ModBlocks.getRK(ModBlocks.BLUE_SANDSTONE_STAIRS.get()));
 
         tag(BlockTags.WALLS)
-                .add(ModBlocks.BLUE_SANDSTONE_WALL.get());
+                .add(ModBlocks.getRK(ModBlocks.BLUE_SANDSTONE_WALL.get()));
 
         tag(ModTags.Blocks.ANCIENT_DEBRIS)
-                .add(Blocks.ANCIENT_DEBRIS);
+                .add(BlockItemIds.ANCIENT_DEBRIS.block());
 
         tag(ModTags.Blocks.ASH)
-                .add(ModBlocks.ASH_ORE.get())
-                .add(ModBlocks.DEEPSLATE_ASH_ORE.get());
+                .add(ModBlocks.getRK(ModBlocks.ASH_ORE.get()))
+                .add(ModBlocks.getRK(ModBlocks.DEEPSLATE_ASH_ORE.get()));
 
         tag(ModTags.Blocks.COAL)
-                .add(Blocks.COAL_ORE)
-                .add(Blocks.DEEPSLATE_COAL_ORE);
+                .add(BlockItemIds.COAL_ORE.block())
+                .add(BlockItemIds.DEEPSLATE_COAL_ORE.block());
 
         tag(ModTags.Blocks.COPPER)
-                .add(Blocks.COPPER_ORE)
-                .add(Blocks.DEEPSLATE_COPPER_ORE);
+                .add(BlockItemIds.COPPER_ORE.block())
+                .add(BlockItemIds.DEEPSLATE_COPPER_ORE.block());
 
         tag(ModTags.Blocks.DIAMOND)
-                .add(Blocks.DIAMOND_ORE)
-                .add(Blocks.DEEPSLATE_DIAMOND_ORE);
+                .add(BlockItemIds.DIAMOND_ORE.block())
+                .add(BlockItemIds.DEEPSLATE_DIAMOND_ORE.block());
 
         tag(ModTags.Blocks.EMERALD)
-                .add(Blocks.EMERALD_ORE)
-                .add(Blocks.DEEPSLATE_EMERALD_ORE);
+                .add(BlockItemIds.EMERALD_ORE.block())
+                .add(BlockItemIds.DEEPSLATE_EMERALD_ORE.block());
 
         tag(ModTags.Blocks.FROZEN)
-                .add(ModBlocks.FROZEN_HEART_ORE.get())
-                .add(ModBlocks.DEEPSLATE_FROZEN_HEART_ORE.get());
+                .add(ModBlocks.getRK(ModBlocks.FROZEN_HEART_ORE.get()))
+                .add(ModBlocks.getRK(ModBlocks.DEEPSLATE_FROZEN_HEART_ORE.get()));
 
         tag(ModTags.Blocks.GOLD)
-                .add(Blocks.GOLD_ORE)
-                .add(Blocks.DEEPSLATE_GOLD_ORE);
+                .add(BlockItemIds.GOLD_ORE.block())
+                .add(BlockItemIds.DEEPSLATE_GOLD_ORE.block());
 
         tag(ModTags.Blocks.GREEN)
-                .add(ModBlocks.GREEN_ORE.get())
-                .add(ModBlocks.DEEPSLATE_GREEN_ORE.get());
+                .add(ModBlocks.getRK(ModBlocks.GREEN_ORE.get()))
+                .add(ModBlocks.getRK(ModBlocks.DEEPSLATE_GREEN_ORE.get()));
 
         tag(ModTags.Blocks.HEROBRINE)
-                .add(ModBlocks.HEROBRINE_ORE.get())
-                .add(ModBlocks.DEEPSLATE_HEROBRINE_ORE.get());
+                .add(ModBlocks.getRK(ModBlocks.HEROBRINE_ORE.get()))
+                .add(ModBlocks.getRK(ModBlocks.DEEPSLATE_HEROBRINE_ORE.get()));
 
         tag(ModTags.Blocks.IRON)
-                .add(Blocks.IRON_ORE)
-                .add(Blocks.DEEPSLATE_IRON_ORE);
+                .add(BlockItemIds.IRON_ORE.block())
+                .add(BlockItemIds.DEEPSLATE_IRON_ORE.block());
 
         tag(ModTags.Blocks.LAPIS)
-                .add(Blocks.LAPIS_ORE)
-                .add(Blocks.DEEPSLATE_LAPIS_ORE);
+                .add(BlockItemIds.LAPIS_ORE.block())
+                .add(BlockItemIds.DEEPSLATE_LAPIS_ORE.block());
 
         tag(ModTags.Blocks.PLATIN)
-                .add(ModBlocks.PLATINE_ORE.get())
-                .add(ModBlocks.DEEPSLATE_PLATIN_ORE.get());
+                .add(ModBlocks.getRK(ModBlocks.PLATINE_ORE.get()))
+                .add(ModBlocks.getRK(ModBlocks.DEEPSLATE_PLATIN_ORE.get()));
 
         tag(ModTags.Blocks.QUARTZ)
-                .add(Blocks.NETHER_QUARTZ_ORE);
+                .add(BlockItemIds.NETHER_QUARTZ_ORE.block());
 
         tag(ModTags.Blocks.REDSTONE)
-                .add(Blocks.REDSTONE_ORE)
-                .add(Blocks.DEEPSLATE_REDSTONE_ORE);
+                .add(BlockItemIds.REDSTONE_ORE.block())
+                .add(BlockItemIds.DEEPSLATE_REDSTONE_ORE.block());
     }
 }

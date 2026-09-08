@@ -9,6 +9,7 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.level.block.Block;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -73,6 +74,10 @@ public class ModEntities {
 		event.put(GOOD_HEROBRINE.get(), GoodHerobrine.createAttributes().build());
 		event.put(BAD_HEROBRINE.get(), BadHerobrine.createAttributes().build());
 		event.put(CHRISTMAS_NICLASL.get(), ChristmasNiclasl.createAttributes().build());
+	}
+
+	public static ResourceKey<EntityType<?>> getRK(EntityType<?> entityType) {
+		return BuiltInRegistries.ENTITY_TYPE.getResourceKey(entityType).get();
 	}
 
 	public static void register(IEventBus eventBus) {

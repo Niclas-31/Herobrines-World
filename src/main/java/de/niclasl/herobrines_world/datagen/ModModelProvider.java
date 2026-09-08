@@ -131,6 +131,7 @@ public class ModModelProvider extends ModelProvider {
         itemModels.generateFlatItem(ModItems.PLATIN_INGOT.get(), ModelTemplates.FLAT_ITEM);
         itemModels.generateFlatItem(ModItems.KEY_CARD.get(), ModelTemplates.FLAT_ITEM);
         itemModels.generateFlatItem(ModItems.RED_CRYSTAL.get(), ModelTemplates.FLAT_ITEM);
+        itemModels.generateFlatItem(ModItems.HEROBRINE_BOSS_FRAGMENT.get(), ModelTemplates.FLAT_ITEM);
     }
 
     public BlockModelGenerators.BlockFamilyProvider family(BlockModelGenerators generators, Block block) {
@@ -143,7 +144,8 @@ public class ModModelProvider extends ModelProvider {
         return ModBlocks.BLOCKS.getEntries().stream().filter(x ->
                 x.get() != ModBlocks.HEROBRINES_REALM_PORTAL.get()
                 && x.get() != ModBlocks.UNDERWORLD_PORTAL.get() && x.get() != ModBlocks.DELAYER.get()
-                && x.get() != ModBlocks.LOGIC_GATE_BLOCK.get() && x.get() != ModBlocks.BATTERY_CHARGER.get());
+                && x.get() != ModBlocks.LOGIC_GATE_BLOCK.get() && x.get() != ModBlocks.BATTERY_CHARGER.get()
+                        && x.get() != ModBlocks.BOSS_SPAWNER.get());
     }
 
     @Override
@@ -153,6 +155,6 @@ public class ModModelProvider extends ModelProvider {
                 && x.get() != ModBlocks.HEROBRINES_REALM_PORTAL.asItem() && x.get() != ModBlocks.UNDERWORLD_PORTAL.asItem()
                 && x.get() != ModBlocks.DELAYER.asItem() && x.get() != ModBlocks.LOGIC_GATE_BLOCK.asItem()
                 && x.get() != ModBlocks.BATTERY_CHARGER.asItem() && x.get() != ModItems.SMART_CHIP.get()
-                && x.get() != ModItems.SMART_CHIP_CASE.get());
+                && x.get() != ModItems.SMART_CHIP_CASE.get() && x.get() != ModBlocks.BOSS_SPAWNER.asItem());
     }
 }

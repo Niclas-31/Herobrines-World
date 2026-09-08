@@ -18,9 +18,9 @@ public class ModEntityTypeTagProvider extends EntityTypeTagsProvider {
     @Override
     protected void addTags(HolderLookup.@NonNull Provider provider) {
         tag(EntityTypeTags.BURN_IN_DAYLIGHT)
-                .add(ModEntities.BAD_HEROBRINE.get());
+                .add(ModEntities.getRK(ModEntities.BAD_HEROBRINE.get()));
 
         tag(EntityTypeTags.UNDEAD)
-                .add(ModEntities.BAD_HEROBRINE.get());
+                .add(ModEntities.getRK(ModEntities.BAD_HEROBRINE.get()));
     }
 }

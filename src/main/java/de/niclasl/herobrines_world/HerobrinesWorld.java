@@ -18,8 +18,6 @@ import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
 import org.slf4j.Logger;
 
-import java.sql.SQLException;
-
 @Mod(HerobrinesWorld.MOD_ID)
 public class HerobrinesWorld {
 	public static final String MOD_ID = "herobrines_world";
@@ -28,14 +26,14 @@ public class HerobrinesWorld {
 
 	public static final Logger LOGGER = LogUtils.getLogger();
 
-    public HerobrinesWorld(IEventBus modEventBus, ModContainer modContainer) throws SQLException {
+    public HerobrinesWorld(IEventBus modEventBus, ModContainer modContainer) {
 		ApiVersionChecker.check(LOGGER);
 
 		ApiVersionHolder holder = HerobrinesApiVersions.getHolder(REQUIRED_VERSION.major());
 
 		if (holder == null || !holder.exists(REQUIRED_VERSION)) {
 			throw new IllegalArgumentException(
-					"Voltrix API Version " + REQUIRED_VERSION + " does not exist!"
+					"Herobrines World API Version " + REQUIRED_VERSION + " does not exist!"
 			);
 		}
 

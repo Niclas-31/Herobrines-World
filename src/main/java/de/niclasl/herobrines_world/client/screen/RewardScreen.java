@@ -94,7 +94,7 @@ public class RewardScreen extends Screen {
 
         claimed = true;
 
-        mc.setScreen(new SeasonBreakScreen());
+        mc.gui.setScreen(new SeasonBreakScreen());
     }
 
     @Override

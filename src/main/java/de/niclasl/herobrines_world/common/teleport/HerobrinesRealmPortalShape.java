@@ -22,7 +22,7 @@ import java.util.Optional;
 import java.util.function.Predicate;
 
 public class HerobrinesRealmPortalShape {
-    private static final BlockBehaviour.StatePredicate FRAME = (state, level, pos) -> state.getBlock() == ModBlocks.CURSED_STONE.get();
+    private static final BlockBehaviour.StatePredicate FRAME = (state, _, _) -> state.getBlock() == ModBlocks.CURSED_STONE.get();
     private final Direction.Axis axis;
     private final Direction rightDir;
     private final int numPortalBlocks;

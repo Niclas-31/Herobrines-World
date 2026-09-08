@@ -56,22 +56,22 @@ public class DelayerScreen extends AbstractContainerScreen<DelayerMenu> {
         this.addRenderableWidget(minutesBox);
         this.addRenderableWidget(hoursBox);
 
-        this.addRenderableWidget(Button.builder(Component.literal("+t"), b -> adjustBox(ticksBox, 1, 20))
+        this.addRenderableWidget(Button.builder(Component.literal("+t"), _ -> adjustBox(ticksBox, 1, 20))
                 .bounds(startX, yPlus, boxWidth, 20).build());
-        this.addRenderableWidget(Button.builder(Component.literal("+s"), b -> adjustBox(secondsBox, 1, 60))
+        this.addRenderableWidget(Button.builder(Component.literal("+s"), _ -> adjustBox(secondsBox, 1, 60))
                 .bounds(startX + (boxWidth + spacing), yPlus, boxWidth, 20).build());
-        this.addRenderableWidget(Button.builder(Component.literal("+m"), b -> adjustBox(minutesBox, 1, 60))
+        this.addRenderableWidget(Button.builder(Component.literal("+m"), _ -> adjustBox(minutesBox, 1, 60))
                 .bounds(startX + 2 * (boxWidth + spacing), yPlus, boxWidth, 20).build());
-        this.addRenderableWidget(Button.builder(Component.literal("+h"), b -> adjustBox(hoursBox, 1, 24))
+        this.addRenderableWidget(Button.builder(Component.literal("+h"), _ -> adjustBox(hoursBox, 1, 24))
                 .bounds(startX + 3 * (boxWidth + spacing), yPlus, boxWidth, 20).build());
 
-        this.addRenderableWidget(Button.builder(Component.literal("-t"), b -> adjustBox(ticksBox, -1, 20))
+        this.addRenderableWidget(Button.builder(Component.literal("-t"), _ -> adjustBox(ticksBox, -1, 20))
                 .bounds(startX, yMinus, boxWidth, 20).build());
-        this.addRenderableWidget(Button.builder(Component.literal("-s"), b -> adjustBox(secondsBox, -1, 60))
+        this.addRenderableWidget(Button.builder(Component.literal("-s"), _ -> adjustBox(secondsBox, -1, 60))
                 .bounds(startX + (boxWidth + spacing), yMinus, boxWidth, 20).build());
-        this.addRenderableWidget(Button.builder(Component.literal("-m"), b -> adjustBox(minutesBox, -1, 60))
+        this.addRenderableWidget(Button.builder(Component.literal("-m"), _ -> adjustBox(minutesBox, -1, 60))
                 .bounds(startX + 2 * (boxWidth + spacing), yMinus, boxWidth, 20).build());
-        this.addRenderableWidget(Button.builder(Component.literal("-h"), b -> adjustBox(hoursBox, -1, 24))
+        this.addRenderableWidget(Button.builder(Component.literal("-h"), _ -> adjustBox(hoursBox, -1, 24))
                 .bounds(startX + 3 * (boxWidth + spacing), yMinus, boxWidth, 20).build());
 
         int saveButtonWidth = 60;
@@ -79,7 +79,7 @@ public class DelayerScreen extends AbstractContainerScreen<DelayerMenu> {
         int saveButtonX = this.leftPos + (this.imageWidth / 2) - (saveButtonWidth / 2);
         int saveButtonY = this.topPos + this.imageHeight - 25;
 
-        this.addRenderableWidget(Button.builder(Component.translatable("gui.herobrines_world.delayer.button.save"), b -> saveTimes())
+        this.addRenderableWidget(Button.builder(Component.translatable("gui.herobrines_world.delayer.button.save"), _ -> saveTimes())
                 .bounds(saveButtonX, saveButtonY, saveButtonWidth, saveButtonHeight).build());
     }
 
@@ -93,24 +93,35 @@ public class DelayerScreen extends AbstractContainerScreen<DelayerMenu> {
     }
 
     public void addNumberLimiter(EditBox box, int min, int max) {
-        box.setFilter(this::onlyDigits);
-
         box.setResponder(input -> {
-            if (input.isEmpty()) return;
-
-            int value = Integer.parseInt(input);
-
-            if (value < min) {
-                if (!box.getValue().equals(String.valueOf(min))) {
-                    box.setValue(String.valueOf(min));
-                }
+            if (input.isEmpty()) {
                 return;
             }
 
-            if (value > max) {
-                if (!box.getValue().equals(String.valueOf(max))) {
+            if (!onlyDigits(input)) {
+                box.setValue(
+                        input.chars()
+                                .filter(Character::isDigit)
+                                .collect(
+                                        StringBuilder::new,
+                                        StringBuilder::appendCodePoint,
+                                        StringBuilder::append
+                                )
+                                .toString()
+                );
+                return;
+            }
+
+            try {
+                int value = Integer.parseInt(input);
+
+                if (value < min) {
+                    box.setValue(String.valueOf(min));
+                } else if (value > max) {
                     box.setValue(String.valueOf(max));
                 }
+            } catch (NumberFormatException ignored) {
+                box.setValue(String.valueOf(min));
             }
         });
     }

@@ -5,6 +5,9 @@ import de.niclasl.herobrines_world.common.registries.components.ModDataComponent
 import de.niclasl.herobrines_world.common.registries.entities.ModEntities;
 import de.niclasl.herobrines_world.common.registries.items.custom.*;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.equipment.ArmorType;
 import net.neoforged.bus.api.IEventBus;
@@ -290,6 +293,15 @@ public class ModItems {
 			"red_crystal",
 			(properties) -> new RedCrystalItem(properties.component(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true))
 	);
+
+	public static final DeferredItem<Item> HEROBRINE_BOSS_FRAGMENT = ITEMS.registerItem(
+			"herobrine_boss_fragment",
+			(properties) -> new BossSpawnItem(properties.stacksTo(1), Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "herobrine_boss"))
+	);
+
+	public static ResourceKey<Item> getRK(Item item) {
+		return BuiltInRegistries.ITEM.getResourceKey(item).get();
+	}
 
 	public static void register(IEventBus eventBus) {
 		ITEMS.register(eventBus);

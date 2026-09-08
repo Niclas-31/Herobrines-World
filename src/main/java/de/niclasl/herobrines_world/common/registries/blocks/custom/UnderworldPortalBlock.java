@@ -91,8 +91,8 @@ public class UnderworldPortalBlock extends Block implements Portal {
 				pos = pos.below();
 			}
 
-			if (level.getBlockState(pos).isValidSpawn(level, pos, EntityType.ZOMBIFIED_PIGLIN)) {
-				Entity entity = EntityType.ZOMBIFIED_PIGLIN.spawn(level, pos.above(), EntitySpawnReason.STRUCTURE);
+			if (level.getBlockState(pos).isValidSpawn(level, pos, EntityTypes.ZOMBIFIED_PIGLIN)) {
+				Entity entity = EntityTypes.ZOMBIFIED_PIGLIN.spawn(level, pos.above(), EntitySpawnReason.STRUCTURE);
 				if (entity != null) {
 					entity.setPortalCooldown();
 					Entity entity1 = entity.getVehicle();

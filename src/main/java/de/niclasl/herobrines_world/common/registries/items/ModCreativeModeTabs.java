@@ -25,7 +25,7 @@ public class ModCreativeModeTabs {
 	public static final DeferredHolder<CreativeModeTab, CreativeModeTab> HEROBRINE_BUILDING_BLOCKS =
 			CREATIVE_MODE_TAB.register("herobrine_building_blocks",
 					() -> CreativeModeTab.builder()
-							.icon(() -> new ItemStack(ModBlocks.BLUE_SANDSTONE.get()))
+							.icon(() -> new ItemStack(ModBlocks.BLUE_SANDSTONE))
 							.title(Component.translatable("itemGroup.herobrine_building_blocks"))
 							.displayItems((_, tabData) -> {
 								tabData.accept(ModBlocks.BLUE_SANDSTONE);
@@ -44,19 +44,19 @@ public class ModCreativeModeTabs {
 	public static final Supplier<CreativeModeTab> HEROBRINE_COLORED_BLOCKS =
 			CREATIVE_MODE_TAB.register("herobrine_colored_blocks",
 					() -> CreativeModeTab.builder()
-							.icon(() -> new ItemStack(ModBlocks.SIGNAL.get()))
+							.icon(() -> new ItemStack(ModBlocks.SIGNAL))
 							.withTabsBefore(Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "herobrine_building_blocks"))
 							.title(Component.translatable("itemGroup.herobrine_colored_blocks"))
 							.displayItems((_, tabData) -> {
 								for (ColorProperty color : ColorProperty.values()) {
-									tabData.accept(SignalBlock.setModeOnStack(new ItemStack(ModBlocks.SIGNAL.get()), color));
+									tabData.accept(SignalBlock.setModeOnStack(new ItemStack(ModBlocks.SIGNAL), color));
 								}
 							}).build());
 
 	public static final Supplier<CreativeModeTab> HEROBRINE_NATURAL_BLOCKS =
 			CREATIVE_MODE_TAB.register("herobrine_natural_blocks",
 					() -> CreativeModeTab.builder()
-							.icon(() -> new ItemStack(ModBlocks.ASH_BLOCK.get()))
+							.icon(() -> new ItemStack(ModBlocks.ASH_BLOCK))
 							.withTabsBefore(Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "herobrine_colored_blocks"))
 							.title(Component.translatable("itemGroup.herobrine_natural_blocks"))
 							.displayItems((_, tabData) -> {
@@ -79,7 +79,7 @@ public class ModCreativeModeTabs {
 	public static final Supplier<CreativeModeTab> HEROBRINE_FUNCTIONAL_BLOCKS =
 			CREATIVE_MODE_TAB.register("herobrine_functional_blocks",
 					() -> CreativeModeTab.builder()
-							.icon(() -> new ItemStack(ModBlocks.LUMBERJACK_TABLE.get()))
+							.icon(() -> new ItemStack(ModBlocks.LUMBERJACK_TABLE))
 							.withTabsBefore(Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "herobrine_natural_blocks"))
 							.title(Component.translatable("itemGroup.herobrine_functional_blocks"))
 							.displayItems((_, tabData) -> {
@@ -93,7 +93,7 @@ public class ModCreativeModeTabs {
 	public static final Supplier<CreativeModeTab> HEROBRINE_REDSTONE_BLOCKS =
 			CREATIVE_MODE_TAB.register("herobrine_redstone_blocks",
 					() -> CreativeModeTab.builder()
-							.icon(() -> new ItemStack(ModBlocks.SIGNAL.get()))
+							.icon(() -> new ItemStack(ModBlocks.SIGNAL))
 							.withTabsBefore(Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "herobrine_functional_blocks"))
 							.title(Component.translatable("itemGroup.herobrine_redstone_blocks"))
 							.displayItems((_, tabData) -> {

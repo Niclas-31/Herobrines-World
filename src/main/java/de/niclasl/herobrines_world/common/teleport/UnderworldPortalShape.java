@@ -22,7 +22,7 @@ import java.util.Optional;
 import java.util.function.Predicate;
 
 public class UnderworldPortalShape {
-	private static final BlockBehaviour.StatePredicate FRAME = (state, level, pos) -> state.getBlock() == ModBlocks.ABYSSAL_BLOCK.get();
+	private static final BlockBehaviour.StatePredicate FRAME = (state, _, _) -> state.getBlock() == ModBlocks.ABYSSAL_BLOCK.get();
 	private final Direction.Axis axis;
 	private final Direction rightDir;
 	private final int numPortalBlocks;
@@ -157,7 +157,7 @@ public class UnderworldPortalShape {
 	}
 
 	private static boolean isEmpty(BlockState state) {
-		return state.isAir() || state.is(ModBlocks.UNDERWORLD_PORTAL.get());
+		return state.isAir() || state.is(ModBlocks.UNDERWORLD_PORTAL);
 	}
 
 	public boolean isValid() {

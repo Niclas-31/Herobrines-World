@@ -23,12 +23,15 @@ public class ModEntityRenderers {
                 context -> new Entity303Renderer(context, false));
 
         event.registerEntityRenderer(ModEntities.HEROBRINE_BOSS.get(),
-                context -> new HerobrineBossRenderer(context, false));
+                HerobrineBossRenderer::new);
 
         event.registerEntityRenderer(ModEntities.NICLASL.get(),
                 context -> new NiclaslRenderer(context, false));
 
         event.registerEntityRenderer(ModEntities.STATUE_ENTITY_303.get(),
                 context -> new StatueEntity303Renderer(context, false));
+
+        event.registerEntityRenderer(ModEntities.RED_CRYSTAL.get(),
+                RedCrystalRenderer::new);
     }
 }

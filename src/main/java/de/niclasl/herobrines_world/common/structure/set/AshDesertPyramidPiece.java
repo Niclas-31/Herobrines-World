@@ -281,39 +281,39 @@ public class AshDesertPyramidPiece extends ScatteredFeaturePiece {
                 this.placeBlock(level, ModBlocks.BLUE_CHISELED_SANDSTONE.get().defaultBlockState(), this.width - 5, 2, l, box);
             }
 
-            this.placeBlock(level, Blocks.ORANGE_TERRACOTTA.defaultBlockState(), 10, 0, 7, box);
-            this.placeBlock(level, Blocks.ORANGE_TERRACOTTA.defaultBlockState(), 10, 0, 8, box);
-            this.placeBlock(level, Blocks.ORANGE_TERRACOTTA.defaultBlockState(), 9, 0, 9, box);
-            this.placeBlock(level, Blocks.ORANGE_TERRACOTTA.defaultBlockState(), 11, 0, 9, box);
-            this.placeBlock(level, Blocks.ORANGE_TERRACOTTA.defaultBlockState(), 8, 0, 10, box);
-            this.placeBlock(level, Blocks.ORANGE_TERRACOTTA.defaultBlockState(), 12, 0, 10, box);
-            this.placeBlock(level, Blocks.ORANGE_TERRACOTTA.defaultBlockState(), 7, 0, 10, box);
-            this.placeBlock(level, Blocks.ORANGE_TERRACOTTA.defaultBlockState(), 13, 0, 10, box);
-            this.placeBlock(level, Blocks.ORANGE_TERRACOTTA.defaultBlockState(), 9, 0, 11, box);
-            this.placeBlock(level, Blocks.ORANGE_TERRACOTTA.defaultBlockState(), 11, 0, 11, box);
-            this.placeBlock(level, Blocks.ORANGE_TERRACOTTA.defaultBlockState(), 10, 0, 12, box);
-            this.placeBlock(level, Blocks.ORANGE_TERRACOTTA.defaultBlockState(), 10, 0, 13, box);
-            this.placeBlock(level, Blocks.BLUE_TERRACOTTA.defaultBlockState(), 10, 0, 10, box);
+            this.placeBlock(level, Blocks.DYED_TERRACOTTA.orange().defaultBlockState(), 10, 0, 7, box);
+            this.placeBlock(level, Blocks.DYED_TERRACOTTA.orange().defaultBlockState(), 10, 0, 8, box);
+            this.placeBlock(level, Blocks.DYED_TERRACOTTA.orange().defaultBlockState(), 9, 0, 9, box);
+            this.placeBlock(level, Blocks.DYED_TERRACOTTA.orange().defaultBlockState(), 11, 0, 9, box);
+            this.placeBlock(level, Blocks.DYED_TERRACOTTA.orange().defaultBlockState(), 8, 0, 10, box);
+            this.placeBlock(level, Blocks.DYED_TERRACOTTA.orange().defaultBlockState(), 12, 0, 10, box);
+            this.placeBlock(level, Blocks.DYED_TERRACOTTA.orange().defaultBlockState(), 7, 0, 10, box);
+            this.placeBlock(level, Blocks.DYED_TERRACOTTA.orange().defaultBlockState(), 13, 0, 10, box);
+            this.placeBlock(level, Blocks.DYED_TERRACOTTA.orange().defaultBlockState(), 9, 0, 11, box);
+            this.placeBlock(level, Blocks.DYED_TERRACOTTA.orange().defaultBlockState(), 11, 0, 11, box);
+            this.placeBlock(level, Blocks.DYED_TERRACOTTA.orange().defaultBlockState(), 10, 0, 12, box);
+            this.placeBlock(level, Blocks.DYED_TERRACOTTA.orange().defaultBlockState(), 10, 0, 13, box);
+            this.placeBlock(level, Blocks.DYED_TERRACOTTA.orange().defaultBlockState(), 10, 0, 10, box);
 
             for (int l1 = 0; l1 <= this.width - 1; l1 += this.width - 1) {
                 this.placeBlock(level, ModBlocks.BLUE_CUT_SANDSTONE.get().defaultBlockState(), l1, 2, 1, box);
-                this.placeBlock(level, Blocks.ORANGE_TERRACOTTA.defaultBlockState(), l1, 2, 2, box);
+                this.placeBlock(level, Blocks.DYED_TERRACOTTA.orange().defaultBlockState(), l1, 2, 2, box);
                 this.placeBlock(level, ModBlocks.BLUE_CUT_SANDSTONE.get().defaultBlockState(), l1, 2, 3, box);
                 this.placeBlock(level, ModBlocks.BLUE_CUT_SANDSTONE.get().defaultBlockState(), l1, 3, 1, box);
-                this.placeBlock(level, Blocks.ORANGE_TERRACOTTA.defaultBlockState(), l1, 3, 2, box);
+                this.placeBlock(level, Blocks.DYED_TERRACOTTA.orange().defaultBlockState(), l1, 3, 2, box);
                 this.placeBlock(level, ModBlocks.BLUE_CUT_SANDSTONE.get().defaultBlockState(), l1, 3, 3, box);
-                this.placeBlock(level, Blocks.ORANGE_TERRACOTTA.defaultBlockState(), l1, 4, 1, box);
+                this.placeBlock(level, Blocks.DYED_TERRACOTTA.orange().defaultBlockState(), l1, 4, 1, box);
                 this.placeBlock(level, ModBlocks.BLUE_CHISELED_SANDSTONE.get().defaultBlockState(), l1, 4, 2, box);
-                this.placeBlock(level, Blocks.ORANGE_TERRACOTTA.defaultBlockState(), l1, 4, 3, box);
+                this.placeBlock(level, Blocks.DYED_TERRACOTTA.orange().defaultBlockState(), l1, 4, 3, box);
                 this.placeBlock(level, ModBlocks.BLUE_CUT_SANDSTONE.get().defaultBlockState(), l1, 5, 1, box);
-                this.placeBlock(level, Blocks.ORANGE_TERRACOTTA.defaultBlockState(), l1, 5, 2, box);
+                this.placeBlock(level, Blocks.DYED_TERRACOTTA.orange().defaultBlockState(), l1, 5, 2, box);
                 this.placeBlock(level, ModBlocks.BLUE_CUT_SANDSTONE.get().defaultBlockState(), l1, 5, 3, box);
-                this.placeBlock(level, Blocks.ORANGE_TERRACOTTA.defaultBlockState(), l1, 6, 1, box);
+                this.placeBlock(level, Blocks.DYED_TERRACOTTA.orange().defaultBlockState(), l1, 6, 1, box);
                 this.placeBlock(level, ModBlocks.BLUE_CHISELED_SANDSTONE.get().defaultBlockState(), l1, 6, 2, box);
-                this.placeBlock(level, Blocks.ORANGE_TERRACOTTA.defaultBlockState(), l1, 6, 3, box);
-                this.placeBlock(level, Blocks.ORANGE_TERRACOTTA.defaultBlockState(), l1, 7, 1, box);
-                this.placeBlock(level, Blocks.ORANGE_TERRACOTTA.defaultBlockState(), l1, 7, 2, box);
-                this.placeBlock(level, Blocks.ORANGE_TERRACOTTA.defaultBlockState(), l1, 7, 3, box);
+                this.placeBlock(level, Blocks.DYED_TERRACOTTA.orange().defaultBlockState(), l1, 6, 3, box);
+                this.placeBlock(level, Blocks.DYED_TERRACOTTA.orange().defaultBlockState(), l1, 7, 1, box);
+                this.placeBlock(level, Blocks.DYED_TERRACOTTA.orange().defaultBlockState(), l1, 7, 2, box);
+                this.placeBlock(level, Blocks.DYED_TERRACOTTA.orange().defaultBlockState(), l1, 7, 3, box);
                 this.placeBlock(level, ModBlocks.BLUE_CUT_SANDSTONE.get().defaultBlockState(), l1, 8, 1, box);
                 this.placeBlock(level, ModBlocks.BLUE_CUT_SANDSTONE.get().defaultBlockState(), l1, 8, 2, box);
                 this.placeBlock(level, ModBlocks.BLUE_CUT_SANDSTONE.get().defaultBlockState(), l1, 8, 3, box);
@@ -321,23 +321,23 @@ public class AshDesertPyramidPiece extends ScatteredFeaturePiece {
 
             for (int i2 = 2; i2 <= this.width - 3; i2 += this.width - 3 - 2) {
                 this.placeBlock(level, ModBlocks.BLUE_CUT_SANDSTONE.get().defaultBlockState(), i2 - 1, 2, 0, box);
-                this.placeBlock(level, Blocks.ORANGE_TERRACOTTA.defaultBlockState(), i2, 2, 0, box);
+                this.placeBlock(level, Blocks.DYED_TERRACOTTA.orange().defaultBlockState(), i2, 2, 0, box);
                 this.placeBlock(level, ModBlocks.BLUE_CUT_SANDSTONE.get().defaultBlockState(), i2 + 1, 2, 0, box);
                 this.placeBlock(level, ModBlocks.BLUE_CUT_SANDSTONE.get().defaultBlockState(), i2 - 1, 3, 0, box);
-                this.placeBlock(level, Blocks.ORANGE_TERRACOTTA.defaultBlockState(), i2, 3, 0, box);
+                this.placeBlock(level, Blocks.DYED_TERRACOTTA.orange().defaultBlockState(), i2, 3, 0, box);
                 this.placeBlock(level, ModBlocks.BLUE_CUT_SANDSTONE.get().defaultBlockState(), i2 + 1, 3, 0, box);
-                this.placeBlock(level, Blocks.ORANGE_TERRACOTTA.defaultBlockState(), i2 - 1, 4, 0, box);
+                this.placeBlock(level, Blocks.DYED_TERRACOTTA.orange().defaultBlockState(), i2 - 1, 4, 0, box);
                 this.placeBlock(level, ModBlocks.BLUE_CHISELED_SANDSTONE.get().defaultBlockState(), i2, 4, 0, box);
-                this.placeBlock(level, Blocks.ORANGE_TERRACOTTA.defaultBlockState(), i2 + 1, 4, 0, box);
+                this.placeBlock(level, Blocks.DYED_TERRACOTTA.orange().defaultBlockState(), i2 + 1, 4, 0, box);
                 this.placeBlock(level, ModBlocks.BLUE_CUT_SANDSTONE.get().defaultBlockState(), i2 - 1, 5, 0, box);
-                this.placeBlock(level, Blocks.ORANGE_TERRACOTTA.defaultBlockState(), i2, 5, 0, box);
+                this.placeBlock(level, Blocks.DYED_TERRACOTTA.orange().defaultBlockState(), i2, 5, 0, box);
                 this.placeBlock(level, ModBlocks.BLUE_CUT_SANDSTONE.get().defaultBlockState(), i2 + 1, 5, 0, box);
-                this.placeBlock(level, Blocks.ORANGE_TERRACOTTA.defaultBlockState(), i2 - 1, 6, 0, box);
+                this.placeBlock(level, Blocks.DYED_TERRACOTTA.orange().defaultBlockState(), i2 - 1, 6, 0, box);
                 this.placeBlock(level, ModBlocks.BLUE_CHISELED_SANDSTONE.get().defaultBlockState(), i2, 6, 0, box);
-                this.placeBlock(level, Blocks.ORANGE_TERRACOTTA.defaultBlockState(), i2 + 1, 6, 0, box);
-                this.placeBlock(level, Blocks.ORANGE_TERRACOTTA.defaultBlockState(), i2 - 1, 7, 0, box);
-                this.placeBlock(level, Blocks.ORANGE_TERRACOTTA.defaultBlockState(), i2, 7, 0, box);
-                this.placeBlock(level, Blocks.ORANGE_TERRACOTTA.defaultBlockState(), i2 + 1, 7, 0, box);
+                this.placeBlock(level, Blocks.DYED_TERRACOTTA.orange().defaultBlockState(), i2 + 1, 6, 0, box);
+                this.placeBlock(level, Blocks.DYED_TERRACOTTA.orange().defaultBlockState(), i2 - 1, 7, 0, box);
+                this.placeBlock(level, Blocks.DYED_TERRACOTTA.orange().defaultBlockState(), i2, 7, 0, box);
+                this.placeBlock(level, Blocks.DYED_TERRACOTTA.orange().defaultBlockState(), i2 + 1, 7, 0, box);
                 this.placeBlock(level, ModBlocks.BLUE_CUT_SANDSTONE.get().defaultBlockState(), i2 - 1, 8, 0, box);
                 this.placeBlock(level, ModBlocks.BLUE_CUT_SANDSTONE.get().defaultBlockState(), i2, 8, 0, box);
                 this.placeBlock(level, ModBlocks.BLUE_CUT_SANDSTONE.get().defaultBlockState(), i2 + 1, 8, 0, box);
@@ -346,9 +346,9 @@ public class AshDesertPyramidPiece extends ScatteredFeaturePiece {
             this.generateBox(level, box, 8, 4, 0, 12, 6, 0, ModBlocks.BLUE_CUT_SANDSTONE.get().defaultBlockState(), ModBlocks.BLUE_CUT_SANDSTONE.get().defaultBlockState(), false);
             this.placeBlock(level, Blocks.AIR.defaultBlockState(), 8, 6, 0, box);
             this.placeBlock(level, Blocks.AIR.defaultBlockState(), 12, 6, 0, box);
-            this.placeBlock(level, Blocks.ORANGE_TERRACOTTA.defaultBlockState(), 9, 5, 0, box);
+            this.placeBlock(level, Blocks.DYED_TERRACOTTA.orange().defaultBlockState(), 9, 5, 0, box);
             this.placeBlock(level, ModBlocks.BLUE_CHISELED_SANDSTONE.get().defaultBlockState(), 10, 5, 0, box);
-            this.placeBlock(level, Blocks.ORANGE_TERRACOTTA.defaultBlockState(), 11, 5, 0, box);
+            this.placeBlock(level, Blocks.DYED_TERRACOTTA.orange().defaultBlockState(), 11, 5, 0, box);
             this.generateBox(
                     level, box, 8, -14, 8, 12, -11, 12, ModBlocks.BLUE_CUT_SANDSTONE.get().defaultBlockState(), ModBlocks.BLUE_CUT_SANDSTONE.get().defaultBlockState(), false
             );

@@ -166,7 +166,6 @@ public class SmartChipScreen extends AbstractContainerScreen<SmartChipMenu> {
         ownerBox = new EditBox(this.font, this.leftPos + 10, row(2), 120, 20, Component.literal("Owner UUID"));
         ownerBox.setMaxLength(36);
         ownerBox.setValue(owner == null ? "" : owner.toString());
-        ownerBox.setFilter(this::isValidUuidInput);
         addRenderableWidget(ownerBox);
         addRenderableWidget(Button.builder(
                 Component.translatable("gui.herobrines_world.smart_chip.me"),
@@ -246,24 +245,35 @@ public class SmartChipScreen extends AbstractContainerScreen<SmartChipMenu> {
     }
 
     public void addNumberLimiter(@NotNull EditBox box, int min, int max) {
-        box.setFilter(this::onlyDigits);
-
         box.setResponder(input -> {
-            if (input.isEmpty()) return;
-
-            int value = Integer.parseInt(input);
-
-            if (value < min) {
-                if (!box.getValue().equals(String.valueOf(min))) {
-                    box.setValue(String.valueOf(min));
-                }
+            if (input.isEmpty()) {
                 return;
             }
 
-            if (value > max) {
-                if (!box.getValue().equals(String.valueOf(max))) {
+            if (!onlyDigits(input)) {
+                box.setValue(
+                        input.chars()
+                                .filter(Character::isDigit)
+                                .collect(
+                                        StringBuilder::new,
+                                        StringBuilder::appendCodePoint,
+                                        StringBuilder::append
+                                )
+                                .toString()
+                );
+                return;
+            }
+
+            try {
+                int value = Integer.parseInt(input);
+
+                if (value < min) {
+                    box.setValue(String.valueOf(min));
+                } else if (value > max) {
                     box.setValue(String.valueOf(max));
                 }
+            } catch (NumberFormatException ignored) {
+                box.setValue(String.valueOf(min));
             }
         });
     }
@@ -413,11 +423,6 @@ public class SmartChipScreen extends AbstractContainerScreen<SmartChipMenu> {
         }
 
         return modes.get((index + 1) % modes.size());
-    }
-
-    private boolean isValidUuidInput(@NotNull String text) {
-        return text.length() <= 36 &&
-                text.matches("[0-9a-fA-F\\-]*");
     }
 
     private int row(int index) {

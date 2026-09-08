@@ -14,4 +14,13 @@ public class ModModelLayers {
                     ),
                     "main"
             );
+
+    public static final ModelLayerLocation HEROBRINE_BOSS =
+            new ModelLayerLocation(
+                    Identifier.fromNamespaceAndPath(
+                            HerobrinesWorld.MOD_ID,
+                            "herobrine_boss"
+                    ),
+                    "main"
+            );
 }

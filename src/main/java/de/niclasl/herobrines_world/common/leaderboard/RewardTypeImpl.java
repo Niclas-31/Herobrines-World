@@ -19,6 +19,10 @@ public class RewardTypeImpl {
     public static void registerRewardType(Identifier id, RewardType mode) {
         for (RewardType existing : HWRegistries.REWARD_TYPES.values()) {
 
+            if (existing.id().equals(id)) {
+                throw new IllegalStateException("RewardType with id " + id + " already exists");
+            }
+
             if (existing.priority() == mode.priority()) {
                 throw new IllegalStateException(
                         "Duplicate AccessMode priority "

@@ -32,22 +32,22 @@ public class ClientHandler {
         boolean claimed = ClientCache.isClaimed(uuid);
 
         if (seasonActive) {
-            mc.setScreen(new SoulLeaderboardScreen(packet.entries()));
+            mc.gui.setScreen(new SoulLeaderboardScreen(packet.entries()));
             return;
         }
 
         if (claimed) {
-            mc.setScreen(new SeasonBreakScreen());
+            mc.gui.setScreen(new SeasonBreakScreen());
         } else {
-            mc.setScreen(new SoulLeaderboardScreen(packet.entries()));
+            mc.gui.setScreen(new SoulLeaderboardScreen(packet.entries()));
         }
     }
 
     public static void handleOpenReward(OpenRewardScreenPacket packet) {
-        Minecraft.getInstance().setScreen(new RewardScreen(packet.rewards()));
+        Minecraft.getInstance().gui.setScreen(new RewardScreen(packet.rewards()));
     }
 
     public static void handleOpenWaypointScreen(OpenWaypointScreenPacket packet) {
-        Minecraft.getInstance().setScreen(new WaypointScreen(packet.stack()));
+        Minecraft.getInstance().gui.setScreen(new WaypointScreen(packet.stack()));
     }
 }
