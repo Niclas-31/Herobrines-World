@@ -155,6 +155,10 @@ public class ModCreativeModeTabs {
 								tabData.accept(ModItems.FIRE_SWORD);
 								tabData.accept(ModItems.HEROBRINE_SWORD);
 								tabData.accept(ModItems.PLATIN_SWORD);
+								tabData.accept(ModItems.NATURE_SPEAR);
+								tabData.accept(ModItems.FIRE_SPEAR);
+								tabData.accept(ModItems.HEROBRINE_SPEAR);
+								tabData.accept(ModItems.PLATIN_SPEAR);
 								tabData.accept(ModItems.NATURE_AXE);
 								tabData.accept(ModItems.FIRE_AXE);
 								tabData.accept(ModItems.HEROBRINE_AXE);

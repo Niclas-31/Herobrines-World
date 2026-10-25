@@ -1,5 +1,5 @@
 {
-  "aquifers_enabled": false,
+  "aquifers_enabled": true,
   "default_block": {
     "Name": "minecraft:stone"
   },
@@ -373,9 +373,7 @@
                       "type": "minecraft:condition",
                       "if_true": {
                         "type": "minecraft:biome",
-                        "biome_is": [
-                          "herobrines_world:cursed_forest"
-                        ]
+                        "biome_is": "herobrines_world:cursed_forest"
                       },
                       "then_run": {
                         "type": "minecraft:sequence",
@@ -422,9 +420,7 @@
                       "type": "minecraft:condition",
                       "if_true": {
                         "type": "minecraft:biome",
-                        "biome_is": [
-                          "herobrines_world:fire_land"
-                        ]
+                        "biome_is": "herobrines_world:fire_land"
                       },
                       "then_run": {
                         "type": "minecraft:sequence",
@@ -468,9 +464,7 @@
                       "type": "minecraft:condition",
                       "if_true": {
                         "type": "minecraft:biome",
-                        "biome_is": [
-                          "herobrines_world:frozen_forest"
-                        ]
+                        "biome_is": "herobrines_world:frozen_forest"
                       },
                       "then_run": {
                         "type": "minecraft:sequence",
@@ -517,9 +511,7 @@
                       "type": "minecraft:condition",
                       "if_true": {
                         "type": "minecraft:biome",
-                        "biome_is": [
-                          "herobrines_world:ash_desert"
-                        ]
+                        "biome_is": "herobrines_world:ash_desert"
                       },
                       "then_run": {
                         "type": "minecraft:sequence",

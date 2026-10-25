@@ -1,7 +1,5 @@
 {
   "type": "minecraft:smelting",
-  "category": "misc",
-  "cookingtime": 200,
   "experience": 0.75,
   "group": "herobrine",
   "ingredient": "herobrines_world:deepslate_herobrine_ore",

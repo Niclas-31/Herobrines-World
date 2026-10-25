@@ -299,6 +299,27 @@ public class ModItems {
 			(properties) -> new BossSpawnItem(properties.stacksTo(1), Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "herobrine_boss"))
 	);
 
+	public static final DeferredItem<Item> NATURE_SPEAR = ITEMS.registerItem(
+            "nature_spear",
+            (properties) -> new Item(properties.spear(ModToolTiers.NATURE, 0.8F, 0.82F, 0.68F, 4.3F, 12.5F, 8.38F, 5.1F, 13.0F, 4.6F))
+    );
+
+    public static final DeferredItem<Item> FIRE_SPEAR = ITEMS.registerItem(
+            "fire_spear",
+            (properties) -> new Item(properties.spear(ModToolTiers.FIRE, 1.0F, 1.02F, 0.55F, 2.8F, 10.5F, 6.65F, 5.1F, 10.75F, 4.6F)
+                    .fireResistant())
+    );
+
+    public static final DeferredItem<Item> HEROBRINE_SPEAR = ITEMS.registerItem(
+            "herobrine_spear",
+            (properties) -> new Item(properties.spear(ModToolTiers.HEROBRINE, 1.1F, 1.125F, 0.45F, 2.8F, 9.5F, 6.0F, 5.1F, 9.25F, 4.6F))
+    );
+
+    public static final DeferredItem<Item> PLATIN_SPEAR = ITEMS.registerItem(
+            "platin_spear",
+            (properties) -> new Item(properties.spear(ModToolTiers.PLATIN, 1.0F, 1.115F, 0.35F, 2.6F, 9.0F, 6.2F, 5.1F, 9.0F, 4.6F))
+    );
+
 	public static ResourceKey<Item> getRK(Item item) {
 		return BuiltInRegistries.ITEM.getResourceKey(item).get();
 	}

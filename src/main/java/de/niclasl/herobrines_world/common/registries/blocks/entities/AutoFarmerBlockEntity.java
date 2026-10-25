@@ -149,8 +149,7 @@ public class AutoFarmerBlockEntity extends BlockEntity implements Container, Men
 
         ItemStack battery = be.items.get(27);
 
-        boolean hasEnergy = battery.getItem() instanceof BatteryItem b &&
-                b.getEnergy(battery) > 0;
+        boolean hasEnergy = battery.getItem() instanceof BatteryItem b && b.getEnergy(battery) > 0;
 
         if (state.getValue(AutoFarmerBlock.POWERED) != hasEnergy) {
             level.setBlock(pos, state.setValue(AutoFarmerBlock.POWERED, hasEnergy), 3);
@@ -199,10 +198,12 @@ public class AutoFarmerBlockEntity extends BlockEntity implements Container, Men
     private void transferAndFilter(ServerLevel level, SmartChipData.Transfer chip) {
         InventoryWrapper source = new AutoFarmerWrapper(this.items);
 
-        List<InventoryResolver> resolvers = TransferAPI.getResolvers();
+        List<InventoryResolver> resolvers = TransferAPI.getResolvers(InventoryResolver.class);
+
+        ServerLevel targetLevel = level.getServer().getLevel(chip.dim());
 
         for (InventoryResolver resolver : resolvers) {
-            InventoryWrapper target = resolver.resolve(level, chip.pos(), chip.dim());
+            InventoryWrapper target = resolver.resolve(targetLevel, chip.pos());
 
             applyBufferRules(chip.voidTrash());
 

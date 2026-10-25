@@ -35,7 +35,7 @@ public class SmartChip extends Item {
         player.awardStat(Stats.ITEM_USED.get(this));
 
         player.openMenu(new SimpleMenuProvider(
-                (id, inv, p) -> new SmartChipMenu(id, inv.player.getMainHandItem()),
+                (id, inv, _) -> new SmartChipMenu(id, inv.player.getMainHandItem()),
                 Component.translatable("item.herobrines_world.smart_chip")
         ));
 

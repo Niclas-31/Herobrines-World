@@ -5,21 +5,17 @@ import de.niclasl.herobrines_world.common.network.transfer.wrapper.StorageContro
 import de.niclasl.herobrines_world_api.transfer.resolver.InventoryResolver;
 import de.niclasl.herobrines_world_api.transfer.wrapper.InventoryWrapper;
 import net.minecraft.core.BlockPos;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
-public class RemoteInventoryResolver implements InventoryResolver {
+public class RemoteInventoryResolver extends InventoryResolver {
 
     @Override
-    public InventoryWrapper resolve(ServerLevel level, BlockPos pos, ResourceKey<Level> dim) {
+    public InventoryWrapper resolve(ServerLevel level, BlockPos pos) {
 
-        ServerLevel targetLevel = level.getServer().getLevel(dim);
+        if (level == null) return EmptyInventoryWrapper.INSTANCE;
 
-        if (targetLevel == null) return EmptyInventoryWrapper.INSTANCE;
-
-        BlockEntity be = targetLevel.getBlockEntity(pos);
+        BlockEntity be = level.getBlockEntity(pos);
 
         if (be == null) return EmptyInventoryWrapper.INSTANCE;
 

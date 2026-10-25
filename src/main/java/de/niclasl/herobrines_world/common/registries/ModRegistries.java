@@ -1,4 +1,4 @@
-package de.niclasl.herobrines_world.common.registries.registry;
+package de.niclasl.herobrines_world.common.registries;
 
 import de.niclasl.herobrines_world.common.boss.ability.AbilityImpl;
 import de.niclasl.herobrines_world.common.boss.entity.BossImpl;

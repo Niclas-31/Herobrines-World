@@ -39,7 +39,8 @@ public class RewardScreen extends Screen {
 
         Button claimAll = addRenderableWidget(
                 Button.builder(
-                        Component.translatable("gui.herobrines_world.rewards.claim_all"), _ -> claimAll())
+                        Component.translatable("gui.herobrines_world.rewards.claim_all"),
+                                _ -> claimAll())
                         .pos(centerX + 155, this.height - 40)
                         .size(60, 20)
                         .build()

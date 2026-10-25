@@ -4,14 +4,10 @@ import com.mojang.logging.LogUtils;
 import de.niclasl.herobrines_world.common.leaderboard.LeaderboardApiImpl;
 import de.niclasl.herobrines_world.common.leaderboard.LeaderboardStorage;
 import de.niclasl.herobrines_world.common.network.ModMessage;
-import de.niclasl.herobrines_world.common.registries.registry.ModRegistries;
-import de.niclasl.herobrines_world.common.registries.registry.ModResolverRegistries;
+import de.niclasl.herobrines_world.common.registries.ModRegistries;
+import de.niclasl.herobrines_world.common.registries.ModResolverRegistries;
 import de.niclasl.herobrines_world.config.Config;
 import de.niclasl.herobrines_world_api.leaderboard.LeaderboardAPIHolder;
-import de.niclasl.herobrines_world_api.version.ApiVersion;
-import de.niclasl.herobrines_world_api.version.ApiVersionChecker;
-import de.niclasl.herobrines_world_api.version.ApiVersionHolder;
-import de.niclasl.herobrines_world_api.version.HerobrinesApiVersions;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
@@ -22,21 +18,9 @@ import org.slf4j.Logger;
 public class HerobrinesWorld {
 	public static final String MOD_ID = "herobrines_world";
 
-	public static final ApiVersion REQUIRED_VERSION = new ApiVersion(3, 0);
-
 	public static final Logger LOGGER = LogUtils.getLogger();
 
     public HerobrinesWorld(IEventBus modEventBus, ModContainer modContainer) {
-		ApiVersionChecker.check(LOGGER);
-
-		ApiVersionHolder holder = HerobrinesApiVersions.getHolder(REQUIRED_VERSION.major());
-
-		if (holder == null || !holder.exists(REQUIRED_VERSION)) {
-			throw new IllegalArgumentException(
-					"Herobrines World API Version " + REQUIRED_VERSION + " does not exist!"
-			);
-		}
-
 		modEventBus.addListener(ModMessage::register);
 
 		LeaderboardStorage storage = new LeaderboardStorage();
