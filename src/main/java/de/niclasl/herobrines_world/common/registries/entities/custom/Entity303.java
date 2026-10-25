@@ -49,7 +49,7 @@ public class Entity303 extends Boss {
 		super(type, level);
 		xpReward = 500;
 		setPersistenceRequired();
-		this.moveControl = new FlyingMoveControl(this, 10, true);
+		this.moveControl = new FlyingMoveControl<>(this, 10, true);
 	}
 
 	@Override

@@ -29,7 +29,7 @@ public class GoodHerobrine extends PathfinderMob {
 		super(type, world);
 		xpReward = 40;
 		setNoAi(false);
-		this.moveControl = new FlyingMoveControl(this, 10, true);
+		this.moveControl = new FlyingMoveControl<>(this, 10, true);
 	}
 
 	@Override

@@ -103,7 +103,7 @@ public class StorageControllerBlock extends BaseEntityBlock {
             @NonNull BlockEntityType<T> type
     ) {
         if (level.isClientSide()) return null;
-        return (lvl, pos, bs, be) -> {
+        return (_, _, _, be) -> {
             if (be instanceof StorageControllerBlockEntity controller) {
                 controller.tick(level, controller);
             }

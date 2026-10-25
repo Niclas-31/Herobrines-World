@@ -249,7 +249,7 @@ public class BatteryChargerBlock extends BaseEntityBlock {
     @Override
     public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(@NotNull Level level, @NotNull BlockState state, @NotNull BlockEntityType<T> type) {
         return type == ModBlockEntities.BATTERY_CHARGER.get()
-                ? (lvl, pos, st, be) -> BatteryChargerBlockEntity.tick(state, (BatteryChargerBlockEntity) be)
+                ? (_, _, _, be) -> BatteryChargerBlockEntity.tick(state, (BatteryChargerBlockEntity) be)
                 : null;
     }
 }

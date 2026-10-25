@@ -17,8 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public record RenameWaypointPacket(UUID waypointId, String newName)
-        implements CustomPacketPayload {
+public record RenameWaypointPacket(UUID waypointId, String newName) implements CustomPacketPayload {
 
     public static final Type<RenameWaypointPacket> TYPE =
             new Type<>(Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "rename_waypoint"));
