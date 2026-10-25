@@ -25,11 +25,11 @@
     "final_density": {
       "type": "minecraft:squeeze",
       "argument": {
-        "type": "minecraft:mul",
-        "argument1": 0.64,
-        "argument2": {
-          "type": "minecraft:interpolated",
-          "argument": {
+        "type": "minecraft:interpolated",
+        "argument": {
+          "type": "minecraft:mul",
+          "argument1": 0.64,
+          "argument2": {
             "type": "minecraft:blend_density",
             "argument": {
               "type": "minecraft:add",
@@ -79,19 +79,19 @@
     "ridges": 0.0,
     "temperature": {
       "type": "minecraft:shifted_noise",
-      "noise": "minecraft:temperature",
-      "shift_x": "minecraft:shift_x",
+      "noise": "minecraft:nether/temperature",
+      "shift_x": 0.0,
       "shift_y": 0.0,
-      "shift_z": "minecraft:shift_z",
+      "shift_z": 0.0,
       "xz_scale": 0.25,
       "y_scale": 0.0
     },
     "vegetation": {
       "type": "minecraft:shifted_noise",
-      "noise": "minecraft:vegetation",
-      "shift_x": "minecraft:shift_x",
+      "noise": "minecraft:nether/vegetation",
+      "shift_x": 0.0,
       "shift_y": 0.0,
-      "shift_z": "minecraft:shift_z",
+      "shift_z": 0.0,
       "xz_scale": 0.25,
       "y_scale": 0.0
     },
@@ -143,6 +143,23 @@
           "type": "minecraft:block",
           "result_state": {
             "Name": "minecraft:bedrock"
+          }
+        }
+      },
+      {
+        "type": "minecraft:condition",
+        "if_true": {
+          "type": "minecraft:y_above",
+          "add_stone_depth": false,
+          "anchor": {
+            "below_top": 5
+          },
+          "surface_depth_multiplier": 0
+        },
+        "then_run": {
+          "type": "minecraft:block",
+          "result_state": {
+            "Name": "minecraft:netherrack"
           }
         }
       },
@@ -239,30 +256,46 @@
       {
         "type": "minecraft:condition",
         "if_true": {
-          "type": "minecraft:noise_threshold",
-          "is_3d": true,
-          "max_threshold": 1.7976931348623157E308,
-          "min_threshold": 0.3,
-          "noise": "herobrines_world:chaos"
+          "type": "minecraft:stone_depth",
+          "add_surface_depth": false,
+          "offset": 0,
+          "secondary_depth_range": 0,
+          "surface_type": "floor"
         },
         "then_run": {
           "type": "minecraft:condition",
           "if_true": {
-            "type": "minecraft:stone_depth",
-            "add_surface_depth": false,
-            "offset": 0,
-            "secondary_depth_range": 0,
-            "surface_type": "floor"
+            "type": "minecraft:not",
+            "invert": {
+              "type": "minecraft:y_above",
+              "add_stone_depth": false,
+              "anchor": {
+                "absolute": 32
+              },
+              "surface_depth_multiplier": 0
+            }
           },
           "then_run": {
-            "type": "minecraft:block",
-            "result_state": {
-              "Name": "minecraft:lava",
-              "Properties": {
-                "level": "0"
+            "type": "minecraft:condition",
+            "if_true": {
+              "type": "minecraft:hole"
+            },
+            "then_run": {
+              "type": "minecraft:block",
+              "result_state": {
+                "Name": "minecraft:lava",
+                "Properties": {
+                  "level": "0"
+                }
               }
             }
           }
+        }
+      },
+      {
+        "type": "minecraft:block",
+        "result_state": {
+          "Name": "minecraft:netherrack"
         }
       }
     ]

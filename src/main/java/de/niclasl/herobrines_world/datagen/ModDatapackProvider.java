@@ -8,7 +8,6 @@ import de.niclasl.herobrines_world.common.structure.ModStructureSets;
 import de.niclasl.herobrines_world.common.structure.ModStructures;
 import de.niclasl.herobrines_world.common.world.ModDimensions;
 import de.niclasl.herobrines_world.common.world.biome.data.ModBiomeData;
-import de.niclasl.herobrines_world.common.world.noise.data.ModNoiseData;
 import de.niclasl.herobrines_world.common.world.noise.generator.ModNoiseGeneratorSettings;
 import de.niclasl.herobrines_world.common.worldgen.ModBiomeModifiers;
 import de.niclasl.herobrines_world.common.worldgen.ModConfiguredFeatures;
@@ -31,7 +30,6 @@ public class ModDatapackProvider extends DatapackBuiltinEntriesProvider {
             .add(Registries.STRUCTURE, ModStructures::bootstrap)
             .add(Registries.STRUCTURE_SET, ModStructureSets::bootstrap)
             .add(Registries.BIOME, ModBiomeData::bootstrap)
-            .add(Registries.NOISE, ModNoiseData::bootstrap)
             .add(Registries.NOISE_SETTINGS, ModNoiseGeneratorSettings::bootstrap)
             .add(Registries.ENCHANTMENT, ModEnchantments::bootstrap)
             .add(Registries.LEVEL_STEM, ModDimensions::bootstrapStem)

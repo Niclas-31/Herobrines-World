@@ -3,210 +3,258 @@ package de.niclasl.herobrines_world.common.world.surface;
 import com.google.common.collect.ImmutableList;
 import de.niclasl.herobrines_world.common.registries.blocks.ModBlocks;
 import de.niclasl.herobrines_world.common.world.biome.ModBiomes;
-import de.niclasl.herobrines_world.common.world.noise.ModNoises;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.SurfaceRules;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
 
 public class ModSurfaceRuleData {
-    private static final SurfaceRules.RuleSource AIR = makeStateRule(Blocks.AIR);
-    private static final SurfaceRules.RuleSource BEDROCK = makeStateRule(Blocks.BEDROCK);
-    private static final SurfaceRules.RuleSource STONE = makeStateRule(Blocks.STONE);
-    private static final SurfaceRules.RuleSource DEEPSLATE = makeStateRule(Blocks.DEEPSLATE);
-    private static final SurfaceRules.RuleSource DIRT = makeStateRule(Blocks.DIRT);
-    private static final SurfaceRules.RuleSource GRASS_BLOCK = makeStateRule(Blocks.GRASS_BLOCK);
-    private static final SurfaceRules.RuleSource SAND = makeStateRule(ModBlocks.ASH_BLOCK.get());
-    private static final SurfaceRules.RuleSource SANDSTONE = makeStateRule(ModBlocks.BLUE_SANDSTONE.get());
-    private static final SurfaceRules.RuleSource ICE = makeStateRule(Blocks.ICE);
-    private static final SurfaceRules.RuleSource WATER = makeStateRule(Blocks.WATER);
-    private static final SurfaceRules.RuleSource NETHERRACK = makeStateRule(Blocks.NETHERRACK);
-
-    private static SurfaceRules.RuleSource makeStateRule(Block block) {
-        return SurfaceRules.state(block.defaultBlockState());
-    }
 
     public static SurfaceRules.RuleSource herobrine(HolderGetter<Biome> biomes) {
         return herobrine(biomes, false, true);
     }
 
-    public static SurfaceRules.RuleSource herobrine(
-            HolderGetter<Biome> biomes,
-            boolean bedrockRoof,
-            boolean bedrockFloor
-    ) {
+  public static SurfaceRules.RuleSource herobrine(
+          HolderGetter<Biome> biomes,
+          boolean bedrockRoof,
+          boolean bedrockFloor
+  ) {
+    SurfaceRules.ConditionSource aboveWater = SurfaceRules.waterBlockCheck(0, 0);
 
-        SurfaceRules.ConditionSource surfacerules$conditionsource7 = SurfaceRules.waterBlockCheck(-1, 0);
-        SurfaceRules.ConditionSource surfacerules$conditionsource8 = SurfaceRules.waterBlockCheck(0, 0);
-        SurfaceRules.ConditionSource surfacerules$conditionsource9 = SurfaceRules.waterStartCheck(-6, -1);
-        SurfaceRules.ConditionSource surfacerules$conditionsource10 = SurfaceRules.hole();
-        SurfaceRules.ConditionSource surfacerules$conditionsource11 = SurfaceRules.steep();
-
-        SurfaceRules.RuleSource cursedForest = SurfaceRules.sequence(
-                SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR, GRASS_BLOCK),
-                SurfaceRules.ifTrue(SurfaceRules.UNDER_FLOOR, DIRT)
-        );
-
-        SurfaceRules.RuleSource fireLand = SurfaceRules.sequence(
-                SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR, NETHERRACK),
-                SurfaceRules.ifTrue(SurfaceRules.UNDER_FLOOR, NETHERRACK)
-        );
-
-        SurfaceRules.RuleSource frozenForest = SurfaceRules.sequence(
-                SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR, GRASS_BLOCK),
-                SurfaceRules.ifTrue(SurfaceRules.UNDER_FLOOR, DIRT)
-        );
-
-        SurfaceRules.RuleSource ashDesert = SurfaceRules.sequence(
-                SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR, SAND),
-                SurfaceRules.ifTrue(SurfaceRules.UNDER_FLOOR, SAND),
-                SurfaceRules.ifTrue(SurfaceRules.VERY_DEEP_UNDER_FLOOR, SANDSTONE)
-        );
-
-        SurfaceRules.RuleSource biomeRules = SurfaceRules.sequence(
-                SurfaceRules.ifTrue(SurfaceRules.isBiome(biomes, ModBiomes.CURSED_FOREST), cursedForest),
-                SurfaceRules.ifTrue(SurfaceRules.isBiome(biomes, ModBiomes.FIRE_LAND), fireLand),
-                SurfaceRules.ifTrue(SurfaceRules.isBiome(biomes, ModBiomes.FROZEN_FOREST), frozenForest),
-                SurfaceRules.ifTrue(SurfaceRules.isBiome(biomes,ModBiomes.ASH_DESERT), ashDesert)
-        );
-
-        SurfaceRules.RuleSource waterRules = SurfaceRules.ifTrue(
-                SurfaceRules.ON_FLOOR,
-                SurfaceRules.ifTrue(
-                        surfacerules$conditionsource7,
-                        SurfaceRules.sequence(
-                                SurfaceRules.ifTrue(
-                                        surfacerules$conditionsource11,
-                                        SurfaceRules.ifTrue(
-                                                surfacerules$conditionsource10,
-                                                SurfaceRules.sequence(
-                                                        SurfaceRules.ifTrue(surfacerules$conditionsource8, AIR),
-                                                        SurfaceRules.ifTrue(SurfaceRules.temperature(), ICE),
-                                                        WATER
-                                                )
-                                        )
-                                ),
-                                STONE
-                        )
-                )
-        );
-
-        SurfaceRules.RuleSource undergroundRules = SurfaceRules.ifTrue(
-                surfacerules$conditionsource9,
-                SurfaceRules.sequence(
-                        SurfaceRules.ifTrue(SurfaceRules.UNDER_FLOOR, DIRT)
-                )
-        );
-
-        ImmutableList.Builder<SurfaceRules.RuleSource> builder = ImmutableList.builder();
-
-        if (bedrockRoof) {
-            builder.add(
+    SurfaceRules.RuleSource cursedForest =
+            SurfaceRules.sequence(
                     SurfaceRules.ifTrue(
-                            SurfaceRules.not(
-                                    SurfaceRules.verticalGradient(
-                                            "bedrock_roof",
-                                            VerticalAnchor.belowTop(5),
-                                            VerticalAnchor.top()
+                            SurfaceRules.ON_FLOOR,
+                            SurfaceRules.state(
+                                    Blocks.GRASS_BLOCK.defaultBlockState()
+                            )
+                    ),
+                    SurfaceRules.ifTrue(
+                            SurfaceRules.UNDER_FLOOR,
+                            SurfaceRules.state(
+                                    Blocks.DIRT.defaultBlockState()
+                            )
+                    )
+            );
+
+    SurfaceRules.RuleSource fireLand =
+            SurfaceRules.sequence(
+                    SurfaceRules.ifTrue(
+                            SurfaceRules.ON_FLOOR,
+                            SurfaceRules.state(
+                                    Blocks.NETHERRACK.defaultBlockState()
+                            )
+                    ),
+                    SurfaceRules.ifTrue(
+                            SurfaceRules.UNDER_FLOOR,
+                            SurfaceRules.state(
+                                    Blocks.NETHERRACK.defaultBlockState()
+                            )
+                    )
+            );
+
+    SurfaceRules.RuleSource frozenForest =
+            SurfaceRules.sequence(
+                    SurfaceRules.ifTrue(
+                            SurfaceRules.ON_FLOOR,
+                            SurfaceRules.state(
+                                    Blocks.GRASS_BLOCK.defaultBlockState()
+                            )
+                    ),
+                    SurfaceRules.ifTrue(
+                            SurfaceRules.UNDER_FLOOR,
+                            SurfaceRules.state(
+                                    Blocks.DIRT.defaultBlockState()
+                            )
+                    )
+            );
+
+    SurfaceRules.RuleSource ashDesert =
+            SurfaceRules.sequence(
+                    SurfaceRules.ifTrue(
+                            SurfaceRules.ON_FLOOR,
+                            SurfaceRules.state(
+                                    ModBlocks.ASH_BLOCK.get().defaultBlockState()
+                            )
+                    ),
+                    SurfaceRules.ifTrue(
+                            SurfaceRules.VERY_DEEP_UNDER_FLOOR,
+                            SurfaceRules.state(
+                                    ModBlocks.BLUE_SANDSTONE.get().defaultBlockState()
+                            )
+                    ),
+                    SurfaceRules.ifTrue(
+                            SurfaceRules.UNDER_FLOOR,
+                            SurfaceRules.state(
+                                    ModBlocks.ASH_BLOCK.get().defaultBlockState()
+                            )
+                    )
+            );
+
+    SurfaceRules.RuleSource customBiomeRules =
+            SurfaceRules.sequence(
+                    SurfaceRules.ifTrue(
+                            SurfaceRules.isBiome(
+                                    biomes, ModBiomes.CURSED_FOREST
+                            ),
+                            cursedForest
+                    ),
+                    SurfaceRules.ifTrue(
+                            SurfaceRules.isBiome(
+                                    biomes, ModBiomes.FIRE_LAND
+                            ),
+                            fireLand
+                    ),
+                    SurfaceRules.ifTrue(
+                            SurfaceRules.isBiome(
+                                    biomes, ModBiomes.FROZEN_FOREST
+                            ),
+                            frozenForest
+                    ),
+                    SurfaceRules.ifTrue(
+                            SurfaceRules.isBiome(
+                                    biomes, ModBiomes.ASH_DESERT
+                            ),
+                            ashDesert
+                    )
+            );
+
+    SurfaceRules.RuleSource defaultSurface =
+            SurfaceRules.sequence(
+                    SurfaceRules.ifTrue(
+                            SurfaceRules.ON_FLOOR,
+                            SurfaceRules.sequence(
+                                    SurfaceRules.ifTrue(
+                                            aboveWater,
+                                            SurfaceRules.state(
+                                                    Blocks.GRASS_BLOCK.defaultBlockState()
+                                            )
+                                    ),
+                                    SurfaceRules.state(
+                                            Blocks.DIRT.defaultBlockState()
                                     )
-                            ),
-                            BEDROCK
-                    )
-            );
-        }
-
-        if (bedrockFloor) {
-            builder.add(
+                            )
+                    ),
                     SurfaceRules.ifTrue(
-                            SurfaceRules.verticalGradient(
-                                    "bedrock_floor",
-                                    VerticalAnchor.bottom(),
-                                    VerticalAnchor.aboveBottom(5)
-                            ),
-                            BEDROCK
+                            SurfaceRules.UNDER_FLOOR,
+                            SurfaceRules.state(
+                                    Blocks.DIRT.defaultBlockState()
+                            )
                     )
             );
-        }
 
-        SurfaceRules.RuleSource surface = SurfaceRules.sequence(
-                SurfaceRules.ifTrue(SurfaceRules.abovePreliminarySurface(),
-                        SurfaceRules.sequence(
-                                biomeRules,
-                                waterRules,
-                                undergroundRules
-                        )
-                )
-        );
+    SurfaceRules.RuleSource surfaceRules =
+            SurfaceRules.sequence(
+                    customBiomeRules,
+                    defaultSurface
+            );
 
-        builder.add(surface);
+    ImmutableList.Builder<SurfaceRules.RuleSource> builder = ImmutableList.builder();
 
-        builder.add(
-                SurfaceRules.ifTrue(
-                        SurfaceRules.verticalGradient(
-                                "deepslate",
-                                VerticalAnchor.absolute(0),
-                                VerticalAnchor.absolute(8)
-                        ),
-                        DEEPSLATE
-                )
-        );
-
-        return SurfaceRules.sequence(builder.build().toArray(SurfaceRules.RuleSource[]::new));
+    if (bedrockRoof) {
+      builder.add(
+              SurfaceRules.ifTrue(
+                      SurfaceRules.not(
+                              SurfaceRules.verticalGradient(
+                                      "bedrock_roof",
+                                      VerticalAnchor.belowTop(5),
+                                      VerticalAnchor.top()
+                              )
+                      ),
+                      SurfaceRules.state(
+                              Blocks.BEDROCK.defaultBlockState()
+                      )
+              )
+      );
     }
 
-    public static SurfaceRules.RuleSource underworld(HolderGetter<Biome> biomes) {
-
-        SurfaceRules.RuleSource abyssalBlock =
-                SurfaceRules.state(ModBlocks.ABYSSAL_BLOCK.get().defaultBlockState());
-
-        SurfaceRules.RuleSource blackConcrete =
-                SurfaceRules.state(Blocks.CONCRETE.black().defaultBlockState());
-
-        SurfaceRules.RuleSource netherrack =
-                SurfaceRules.state(Blocks.NETHERRACK.defaultBlockState());
-
-        SurfaceRules.RuleSource lava =
-                SurfaceRules.state(Blocks.LAVA.defaultBlockState());
-
-        SurfaceRules.RuleSource bedrock =
-                SurfaceRules.state(Blocks.BEDROCK.defaultBlockState());
-
-        return SurfaceRules.sequence(
-                SurfaceRules.ifTrue(
-                        SurfaceRules.verticalGradient("bedrock_floor",
-                                VerticalAnchor.bottom(),
-                                VerticalAnchor.aboveBottom(5)),
-                        bedrock
-                ),
-                SurfaceRules.ifTrue(
-                        SurfaceRules.not(
-                                SurfaceRules.verticalGradient("bedrock_roof",
-                                        VerticalAnchor.belowTop(5),
-                                        VerticalAnchor.top())
-                        ),
-                        bedrock
-                ),
-                SurfaceRules.ifTrue(
-                        SurfaceRules.isBiome(biomes, ModBiomes.ABYSSAL_WASTES),
-                        SurfaceRules.sequence(
-                                SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR, abyssalBlock),
-                                SurfaceRules.ifTrue(SurfaceRules.UNDER_FLOOR, netherrack)
-                        )
-                ),
-                SurfaceRules.ifTrue(
-                        SurfaceRules.isBiome(biomes, ModBiomes.VOID_DEPTHS),
-                        SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR, blackConcrete)
-                ),
-                SurfaceRules.ifTrue(
-                        SurfaceRules.isBiome(biomes, ModBiomes.MISTY_CHASMS),
-                        SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR, netherrack)
-                ),
-                SurfaceRules.ifTrue(
-                        SurfaceRules.noiseCondition3d(ModNoises.CHAOS, 0.3),
-                        SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR, lava)
-                )
-        );
+    if (bedrockFloor) {
+      builder.add(
+              SurfaceRules.ifTrue(
+                      SurfaceRules.verticalGradient(
+                              "bedrock_floor",
+                              VerticalAnchor.bottom(),
+                              VerticalAnchor.aboveBottom(5)
+                      ),
+                      SurfaceRules.state(
+                              Blocks.BEDROCK.defaultBlockState()
+                      )
+              )
+      );
     }
+
+    builder.add(
+            SurfaceRules.ifTrue(
+                    SurfaceRules.abovePreliminarySurface(),
+                    surfaceRules
+            )
+    );
+
+    builder.add(
+            SurfaceRules.ifTrue(
+                    SurfaceRules.verticalGradient(
+                            "deepslate",
+                            VerticalAnchor.absolute(0),
+                            VerticalAnchor.absolute(8)
+                    ),
+                    SurfaceRules.state(Blocks.DEEPSLATE.defaultBlockState())
+            )
+    );
+
+    return SurfaceRules.sequence(builder.build().toArray(SurfaceRules.RuleSource[]::new));
+  }
+
+  public static SurfaceRules.RuleSource underworld(HolderGetter<Biome> biomes) {
+    SurfaceRules.ConditionSource aboveNetherLavaSurface = SurfaceRules.yBlockCheck(VerticalAnchor.absolute(32), 0);
+    SurfaceRules.ConditionSource closeToCeiling = SurfaceRules.yBlockCheck(VerticalAnchor.belowTop(5), 0);
+    SurfaceRules.ConditionSource hole = SurfaceRules.hole();
+
+    SurfaceRules.RuleSource abyssalBlock = SurfaceRules.state(ModBlocks.ABYSSAL_BLOCK.get().defaultBlockState());
+    SurfaceRules.RuleSource blackConcrete = SurfaceRules.state(Blocks.CONCRETE.black().defaultBlockState());
+    SurfaceRules.RuleSource netherrack = SurfaceRules.state(Blocks.NETHERRACK.defaultBlockState());
+    SurfaceRules.RuleSource lava = SurfaceRules.state(Blocks.LAVA.defaultBlockState());
+    SurfaceRules.RuleSource bedrock = SurfaceRules.state(Blocks.BEDROCK.defaultBlockState());
+
+    return SurfaceRules.sequence(
+            SurfaceRules.ifTrue(SurfaceRules.verticalGradient("bedrock_floor", VerticalAnchor.bottom(), VerticalAnchor.aboveBottom(5)), bedrock),
+            SurfaceRules.ifTrue(SurfaceRules.not(SurfaceRules.verticalGradient("bedrock_roof", VerticalAnchor.belowTop(5), VerticalAnchor.top())), bedrock),
+            SurfaceRules.ifTrue(closeToCeiling, netherrack),
+            SurfaceRules.ifTrue(
+                    SurfaceRules.isBiome(biomes, ModBiomes.ABYSSAL_WASTES),
+                    SurfaceRules.sequence(
+                            SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR, abyssalBlock),
+                            SurfaceRules.ifTrue(SurfaceRules.UNDER_FLOOR, netherrack)
+                    )
+            ),
+            SurfaceRules.ifTrue(
+                    SurfaceRules.isBiome(biomes, ModBiomes.VOID_DEPTHS),
+                    SurfaceRules.ifTrue(
+                            SurfaceRules.ON_FLOOR,
+                            blackConcrete
+                    )
+            ),
+            SurfaceRules.ifTrue(
+                    SurfaceRules.isBiome(
+                            biomes,
+                            ModBiomes.MISTY_CHASMS
+                    ),
+                    SurfaceRules.ifTrue(
+                            SurfaceRules.ON_FLOOR,
+                            netherrack
+                    )
+            ),
+            SurfaceRules.ifTrue(
+                    SurfaceRules.ON_FLOOR,
+                    SurfaceRules.ifTrue(
+                            SurfaceRules.not(aboveNetherLavaSurface),
+                            SurfaceRules.ifTrue(
+                                    hole,
+                                    lava
+                            )
+                    )
+            ),
+            netherrack
+    );
+  }
 }
