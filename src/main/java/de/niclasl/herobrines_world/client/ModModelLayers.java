@@ -6,15 +6,6 @@ import net.minecraft.resources.Identifier;
 
 public class ModModelLayers {
 
-    public static final ModelLayerLocation RED_CRYSTAL =
-            new ModelLayerLocation(
-                    Identifier.fromNamespaceAndPath(
-                            HerobrinesWorld.MOD_ID,
-                            "red_crystal"
-                    ),
-                    "main"
-            );
-
     public static final ModelLayerLocation HEROBRINE_BOSS =
             new ModelLayerLocation(
                     Identifier.fromNamespaceAndPath(

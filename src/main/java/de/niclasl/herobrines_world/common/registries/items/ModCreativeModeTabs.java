@@ -78,7 +78,6 @@ public class ModCreativeModeTabs {
 											for (FarmerMode mode : FarmerMode.values()) {
 												tabData.accept(AutoFarmerBlock.setModeOnStack(new ItemStack(ModBlocks.AUTO_FARMER), mode));
 											}
-											tabData.accept(ModItems.RED_CRYSTAL);
 										}).build());
 		CREATIVE_MODE_TAB.register("herobrine_redstone_blocks",
 						() -> CreativeModeTab.builder()
@@ -164,7 +163,6 @@ public class ModCreativeModeTabs {
 											tabData.accept(ModItems.PLATIN_CHESTPLATE);
 											tabData.accept(ModItems.PLATIN_LEGGINGS);
 											tabData.accept(ModItems.PLATIN_BOOTS);
-											tabData.accept(ModItems.RED_CRYSTAL);
 										}).build());
 		CREATIVE_MODE_TAB.register("herobrine_ingredients",
 						() -> CreativeModeTab.builder()

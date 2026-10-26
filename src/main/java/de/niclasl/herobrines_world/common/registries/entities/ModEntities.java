@@ -29,7 +29,6 @@ public class ModEntities {
 	public static ResourceKey<EntityType<?>> GOOD_HEROBRINE_KEY = ResourceKey.create(Registries.ENTITY_TYPE, Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "good_herobrine"));
 	public static ResourceKey<EntityType<?>> BAD_HEROBRINE_KEY = ResourceKey.create(Registries.ENTITY_TYPE, Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "bad_herobrine"));
 	public static ResourceKey<EntityType<?>> CHRISTMAS_NICLASL_KEY = ResourceKey.create(Registries.ENTITY_TYPE, Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "christmas_niclasl"));
-	public static ResourceKey<EntityType<?>> RED_CRYSTAL_KEY = ResourceKey.create(Registries.ENTITY_TYPE, Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "red_crystal"));
 
 	public static final Supplier<EntityType<HerobrineBoss>> HEROBRINE_BOSS =
 			ENTITY_TYPES.register("herobrine_boss", () -> EntityType.Builder.of(HerobrineBoss::new, MobCategory.MONSTER)
@@ -58,11 +57,6 @@ public class ModEntities {
 	public static final Supplier<EntityType<ChristmasNiclasl>> CHRISTMAS_NICLASL =
 			ENTITY_TYPES.register("christmas_niclasl", () -> EntityType.Builder.of(ChristmasNiclasl::new, MobCategory.MONSTER)
 					.sized(0.6f, 1.8f).setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(3).build(CHRISTMAS_NICLASL_KEY));
-
-	public static final Supplier<EntityType<RedCrystal>> RED_CRYSTAL =
-			ENTITY_TYPES.register("red_crystal", () -> EntityType.Builder.<RedCrystal>of(RedCrystal::new, MobCategory.MISC)
-					.noLootTable().fireImmune().sized(2.0F, 2.0F).clientTrackingRange(16)
-					.updateInterval(2147483647).build(RED_CRYSTAL_KEY));
 
 	@SubscribeEvent
 	public static void registerAttributes(EntityAttributeCreationEvent event) {

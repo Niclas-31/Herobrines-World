@@ -30,8 +30,5 @@ public class ModEntityRenderers {
 
         event.registerEntityRenderer(ModEntities.STATUE_ENTITY_303.get(),
                 context -> new StatueEntity303Renderer(context, false));
-
-        event.registerEntityRenderer(ModEntities.RED_CRYSTAL.get(),
-                RedCrystalRenderer::new);
     }
 }
