@@ -4,6 +4,7 @@ import de.niclasl.herobrines_world.common.network.transfer.ItemTransferSystem;
 import de.niclasl.herobrines_world.common.network.transfer.wrapper.StorageControllerInventoryWrapper;
 import de.niclasl.herobrines_world.common.registries.blocks.custom.StorageControllerBlock;
 import de.niclasl.herobrines_world.common.registries.menus.StorageControllerMenu;
+import de.niclasl.herobrines_world_api.registry.HWRegistries;
 import de.niclasl.herobrines_world_api.transfer.node.StorageNode;
 import de.niclasl.herobrines_world_api.transfer.wrapper.InventoryWrapper;
 import net.minecraft.core.BlockPos;
@@ -73,7 +74,7 @@ public class StorageControllerBlockEntity extends BlockEntity implements Contain
 
             ItemStack filter = readFilter(level, pos);
 
-            InventoryWrapper wrapper = ItemTransferSystem.getWrapper(level, pos, filter);
+            InventoryWrapper wrapper = HWRegistries.RESOLVERS.resolve(InventoryWrapper.class, level, pos);
 
             if (wrapper == null) continue;
 

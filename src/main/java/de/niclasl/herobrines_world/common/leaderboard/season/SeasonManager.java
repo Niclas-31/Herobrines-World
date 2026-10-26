@@ -6,17 +6,18 @@ import de.niclasl.herobrines_world_api.leaderboard.LeaderboardEntry;
 import de.niclasl.herobrines_world_api.leaderboard.RewardEntry;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.level.LevelAccessor;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
 public class SeasonManager {
+    private static ServerLevel level;
 
     public static void initialize(ServerLevel level) {
+        SeasonManager.level = level;
 
-        MapVariables data = MapVariables.get(level);
+        MapVariables data = level.getServer().getDataStorage().computeIfAbsent(MapVariables.TYPE);
 
         if (data.seasonStart != 0 && data.seasonEnd > 0) return;
 
@@ -35,7 +36,7 @@ public class SeasonManager {
 
     public static void tick(ServerLevel level) {
 
-        var data = MapVariables.get(level);
+        var data = level.getServer().getDataStorage().computeIfAbsent(MapVariables.TYPE);
 
         long now = System.currentTimeMillis();
         long seasonDuration = 30L * 24 * 60 * 60 * 1000;
@@ -46,8 +47,7 @@ public class SeasonManager {
             data.seasonStart = now;
             data.seasonEnd = now + seasonDuration;
 
-            SeasonRewardStorage storage =
-                    SeasonRewardStorage.get(level);
+            SeasonRewardStorage storage = level.getServer().getDataStorage().computeIfAbsent(SeasonRewardStorage.TYPE);
 
             SeasonRewardGenerator.generate(level, storage);
 
@@ -63,8 +63,7 @@ public class SeasonManager {
             List<LeaderboardEntry> snapshot = buildLeaderboard(level);
             data.frozenLeaderboard = List.copyOf(snapshot);
 
-            SeasonRewardStorage storage =
-                    SeasonRewardStorage.get(level);
+            SeasonRewardStorage storage = level.getServer().getDataStorage().computeIfAbsent(SeasonRewardStorage.TYPE);
 
             storage.resetSeason();
             SeasonRewardGenerator.generate(level, storage);
@@ -80,8 +79,7 @@ public class SeasonManager {
             data.seasonStart = now;
             data.seasonEnd = now + seasonDuration;
 
-            SeasonRewardStorage storage =
-                    SeasonRewardStorage.get(level);
+            SeasonRewardStorage storage = level.getServer().getDataStorage().computeIfAbsent(SeasonRewardStorage.TYPE);
 
             storage.resetSeason();
             SeasonRewardGenerator.generate(level, storage);
@@ -92,10 +90,16 @@ public class SeasonManager {
         }
     }
 
-    public static List<LeaderboardEntry> getLeaderboard(ServerLevel level) {
-        var data = MapVariables.get(level);
+    public static List<LeaderboardEntry> getFrozenLeaderboard() {
+        var data = level.getServer().getDataStorage().computeIfAbsent(MapVariables.TYPE);
 
-        if (isSeasonActive(level)) {
+        return data.frozenLeaderboard;
+    }
+
+    public static List<LeaderboardEntry> getLeaderboard(ServerLevel level) {
+        var data = level.getServer().getDataStorage().computeIfAbsent(MapVariables.TYPE);
+
+        if (isSeasonActive()) {
             return buildLeaderboard(level);
         }
 
@@ -132,7 +136,7 @@ public class SeasonManager {
 
         for (int i = 0; i < list.size(); i++) {
 
-            if (list.get(i).player().equals(target.getUUID())) {
+            if (list.get(i).uuid().equals(target.getUUID())) {
                 return i + 1;
             }
         }
@@ -149,15 +153,15 @@ public class SeasonManager {
         return RewardEngine.buildRewardsForRank(rank);
     }
 
-    public static boolean isSeasonActive(LevelAccessor level) {
-        return System.currentTimeMillis() < MapVariables.get(level).seasonEnd;
+    public static boolean isSeasonActive() {
+        return System.currentTimeMillis() < level.getServer().getDataStorage().computeIfAbsent(MapVariables.TYPE).seasonEnd;
     }
 
-    public static long getNextSeasonStart(LevelAccessor level) {
-        return MapVariables.get(level).nextSeasonStart;
+    public static long getNextSeasonStart() {
+        return level.getServer().getDataStorage().computeIfAbsent(MapVariables.TYPE).nextSeasonStart;
     }
 
-    public static long getSeasonEnd(LevelAccessor level) {
-        return MapVariables.get(level).seasonEnd;
+    public static long getSeasonEnd() {
+        return level.getServer().getDataStorage().computeIfAbsent(MapVariables.TYPE).seasonEnd;
     }
 }

@@ -1,27 +1,12 @@
 package de.niclasl.herobrines_world.common.network.transfer;
 
-import de.niclasl.herobrines_world.common.network.transfer.wrapper.CombinedChestWrapper;
-import de.niclasl.herobrines_world.common.network.transfer.wrapper.SingleInventoryWrapper;
-import de.niclasl.herobrines_world.common.registries.blocks.entities.AutoFarmerBlockEntity;
-import de.niclasl.herobrines_world.common.registries.blocks.entities.StorageControllerBlockEntity;
 import de.niclasl.herobrines_world_api.transfer.TransferMode;
 import de.niclasl.herobrines_world_api.transfer.wrapper.InventoryWrapper;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.world.Container;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BrewingStandBlockEntity;
-import net.minecraft.world.level.block.entity.ChestBlockEntity;
-import net.minecraft.world.level.block.state.BlockState;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class ItemTransferSystem {
@@ -53,7 +38,6 @@ public class ItemTransferSystem {
                     Math.max(0, e.getValue() - keepAmount));
         }
 
-        // 🌾 2. Crops: KEINE Begrenzung
         for (int i = 0; i < maxSlot; i++) {
 
             ItemStack stack = source.get(i);
@@ -173,70 +157,6 @@ public class ItemTransferSystem {
         }
 
         return stack;
-    }
-
-    public static InventoryWrapper getWrapper(Level level, BlockPos pos, ItemStack filter) {
-
-        BlockEntity be = level.getBlockEntity(pos);
-
-        if (be instanceof AutoFarmerBlockEntity) {
-            return null;
-        }
-
-        if (be instanceof AbstractFurnaceBlockEntity) {
-            return null;
-        }
-
-        if (be instanceof BrewingStandBlockEntity) {
-            return null;
-        }
-
-        if (be instanceof StorageControllerBlockEntity) {
-            return null;
-        }
-
-        if (be instanceof ChestBlockEntity) {
-            return getChestWrapper(level, pos, filter);
-        }
-
-        if (be instanceof Container container) {
-            return new SingleInventoryWrapper(container, filter);
-        }
-
-        return null;
-    }
-
-    public static InventoryWrapper getChestWrapper(Level level, BlockPos pos, ItemStack filter) {
-
-        BlockEntity be = level.getBlockEntity(pos);
-
-        if (!(be instanceof Container container)) {
-            return null;
-        }
-
-        List<Container> parts = new ArrayList<>();
-        parts.add(container);
-
-        BlockState state = level.getBlockState(pos);
-
-        for (Direction dir : Direction.Plane.HORIZONTAL) {
-
-            BlockPos neighborPos = pos.relative(dir);
-
-            BlockState neighborState = level.getBlockState(neighborPos);
-
-            if (neighborState.getBlock() != state.getBlock()) {
-                continue;
-            }
-
-            BlockEntity otherBe = level.getBlockEntity(neighborPos);
-
-            if (otherBe instanceof Container otherContainer) {
-                parts.add(otherContainer);
-            }
-        }
-
-        return new CombinedChestWrapper(parts, filter);
     }
 
     private static boolean isSeed(ItemStack stack) {

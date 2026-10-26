@@ -10,7 +10,6 @@ import de.niclasl.herobrines_world.common.network.message.OpenRewardScreenPacket
 import de.niclasl.herobrines_world.common.network.message.OpenWaypointScreenPacket;
 import de.niclasl.herobrines_world.common.network.message.SyncLeaderboardPacket;
 import net.minecraft.client.Minecraft;
-import net.minecraft.world.level.Level;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.fml.common.EventBusSubscriber;
 
@@ -22,11 +21,10 @@ public class ClientHandler {
     public static void handleOpenLeaderboard(SyncLeaderboardPacket packet) {
 
         Minecraft mc = Minecraft.getInstance();
-        Level level = mc.level;
 
-        if (level == null || mc.player == null) return;
+        if (mc.player == null) return;
 
-        boolean seasonActive = SeasonManager.isSeasonActive(level);
+        boolean seasonActive = SeasonManager.isSeasonActive();
         UUID uuid = mc.player.getUUID();
 
         boolean claimed = ClientCache.isClaimed(uuid);

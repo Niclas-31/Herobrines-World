@@ -8,7 +8,6 @@ import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.client.network.ClientPacketDistributor;
 import org.jspecify.annotations.NonNull;
 
@@ -33,8 +32,6 @@ public class RewardScreen extends Screen {
 
     @Override
     protected void init() {
-        Level level = Minecraft.getInstance().level;
-
         int centerX = this.width / 2;
 
         Button claimAll = addRenderableWidget(
@@ -46,7 +43,7 @@ public class RewardScreen extends Screen {
                         .build()
         );
 
-        claimAll.active = !SeasonManager.isSeasonActive(level);
+        claimAll.active = !SeasonManager.isSeasonActive();
     }
 
     @Override

@@ -65,11 +65,11 @@ public class ModMessage {
                     ServerLevel level = player.level();
 
                     SeasonRewardStorage storage =
-                            SeasonRewardStorage.get(level);
+                            level.getServer().getDataStorage().computeIfAbsent(SeasonRewardStorage.TYPE);
 
                     List<RewardEntry> rewards;
 
-                    if (SeasonManager.isSeasonActive(level)) {
+                    if (SeasonManager.isSeasonActive()) {
                         rewards = SeasonManager.getPreviewRewards(player, level);
                     } else {
                         rewards = storage.getRewards(player.getUUID());
@@ -85,7 +85,8 @@ public class ModMessage {
                     ServerPlayer player = (ServerPlayer) ctx.player();
                     ServerLevel level = player.level();
 
-                    SeasonRewardStorage storage = SeasonRewardStorage.get(level);
+                    SeasonRewardStorage storage =
+                            level.getServer().getDataStorage().computeIfAbsent(SeasonRewardStorage.TYPE);
 
                     UUID uuid = player.getUUID();
 

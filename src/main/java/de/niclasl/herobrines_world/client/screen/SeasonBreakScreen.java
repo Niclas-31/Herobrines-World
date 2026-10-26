@@ -7,7 +7,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.level.Level;
 import org.jspecify.annotations.NonNull;
 
 import java.util.List;
@@ -32,8 +31,7 @@ public class SeasonBreakScreen extends Screen {
         var level = Minecraft.getInstance().level;
         if (level == null) return;
 
-        top3 = LeaderboardAPIHolder.get()
-                .getTop("default", 3);
+        top3 = LeaderboardAPIHolder.get().getTop(3);
     }
 
     @Override
@@ -78,9 +76,7 @@ public class SeasonBreakScreen extends Screen {
     }
 
     private String getRemainingTime() {
-        Level level = Minecraft.getInstance().level;
-
-        long nextSeasonStart = SeasonManager.getNextSeasonStart(level);
+        long nextSeasonStart = SeasonManager.getNextSeasonStart();
         long remaining = nextSeasonStart - System.currentTimeMillis();
 
         String starting = Component.translatable("gui.herobrines_world.season_break.starting").getString();

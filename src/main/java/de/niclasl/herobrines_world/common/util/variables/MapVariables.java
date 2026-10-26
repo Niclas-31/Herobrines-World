@@ -6,7 +6,6 @@ import de.niclasl.herobrines_world_api.leaderboard.LeaderboardEntry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.resources.Identifier;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.saveddata.SavedData;
@@ -80,7 +79,7 @@ public class MapVariables extends SavedData {
 
             CompoundTag tag = new CompoundTag();
 
-            tag.putString("uuid", e.player().toString());
+            tag.putString("uuid", e.uuid().toString());
             tag.putString("name", e.playerName());
             tag.putInt("value", e.value());
             tag.putInt("level", e.level());
@@ -102,7 +101,7 @@ public class MapVariables extends SavedData {
 
     public static MapVariables get(LevelAccessor world) {
         if (world instanceof ServerLevelAccessor serverLevelAccessor) {
-            return Objects.requireNonNull(serverLevelAccessor.getLevel().getServer().getLevel(Level.OVERWORLD)).getDataStorage().computeIfAbsent(MapVariables.TYPE);
+            return Objects.requireNonNull(serverLevelAccessor.getServer()).getDataStorage().computeIfAbsent(MapVariables.TYPE);
         } else {
             return clientSide;
         }

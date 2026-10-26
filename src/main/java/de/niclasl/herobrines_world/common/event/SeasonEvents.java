@@ -29,7 +29,9 @@ public class SeasonEvents {
 
         if (!(player instanceof ServerPlayer serverPlayer)) return;
 
-        SeasonRewardStorage storage = SeasonRewardStorage.get(serverPlayer.level());
+        ServerLevel level = serverPlayer.level();
+
+        SeasonRewardStorage storage = level.getServer().getDataStorage().computeIfAbsent(SeasonRewardStorage.TYPE);
 
         PacketDistributor.sendToPlayer(serverPlayer, new SyncClaimStatePacket(storage.getClaimed()));
     }

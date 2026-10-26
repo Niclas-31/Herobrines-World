@@ -3,12 +3,10 @@ package de.niclasl.herobrines_world.client.screen;
 import de.niclasl.herobrines_world.common.leaderboard.season.SeasonManager;
 import de.niclasl.herobrines_world.common.network.message.RequestRewardsScreenPacket;
 import de.niclasl.herobrines_world_api.leaderboard.LeaderboardEntry;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.client.network.ClientPacketDistributor;
 import org.jspecify.annotations.NonNull;
 
@@ -111,9 +109,7 @@ public class SoulLeaderboardScreen extends Screen {
     }
 
     private String getRemainingTime() {
-        Level level = Minecraft.getInstance().level;
-
-        long remaining = SeasonManager.getSeasonEnd(level) - System.currentTimeMillis();
+        long remaining = SeasonManager.getSeasonEnd() - System.currentTimeMillis();
 
         String ended = Component.translatable("gui.herobrines_world.soul_leaderboard.ended").getString();
 

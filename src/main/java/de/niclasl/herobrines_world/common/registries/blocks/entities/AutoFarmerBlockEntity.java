@@ -8,8 +8,7 @@ import de.niclasl.herobrines_world.common.registries.components.ModDataComponent
 import de.niclasl.herobrines_world.common.registries.components.SmartChipData;
 import de.niclasl.herobrines_world.common.registries.items.custom.BatteryItem;
 import de.niclasl.herobrines_world.common.registries.menus.AutoFarmerMenu;
-import de.niclasl.herobrines_world_api.transfer.TransferAPI;
-import de.niclasl.herobrines_world_api.transfer.resolver.InventoryResolver;
+import de.niclasl.herobrines_world_api.registry.HWRegistries;
 import de.niclasl.herobrines_world_api.transfer.wrapper.InventoryWrapper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
@@ -198,17 +197,17 @@ public class AutoFarmerBlockEntity extends BlockEntity implements Container, Men
     private void transferAndFilter(ServerLevel level, SmartChipData.Transfer chip) {
         InventoryWrapper source = new AutoFarmerWrapper(this.items);
 
-        List<InventoryResolver> resolvers = TransferAPI.getResolvers(InventoryResolver.class);
-
         ServerLevel targetLevel = level.getServer().getLevel(chip.dim());
 
-        for (InventoryResolver resolver : resolvers) {
-            InventoryWrapper target = resolver.resolve(targetLevel, chip.pos());
-
-            applyBufferRules(chip.voidTrash());
-
-            ItemTransferSystem.tick(source, target, chip.mode(), 27, chip.keepAmount());
+        if (targetLevel == null) {
+            return;
         }
+
+        InventoryWrapper target = HWRegistries.RESOLVERS.resolve(InventoryWrapper.class, targetLevel, chip.pos());
+
+        applyBufferRules(chip.voidTrash());
+
+        ItemTransferSystem.tick(source, target, chip.mode(), 27, chip.keepAmount());
     }
 
     private void applyBufferRules(boolean voidTrash) {

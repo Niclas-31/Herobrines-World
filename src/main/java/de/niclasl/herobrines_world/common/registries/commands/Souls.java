@@ -156,7 +156,7 @@ public class Souls {
 										return 0;
 									}
 
-									List<LeaderboardEntry> entries = SeasonManager.getLeaderboard(source.getServer().overworld());
+									List<LeaderboardEntry> entries = SeasonManager.getLeaderboard(source.getLevel());
 
 									PacketDistributor.sendToPlayer(player, new SyncLeaderboardPacket(entries));
 

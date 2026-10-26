@@ -2,14 +2,13 @@ package de.niclasl.herobrines_world.common.leaderboard.season;
 
 import com.mojang.serialization.Codec;
 import de.niclasl.herobrines_world.HerobrinesWorld;
+import de.niclasl.herobrines_world.common.network.message.SyncClaimStatePacket;
 import de.niclasl.herobrines_world_api.leaderboard.RewardEntry;
 import de.niclasl.herobrines_world_api.leaderboard.RewardType;
-import de.niclasl.herobrines_world.common.network.message.SyncClaimStatePacket;
 import de.niclasl.herobrines_world_api.registry.HWRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.resources.Identifier;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.saveddata.SavedData;
 import net.minecraft.world.level.saveddata.SavedDataType;
 import net.neoforged.neoforge.network.PacketDistributor;
@@ -32,10 +31,6 @@ public class SeasonRewardStorage extends SavedData {
             new SavedDataType<>(
                     Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "season_reward_storage"),
                     SeasonRewardStorage::new, CODEC);
-
-    public static SeasonRewardStorage get(ServerLevel level) {
-        return level.getDataStorage().computeIfAbsent(TYPE);
-    }
 
     public void read(CompoundTag tag) {
 

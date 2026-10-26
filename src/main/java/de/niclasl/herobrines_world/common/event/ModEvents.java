@@ -30,7 +30,7 @@ public class ModEvents {
         if (!(event.getLevel() instanceof ServerLevel level)) return;
 
         BossFightManager manager = BossFightManager.get(level);
-        BossArenaStorage storage = BossArenaStorage.get(level);
+        BossArenaStorage storage = level.getServer().getDataStorage().computeIfAbsent(BossArenaStorage.TYPE);
 
         manager.setArena(storage.getArena(HWStructureTypes.HEROBRINE_TEMPLE.id()));
     }
@@ -41,11 +41,7 @@ public class ModEvents {
             return;
         }
 
-        MapVariables map = MapVariables.get(level);
-
-        if (map == null) {
-            return;
-        }
+        MapVariables map = level.getServer().getDataStorage().computeIfAbsent(MapVariables.TYPE);
 
         int x = 1000;
         int z = 1000;
@@ -74,7 +70,7 @@ public class ModEvents {
                     )
             ));
 
-            BossArenaStorage storage = BossArenaStorage.get(level);
+            BossArenaStorage storage = level.getServer().getDataStorage().computeIfAbsent(BossArenaStorage.TYPE);
             BossFightManager manager = BossFightManager.get(level);
 
             BossArena arena = getArena(x, y, z);
