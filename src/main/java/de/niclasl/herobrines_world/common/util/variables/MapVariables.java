@@ -58,7 +58,7 @@ public class MapVariables extends SavedData {
                     new LeaderboardEntry(
                             UUID.fromString(e.getStringOr("uuid", "")),
                             e.getStringOr("name", ""),
-                            e.getIntOr("value", 0),
+                            e.getIntOr("souls", 0),
                             e.getIntOr("level", 0)
                     )
             );
@@ -81,7 +81,7 @@ public class MapVariables extends SavedData {
 
             tag.putString("uuid", e.uuid().toString());
             tag.putString("name", e.playerName());
-            tag.putInt("value", e.value());
+            tag.putInt("souls", e.souls());
             tag.putInt("level", e.level());
 
             list.add(tag);

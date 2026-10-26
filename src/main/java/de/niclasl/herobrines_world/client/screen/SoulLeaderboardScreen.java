@@ -28,7 +28,7 @@ public class SoulLeaderboardScreen extends Screen {
 
         this.entries = new ArrayList<>(entries);
 
-        this.entries.sort(Comparator.comparingInt(LeaderboardEntry::value).reversed());
+        this.entries.sort(Comparator.comparingInt(LeaderboardEntry::souls).reversed());
     }
 
     @Override
@@ -99,7 +99,7 @@ public class SoulLeaderboardScreen extends Screen {
 
             graphics.text(this.font, "#" + rank, startX, y, rankColor);
             graphics.text(this.font, entry.playerName(), startX + 60, y, 0xFFFFFFFF);
-            graphics.text(this.font, String.valueOf(entry.value()), startX + 180, y, 0xFFFFFFFF);
+            graphics.text(this.font, String.valueOf(entry.souls()), startX + 180, y, 0xFFFFFFFF);
             graphics.text(this.font, String.valueOf(entry.level()), startX + 240, y, 0xFFFFFFFF);
         }
     }

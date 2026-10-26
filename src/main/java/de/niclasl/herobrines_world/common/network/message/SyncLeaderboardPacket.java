@@ -29,7 +29,7 @@ public record SyncLeaderboardPacket(List<LeaderboardEntry> entries) implements C
         for (LeaderboardEntry entry : msg.entries) {
             buf.writeUUID(entry.uuid());
             buf.writeUtf(entry.playerName());
-            buf.writeInt(entry.value());
+            buf.writeInt(entry.souls());
             buf.writeInt(entry.level());
         }
     }

@@ -63,7 +63,7 @@ public class SeasonBreakScreen extends Screen {
                 case 1 -> "🥈 ";
                 case 2 -> "🥉 ";
                 default -> (i + 1) + ". ";
-            } + entry.playerName() + " - " + entry.value();
+            } + entry.playerName() + " - " + entry.souls();
 
             graphics.centeredText(
                     this.font,

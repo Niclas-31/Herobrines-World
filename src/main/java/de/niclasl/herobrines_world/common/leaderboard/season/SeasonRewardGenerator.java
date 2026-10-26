@@ -26,7 +26,7 @@ public class SeasonRewardGenerator {
             leaderboard.add(new LeaderboardEntry(p.getUUID(), p.getGameProfile().name(), souls, level));
         }
 
-        leaderboard.sort(Comparator.comparingInt(LeaderboardEntry::value).reversed());
+        leaderboard.sort(Comparator.comparingInt(LeaderboardEntry::souls).reversed());
 
         for (int i = 0; i < leaderboard.size(); i++) {
 
@@ -36,7 +36,7 @@ public class SeasonRewardGenerator {
 
             ServerPlayer player = serverLevel.getServer()
                     .getPlayerList()
-                    .getPlayer(entry.player());
+                    .getPlayer(entry.uuid());
 
             if (player == null) continue;
 
@@ -45,7 +45,7 @@ public class SeasonRewardGenerator {
             List<RewardEntry> rewards =
                     RewardEngine.buildRewardsForRank(rank);
 
-            storage.setRewards(entry.player(), rewards);
+            storage.setRewards(entry.uuid(), rewards);
         }
     }
 }

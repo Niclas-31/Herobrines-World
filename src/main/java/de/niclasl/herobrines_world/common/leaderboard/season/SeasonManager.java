@@ -125,7 +125,8 @@ public class SeasonManager {
             ));
         }
 
-        entries.sort(Comparator.comparingInt(LeaderboardEntry::value).reversed());
+        entries.sort(Comparator.comparingInt(LeaderboardEntry::level).reversed()
+                .thenComparing(Comparator.comparingInt(LeaderboardEntry::souls).reversed()));
 
         return entries;
     }
