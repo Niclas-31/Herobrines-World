@@ -1,5 +1,6 @@
 package de.niclasl.herobrines_world.client.renderer.entity;
 
+import de.niclasl.herobrines_world.HerobrinesWorld;
 import de.niclasl.herobrines_world.common.registries.entities.custom.ChristmasNiclasl;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelLayers;
@@ -10,9 +11,10 @@ import net.minecraft.resources.Identifier;
 import org.jetbrains.annotations.NotNull;
 
 public class ChristmasNiclaslRenderer extends HumanoidMobRenderer<ChristmasNiclasl, HumanoidRenderState, HumanoidModel<HumanoidRenderState>> {
+    private static final Identifier CHRISTMAS_NICLASL_LOCATION = Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "textures/entity/christmas_niclasl.png");
 
-    public ChristmasNiclaslRenderer(EntityRendererProvider.Context context, boolean slim) {
-        super(context, new HumanoidModel<>(context.bakeLayer(slim ? ModelLayers.PLAYER_SLIM : ModelLayers.PLAYER)), 0.5f);
+    public ChristmasNiclaslRenderer(EntityRendererProvider.Context context) {
+        super(context, new HumanoidModel<>(context.bakeLayer(ModelLayers.PLAYER)), 0.5f);
     }
 
     @Override
@@ -22,6 +24,6 @@ public class ChristmasNiclaslRenderer extends HumanoidMobRenderer<ChristmasNicla
 
     @Override
     public @NotNull Identifier getTextureLocation(@NotNull HumanoidRenderState state) {
-        return Identifier.parse("herobrines_world:textures/entity/christmas_niclasl.png");
+        return CHRISTMAS_NICLASL_LOCATION;
     }
 }

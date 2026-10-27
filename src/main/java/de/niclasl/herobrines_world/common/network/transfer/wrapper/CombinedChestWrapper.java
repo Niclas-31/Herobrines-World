@@ -9,11 +9,9 @@ import java.util.List;
 public class CombinedChestWrapper implements InventoryWrapper {
 
     private final List<Container> containers;
-    private final ItemStack filter;
 
-    public CombinedChestWrapper(List<Container> containers, ItemStack filter) {
+    public CombinedChestWrapper(List<Container> containers) {
         this.containers = containers;
-        this.filter = filter;
     }
 
     @Override
@@ -53,7 +51,31 @@ public class CombinedChestWrapper implements InventoryWrapper {
 
     @Override
     public boolean canAccept(ItemStack stack) {
-        if (filter.isEmpty()) return true;
-        else return ItemStack.isSameItemSameComponents(filter, stack);
+        if (stack.isEmpty()) {
+            return false;
+        }
+
+        for (Container container : containers) {
+            for (int slot = 0; slot < container.getContainerSize(); slot++) {
+                if (!container.canPlaceItem(slot, stack)) {
+                    continue;
+                }
+
+                ItemStack existing = container.getItem(slot);
+
+                if (existing.isEmpty()) {
+                    return true;
+                }
+
+                if (ItemStack.isSameItemSameComponents(existing, stack)
+                        && existing.getCount() < Math.min(
+                        existing.getMaxStackSize(),
+                        container.getMaxStackSize())) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 }

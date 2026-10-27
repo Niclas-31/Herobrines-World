@@ -5,7 +5,6 @@ import de.niclasl.herobrines_world.client.renderer.block.BatteryChargerRenderer;
 import de.niclasl.herobrines_world.client.renderer.block.BossSpawnRenderer;
 import de.niclasl.herobrines_world.client.renderer.block.DelayerRenderer;
 import de.niclasl.herobrines_world.client.renderer.block.LogicGateBlockEntityRenderer;
-import de.niclasl.herobrines_world.client.renderer.entity.model.HerobrineBossModel;
 import de.niclasl.herobrines_world.client.screen.*;
 import de.niclasl.herobrines_world.common.registries.blocks.entities.ModBlockEntities;
 import de.niclasl.herobrines_world.common.registries.menus.ModMenuTypes;
@@ -47,9 +46,5 @@ public class HerobrinesWorldClient {
 
     @SubscribeEvent
     public static void registerLayerDefinition(EntityRenderersEvent.RegisterLayerDefinitions event) {
-        event.registerLayerDefinition(
-                ModModelLayers.HEROBRINE_BOSS,
-                HerobrineBossModel::createBodyLayer
-        );
     }
 }

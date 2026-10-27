@@ -1,6 +1,10 @@
 package de.niclasl.herobrines_world.common.registries.blocks.entities;
 
+import de.niclasl.herobrines_world.HerobrinesWorld;
 import de.niclasl.herobrines_world.common.network.transfer.ItemTransferSystem;
+import de.niclasl.herobrines_world.common.network.transfer.wrapper.CombinedChestWrapper;
+import de.niclasl.herobrines_world.common.network.transfer.wrapper.EmptyInventoryWrapper;
+import de.niclasl.herobrines_world.common.network.transfer.wrapper.SingleInventoryWrapper;
 import de.niclasl.herobrines_world.common.network.transfer.wrapper.StorageControllerInventoryWrapper;
 import de.niclasl.herobrines_world.common.registries.blocks.custom.StorageControllerBlock;
 import de.niclasl.herobrines_world.common.registries.menus.StorageControllerMenu;
@@ -70,16 +74,37 @@ public class StorageControllerBlockEntity extends BlockEntity implements Contain
 
         for (BlockPos pos : BlockPos.betweenClosed(min, max)) {
 
-            if (pos.equals(worldPosition)) continue;
+            if (pos.equals(worldPosition)) {
+                continue;
+            }
 
             ItemStack filter = readFilter(level, pos);
 
+            BlockEntity blockEntity = level.getBlockEntity(pos);
+
+            if (blockEntity == null) {
+                continue;
+            }
+
             InventoryWrapper wrapper = HWRegistries.RESOLVERS.resolve(InventoryWrapper.class, level, pos);
 
-            if (wrapper == null) continue;
+            if (wrapper == null || wrapper == EmptyInventoryWrapper.INSTANCE) {
+                continue;
+            }
+
+            if (!(wrapper instanceof SingleInventoryWrapper)
+                    && !(wrapper instanceof CombinedChestWrapper)) {
+                continue;
+            }
 
             network.add(new StorageNode(wrapper, filter));
         }
+
+        HerobrinesWorld.LOGGER.info(
+                "Storage Controller bei {} hat {} Inventare gefunden.",
+                worldPosition,
+                network.size()
+        );
 
         setChanged();
     }
@@ -89,30 +114,45 @@ public class StorageControllerBlockEntity extends BlockEntity implements Contain
         InventoryWrapper source = new StorageControllerInventoryWrapper(this);
 
         for (int slot = 0; slot < source.size(); slot++) {
+            ItemStack sourceStack = source.get(slot);
 
-            ItemStack stack = source.get(slot);
-            if (stack.isEmpty()) continue;
+            if (sourceStack.isEmpty()) {
+                continue;
+            }
 
-            ItemStack original = stack.copy();
+            ItemStack original = sourceStack.copy();
+            ItemStack remaining = sourceStack.copy();
 
             for (StorageNode node : network) {
-
                 InventoryWrapper target = node.inventory();
-                if (target == null) continue;
+
+                if (target == null) {
+                    continue;
+                }
 
                 ItemStack filter = node.filter();
 
-                if (filter.isEmpty()) continue;
+                if (filter.isEmpty()) {
+                    continue;
+                }
 
-                if (!target.canAccept(stack)) continue;
+                if (!ItemStack.isSameItemSameComponents(filter, remaining)) {
+                    continue;
+                }
 
-                stack = ItemTransferSystem.insertInto(target, stack);
+                if (!target.canAccept(remaining)) {
+                    continue;
+                }
 
-                if (stack.isEmpty()) break;
+                remaining = ItemTransferSystem.insertInto(target, remaining);
+
+                if (remaining.isEmpty()) {
+                    break;
+                }
             }
 
-            if (!ItemStack.matches(original, stack)) {
-                source.set(slot, stack);
+            if (!ItemStack.matches(original, remaining)) {
+                source.set(slot, remaining);
             }
         }
     }

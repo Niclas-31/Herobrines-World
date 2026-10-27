@@ -11,22 +11,22 @@ public class ModEntityRenderers {
     @SubscribeEvent
     public static void registerEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {
         event.registerEntityRenderer(ModEntities.GOOD_HEROBRINE.get(),
-                context -> new GoodHerobrineRenderer(context, false));
+                GoodHerobrineRenderer::new);
 
         event.registerEntityRenderer(ModEntities.BAD_HEROBRINE.get(),
-                context -> new BadHerobrineRenderer(context, false));
+                BadHerobrineRenderer::new);
 
         event.registerEntityRenderer(ModEntities.CHRISTMAS_NICLASL.get(),
-                context -> new ChristmasNiclaslRenderer(context, false));
+                ChristmasNiclaslRenderer::new);
 
         event.registerEntityRenderer(ModEntities.ENTITY_303.get(),
-                context -> new Entity303Renderer(context, false));
+                Entity303Renderer::new);
 
         event.registerEntityRenderer(ModEntities.HEROBRINE_BOSS.get(),
                 HerobrineBossRenderer::new);
 
         event.registerEntityRenderer(ModEntities.NICLASL.get(),
-                context -> new NiclaslRenderer(context, false));
+                NiclaslRenderer::new);
 
         event.registerEntityRenderer(ModEntities.STATUE_ENTITY_303.get(),
                 context -> new StatueEntity303Renderer(context, false));

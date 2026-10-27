@@ -1,6 +1,5 @@
 package de.niclasl.herobrines_world.common.boss.entity;
 
-import de.niclasl.herobrines_world.HerobrinesWorld;
 import de.niclasl.herobrines_world.common.boss.BossFightManager;
 import de.niclasl.herobrines_world.common.boss.BossManager;
 import de.niclasl.herobrines_world.common.boss.ability.AbilityImpl;
@@ -21,6 +20,7 @@ import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.control.FlyingMoveControl;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
@@ -49,10 +49,6 @@ import java.util.*;
 
 public class HerobrineBoss extends Boss {
 
-	public final AnimationState sprintAnimationState = new AnimationState();
-	public final AnimationState flyAnimationState = new AnimationState();
-	public final AnimationState attackAnimationState = new AnimationState();
-
 	private final ServerBossEvent bossBar =
 			new ServerBossEvent(
 					UUID.randomUUID(),
@@ -80,6 +76,7 @@ public class HerobrineBoss extends Boss {
 		super(type, level);
 
 		this.bossContext = new BossContext(level, this, BossFightState.NOT_STARTED);
+		this.moveControl = new FlyingMoveControl<>(this, 10, false);
 
 		this.xpReward = 500;
 		this.setPersistenceRequired();
@@ -128,22 +125,9 @@ public class HerobrineBoss extends Boss {
 				.add(Attributes.FLYING_SPEED, 0.3);
 	}
 
-	private void setupAnimationStates() {
-		this.sprintAnimationState.animateWhen(this.isSprinting(), this.tickCount);
-
-		this.flyAnimationState.animateWhen(
-				this.isFallFlying(),
-				this.tickCount
-		);
-	}
-
 	@Override
 	public void tick() {
 		super.tick();
-
-		if(this.level().isClientSide()) {
-			this.setupAnimationStates();
-		}
 
 		BossFightState state = bossContext.getState();
 
@@ -228,8 +212,9 @@ public class HerobrineBoss extends Boss {
 		return BossType.HEROBRINE_BOSS;
 	}
 
-	public List<Mob> getMinions() {
-		return minions;
+	@Override
+	public void setMinions(Mob mob) {
+		minions.add(mob);
 	}
 
 	@Override
@@ -279,8 +264,6 @@ public class HerobrineBoss extends Boss {
 
 	@Override
 	public boolean hurtServer(@NotNull ServerLevel level, @NotNull DamageSource source, float amount) {
-        HerobrinesWorld.LOGGER.info("Herobrine hurt | HP={} | Damage={} | Invulnerable={} | State={} | Phase={}", getHealth(), amount, isInvulnerable(), bossContext.getState(), phase);
-
 		if (source.is(DamageTypes.FALL)
 				|| source.is(DamageTypes.DROWN)
 				|| source.is(DamageTypes.CACTUS)
@@ -382,22 +365,25 @@ public class HerobrineBoss extends Boss {
 		if (phase == BossPhase.PHASE_2
 				&& minionMode
 				&& minions.isEmpty()
-				&& bossContext.getMinionCooldown() <= 0) {
-			Ability summonAbility = AbilityImpl.SUMMON;
-
+		) {
 			List<EntityType<?>> entities = List.of(EntityTypes.ZOMBIE, EntityTypes.SKELETON);
 
-			summonAbility.execute(bossContext, 2, entities);
-
-			bossContext.setMinionCooldown(200);
+			AbilityImpl.SUMMON.execute(bossContext, 2, entities);
 		}
 
-		if (phase == BossPhase.PHASE_3 && bossContext.getAbilityCooldown() <= 0) {
-			Ability fireBallAbility = AbilityImpl.FIREBALL;
+		if (phase == BossPhase.PHASE_3) {
+			AbilityImpl.FIREBALL.execute(bossContext, 3);
+		}
 
-			fireBallAbility.execute(bossContext, 3);
+		if (phase == BossPhase.PHASE_4) {
+			AbilityImpl.TELEPORT.execute(bossContext, 10);
+		}
 
-			bossContext.setAbilityCooldown(100);
+		if (phase == BossPhase.PHASE_2
+						|| phase == BossPhase.PHASE_3
+						|| phase == BossPhase.PHASE_4) {
+
+			AbilityImpl.HEALING.execute(bossContext, 10);
 		}
 	}
 
@@ -445,7 +431,11 @@ public class HerobrineBoss extends Boss {
 			return;
 		}
 
-		MapVariables map = MapVariables.get(level());
+		if (!(level() instanceof ServerLevel level)) {
+			return;
+		}
+
+		MapVariables map = level.getServer().getDataStorage().computeIfAbsent(MapVariables.TYPE);
 
 		if (source.getEntity() instanceof ServerPlayer player && !map.isHerobrineDead) {
 			ItemStack relicStack = new ItemStack(ModItems.HEROBRINE_RELIC.get());

@@ -28,18 +28,7 @@ public class SmartChipScreen extends AbstractContainerScreen<SmartChipMenu> {
         ACCESS
     }
 
-    private enum TransferRow {
-        MODE,
-        RANGE,
-        SPEED,
-        KEEP_AMOUNT,
-        VOID_TRASH
-    }
-
     private Tab currentTab = Tab.TRANSFER;
-
-    private static final int VISIBLE_ROWS = 4;
-    private int scrollOffset = 0;
 
     private TransferMode transferMode;
     private int range;
@@ -122,24 +111,53 @@ public class SmartChipScreen extends AbstractContainerScreen<SmartChipMenu> {
     }
 
     private void buildTransferTab() {
-        List<TransferRow> rows = getRows();
+        modeButton = addRenderableWidget(Button.builder(
+                Component.translatable("gui.herobrines_world.smart_chip.transfer_mode",
+                        Component.translatable(
+                                "gui.herobrines_world.smart_chip.transfer_mode." + transferMode.id().getPath())),
+                _ -> {
+                    transferMode = nextMode(transferMode);
+                    updateTransferButtons();
+                }
+        ).bounds(this.leftPos + 10, row(0), 160, 20).build());
 
-        int start = scrollOffset;
-        int end = Math.min(rows.size(), start + VISIBLE_ROWS);
+        addRenderableWidget(Button.builder(Component.literal("-"), _ -> adjustBox(rangeBox, -1, 16))
+                .bounds(this.leftPos + 10, row(1), 20, 20).build());
+        rangeBox = new EditBox(this.font, this.leftPos + 35, row(1), 80, 20, Component.literal("Range"));
+        rangeBox.setValue(String.valueOf(range));
+        addNumberLimiter(rangeBox, 4, 16);
+        addRenderableWidget(rangeBox);
+        addRenderableWidget(Button.builder(Component.literal("+"), _ -> adjustBox(rangeBox, 1, 16))
+                .bounds(this.leftPos + 120, row(1), 20, 20).build());
 
-        int visibleIndex = 0;
+        addRenderableWidget(Button.builder(Component.literal("-"), _ -> adjustBox(speedBox, -1, 2))
+                .bounds(this.leftPos + 10, row(2), 20, 20).build());
+        speedBox = new EditBox(this.font, this.leftPos + 35, row(2), 80, 20, Component.literal("Speed"));
+        speedBox.setValue(String.valueOf(speed));
+        addNumberLimiter(speedBox, 0, 2);
+        addRenderableWidget(speedBox);
+        addRenderableWidget(Button.builder(Component.literal("+"), _ -> adjustBox(speedBox, 1, 2))
+                .bounds(this.leftPos + 120, row(2), 20, 20).build());
 
-        for (int i = start; i < end; i++) {
-            TransferRow row = rows.get(i);
+        addRenderableWidget(Button.builder(Component.literal("-"), _ -> adjustBox(keepAmountBox, -1, 64))
+                .bounds(this.leftPos + 10, row(3), 20, 20).build());
+        keepAmountBox = new EditBox(this.font, this.leftPos + 35, row(3), 80, 20, Component.literal("KeepAmount"));
+        keepAmountBox.setValue(String.valueOf(keepAmount));
+        addNumberLimiter(keepAmountBox, 1, 64);
+        addRenderableWidget(keepAmountBox);
+        addRenderableWidget(Button.builder(Component.literal("+"), _ -> adjustBox(keepAmountBox, 1, 64))
+                .bounds(this.leftPos + 120, row(3), 20, 20).build());
 
-            int y = this.topPos + 35 + visibleIndex * 25;
+        voidTrashButton = addRenderableWidget(Button.builder(
+                Component.translatable("gui.herobrines_world.smart_chip.transfer.void_trash",
+                        voidTrash),
+                _ -> {
+                    voidTrash = !voidTrash;
+                    updateTransferButtons();
+                }
+        ).bounds(this.leftPos + 10, row(4), 160, 20).build());
 
-            renderRow(row, y);
-
-            visibleIndex++;
-        }
-
-        buildSaveButton();
+        buildSaveButton(row(5));
     }
 
     private void buildAccessTab() {
@@ -177,64 +195,12 @@ public class SmartChipScreen extends AbstractContainerScreen<SmartChipMenu> {
                 }
         ).bounds(this.leftPos + 135, row(2), 40, 20).build());
 
-        buildSaveButton();
+        buildSaveButton(row(3));
     }
 
-    private void renderRow(TransferRow row, int y) {
-        switch (row) {
-            case MODE -> modeButton = addRenderableWidget(Button.builder(
-                    Component.translatable("gui.herobrines_world.smart_chip.transfer_mode",
-                            Component.translatable(
-                                    "gui.herobrines_world.smart_chip.transfer_mode." + transferMode.id().getPath())),
-                    _ -> {
-                        transferMode = nextMode(transferMode);
-                        updateTransferButtons();
-                    }
-            ).bounds(this.leftPos + 10, y, 160, 20).build());
-            case RANGE -> {
-                addRenderableWidget(Button.builder(Component.literal("-"), _ -> adjustBox(rangeBox, -1, 16))
-                        .bounds(this.leftPos + 10, y, 20, 20).build());
-                rangeBox = new EditBox(this.font, this.leftPos + 35, y, 80, 20, Component.literal("Range"));
-                rangeBox.setValue(String.valueOf(range));
-                addNumberLimiter(rangeBox, 4, 16);
-                addRenderableWidget(rangeBox);
-                addRenderableWidget(Button.builder(Component.literal("+"), _ -> adjustBox(rangeBox, 1, 16))
-                        .bounds(this.leftPos + 120, y, 20, 20).build());
-            }
-            case SPEED -> {
-                addRenderableWidget(Button.builder(Component.literal("-"), _ -> adjustBox(speedBox, -1, 2))
-                        .bounds(this.leftPos + 10, y, 20, 20).build());
-                speedBox = new EditBox(this.font, this.leftPos + 35, y, 80, 20, Component.literal("Speed"));
-                speedBox.setValue(String.valueOf(speed));
-                addNumberLimiter(speedBox, 0, 2);
-                addRenderableWidget(speedBox);
-                addRenderableWidget(Button.builder(Component.literal("+"), _ -> adjustBox(speedBox, 1, 2))
-                        .bounds(this.leftPos + 120, y, 20, 20).build());
-            }
-            case KEEP_AMOUNT -> {
-                addRenderableWidget(Button.builder(Component.literal("-"), _ -> adjustBox(keepAmountBox, -1, 64))
-                        .bounds(this.leftPos + 10, y, 20, 20).build());
-                keepAmountBox = new EditBox(this.font, this.leftPos + 35, y, 80, 20, Component.literal("KeepAmount"));
-                keepAmountBox.setValue(String.valueOf(keepAmount));
-                addNumberLimiter(keepAmountBox, 1, 64);
-                addRenderableWidget(keepAmountBox);
-                addRenderableWidget(Button.builder(Component.literal("+"), _ -> adjustBox(keepAmountBox, 1, 64))
-                        .bounds(this.leftPos + 120, y, 20, 20).build());
-            }
-            case VOID_TRASH -> voidTrashButton = addRenderableWidget(Button.builder(
-                    Component.translatable("gui.herobrines_world.smart_chip.transfer.void_trash",
-                            voidTrash),
-                    _ -> {
-                        voidTrash = !voidTrash;
-                        updateTransferButtons();
-                    }
-            ).bounds(this.leftPos + 10, y, 160, 20).build());
-        }
-    }
-
-    private void buildSaveButton() {
+    private void buildSaveButton(int row) {
         addRenderableWidget(Button.builder(Component.translatable("gui.herobrines_world.smart_chip.save"), _ -> saveAll())
-                .bounds(this.leftPos + 10, this.topPos + 135, 160, 20).build());
+                .bounds(this.leftPos + 10, row, 160, 20).build());
     }
 
     private void saveAll() {
@@ -341,13 +307,17 @@ public class SmartChipScreen extends AbstractContainerScreen<SmartChipMenu> {
     }
 
     private void updateTransferButtons() {
-        modeButton.setMessage(Component.translatable(
-                "gui.herobrines_world.smart_chip.transfer_mode",
-                Component.translatable(
-                        "gui.herobrines_world.smart_chip.transfer_mode." + transferMode.id().getPath()
-                )));
-        voidTrashButton.setMessage(Component.translatable(
-                "gui.herobrines_world.smart_chip.transfer.void_trash", voidTrash));
+        if (modeButton != null) {
+            modeButton.setMessage(Component.translatable(
+                    "gui.herobrines_world.smart_chip.transfer_mode",
+                    Component.translatable(
+                            "gui.herobrines_world.smart_chip.transfer_mode." + transferMode.id().getPath()
+                    )));
+        }
+
+        if (voidTrashButton != null) {
+            voidTrashButton.setMessage(Component.translatable("gui.herobrines_world.smart_chip.transfer.void_trash", voidTrash));
+        }
     }
 
     private void updateAccessButtons() {
@@ -427,31 +397,6 @@ public class SmartChipScreen extends AbstractContainerScreen<SmartChipMenu> {
 
     private int row(int index) {
         return this.topPos + 35 + (index * 25);
-    }
-
-    private List<TransferRow> getRows() {
-        return List.of(
-                TransferRow.MODE,
-                TransferRow.RANGE,
-                TransferRow.SPEED,
-                TransferRow.KEEP_AMOUNT,
-                TransferRow.VOID_TRASH
-        );
-    }
-
-    @Override
-    public boolean mouseScrolled(double mouseX, double mouseY, double scrollX, double scrollY) {
-        if (currentTab != Tab.TRANSFER) return false;
-
-        if (scrollY > 0) {
-            scrollOffset--;
-        } else if (scrollY < 0) {
-            scrollOffset++;
-        }
-
-        scrollOffset = Math.clamp(scrollOffset, 0, Math.max(0, getRows().size() - VISIBLE_ROWS));
-        rebuildTab();
-        return true;
     }
 
     @Override

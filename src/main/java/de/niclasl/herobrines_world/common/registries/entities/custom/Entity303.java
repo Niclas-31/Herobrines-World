@@ -230,7 +230,7 @@ public class Entity303 extends Boss {
 	}
 
 	@Override
-	public List<Mob> getMinions() {
-		return List.of();
+	public void setMinions(Mob mob) {
+
 	}
 }
