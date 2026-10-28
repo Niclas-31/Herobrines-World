@@ -191,12 +191,12 @@
   "item.herobrines_world.platin_pickaxe": "Platinspitzhacke",
   "item.herobrines_world.platin_shovel": "Platinschaufel",
   "item.herobrines_world.platin_sword": "Platinschwert",
-  "item.herobrines_world.red_crystal": "Roterkristall",
   "item.herobrines_world.smart_chip": "Smart Chip",
   "item.herobrines_world.smart_chip_case": "Smart Chip Gehäuse",
   "item.herobrines_world.underworld": "Unterwelt",
   "item.herobrines_world.waypoint_compass": "Wegpunkt Kompass",
   "item.herobrines_world.waypoint_compass.waypoint_saved": "Wegpunkt gespeichert!",
+  "item.herobrines_world.herobrine_boss_fragment": "Herobrine Boss Fragment",
 
   "item.herobrines_world.battery.hover": "Energie: %s/%s",
   "item.herobrines_world.frozen_heart.not_more_hearts": "§4Du kannst keine weiteren Herzen haben!",

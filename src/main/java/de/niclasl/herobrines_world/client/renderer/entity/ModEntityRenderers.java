@@ -27,8 +27,5 @@ public class ModEntityRenderers {
 
         event.registerEntityRenderer(ModEntities.NICLASL.get(),
                 NiclaslRenderer::new);
-
-        event.registerEntityRenderer(ModEntities.STATUE_ENTITY_303.get(),
-                context -> new StatueEntity303Renderer(context, false));
     }
 }

@@ -1,7 +1,7 @@
 package de.niclasl.herobrines_world.client.renderer.entity;
 
 import de.niclasl.herobrines_world.HerobrinesWorld;
-import de.niclasl.herobrines_world.common.registries.entities.custom.Entity303;
+import de.niclasl.herobrines_world.common.boss.entity.Entity303;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;

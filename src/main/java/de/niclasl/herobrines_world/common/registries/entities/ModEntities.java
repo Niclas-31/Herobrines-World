@@ -1,7 +1,7 @@
 package de.niclasl.herobrines_world.common.registries.entities;
 
 import de.niclasl.herobrines_world.HerobrinesWorld;
-import de.niclasl.herobrines_world.common.boss.entity.HerobrineBoss;
+import de.niclasl.herobrines_world.common.boss.entity.*;
 import de.niclasl.herobrines_world.common.registries.entities.custom.*;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
@@ -25,7 +25,6 @@ public class ModEntities {
 	public static ResourceKey<EntityType<?>> HEROBRINE_BOSS_KEY = ResourceKey.create(Registries.ENTITY_TYPE, Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "herobrine_boss"));
 	public static ResourceKey<EntityType<?>> NICLASL_KEY = ResourceKey.create(Registries.ENTITY_TYPE, Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "niclasl"));
 	public static ResourceKey<EntityType<?>> ENTITY_303_KEY = ResourceKey.create(Registries.ENTITY_TYPE, Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "entity_303"));
-	public static ResourceKey<EntityType<?>> STATUE_ENTITY_303_KEY = ResourceKey.create(Registries.ENTITY_TYPE, Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "statue_entity_303"));
 	public static ResourceKey<EntityType<?>> GOOD_HEROBRINE_KEY = ResourceKey.create(Registries.ENTITY_TYPE, Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "good_herobrine"));
 	public static ResourceKey<EntityType<?>> BAD_HEROBRINE_KEY = ResourceKey.create(Registries.ENTITY_TYPE, Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "bad_herobrine"));
 	public static ResourceKey<EntityType<?>> CHRISTMAS_NICLASL_KEY = ResourceKey.create(Registries.ENTITY_TYPE, Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "christmas_niclasl"));
@@ -41,10 +40,6 @@ public class ModEntities {
 	public static final Supplier<EntityType<Entity303>> ENTITY_303 =
 			ENTITY_TYPES.register("entity_303", () -> EntityType.Builder.of(Entity303::new, MobCategory.MONSTER)
 					.sized(0.6f, 1.6f).setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(3).fireImmune().build(ENTITY_303_KEY));
-
-	public static final Supplier<EntityType<StatueEntity303>> STATUE_ENTITY_303 =
-			ENTITY_TYPES.register("statue_entity_303", () -> EntityType.Builder.of(StatueEntity303::new, MobCategory.MONSTER)
-					.sized(0.6f, 1.8f).setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(3).fireImmune().build(STATUE_ENTITY_303_KEY));
 
 	public static final Supplier<EntityType<GoodHerobrine>> GOOD_HEROBRINE =
 			ENTITY_TYPES.register("good_herobrine", () -> EntityType.Builder.of(GoodHerobrine::new, MobCategory.MONSTER)
@@ -63,7 +58,6 @@ public class ModEntities {
 		event.put(HEROBRINE_BOSS.get(), HerobrineBoss.createAttributes().build());
 		event.put(NICLASL.get(), Niclasl.createAttributes().build());
 		event.put(ENTITY_303.get(), Entity303.createAttributes().build());
-		event.put(STATUE_ENTITY_303.get(), StatueEntity303.createAttributes().build());
 		event.put(GOOD_HEROBRINE.get(), GoodHerobrine.createAttributes().build());
 		event.put(BAD_HEROBRINE.get(), BadHerobrine.createAttributes().build());
 		event.put(CHRISTMAS_NICLASL.get(), ChristmasNiclasl.createAttributes().build());

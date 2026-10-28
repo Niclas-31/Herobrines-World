@@ -163,6 +163,16 @@ public class HerobrineBoss extends Boss {
 		output.putBoolean("MinionMode", minionMode);
 		output.putBoolean("hideBossBar", hideBossBar);
 		output.putBoolean("OwnedBoss", ownedBoss);
+
+		output.store("phase", BossPhase.CODEC, phase);
+		output.store("fight_state", BossFightState.CODEC, bossContext.getState());
+
+		output.putInt("abilityCooldown", bossContext.getAbilityCooldown());
+		output.putInt("minionCooldown", bossContext.getMinionCooldown());
+		output.putInt("teleportCooldown", bossContext.getTeleportCooldown());
+		output.putInt("healCooldown", bossContext.getHealCooldown());
+		output.putInt("healChargeTicks", bossContext.getHealChargeTicks());
+		output.putBoolean("healing", bossContext.isHealing());
 	}
 
 	@Override
@@ -182,6 +192,19 @@ public class HerobrineBoss extends Boss {
 		hideBossBar = input.getBooleanOr("hideBossBar", false);
 		ownedBoss = input.getBooleanOr("OwnedBoss", false);
 
+		phase = input.read("phase", BossPhase.CODEC).orElse(BossPhase.PHASE_1);
+
+		BossFightState state = input.read("fight_state", BossFightState.CODEC).orElse(BossFightState.NOT_STARTED);
+
+		bossContext.setState(state);
+		manager.getFightManager().setState(state);
+
+		bossContext.setAbilityCooldown(input.getIntOr("abilityCooldown", 0));
+		bossContext.setMinionCooldown(input.getIntOr("minionCooldown", 0));
+		bossContext.setTeleportCooldown(input.getIntOr("teleportCooldown", 0));
+		bossContext.setHealCooldown(input.getIntOr("healCooldown", 0));
+		bossContext.setHealChargeTicks(input.getIntOr("healChargeTicks", 0));
+		bossContext.setHealing(input.getBooleanOr("healing", false));
 	}
 
 	@Override
