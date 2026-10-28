@@ -3,7 +3,9 @@ package de.niclasl.herobrines_world.common.registries.blocks.entities;
 import de.niclasl.herobrines_world.common.boss.BossSpawner;
 import de.niclasl.herobrines_world.common.registries.items.custom.BossSpawnItem;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
@@ -57,8 +59,9 @@ public class BossSpawnBlockEntity extends BlockEntity implements Container {
                 BossSpawner.spawn(serverLevel, pos, bossId);
 
                 this.locked = true;
-
                 this.items.clear();
+
+                this.setChanged();
             }
         }
     }
@@ -66,6 +69,11 @@ public class BossSpawnBlockEntity extends BlockEntity implements Container {
     @Override
     public @Nullable Packet<ClientGamePacketListener> getUpdatePacket() {
         return ClientboundBlockEntityDataPacket.create(this);
+    }
+
+    @Override
+    public @NonNull CompoundTag getUpdateTag(HolderLookup.@NonNull Provider registries) {
+        return saveWithoutMetadata(registries);
     }
 
     @Override

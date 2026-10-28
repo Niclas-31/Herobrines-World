@@ -85,6 +85,8 @@ public class BossSpawnBlock extends BaseEntityBlock {
                         2f
                 );
 
+                spawnBlock.setChanged();
+
                 return InteractionResult.SUCCESS;
             }
         }
