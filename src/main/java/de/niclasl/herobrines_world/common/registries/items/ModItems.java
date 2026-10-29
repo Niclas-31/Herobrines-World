@@ -293,6 +293,11 @@ public class ModItems {
 			(properties) -> new BossSpawnItem(properties.stacksTo(1), Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "herobrine_boss"))
 	);
 
+	public static final DeferredItem<Item> ENTITY_303_FRAGMENT = ITEMS.registerItem(
+            "entity_303_fragment",
+            (properties) -> new BossSpawnItem(properties.stacksTo(1), Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "entity_303"))
+	);
+
 	public static final DeferredItem<Item> NATURE_SPEAR = ITEMS.registerItem(
             "nature_spear",
             (properties) -> new Item(properties.spear(ModToolTiers.NATURE, 0.8F, 0.82F, 0.68F, 4.3F, 12.5F, 8.38F, 5.1F, 13.0F, 4.6F))

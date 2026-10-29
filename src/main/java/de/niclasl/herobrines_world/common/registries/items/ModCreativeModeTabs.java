@@ -188,6 +188,9 @@ public class ModCreativeModeTabs {
 											tabData.accept(ModItems.GOOD_HEROBRINE_SPAWN_EGG);
 											tabData.accept(ModItems.BAD_HEROBRINE_SPAWN_EGG);
 											tabData.accept(ModItems.CHRISTMAS_NICLASL_SPAWN_EGG);
+											tabData.accept(ModBlocks.BOSS_SPAWNER);
+											tabData.accept(ModItems.HEROBRINE_BOSS_FRAGMENT);
+											tabData.accept(ModItems.ENTITY_303_FRAGMENT);
 										}).build());
 	}
 
