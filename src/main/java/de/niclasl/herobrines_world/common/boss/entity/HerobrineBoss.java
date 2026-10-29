@@ -59,17 +59,16 @@ public class HerobrineBoss extends Boss {
 			);
 
 	private BossContext bossContext;
-
-	private static final Map<UUID, Set<LivingEntity>> ownerTargets = new HashMap<>();
-
-	private static final BossManager manager = BossManager.get();
+    private static final BossManager manager = BossManager.get();
 
 	private BossPhase phase = BossPhase.PHASE_1;
 	private final Random random = new Random();
 
+    private final List<Mob> minions = new ArrayList<>();
+
+    private static final Map<UUID, Set<LivingEntity>> ownerTargets = new HashMap<>();
 	private UUID ownerUUID;
 	private boolean minionMode = true;
-	private final List<Mob> minions = new ArrayList<>();
 	private boolean hideBossBar;
 	private boolean ownedBoss = false;
 
@@ -337,53 +336,25 @@ public class HerobrineBoss extends Boss {
 		bossContext.setMinionCooldown(0);
 	}
 
-	private void applyPhaseAttributes() {
-		switch (phase) {
-			case PHASE_1 -> {
-				Objects.requireNonNull(getAttribute(Attributes.ATTACK_DAMAGE))
-						.setBaseValue(6);
+    private void applyPhaseAttributes() {
+        switch (phase) {
+            case PHASE_1 -> setPhaseAttributes(6.0, 0.3, 0.3);
+            case PHASE_2 -> setPhaseAttributes(10.0, 0.4, 0.5);
+            case PHASE_3 -> setPhaseAttributes(14.0, 0.5, 0.6);
+            case PHASE_4 -> setPhaseAttributes(18.0, 0.6, 0.7);
+        }
+    }
 
-				Objects.requireNonNull(getAttribute(Attributes.MOVEMENT_SPEED))
-						.setBaseValue(0.3);
+    private void setPhaseAttributes(double attackDamage, double movementSpeed, double flyingSpeed) {
+        Objects.requireNonNull(getAttribute(Attributes.ATTACK_DAMAGE))
+                .setBaseValue(attackDamage);
 
-				Objects.requireNonNull(getAttribute(Attributes.FLYING_SPEED))
-						.setBaseValue(0.3);
-			}
+        Objects.requireNonNull(getAttribute(Attributes.MOVEMENT_SPEED))
+                .setBaseValue(movementSpeed);
 
-			case PHASE_2 -> {
-				Objects.requireNonNull(getAttribute(Attributes.ATTACK_DAMAGE))
-						.setBaseValue(10);
-
-				Objects.requireNonNull(getAttribute(Attributes.MOVEMENT_SPEED))
-						.setBaseValue(0.4);
-
-				Objects.requireNonNull(getAttribute(Attributes.FLYING_SPEED))
-						.setBaseValue(0.5);
-			}
-
-			case PHASE_3 -> {
-				Objects.requireNonNull(getAttribute(Attributes.ATTACK_DAMAGE))
-						.setBaseValue(14);
-
-				Objects.requireNonNull(getAttribute(Attributes.MOVEMENT_SPEED))
-						.setBaseValue(0.5);
-
-				Objects.requireNonNull(getAttribute(Attributes.FLYING_SPEED))
-						.setBaseValue(0.6);
-			}
-
-			case PHASE_4 -> {
-				Objects.requireNonNull(getAttribute(Attributes.ATTACK_DAMAGE))
-						.setBaseValue(18);
-
-				Objects.requireNonNull(getAttribute(Attributes.MOVEMENT_SPEED))
-						.setBaseValue(0.6);
-
-				Objects.requireNonNull(getAttribute(Attributes.FLYING_SPEED))
-						.setBaseValue(0.7);
-			}
-		}
-	}
+        Objects.requireNonNull(getAttribute(Attributes.FLYING_SPEED))
+                .setBaseValue(flyingSpeed);
+    }
 
 	private void updateAbilities() {
 		if (phase == BossPhase.PHASE_2

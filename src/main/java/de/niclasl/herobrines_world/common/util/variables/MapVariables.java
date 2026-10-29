@@ -31,6 +31,7 @@ public class MapVariables extends SavedData {
     boolean syncDirty = false;
 
     public boolean isHerobrineDead = false;
+    public boolean isEntity303Dead = false;
     public long seasonStart = 0;
     public long seasonEnd = 0;
     public long nextSeasonStart = 0;
@@ -41,6 +42,7 @@ public class MapVariables extends SavedData {
 
     public void read(CompoundTag nbt) {
         isHerobrineDead = nbt.getBooleanOr("HerobrineDead", false);
+        isEntity303Dead = nbt.getBooleanOr("Entity303Dead", false);
         seasonStart = nbt.getLongOr("seasonStart", 0);
         seasonEnd = nbt.getLongOr("seasonEnd", 0);
         nextSeasonStart = nbt.getLongOr("nextSeasonStart", 0);
@@ -68,6 +70,7 @@ public class MapVariables extends SavedData {
 
     public CompoundTag save(CompoundTag nbt) {
         nbt.putBoolean("HerobrineDead", isHerobrineDead);
+        nbt.putBoolean("Entity303Dead", isEntity303Dead);
         nbt.putLong("seasonStart", seasonStart);
         nbt.putLong("seasonEnd", seasonEnd);
         nbt.putLong("nextSeasonStart", nextSeasonStart);
