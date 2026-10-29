@@ -9,6 +9,7 @@ import de.niclasl.herobrines_world.common.registries.entities.ModEntities;
 import de.niclasl.herobrines_world.common.registries.items.ModItems;
 import de.niclasl.herobrines_world.common.util.variables.MapVariables;
 import de.niclasl.herobrines_world_api.boss.*;
+import de.niclasl.herobrines_world_api.event.BossDeathEvent;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerBossEvent;
 import net.minecraft.server.level.ServerLevel;
@@ -475,6 +476,8 @@ public class HerobrineBoss extends Boss {
 			map.markSyncDirty();
 			player.sendSystemMessage(Component.translatable("entity.herobrines_world.herobrine_boss.defeated"));
 		}
+
+		NeoForge.EVENT_BUS.post(new BossDeathEvent(level, blockPosition(), this.getBossType(), this));
 	}
 
 	@Override

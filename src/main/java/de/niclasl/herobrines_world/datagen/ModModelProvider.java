@@ -131,6 +131,7 @@ public class ModModelProvider extends ModelProvider {
         itemModels.generateFlatItem(ModItems.PLATIN_INGOT.get(), ModelTemplates.FLAT_ITEM);
         itemModels.generateFlatItem(ModItems.KEY_CARD.get(), ModelTemplates.FLAT_ITEM);
         itemModels.generateFlatItem(ModItems.HEROBRINE_BOSS_FRAGMENT.get(), ModelTemplates.FLAT_ITEM);
+        itemModels.generateFlatItem(ModItems.ENTITY_303_FRAGMENT.get(), ModelTemplates.FLAT_ITEM);
         itemModels.generateSpear(ModItems.NATURE_SPEAR.get());
         itemModels.generateSpear(ModItems.FIRE_SPEAR.get());
         itemModels.generateSpear(ModItems.HEROBRINE_SPEAR.get());
