@@ -7,10 +7,7 @@ public class BossSpawnItem extends Item {
 
     private final Identifier bossId;
 
-    public BossSpawnItem(
-            Properties properties,
-            Identifier bossId
-    ) {
+    public BossSpawnItem(Properties properties, Identifier bossId) {
         super(properties);
         this.bossId = bossId;
     }

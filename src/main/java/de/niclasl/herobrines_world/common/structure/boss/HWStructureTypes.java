@@ -1,15 +1,16 @@
 package de.niclasl.herobrines_world.common.structure.boss;
 
 import de.niclasl.herobrines_world.HerobrinesWorld;
+import de.niclasl.herobrines_world.common.world.ModDimensions;
 import de.niclasl.herobrines_world_api.registry.HWRegistries;
 import de.niclasl.herobrines_world_api.structure.StructureDefinition;
 import net.minecraft.resources.Identifier;
 
 public class HWStructureTypes {
     public static final StructureDefinition HEROBRINE_TEMPLE =
-            new StructureDefinition(Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "herobrine_temple"), true);
+            new StructureDefinition(Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "herobrine_temple"), ModDimensions.HEROBRINE_REALM, true);
     public static final StructureDefinition ENTITY_303_TEMPLE =
-            new StructureDefinition(Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "entity_303_temple"), true);
+            new StructureDefinition(Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, "entity_303_temple"), ModDimensions.UNDERWORLD, true);
 
     public static void register() {
         registerStructure(id("herobrine_temple"), HEROBRINE_TEMPLE);

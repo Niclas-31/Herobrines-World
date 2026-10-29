@@ -2,6 +2,7 @@ package de.niclasl.herobrines_world.common.registries.blocks.custom;
 
 import com.mojang.serialization.MapCodec;
 import de.niclasl.herobrines_world.common.registries.blocks.entities.BossSpawnBlockEntity;
+import de.niclasl.herobrines_world.common.registries.blocks.properties.BossFragmentType;
 import de.niclasl.herobrines_world.common.registries.items.custom.BossSpawnItem;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
@@ -18,6 +19,8 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
@@ -50,8 +53,18 @@ public class BossSpawnBlock extends BaseEntityBlock {
             Block.box(2, 13, 14, 3, 14, 15)
     );
 
+    public static final EnumProperty<BossFragmentType> FRAGMENT_TYPE =
+            EnumProperty.create("fragment_type", BossFragmentType.class);
+
     public BossSpawnBlock(Properties properties) {
         super(properties);
+
+        registerDefaultState(stateDefinition.any().setValue(FRAGMENT_TYPE, BossFragmentType.HEROBRINE));
+    }
+
+    @Override
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+        builder.add(FRAGMENT_TYPE);
     }
 
     @Override
@@ -70,7 +83,7 @@ public class BossSpawnBlock extends BaseEntityBlock {
             return InteractionResult.PASS;
         }
 
-        if (!stack.isEmpty() && canInsert(stack)) {
+        if (!stack.isEmpty() && canInsert(stack, state)) {
             if (spawnBlock.items.getFirst().isEmpty()) {
                 ItemStack inserted = stack.copyWithCount(1);
                 spawnBlock.items.set(0, inserted);
@@ -94,8 +107,14 @@ public class BossSpawnBlock extends BaseEntityBlock {
         return InteractionResult.SUCCESS;
     }
 
-    private boolean canInsert(ItemStack stack) {
-        return stack.getItem() instanceof BossSpawnItem;
+    private boolean canInsert(ItemStack stack, BlockState state) {
+        if (!(stack.getItem() instanceof BossSpawnItem bossSpawnItem)) {
+            return false;
+        }
+
+        BossFragmentType fragmentType = state.getValue(FRAGMENT_TYPE);
+
+        return fragmentType.getBossId().equals(bossSpawnItem.getBossId());
     }
 
     @Override

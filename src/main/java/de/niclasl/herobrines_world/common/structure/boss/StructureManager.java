@@ -15,18 +15,16 @@ public class StructureManager implements StructureAPI {
     public void spawnStructure(ServerLevel level, Identifier id, BlockPos pos) {
         StructureDefinition definition = HWRegistries.STRUCTURES.get(id);
 
-        if(definition == null) {
-            return;
-        }
-
-        if(!definition.enabled()) {
+        if(definition == null || !definition.enabled()) {
             return;
         }
 
         NeoForge.EVENT_BUS.post(new StructureLoadEvent.Pre(id, pos));
 
-        StructureLoader.load(level, id, pos);
+        boolean loaded = StructureLoader.load(level, definition, pos);
 
-        NeoForge.EVENT_BUS.post(new StructureLoadEvent.Post(id, pos));
+        if (loaded) {
+            NeoForge.EVENT_BUS.post(new StructureLoadEvent.Post(id, pos));
+        }
     }
 }

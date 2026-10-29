@@ -1,6 +1,9 @@
 {
   "variants": {
-    "": {
+    "fragment_type=herobrine": {
+      "model": "herobrines_world:block/boss_spawner"
+    },
+    "fragment_type=entity_303": {
       "model": "herobrines_world:block/boss_spawner"
     }
   }

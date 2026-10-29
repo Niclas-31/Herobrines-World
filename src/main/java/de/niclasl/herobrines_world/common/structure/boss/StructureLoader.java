@@ -1,9 +1,8 @@
 package de.niclasl.herobrines_world.common.structure.boss;
 
 import de.niclasl.herobrines_world.HerobrinesWorld;
-import de.niclasl.herobrines_world.common.world.ModDimensions;
+import de.niclasl.herobrines_world_api.structure.StructureDefinition;
 import net.minecraft.core.BlockPos;
-import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
@@ -13,24 +12,21 @@ import java.util.Optional;
 
 public class StructureLoader {
 
-    public static void load(ServerLevel level, Identifier structureId, BlockPos position) {
+    public static boolean load(ServerLevel level, StructureDefinition definition, BlockPos position) {
+        if (!level.dimension().equals(definition.dimension())) {
+            return false;
+        }
 
         StructureTemplateManager manager = level.getStructureManager();
 
-        Optional<StructureTemplate> optional = manager.get(structureId);
-
-        HerobrinesWorld.LOGGER.info("Structure found: {}", manager.get(structureId));
+        Optional<StructureTemplate> optional = manager.get(definition.id());
 
         if (optional.isEmpty()) {
-            HerobrinesWorld.LOGGER.warn("Structure not found: {}", structureId);
-            return;
+            HerobrinesWorld.LOGGER.warn("Structure not found: {}", definition.id());
+            return false;
         }
 
         StructureTemplate template = optional.get();
-
-        if (level.dimension() != ModDimensions.HEROBRINE_REALM) {
-            return;
-        }
 
         template.placeInWorld(
                 level,
@@ -40,5 +36,7 @@ public class StructureLoader {
                 level.getRandom(),
                 2
         );
+
+        return true;
     }
 }
