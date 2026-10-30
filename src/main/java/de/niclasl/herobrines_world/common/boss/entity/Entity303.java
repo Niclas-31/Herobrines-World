@@ -3,6 +3,7 @@ package de.niclasl.herobrines_world.common.boss.entity;
 import de.niclasl.herobrines_world.common.boss.BossFightManager;
 import de.niclasl.herobrines_world.common.boss.BossManager;
 import de.niclasl.herobrines_world.common.boss.ability.AbilityImpl;
+import de.niclasl.herobrines_world.common.structure.boss.HWStructureTypes;
 import de.niclasl.herobrines_world.common.util.variables.MapVariables;
 import de.niclasl.herobrines_world_api.boss.*;
 import de.niclasl.herobrines_world_api.event.BossDeathEvent;
@@ -115,7 +116,7 @@ public class Entity303 extends Boss {
             if (this.getHealth() >= this.getMaxHealth()) {
                 if (level() instanceof ServerLevel level) {
                     BossFightManager manager = BossFightManager.get(level);
-                    manager.setState(BossFightState.ACTIVE);
+                    manager.startFight(HWStructureTypes.ENTITY_303_TEMPLE.id());
                 }
 
                 bossContext.setState(BossFightState.ACTIVE);
@@ -150,7 +151,6 @@ public class Entity303 extends Boss {
         BossFightState state = input.read("fight_state", BossFightState.CODEC).orElse(BossFightState.NOT_STARTED);
 
         bossContext.setState(state);
-        manager.getFightManager().setState(state);
 
         bossContext.setAbilityCooldown(input.getIntOr("abilityCooldown", 0));
         bossContext.setMinionCooldown(input.getIntOr("minionCooldown", 0));
@@ -249,7 +249,7 @@ public class Entity303 extends Boss {
             }
 
             bossContext.setState(BossFightState.DEFEATED);
-            manager.getFightManager().setState(BossFightState.DEFEATED);
+            manager.getFightManager(level).endFight();
 
             return super.hurtServer(level, source, amount);
         }

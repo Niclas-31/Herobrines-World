@@ -9,8 +9,8 @@ import de.niclasl.herobrines_world_api.boss.BossContext;
 import de.niclasl.herobrines_world_api.structure.BossArena;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.Identifier;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
 public class TeleportAbility extends BossAbility {
@@ -30,15 +30,13 @@ public class TeleportAbility extends BossAbility {
             return;
         }
 
-        if (context.getTeleportCooldown() > 0) {
+        if (!(context.getLevel() instanceof ServerLevel level)) {
             return;
         }
 
-        Level level = context.getLevel();
-
         BossManager manager = BossManager.get();
-        BossFightManager fightManager = manager.getFightManager();
-        BossArena arena = fightManager.getArena();
+        BossFightManager fightManager = manager.getFightManager(level);
+        BossArena arena = fightManager.getActiveArena();
 
         for (int i = 0; i < 20; i++) {
             double angle = level.getRandom().nextDouble() * Math.PI * 2.0;
@@ -50,24 +48,19 @@ public class TeleportAbility extends BossAbility {
 
             BlockPos teleportPos = BlockPos.containing(x, y, z);
 
+            if (context.getTeleportCooldown() > 0) {
+                return;
+            }
+
             if (!arena.contains(teleportPos)) {
                 continue;
             }
 
             boss.teleportTo(x, y, z);
+
+            context.setTeleportCooldown(COOLDOWN);
             return;
         }
-
-        double angle = level.getRandom().nextDouble() * Math.PI * 2.0;
-        double distance = level.getRandom().nextDouble() * amount;
-
-        double x = target.getX() + Math.cos(angle) * distance;
-        double z = target.getZ() + Math.sin(angle) * distance;
-        double y = target.getY();
-
-        boss.teleportTo(x, y, z);
-
-        context.setTeleportCooldown(COOLDOWN);
     }
 
     @Override

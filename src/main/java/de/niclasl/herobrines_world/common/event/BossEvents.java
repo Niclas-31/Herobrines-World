@@ -22,16 +22,16 @@ public class BossEvents {
         }
 
         ServerLevel level = player.level();
-
         BossFightManager bossManager = BossFightManager.get(level);
 
-        BossArena arena = bossManager.getArena();
+        BlockPos pos = event.getPos();
 
-        if (arena == null) {
-            return;
-        }
+        boolean insideArena = bossManager.getArenas()
+                .values()
+                .stream()
+                .anyMatch(arena -> arena.contains(pos));
 
-        if (arena.contains(event.getPos())) {
+        if (insideArena) {
             event.setCanceled(true);
         }
     }
@@ -43,18 +43,16 @@ public class BossEvents {
         }
 
         ServerLevel level = player.level();
-
         BossFightManager bossManager = BossFightManager.get(level);
-
-        BossArena arena = bossManager.getArena();
-
-        if (arena == null) {
-            return;
-        }
 
         BlockPos pos = event.getPos();
 
-        if (arena.contains(pos)) {
+        boolean insideArena = bossManager.getArenas()
+                .values()
+                .stream()
+                .anyMatch(arena -> arena.contains(pos));
+
+        if (insideArena) {
             event.setCanceled(true);
         }
     }
@@ -66,28 +64,21 @@ public class BossEvents {
         }
 
         ServerLevel level = player.level();
-
         BossFightManager bossManager = BossFightManager.get(level);
 
         if (!bossManager.isActive()) {
             return;
         }
 
-        BossArena arena = bossManager.getArena();
+        BossArena arena = bossManager.getActiveArena();
 
         if (arena == null) {
             return;
         }
 
-        int x = (int) player.getX();
-        int y = (int) player.getY();
-        int z = (int) player.getZ();
+        BlockPos pos = player.blockPosition();
 
-        BlockPos pos = new BlockPos(x, y, z);
-
-        boolean inside = arena.contains(pos);
-
-        if (!inside) {
+        if (!arena.contains(pos)) {
             player.teleportTo(1023.5, arena.origin().getY() + 1.5, 1005.5);
         }
     }

@@ -1,5 +1,7 @@
 package de.niclasl.herobrines_world.common.boss;
 
+import net.minecraft.server.level.ServerLevel;
+
 public class BossManager {
 
     private static final BossManager instance = new BossManager();
@@ -8,7 +10,7 @@ public class BossManager {
         return instance;
     }
 
-    public BossFightManager getFightManager() {
-        return new BossFightManager();
+    public BossFightManager getFightManager(ServerLevel level) {
+        return BossFightManager.get(level);
     }
 }

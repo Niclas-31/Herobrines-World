@@ -18,7 +18,6 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.level.LevelEvent;
 import net.neoforged.neoforge.event.tick.LevelTickEvent;
-import org.jspecify.annotations.NonNull;
 
 import java.util.List;
 
@@ -32,7 +31,7 @@ public class ModEvents {
         BossFightManager manager = BossFightManager.get(level);
         BossArenaStorage storage = level.getServer().getDataStorage().computeIfAbsent(BossArenaStorage.TYPE);
 
-        manager.setArena(storage.getArena(HWStructureTypes.HEROBRINE_TEMPLE.id()));
+        manager.setArenas(storage.getArenas());
     }
 
     @SubscribeEvent
@@ -41,49 +40,85 @@ public class ModEvents {
             return;
         }
 
-        MapVariables map = level.getServer().getDataStorage().computeIfAbsent(MapVariables.TYPE);
+        MapVariables map = level.getServer()
+                .getDataStorage()
+                .computeIfAbsent(MapVariables.TYPE);
 
-        int x = 1000;
-        int z = 1000;
+        if (level.dimension() == ModDimensions.HEROBRINE_REALM
+                && !map.hasSpawnHerobrineTemple) {
 
-        int y = Math.max(
-                63,
-                level.getHeight(
-                        Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
-                        x,
-                        z
-                )
-        );
-
-        if (level.dimension() == ModDimensions.HEROBRINE_REALM && !map.hasSpawnHerobrineTemple) {
-            StructureAPI api = HWRegistries.structures();
-
-            Identifier structureId = HWStructureTypes.HEROBRINE_TEMPLE.id();
-
-            level.getServer().execute(() -> api.spawnStructure(
-                    level,
-                    structureId,
-                    new BlockPos(
+            int x = 1000;
+            int z = 1000;
+            int y = Math.max(
+                    63,
+                    level.getHeight(
+                            Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
                             x,
-                            y,
                             z
                     )
-            ));
+            );
 
-            BossArenaStorage storage = level.getServer().getDataStorage().computeIfAbsent(BossArenaStorage.TYPE);
-            BossFightManager manager = BossFightManager.get(level);
-
-            BossArena arena = getArena(x, y, z);
-
-            storage.setBoxes(structureId, arena);
-            manager.setArena(arena);
+            spawnBossArena(
+                    level,
+                    HWStructureTypes.HEROBRINE_TEMPLE.id(),
+                    new BlockPos(x, y, z)
+            );
 
             map.hasSpawnHerobrineTemple = true;
+            map.markSyncDirty();
+        }
+
+        if (level.dimension() == ModDimensions.UNDERWORLD
+                && !map.hasSpawnEntity303Temple) {
+
+            int x = 1000;
+            int z = 1000;
+            int y = Math.max(
+                    63,
+                    level.getHeight(
+                            Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                            x,
+                            z
+                    )
+            );
+
+            spawnBossArena(
+                    level,
+                    HWStructureTypes.ENTITY_303_TEMPLE.id(),
+                    new BlockPos(x, y, z)
+            );
+
+            map.hasSpawnEntity303Temple = true;
+            map.markSyncDirty();
         }
     }
 
-    private static @NonNull BossArena getArena(int x, int y, int z) {
-        List<ArenaBox> boxes = List.of(
+    private static void spawnBossArena(ServerLevel level, Identifier structureId, BlockPos origin) {
+        StructureAPI api = HWRegistries.structures();
+
+        api.spawnStructure(level, structureId, origin);
+
+        BossArena arena = getArena(structureId, origin);
+
+        BossArenaStorage storage = level.getDataStorage().computeIfAbsent(BossArenaStorage.TYPE);
+
+        storage.setBoxes(structureId, arena);
+
+        BossFightManager manager = BossFightManager.get(level);
+        manager.setArena(structureId, arena);
+    }
+
+    private static BossArena getArena(Identifier structureId, BlockPos origin) {
+        if (structureId.equals(HWStructureTypes.HEROBRINE_TEMPLE.id())
+                || structureId.equals(HWStructureTypes.ENTITY_303_TEMPLE.id())) {
+            return new BossArena(origin, createTempleArenaBoxes());
+        }
+
+        throw new IllegalArgumentException("Keine Arena für Struktur definiert: " + structureId);
+    }
+
+    private static List<ArenaBox> createTempleArenaBoxes() {
+        return List.of(
                 new ArenaBox(21, 0, 0, 25, 20, 0),
                 new ArenaBox(20, 0, 1, 26, 20, 1),
                 new ArenaBox(18, 0, 2, 28, 20, 2),
@@ -116,7 +151,5 @@ public class ModEvents {
                 new ArenaBox(20, 0, 45, 26, 20, 45),
                 new ArenaBox(22, 0, 46, 24, 20, 46)
         );
-
-        return new BossArena(new BlockPos(x, y, z), boxes);
     }
 }

@@ -39,6 +39,7 @@ public class MapVariables extends SavedData {
     public boolean seasonEndedHandled = false;
     public List<LeaderboardEntry> frozenLeaderboard = new ArrayList<>();
     public boolean hasSpawnHerobrineTemple = false;
+    public boolean hasSpawnEntity303Temple = false;
 
     public void read(CompoundTag nbt) {
         isHerobrineDead = nbt.getBooleanOr("HerobrineDead", false);
@@ -66,6 +67,7 @@ public class MapVariables extends SavedData {
             );
         }
         hasSpawnHerobrineTemple = nbt.getBooleanOr("hasSpawnHerobrineTemple", false);
+        hasSpawnEntity303Temple = nbt.getBooleanOr("hasSpawnEntity303Temple", false);
     }
 
     public CompoundTag save(CompoundTag nbt) {
@@ -92,6 +94,7 @@ public class MapVariables extends SavedData {
 
         nbt.put("frozenLeaderboard", list);
         nbt.putBoolean("hasSpawnHerobrineTemple", hasSpawnHerobrineTemple);
+        nbt.putBoolean("hasSpawnEntity303Temple", hasSpawnEntity303Temple);
         return nbt;
     }
 
