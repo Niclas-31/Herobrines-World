@@ -2,6 +2,7 @@ package de.niclasl.herobrines_world.common.structure;
 
 import de.niclasl.herobrines_world.HerobrinesWorld;
 import de.niclasl.herobrines_world.common.structure.set.AshDesertPyramid;
+import de.niclasl.herobrines_world.common.structure.set.CursedWell;
 import de.niclasl.herobrines_world.common.util.ModTags;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
@@ -13,6 +14,7 @@ import net.minecraft.world.level.levelgen.structure.Structure;
 
 public class ModStructures {
     public static final ResourceKey<Structure> ASH_DESERT_PYRAMID = createKey("ash_desert_pyramid");
+    public static final ResourceKey<Structure> CURSED_WELL = createKey("cursed_well");
 
     private static ResourceKey<Structure> createKey(String name) {
         return ResourceKey.create(Registries.STRUCTURE, Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, name));
@@ -23,6 +25,10 @@ public class ModStructures {
         context.register(
                 ASH_DESERT_PYRAMID,
                 new AshDesertPyramid(new Structure.StructureSettings(holdergetter.getOrThrow(ModTags.Biomes.HAS_ASH_DESERT_PYRAMID)))
+        );
+        context.register(
+                CURSED_WELL,
+                new CursedWell(new Structure.StructureSettings(holdergetter.getOrThrow(ModTags.Biomes.HAS_CURSED_WELL)))
         );
     }
 }

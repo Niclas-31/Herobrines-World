@@ -31,7 +31,7 @@ public class ModVariables {
             PacketDistributor.sendToPlayer(
                     player,
                     new SavedDataSyncMessage(
-                            MapVariables.get(level)
+                            level.getServer().getDataStorage().computeIfAbsent(MapVariables.TYPE)
                     )
             );
         }
@@ -68,7 +68,6 @@ public class ModVariables {
         clone.souls = original.souls;
         clone.soulLevel = original.soulLevel;
         clone.prestige = original.prestige;
-        clone.threeHearts = original.threeHearts;
         clone.rank = original.rank;
 
         event.getEntity().setData(PLAYER_VARIABLES, clone);
@@ -78,9 +77,10 @@ public class ModVariables {
     public static void onWorldTick(LevelTickEvent.Post event) {
         if (!(event.getLevel() instanceof ServerLevel level)) return;
 
-        MapVariables map = MapVariables.get(level);
+        MapVariables map = level.getServer().getDataStorage().computeIfAbsent(MapVariables.TYPE);
 
         if (map.syncDirty) {
+            level.getServer().getDataStorage().saveAndJoin();
             PacketDistributor.sendToAllPlayers(new SavedDataSyncMessage(map));
             map.syncDirty = false;
         }

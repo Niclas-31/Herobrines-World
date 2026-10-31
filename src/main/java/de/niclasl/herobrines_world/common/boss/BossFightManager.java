@@ -27,7 +27,7 @@ public class BossFightManager {
 
     public static BossFightManager get(ServerLevel level) {
         return MANAGERS.computeIfAbsent(level, ignored -> {
-            BossArenaStorage storage = level.getDataStorage()
+            BossArenaStorage storage = level.getServer().getDataStorage()
                     .computeIfAbsent(BossArenaStorage.TYPE);
 
             return new BossFightManager(storage);

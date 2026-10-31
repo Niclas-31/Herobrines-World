@@ -2,6 +2,7 @@ package de.niclasl.herobrines_world.common.structure;
 
 import de.niclasl.herobrines_world.HerobrinesWorld;
 import de.niclasl.herobrines_world.common.structure.set.AshDesertPyramidPiece;
+import de.niclasl.herobrines_world.common.structure.set.CursedWellPiece;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.levelgen.structure.pieces.StructurePieceType;
 import net.neoforged.bus.api.IEventBus;
@@ -16,6 +17,9 @@ public class ModStructurePieceType {
     public static final Supplier<StructurePieceType> ASH_DESERT_PYRAMID_PIECE = STRUCTURE_PIECES.register(
             "ash_desert_pyramid",
             () -> (StructurePieceType.ContextlessType) AshDesertPyramidPiece::new);
+    public static final Supplier<StructurePieceType> CURSED_WELL_PIECE = STRUCTURE_PIECES.register(
+            "cursed_well",
+            () -> (StructurePieceType.ContextlessType) CursedWellPiece::new);
 
     public static void register(IEventBus bus) {
         STRUCTURE_PIECES.register(bus);

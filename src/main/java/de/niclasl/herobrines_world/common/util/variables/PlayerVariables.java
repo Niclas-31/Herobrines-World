@@ -17,8 +17,6 @@ public class PlayerVariables implements ValueIOSerializable {
     public int soulLevel;
     public int prestige;
 
-    public boolean threeHearts = true;
-
     public int rank;
 
     @Override
@@ -30,7 +28,6 @@ public class PlayerVariables implements ValueIOSerializable {
         output.putInt("soulLevel", soulLevel);
         output.putInt("prestige", prestige);
 
-        output.putBoolean("threeHearts", threeHearts);
         output.putInt("rank", rank);
     }
 
@@ -43,7 +40,6 @@ public class PlayerVariables implements ValueIOSerializable {
         soulLevel = input.getIntOr("soulLevel", 0);
         prestige = input.getIntOr("prestige", 0);
 
-        threeHearts = input.getBooleanOr("threeHearts", true);
         rank = input.getIntOr("rank", 0);
     }
 

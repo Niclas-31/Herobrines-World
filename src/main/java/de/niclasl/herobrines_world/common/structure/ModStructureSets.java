@@ -13,6 +13,7 @@ import net.minecraft.world.level.levelgen.structure.placement.RandomSpreadType;
 
 public class ModStructureSets {
     public static final ResourceKey<StructureSet> ASH_DESERT_PYRAMIDS = register("ash_desert_pyramids");
+    public static final ResourceKey<StructureSet> CURSED_WELL = register("cursed_well");
 
     private static ResourceKey<StructureSet> register(String name) {
         return ResourceKey.create(Registries.STRUCTURE_SET, Identifier.fromNamespaceAndPath(HerobrinesWorld.MOD_ID, name));
@@ -21,5 +22,6 @@ public class ModStructureSets {
     public static void bootstrap(BootstrapContext<StructureSet> context) {
         HolderGetter<Structure> holdergetter = context.lookup(Registries.STRUCTURE);
         context.register(ASH_DESERT_PYRAMIDS, new StructureSet(holdergetter.getOrThrow(ModStructures.ASH_DESERT_PYRAMID), new RandomSpreadStructurePlacement(32, 8, RandomSpreadType.LINEAR, 14357617)));
+        context.register(CURSED_WELL, new StructureSet(holdergetter.getOrThrow(ModStructures.CURSED_WELL), new RandomSpreadStructurePlacement(32, 8, RandomSpreadType.LINEAR, 323292870)));
     }
 }

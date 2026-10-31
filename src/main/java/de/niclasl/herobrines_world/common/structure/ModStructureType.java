@@ -2,6 +2,7 @@ package de.niclasl.herobrines_world.common.structure;
 
 import de.niclasl.herobrines_world.HerobrinesWorld;
 import de.niclasl.herobrines_world.common.structure.set.AshDesertPyramid;
+import de.niclasl.herobrines_world.common.structure.set.CursedWell;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.levelgen.structure.StructureType;
 import net.neoforged.bus.api.IEventBus;
@@ -15,6 +16,9 @@ public class ModStructureType {
     public static final DeferredHolder<StructureType<?>, StructureType<AshDesertPyramid>> ASH_DESERT_PYRAMID = STRUCTURE_TYPES.register(
             "desert_pyramid",
             () -> () -> AshDesertPyramid.CODEC);
+    public static final DeferredHolder<StructureType<?>, StructureType<CursedWell>> CURSED_WELL = STRUCTURE_TYPES.register(
+            "cursed_well",
+            () -> () -> CursedWell.CODEC);
 
     public static void register(IEventBus bus) {
         STRUCTURE_TYPES.register(bus);

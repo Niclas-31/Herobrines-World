@@ -1,5 +1,6 @@
 package de.niclasl.herobrines_world.client.hud;
 
+import de.niclasl.herobrines_world.common.util.variables.MapVariables;
 import de.niclasl.herobrines_world.common.util.variables.ModVariables;
 import de.niclasl.herobrines_world.common.util.variables.PlayerVariables;
 import net.minecraft.client.Minecraft;
@@ -9,6 +10,7 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.GameType;
+import net.minecraft.world.level.Level;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -31,6 +33,7 @@ public class ThreeHearts {
 
 		Minecraft mc = Minecraft.getInstance();
 		Player player = mc.player;
+        Level level = mc.level;
 
 		if (player == null) return;
 
@@ -38,11 +41,12 @@ public class ThreeHearts {
 		int h = event.getGuiGraphics().guiHeight();
 
 		PlayerVariables vars = player.getData(ModVariables.PLAYER_VARIABLES);
+        MapVariables map = MapVariables.get(level);
 
 		boolean gamemode = getEntityGameType(player) == GameType.SURVIVAL
 				|| getEntityGameType(player) == GameType.ADVENTURE;
 
-		boolean enabled = vars.threeHearts;
+		boolean enabled = map.threeHearts;
 
 		if (player.level().getLevelData().isHardcore()) {
 			enabled = false;

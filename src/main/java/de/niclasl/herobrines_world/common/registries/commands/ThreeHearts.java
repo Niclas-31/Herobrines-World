@@ -1,6 +1,7 @@
 package de.niclasl.herobrines_world.common.registries.commands;
 
 import com.mojang.brigadier.arguments.IntegerArgumentType;
+import de.niclasl.herobrines_world.common.registries.gamerules.ModGameRules;
 import de.niclasl.herobrines_world.common.util.variables.ModVariables;
 import de.niclasl.herobrines_world.common.util.variables.PlayerVariables;
 import net.minecraft.commands.Commands;
@@ -197,11 +198,9 @@ public class ThreeHearts {
 	}
 
 	private static boolean isThreeHeartsEnabled(ServerPlayer player) {
-		var vars = player.getData(ModVariables.PLAYER_VARIABLES);
-
 		if (player.level().getLevelData().isHardcore()) return false;
 
-        return !vars.threeHearts;
+        return !player.level().getGameRules().get(ModGameRules.THREE_HEARTS);
 	}
 
 	private static void setEnabled(ServerPlayer player, boolean enabled) {
@@ -209,7 +208,7 @@ public class ThreeHearts {
 
 		if (player.level().getLevelData().isHardcore()) return;
 
-		vars.threeHearts = enabled;
+		player.level().getGameRules().set(ModGameRules.THREE_HEARTS, enabled, player.level().getServer());
 		vars.markSyncDirty(player);
 
 		player.sendSystemMessage(

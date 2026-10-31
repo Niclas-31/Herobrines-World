@@ -1,0 +1,6 @@
+{
+  "type": "herobrines_world:cursed_well",
+  "biomes": "#herobrines_world:has_structure/cursed_well",
+  "spawn_overrides": {},
+  "step": "surface_structures"
+}

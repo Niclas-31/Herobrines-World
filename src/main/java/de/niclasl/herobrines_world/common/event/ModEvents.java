@@ -100,7 +100,7 @@ public class ModEvents {
 
         BossArena arena = getArena(structureId, origin);
 
-        BossArenaStorage storage = level.getDataStorage().computeIfAbsent(BossArenaStorage.TYPE);
+        BossArenaStorage storage = level.getServer().getDataStorage().computeIfAbsent(BossArenaStorage.TYPE);
 
         storage.setBoxes(structureId, arena);
 
