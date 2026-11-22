@@ -40,6 +40,7 @@ public class DataGenerators {
 
         event.createProvider(ModDataMapProvider::new);
         event.createProvider(ModModelProvider::new);
+        event.createProvider(ModEquipmentAssetProvider::new);
 
         generator.addProvider(true, new LootTableProvider(
                 packOutput,
