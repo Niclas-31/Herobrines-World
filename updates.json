@@ -1,0 +1,44 @@
+{
+  "homepage": "https://github.com/Niclas-31/Herobrines-World",
+  "1.20.1": {
+    "1.0": "Initial release of Herobrines World",
+    "1.1": "Procedures added, Herobrine Arrow added, Herobrine Command added, HerobrineStab removed",
+    "1.2": "Dimension Special Effects added, new Shovels, Pickaxes, Hoes, Axes added, Herobrine Arrow removed"
+  },
+  "1.21.4": {
+    "1.3": "New Blocks, GUIs, Screens added, New Commands added, more Init Classes, new Items, Networking added, Recipes, Effects, new Procedures added, Dimension Special Effects removed",
+    "1.4": "new Renderer, Items, Blocks, Entity, GUIs, Commands added, more Networking",
+    "1.5": "Bug fixes",
+    "1.6": "New Recipes, Procedures, Potion, Networking, Items, Entity, Commands, Screen, GUIs, Renderers, Blocks added",
+    "1.6.1": "Bug fixes",
+    "1.6.2": "few Procedures removed, new Entities added, new Renderer added",
+    "1.6.3": "new Recipes, new Procedures, new GUIs, new Blocks added, few Entities, few Renderers removed",
+    "1.6.4": "Bug fixes",
+    "1.6.5": "Bug fixes"
+  },
+  "1.21.10": {
+    "1.6.6": "Beginning of Renovation",
+    "1.6.7": "Bug fixes",
+    "1.7": "Renovation Part 1"
+  },
+  "1.21.11": {
+    "1.7.1": "Renovation Part 2",
+    "1.7.2": "Rename overlay to hud, ClientHandler added, Season moved in Leaderboard",
+    "1.7.3": "Leaderboard has been updated, one Command removed"
+  },
+  "26.2": {
+    "2.0": "Boss Update"
+  },
+  "promos": {
+    "1.20.1-latest": "1.2",
+    "1.20.1-recommended": "1.2",
+    "1.21.4-latest": "1.6.5",
+    "1.21.4-recommended": "1.6.5",
+    "1.21.10-latest": "1.7",
+    "1.21.10-recommended": "1.7",
+    "1.21.11-latest": "1.7.3",
+    "1.21.11-recommended": "1.7.3",
+    "26.2-latest": "2.0",
+    "26.2-recommended": "2.0"
+  }
+}
