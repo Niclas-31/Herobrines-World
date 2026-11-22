@@ -5,6 +5,11 @@
         "texture": "herobrines_world:fire"
       }
     ],
+    "humanoid_baby": [
+      {
+        "texture": "herobrines_world:fire"
+      }
+    ],
     "humanoid_leggings": [
       {
         "texture": "herobrines_world:fire"
